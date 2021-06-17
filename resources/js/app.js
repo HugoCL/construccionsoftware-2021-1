@@ -6,8 +6,10 @@
 require('./bootstrap');
 window.Vue = require('vue').default;
 
-import Vuetify from "../js/plugins/vuetify";
+import Vuetify from 'vuetify'
 import Vue from 'vue'
+
+Vue.use(Vuetify)
 
 /**
  * The following block of code may be used to automatically register your
@@ -26,9 +28,11 @@ files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
+import ExampleComponent from "./components/ExampleComponent";
 
 const app = new Vue({
-    vuetify: Vuetify,
+    components: {ExampleComponent},
+    vuetify: new Vuetify(),
     el: '#app',
 });
 
