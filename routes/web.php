@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+use App\Http\Controllers\TestTasksComponentsController;
+
 Route::get('/', function () {
     return view('home');
 });
@@ -28,3 +30,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+//Para probar el creador de tareas
+
+Route::get('testtaskscomponents', [TestTasksComponentsController::class, 'index']);
