@@ -12,13 +12,13 @@
         lazy-validation
     >
         <v-text-field
-        v-model="name"
+        v-model="proyecto.name"
         label="Nombre del proyecto"
         required
         ></v-text-field>
 
         <v-textarea
-          v-model="description"
+          v-model="proyecto.description"
           label="Descripcion del proyecto"
           class="my-2"
           required
@@ -27,7 +27,7 @@
          <v-date-picker
          color="#000000"
          full-width
-          v-model="dates"
+          v-model="proyecto.dates"
           range
           class="my-4"
         ></v-date-picker>
@@ -67,32 +67,55 @@
 </template>
 <script>
   export default {
-    data: () => ({
-      name: '',
-      dates: ['2019-09-10', '2019-09-20'],
-      select: null,
-      description: '',
-      bosses: [],
-      workers: [],
-      items: [
-        'juan',
-        'lopez',
-        'ramirez'
-      ],
-    }),
+      data(){
+          return {
+              items: [
+                  'juan',
+                  'lopez',
+                  'ramirez'
+              ],
+              proyectos:[],
+              proyecto: {
+                  name: '',
+                  dates: ['2019-09-10', '2019-09-20'],
+                  description: ''
+              },
 
-    methods: {
-      send () {
-        console.log(
-          {
-            'name':this.name,
-            'description':this.description,
-            'dates':this.dates,
-            'bosses':this.bosses,
-            'workers':this.workers
+              select: null,
+              bosses: [],
+              workers: [],
+
+              emailRules: [
+                  v => !!v || 'E-mail is required',
+                  v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
+              ],
           }
-        )
+      },
+
+      methods: {
+          send () {
+              if(this.proyecto.name.trim() === ''){
+                  alert('Debes completar todos los campos antes de guardar');
+                  return;
+              }
+
+              console.log(
+                  {
+                      'name':this.proyecto.name,
+                      'dates':this.proyecto.dates,
+                      'bosses':this.bosses,
+                      'workers':this.workers
+                  }
+              );
+              const nuevoProyecto = this.proyecto;
+              this.proyecto = {name: '', description: '', dates: ['2019-09-10', '2019-09-20']};
+              axios.post('/proyects', nuevoProyecto)
+                  .then(response => {
+                      const res = response.data;
+                      this.proyectos.push(res);
+                  });
+
+          }
       }
-    },
   }
 </script>

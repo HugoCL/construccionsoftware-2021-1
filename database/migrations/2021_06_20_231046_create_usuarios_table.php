@@ -16,6 +16,7 @@ class CreateUsuariosTable extends Migration
         Schema::create('usuarios', function (Blueprint $table) {
             $table->string('correo')->primary();
             $table->string('nombre');
+            $table->timestamps();
         });
     }
 
