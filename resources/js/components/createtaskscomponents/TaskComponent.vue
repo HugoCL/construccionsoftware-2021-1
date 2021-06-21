@@ -38,8 +38,29 @@
           <v-divider></v-divider>
           <v-card-subtitle>Descripción</v-card-subtitle>
           <v-card-text>{{ taskData.desc }}</v-card-text>
+          </v-card-text>
+          
+          
+          
+            <v-col>
+              <v-row>
+                <v-text-field v-model="newTaskCheck" label="agrega tareas aquí"></v-text-field>
+                <v-btn @click="addTask">Agregar</v-btn>
+              </v-row>
+              <v-col> 
+                <div v-for="taskCheckList in taskCheckLists" :key="taskCheckList.id" :class="{done: isChekeada(taskCheckList)}">
+                  <input type="checkbox" class="checkbox" @click="chekear" v-model="taskCheckList.checkeada">
+                  <label for="checkbox">{{taskCheckList.taskCheck}}</label>
+                  <v-btn @click="quitarTareaCheck" right>
+                    X
+                  </v-btn>
+                </div>
+              </v-col>
 
-        </v-card-text>
+            </v-col>
+
+
+
       </v-card>
     </v-dialog>
 
@@ -95,13 +116,50 @@
 </template>
 
 <script>
+  
   export default {
     name: 'Task',
     data: () => ({
-      dialog: false
+      dialog: false,
+      /**
+     * variables a usar en v-check para checklist de tarea
+     * lista testCheckList contiene una variable que almacena una "micro-tarea" string
+     * y una variable booleana "chekeada" para manejar el cuadro check
+     */
+    newTaskCheck:"",
+    taskCheckLists:[ {
+        taskCheck: "¡ejemplo de tarea! borrame",
+        checkeada: false
+     },
+    ]
     }),
     props: {
       taskData: null
+    },
+    methods:{
+       /*
+        funciones para checklist de la ventana de tareas creadas
+      */
+      addTask: function(){
+        let tarea = this.newTaskCheck;
+        if(tarea){
+          this.taskCheckLists.push({taskCheck:tarea,chekeada:false});
+          this.newTaskCheck="";
+        }
+      },
+
+      chekear: function(tarea){
+          tarea.checkeada=true;
+        },
+
+      isChekeada: function(tarea){
+          return tarea.checkeada;
+        },
+
+      quitarTareaCheck: function(tarea){
+          let index = this.taskCheckLists.indexOf(tarea);
+          this.taskCheckLists.splice(index,1);
+        }
     }
   }
 </script>
