@@ -6,40 +6,77 @@
       width="500"
       scrollable
     >
-      <v-card width="500">
-        <v-card-title>{{ taskData.name }}</v-card-title>
-        <v-card-text>
+      <v-card
+        width="500"
+        color="#73009d"
+        class="white--text subheading font-weight-bold">
+        <v-card-title color="#73009d" class="pt-1 pb-1">{{ taskData.name }}</v-card-title>
           <v-divider></v-divider>
-
-          <v-card-subtitle>Miembros</v-card-subtitle>
-          <v-card-text>
-            <v-row>
-              <v-col
-                cols="1"
-                v-for="(member, index) in taskData.members"
-                :key="index"
-              >
-                <v-tooltip top>
-                  <template
-                    v-slot:activator="{ on }"
+          <v-container row wrap>
+              <v-row  class="pl-3">
+                  <v-chip-group  center-active column class="pl-1 pr-1 pt-2 pb-2">
+                      <v-chip
+                        v-for='(tag, index) in taskData.tags' :key='tag'
+                        color="#a800cf"
+                        class="white--text font-weight-bold"
+                        >
+                          {{ tag }}
+                      </v-chip>
+                  </v-chip-group>
+              </v-row>
+          </v-container>
+          <v-divider></v-divider>
+          <v-list dense>
+              <v-list-item>
+                  <v-list-item-content>
+                      Miembros:
+                  </v-list-item-content>
+                  <v-row>
+                      <v-col
+                          cols="1"
+                          v-for="(member, index) in taskData.members"
+                          :key="index"
+                      >
+                          <v-tooltip top>
+                              <template
+                                  v-slot:activator="{ on }"
+                              >
+                                  <v-btn
+                                      color="#a800cf"
+                                      fab
+                                      small
+                                      v-on="on"
+                                      class="white--text font-weight-bolder"
+                                  >{{ member.charAt(0) }}
+                                  </v-btn>
+                              </template>
+                              <span>{{ member }}</span>
+                          </v-tooltip>
+                      </v-col>
+                  </v-row>
+              </v-list-item>
+              <v-list-item>
+                  <v-list-item-content>
+                      Descripción:
+                  </v-list-item-content>
+                  <v-list-item-content
+                      class="align-end"
                   >
-                    <v-btn
-                      fab
-                      small
-                      v-on="on"
-                    >{{ member.charAt(0) }}
-                    </v-btn>
-                  </template>
-                  <span>{{ member }}</span>
-                </v-tooltip>
-              </v-col>
-            </v-row>
-          </v-card-text>
-          <v-divider></v-divider>
-          <v-card-subtitle>Descripción</v-card-subtitle>
-          <v-card-text>{{ taskData.desc }}</v-card-text>
+                      {{ taskData.desc }}
+                  </v-list-item-content>
+              </v-list-item>
+              <v-list-item>
+                  <v-list-item-content>
+                      Fecha:
+                  </v-list-item-content>
+                  <v-list-item-content
+                      class="align-end"
+                  >
+                      {{taskData.date}}
+                  </v-list-item-content>
+              </v-list-item>
+          </v-list>
 
-        </v-card-text>
       </v-card>
     </v-dialog>
 
@@ -50,13 +87,23 @@
       @click="dialog = true"
     >
       <v-card-title
-        class="subheading font-weight-bold"
+        class="subheading font-weight-bold pb-1 pt-1"
       >
-        {{ taskData.name }}
+          {{taskData.name}}
       </v-card-title>
 
       <v-divider></v-divider>
-
+        <v-container row wrap>
+            <v-row  class="pl-3">
+              <v-chip-group  center-active column class="pl-1 pr-1 pt-2 pb-2">
+                <v-chip v-for='(tag, index) in taskData.tags' :key='tag' color="#a800cf" class="white--text font-weight-bold">
+                  {{ tag }}
+                </v-chip>
+              </v-chip-group>
+            </v-row>
+        </v-container>
+        <v-divider></v-divider>
+<!--
       <v-list dense>
         <v-list-item>
           <v-list-item-content>
@@ -89,7 +136,7 @@
           </v-list-item-content>
         </v-list-item>
       </v-list>
-
+-->
     </v-card>
   </div>
 </template>
@@ -102,6 +149,13 @@
     }),
     props: {
       taskData: null
-    }
+    },
+      methods:{
+          remove (id) {
+              let idx = this.attrArr.indexOf(id)
+              this.attrArr.splice(idx, 1)
+              this.attrArr = [...this.attrArr]
+          }
+      }
   }
 </script>
