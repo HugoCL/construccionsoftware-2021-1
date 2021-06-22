@@ -22,8 +22,7 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::resource('proyects', 'App\Http\Controllers\newProyectController');
-
+Route::resource('editar-proyecto', 'App\Http\Controllers\newProyectController');
+Route::resource('administrar-proyectos', 'App\Http\Controllers\AdminProyectsController');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
 //Route::get('/proyects', [newProyectController::class, 'index']);

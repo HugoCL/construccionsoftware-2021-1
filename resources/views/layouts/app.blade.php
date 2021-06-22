@@ -45,7 +45,11 @@
                                     <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                                 </li>
                             @endif
-
+                                @if (Route::has('crud'))
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('crud') }}">{{ __('CRUD') }}</a>
+                                    </li>
+                                @endif
                             @if (Route::has('register'))
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
