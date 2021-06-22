@@ -14,25 +14,12 @@ class CreateTareasTable extends Migration
     public function up()
     {
         Schema::create('tareas', function (Blueprint $table) {
-            $table->integer('id')
-                ->nullable(false)
-                ->change()
-                ->primary()
-                ->constrained();
-            $table-> enum('estado',['pendiente','hecho', 'no hecho'])
-->nullable(false)
-                ->change();
-$table->text('estado')->nullable(false)->change();
-$table-> text('descripcion')
-    ->nullable(false)
-    ->change();
-$table->integer('id_proyecto')
-    ->unsigned();
-$table->foreign('id_proyecto')
-    ->references('pk_id')
-    ->on('proyecto')
-    ->onDelete('cascade');
-
+            $table->integer('id');
+            $table->integer('id_proyecto');
+            $table-> primary(['id','id_proyecto']);
+            $table->foreign('id_proyecto') -> references('id') -> on('proyectos');
+            $table-> enum('estado',['pendiente','hecho', 'no hecho']) -> nullable(false);
+            $table-> text('descripcion');
             $table->timestamps();
         });
     }

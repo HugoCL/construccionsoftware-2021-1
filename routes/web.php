@@ -13,18 +13,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+use App\Http\Controllers\newProyectController;
+
 Route::get('/', function () {
     return view('home');
 });
 
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Auth::routes();
 
+Route::resource('/proyects', 'App\Http\Controllers\newProyectController');
+
+Route::resource('/user', 'App\Http\Controllers\UsuarioController');
+
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+//Route::get('/proyects', [newProyectController::class, 'index']);
