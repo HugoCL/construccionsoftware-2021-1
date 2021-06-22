@@ -29,13 +29,21 @@ class newProyectController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     *
+     * Recordar que la columna id de la tabla proyecto es auto incremental
+     * no hay que darle ese campo.
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        
+        $proyecto = new Proyecto();
+        $proyecto->nombre = $request->name;
+        $proyecto->descripcion = $request->description;
+        $proyecto->fechaInicio = $request->dates[0];
+        $proyecto->fechaTermino = $request->dates[1];
+        $proyecto->save();
+
+        return $proyecto;
     }
 
     /**
@@ -80,6 +88,7 @@ class newProyectController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $proyecto = Proyecto::find($id);
+        $proyecto->delete();
     }
 }
