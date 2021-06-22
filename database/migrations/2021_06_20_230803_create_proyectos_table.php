@@ -14,7 +14,12 @@ class CreateProyectosTable extends Migration
     public function up()
     {
         Schema::create('proyectos', function (Blueprint $table) {
-            $table->id();
+
+            /**
+             * Cambie de id() a integer(), para poder tener una foreign key desde la tabla "dirige", ya que
+             * si se define un id() despues no se puede puede asignar otra primary key en "dirige"
+             */
+            $table->integer('id')->autoIncrement();
             $table->string('nombre');
             $table->text('descripcion');
             $table->date('fechaInicio');
