@@ -8,16 +8,16 @@
     >
       <v-card
         width="500"
-        color="#73009d"
-        class="white--text subheading font-weight-bold">
-        <v-card-title color="#73009d" class="pt-1 pb-1">{{ taskData.name }}</v-card-title>
+        color="primary"
+        class="white--text subheading">
+        <v-card-title color="primary" class="pt-1 pb-1">{{ taskData.name }}</v-card-title>
           <v-divider></v-divider>
           <v-container row wrap>
               <v-row  class="pl-3">
-                  <v-chip-group  center-active column class="pl-1 pr-1 pt-2 pb-2">
+                  <v-chip-group  center-active column class="pl-3 pr-1 pt-2 pb-2">
                       <v-chip
                         v-for='(tag, index) in taskData.tags' :key='tag'
-                        color="#a800cf"
+                        color="secondary"
                         class="white--text font-weight-bold"
                         >
                           {{ tag }}
@@ -36,13 +36,14 @@
                           cols="1"
                           v-for="(member, index) in taskData.members"
                           :key="index"
+                          justify="center"
                       >
                           <v-tooltip top>
                               <template
                                   v-slot:activator="{ on }"
                               >
                                   <v-btn
-                                      color="#a800cf"
+                                      color="primary"
                                       fab
                                       small
                                       v-on="on"
@@ -83,7 +84,8 @@
     <!-- Botón o tarjeta de cada tarea -->
     <v-card
       class="white--text"
-      color="#73009d"
+      light
+      color="primary"
       @click="dialog = true"
     >
       <v-card-title
@@ -95,9 +97,9 @@
       <v-divider></v-divider>
         <v-container row wrap>
             <v-row  class="pl-3">
-              <v-chip-group  center-active column class="pl-1 pr-1 pt-2 pb-2">
-                <v-chip v-for='(tag, index) in taskData.tags' :key='tag' color="#a800cf" class="white--text font-weight-bold">
-                  {{ tag }}
+              <v-chip-group  center-active column class="pl-3 pr-1 pt-2 pb-2" >
+                <v-chip v-for='(tag, index) in taskData.tags' :key='tag' color="secondary"  class="white--text font-weight-bold">
+                  {{tag}}
                 </v-chip>
               </v-chip-group>
             </v-row>

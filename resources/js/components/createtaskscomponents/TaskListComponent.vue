@@ -1,14 +1,12 @@
 <template>
-  <v-container fluid>
+  <v-container light fluid>
       <!--Barra de tareas-->
       <v-toolbar
-        dark
-        color="#a40056"
+        color="primary"
         class="mb-1"
       >
         <v-btn
-          color="#db0082"
-          dark
+          color="secondary"
           @click="dialog = true"
 
         >
@@ -24,8 +22,7 @@
       >
         <v-card class="pt-0 pb-0">
           <v-toolbar
-            color="#db0082"
-            dark
+            color="primary"
             class="white--text pt-0 pb-0"
           >
             Crear nueva tarea
@@ -137,9 +134,6 @@
         v-for="(task, index) in tasks"
         :key="index"
         cols="12"
-        sm="6"
-        md="6"
-        lg="4"
       >
         <Task
           :taskData="task"
@@ -232,7 +226,7 @@ export default {
     height: 30px;
     float: left;
     margin-right: 10px;
-    background-color: #a800cf;
+    background-color: #3f51b5;
     color: white;
     margin-top: 10px;
     line-height: 30px;
