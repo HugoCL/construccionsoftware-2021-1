@@ -24,6 +24,8 @@ Auth::routes();
 
 Route::resource('/proyects', 'App\Http\Controllers\newProyectController');
 
+Route::resource('/user', 'App\Http\Controllers\UsuarioController');
+
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 //Route::get('/proyects', [newProyectController::class, 'index']);
