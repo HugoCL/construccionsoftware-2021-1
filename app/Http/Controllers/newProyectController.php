@@ -14,6 +14,9 @@ class newProyectController extends Controller
      */
     public function index()
     {
+        /**
+         * Este metodo deberia mostrar la lista de los proyectos
+         */
         return view('newProyectComponent');
     }
 
@@ -24,7 +27,13 @@ class newProyectController extends Controller
      */
     public function create()
     {
-        //
+        /**
+         * Este metodo deberia llamar a la vista de creacion de un proyecto, quizas no sea necesario
+         * el envio de $proyecto a la vista
+         */
+
+        $proyecto = new Proyecto();
+        return view('create.proyect', compact('proyecto'));
     }
 
     /**
@@ -51,11 +60,14 @@ class newProyectController extends Controller
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
+     * Este metodo muestra una vista de los detalles de un proyecto
      */
     public function show($id)
     {
+        //
         $proyecto = Proyecto::find($id);
-        return $proyecto;
+        //se envia el proyecto a una vista que muestre el proyecto
+        return view('show.proyect', compact('proyecto'));
     }
 
     /**
@@ -67,6 +79,15 @@ class newProyectController extends Controller
     public function edit($id)
     {
         //
+        $proyecto = Proyecto::find($id);
+
+        /**
+         * Aqui se llama una vista para editar los datos y desde ahi se deberia llamar al
+         * metodo update
+         */
+
+        return view('proyect.edit', compact('proyecto'));
+
     }
 
     /**
@@ -78,12 +99,14 @@ class newProyectController extends Controller
      */
     public function update(Request $request, $id)
     {
+        //
         $proyecto = Proyecto::find($id);
         $proyecto->nombre = $request->nombre;
         $proyecto->descripcion = $request->description;
         $proyecto->fechaInicio = $request->dates[0];
         $proyecto->fechaTermino = $request->dates[1];
         $proyecto->save();
+
         return $proyecto;
     }
 

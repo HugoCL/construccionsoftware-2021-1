@@ -92,6 +92,25 @@
           }
       },
 
+      created(){
+          /*
+          axios.post('/user', {correo: 'ncastillo@hotmail.com', nombre: 'Nicolas'});
+          axios.post('/user', {correo: 'awallberg@hotmail.com', nombre: 'Andres'});
+          axios.post('/user', {correo: 'mvalenzuela@hotmail.com', nombre: 'Manuel'});*/
+
+          axios.get('/user')
+              .then(response=>{
+                  const users = [];
+                  const res = response.data;
+                  for (let user in res){
+                      console.log(res[user]);
+                      users.push(res[user].nombre.concat(' [', res[user].correo+']'));
+                  }
+                  this.items = users;
+
+              });
+      },
+
       methods: {
           send () {
               if(this.proyecto.name.trim() === ''){
