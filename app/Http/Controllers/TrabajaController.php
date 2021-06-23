@@ -4,13 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\Trabaja;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class TrabajaController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return void
      */
     public function index()
     {
@@ -20,7 +21,7 @@ class TrabajaController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return void
      */
     public function create()
     {
@@ -30,8 +31,8 @@ class TrabajaController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return void
      */
     public function store(Request $request)
     {
@@ -46,8 +47,8 @@ class TrabajaController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Trabaja  $trabaja
-     * @return \Illuminate\Http\Response
+     * @param Trabaja $trabaja
+     * @return void
      */
     public function show(Trabaja $trabaja)
     {
@@ -57,8 +58,8 @@ class TrabajaController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Trabaja  $trabaja
-     * @return \Illuminate\Http\Response
+     * @param Trabaja $trabaja
+     * @return void
      */
     public function edit(Trabaja $trabaja)
     {
@@ -68,9 +69,9 @@ class TrabajaController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Trabaja  $trabaja
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param Trabaja $trabaja
+     * @return void
      */
     public function update(Request $request, Trabaja $trabaja)
     {
@@ -80,8 +81,8 @@ class TrabajaController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Trabaja  $trabaja
-     * @return \Illuminate\Http\Response
+     * @param Trabaja $trabaja
+     * @return void
      */
     public function destroy(Trabaja $trabaja)
     {
