@@ -67,13 +67,15 @@
 
         </div>
         <div>
-            <task-list></task-list>
+            <TaskList></TaskList>
         </div>
 </div>
 
 </template>
 <script>
+  import TaskList from "./TaskListComponent";
   export default {
+      components: {TaskList},
       data(){
           return {
               items: [
@@ -135,7 +137,7 @@
               );
               const nuevoProyecto = this.proyecto;
               this.proyecto = {name: '', description: '', dates: ['2019-09-10', '2019-09-20']};
-              axios.post('/proyects', nuevoProyecto)
+              axios.post('/administrar-proyectos/nuevo', nuevoProyecto)
                   .then(response => {
                       const res = response.data;
                       this.proyectos.push(res);

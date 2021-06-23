@@ -41,7 +41,7 @@
                     </v-row>
                 </div>
 
-            <v-div  cols="12"
+            <div  cols="12"
                     sm="6"
                     md="8">
                 <ul class="list-group">
@@ -54,7 +54,7 @@
                 </ul>
 
 
-            </v-div>
+            </div>
         </div>
     </div>
 </template>
