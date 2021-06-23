@@ -1,14 +1,12 @@
 <template>
-  <v-container fluid>
+  <v-container light fluid>
       <!--Barra de tareas-->
       <v-toolbar
-        dark
-        color="#a40056"
+        color="primary"
         class="mb-1"
       >
         <v-btn
-          color="#db0082"
-          dark
+          color="secondary"
           @click="dialog = true"
 
         >
@@ -22,10 +20,10 @@
         persistent
         max-width="600px"
       >
-        <v-card>
+        <v-card class="pt-0 pb-0">
           <v-toolbar
-            color="#a40056"
-            dark
+            color="primary"
+            class="white--text pt-0 pb-0"
           >
             Crear nueva tarea
           </v-toolbar>
@@ -38,6 +36,21 @@
                 label="Nombre"
                 hide-details="auto"
               ></v-text-field>
+                <div v-model="taskTags">
+                    <div v-for='(tag, index) in taskTags' :key='tag' class='tag-input__tag'>
+                        {{ tag }}
+                        <span @click='removeTag(index)'>x</span>
+                    </div>
+                    <input
+                        title="Para terminar una etiqueta pulsa enter o una coma"
+                        type='text'
+                        placeholder="Añadir etiquetas"
+                        class='tag-input__text'
+                        @keydown.enter='addTag'
+                        @keydown.188='addTag'
+                        @keydown.delete='removeLastTag'
+                    />
+                </div>
               <v-textarea
                 v-model="taskDesc"
                 label="Description"
@@ -121,9 +134,6 @@
         v-for="(task, index) in tasks"
         :key="index"
         cols="12"
-        sm="6"
-        md="6"
-        lg="4"
       >
         <Task
           :taskData="task"
@@ -147,6 +157,8 @@ export default {
     taskName: '',
     taskDesc: '',
     taskMembers: [],
+    taskTags: [],
+    taskChanges:[],
     peopleNames: ['Juanito Pérez', 'Juliana Soza', 'Juancho Silva', 'Manuel Hernandez', 'Jesus Alberga', 'Pedro Perez'],
 
     tasks: [
@@ -154,39 +166,90 @@ export default {
         name: 'Crear interfaz',
         members: ['Juanito Pérez', 'Juliana Soza'],
         desc: 'Lorem ipsum dolor sit amet tempus penatibus taciti feugiat cras fames laoreet bibendum ligula nibh. Tristique convallis leo nibh porta odio feugiat blandit ullamcorper scelerisque cursus, luctus aptent netus sagittis egestas quis felis pulvinar ut vestibulum, ante mi cum suspendisse ornare potenti praesent eleifend varius. Quis dignissim dictum imperdiet bibendum mattis, vivamus phasellus donec tempor.',
-        date: '25/06/2021'
+        date: '25/06/2021',
+        tags: ['HU02','TA02','P1'],
+        changes:['7/7/7   Usuario','7/7/7   Usuario','7/7/7   Usuario',]
       },
       {
         name: 'Implementar botones',
         members: ['Juancho Silva', 'Manuel Hernandez', 'Jesus Alberga'],
         desc: 'Lorem ipsum dolor sit amet consectetur adipiscing Tristique egestas quis felis pulvinar ut vestibulum, ante mi cum suspendisse ornare potenti praesent eleifend varius. Quis dignissim dictum imperdiet bibendum mattis, vivamus phasellus donec tempor.',
-        date: '10/06/2021'
+        date: '10/06/2021',
+        tags: ['HU02','TA02','P2'],
+          changes:['7/7/7   Usuario','8/7/7   Usuario','9/7/7   Usuario',]
       },
       {
         name: 'Seleccionar colores',
         members: ['Pedro Perez'],
         desc: 'Lorem ipsum dolor sit amet consectetur adipiscing elit senectus fringilla arcu a, iaculis sodales magna sollicitudin ridiculus tempus penatibus facilisis ac cursus nullam praesent, venenatis lectus taciti feugiat cras fames laoreet bibendum ligula nibh. Tristique convallis leo nibh porta odio feugiat blandit ullamcorper scelerisque cursus, luctus aptent netus sagittis egestas quis felis pulvinar ut vestibulum, ante mi cum suspendisse ornare potenti praesent eleifend varius. Quis dignissim dictum imperdiet bibendum mattis, vivamus phasellus donec tempor.',
-        date: '01/07/2021'
+        date: '01/07/2021',
+        tags: ['HU02','TA02','P3'],
+          changes:['7/7/7   Usuario','7/7/7   Usuario','7/7/7   Usuario',]
       }
 
     ]
   }),
   methods: {
+    addTag (event) {
+      event.preventDefault()
+      var val = event.target.value.trim()
+      if (val.length > 0) {
+          this.taskTags.push(val)
+          event.target.value = ''
+      }
+    },
+    removeTag (index) {
+      this.taskTags.splice(index, 1)
+    },
     createTask: function () {
       this.tasks.push({
         name: this.taskName,
         members: this.taskMembers,
         desc: this.taskDesc,
-        date: this.taskDate
+        date: this.taskDate,
+        tags: this.taskTags,
+        changes: this.taskChanges
 
       });
+
 
       this.taskName = '';
       this.taskDesc = '';
       this.taskMembers = '';
       this.taskDesc = '';
+      this.taskTags = '';
+      this.taskChanges='';
       this.dialog = false;
     }
   }
 }
 </script>
+
+<style scoped>
+
+
+.tag-input__tag {
+    height: 30px;
+    float: left;
+    margin-right: 10px;
+    background-color: #3f51b5;
+    color: white;
+    margin-top: 10px;
+    line-height: 30px;
+    padding: 0 5px;
+    border-radius: 5px;
+}
+
+.tag-input__tag > span {
+    cursor: pointer;
+    opacity: 0.75;
+}
+
+.tag-input__text {
+    border: none;
+    outline: none;
+    font-size: 0.9em;
+    line-height: 50px;
+    background: none;
+}
+</style>

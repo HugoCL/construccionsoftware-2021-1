@@ -2,64 +2,72 @@
 
 <div class="row justify-content-center">
 
-        <div class="col-6 align-self-center">
+        <div class="col-12 align-self-center">
+            <v-row>
+                <v-col cols="8">
+                    <v-card
+                        ref="form"
+                        lazy-validation
+                    >
+                        <v-text-field
+                            v-model="proyecto.name"
+                            label="Nombre del proyecto"
+                            required
+                        ></v-text-field>
 
-            <h3 class="text-center font-weight-light">Nuevo proyecto</h3>
+                        <v-textarea
+                            v-model="proyecto.description"
+                            label="Descripcion del proyecto"
+                            class="my-1"
+                            required
+                        ></v-textarea>
 
-            <v-form
-                ref="form"
-                lazy-validation
+                        <v-select
+                            v-model="bosses"
+                            :items="items"
+                            label="Jefe/s de proyecto"
+                            multiple
+                            dense
+                            class="my-2"
+                            clearable
+                            chips
+                        ></v-select>
+
+                        <v-select
+                            v-model="workers"
+                            :items="items"
+                            label="Empleados del proyecto"
+                            multiple
+                            dense
+                            class="my-2"
+                            clearable
+                            chips
+                        ></v-select>
+
+                    </v-card>
+
+                </v-col>
+
+                <v-col cols="4">
+                    <v-date-picker
+                        color="#000000"
+                        full-width
+                        v-model="proyecto.dates"
+                        range
+                        class="my-4"
+                    ></v-date-picker>
+                </v-col>
+            </v-row>
+            <v-btn
+                class="btn w-100"
+                @click="send"
             >
-                <v-text-field
-                    v-model="proyecto.name"
-                    label="Nombre del proyecto"
-                    required
-                ></v-text-field>
+                Enviar
+            </v-btn>
 
-                <v-textarea
-                    v-model="proyecto.description"
-                    label="Descripcion del proyecto"
-                    class="my-2"
-                    required
-                ></v-textarea>
-
-                <v-date-picker
-                    color="#000000"
-                    full-width
-                    v-model="proyecto.dates"
-                    range
-                    class="my-4"
-                ></v-date-picker>
-
-                <v-select
-                    v-model="bosses"
-                    :items="items"
-                    label="Jefe/s de proyecto"
-                    multiple
-                    dense
-                    class="my-2"
-                    clearable
-                    chips
-                ></v-select>
-
-                <v-select
-                    v-model="workers"
-                    :items="items"
-                    label="Empleados del proyecto"
-                    multiple
-                    dense
-                    class="my-2"
-                    clearable
-                    chips
-                ></v-select>
-
-                <v-btn
-                    class="btn w-100"
-                    @click="send"
-                >
-                    Enviar
-                </v-btn>
-            </v-form>
+        </div>
+        <div>
+            <task-list></task-list>
         </div>
 </div>
 

@@ -1,11 +1,37 @@
 <template>
     <div class="container" data-app>
         <div class="row justify-content-center">
-            <div class="col-md-8" >
-                <div align="right">
-                    <button class = "btn btn-primary" v-on:click="newProyect" >  <v-icon dark right>mdi-plus-circle-outline</v-icon>Nuevo Proyecto</button>
-                    <button class = "btn btn-primary" v-on:click="refresh">  <v-icon dark right>mdi-refresh</v-icon>Refrescar</button>
-                </div>
+            <div cols="12" style="float: right" >
+                    <v-col cols="3">
+                        <v-dialog transition="dialog-top-transition"  max-width="800">
+                            <template v-slot:activator="{ on, attrs }">
+                                <v-btn class = "btn btn-primary" v-bind="attrs"  v-on="on"> <v-icon dark right>mdi-plus-circle-outline</v-icon>Nuevo Proyecto</v-btn>
+                                <v-btn class = "btn btn-primary" v-on:click="refresh">  <v-icon dark right>mdi-refresh</v-icon>Refrescar</v-btn>
+                            </template>
+                            <template v-slot:default="dialog">
+                                <v-card>
+                                    <v-toolbar>
+                                        <v-row>
+                                            <v-col cols="11">
+                                                Nuevo Proyecto
+                                            </v-col>
+                                            <v-col cols="1" style="float: right;">
+                                                <v-btn style="background: red;" @click="dialog.value = false"><v-icon>mdi-close</v-icon></v-btn>
+                                            </v-col>
+                                        </v-row>
+
+                                    </v-toolbar>
+
+                                    <v-card-text>
+                                        <crear-proyecto></crear-proyecto>
+                                    </v-card-text>
+                                </v-card>
+                            </template>
+                        </v-dialog>
+                    </v-col>
+                    <v-col cols="3">
+
+                    </v-col>
             </div>
 
             <div class="col-md-8">
@@ -18,9 +44,7 @@
                             v-for="(proyect,index) in proyectos":key="index">
                                 <proyect-card
                                     :proyectData="proyect"
-                                >
-
-                                </proyect-card>
+                                > </proyect-card>
                             </li>
                         </ul>
                     </div>
