@@ -13,18 +13,23 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+use App\Http\Controllers\newProyectController;
+
+use App\Http\Controllers\TestTasksComponentsController;
+
 Route::get('/', function () {
     return view('home');
 });
 
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Auth::routes();
-
+Route::resource('/proyectos', 'App\Http\Controllers\ProjectsController');
+Route::resource('administrar-proyectos/nuevo', 'App\Http\Controllers\newProyectController');
+Route::resource('administrar-proyectos', 'App\Http\Controllers\AdminProyectsController');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('testtaskscomponents', [TestTasksComponentsController::class, 'index']);
+Route::resource('/user', 'App\Http\Controllers\UsuarioController');
 
-Auth::routes();
+//Route::get('/proyects', [newProyectController::class, 'index']);
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+//Para probar el creador de tareas
