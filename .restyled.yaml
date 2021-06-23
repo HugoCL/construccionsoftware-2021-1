@@ -1,0 +1,66 @@
+# See https://github.com/restyled-io/restyled.io/wiki/Configuring-Restyled
+
+enabled: true
+
+exclude:
+  - "**/*.patch"
+  - "**/node_modules/**/*"
+  - "**/vendor/**/*"
+  - ".github/workflows/**/*" # https://github.com/restyled-io/restyler/issues/73
+
+changed_paths:
+  maximum: 1000
+  outcome: error
+
+remote_files: []
+
+auto: false
+
+commit_template: |
+  Restyled by ${restyler.name}
+pull_requests: true
+
+comments: false
+
+statuses:
+  skipped: true
+  differences: true
+  no_differences: true
+  error: true
+
+request_review: none
+
+labels: []
+
+ignore_authors:
+  - "*[bot]"
+
+ignore_branches:
+  - "renovate/*"
+
+ignore_labels:
+  - restyled-ignore
+
+restylers_version: stable
+
+restylers:
+  - "*"
+
+image: 'restyled/restyler-php-cs-fixer:v3.0.0'
+command:
+  - php-cs-fixer
+  - fix
+arguments: []
+include:
+  - '**/*.php'
+interpreters: []
+
+image: 'restyled/restyler-prettier:v2.3.1'
+command:
+  - prettier
+  - '--write'
+arguments: []
+include:
+  - '**/*.js'
+  - '**/*.jsx'
+interpreters: []
