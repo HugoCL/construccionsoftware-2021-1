@@ -17,6 +17,7 @@
 import Navbar from './Navbar'
 import Header from './Header'
 import Footer from './Footer'
+import Alert from './Alert'
 
 export default ({
     name: 'App',
@@ -24,6 +25,7 @@ export default ({
         'navbar': Navbar,
         'app-header': Header,
         'app-footer': Footer,
+        'alert-msj': Alert,
     }
 })
 </script>

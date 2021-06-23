@@ -1,4 +1,7 @@
 import Projects from '../pages/Projects.vue'
+import ProjectsA from '../pages/ProjectsA.vue'
+import ProjectsB from '../pages/ProjectsB.vue'
+import ProjectsC from '../pages/ProjectsC.vue'
 import Users from '../pages/Users.vue'
 
 export default {
@@ -17,17 +20,17 @@ export default {
         {
             path: '/projects-a',
             name: 'projects-a',
-            component: Projects,
+            component: ProjectsA,
         },
         {
             path: '/projects-b',
             name: 'projects-b',
-            component: Projects,
+            component: ProjectsB,
         },
         {
             path: '/projects-c',
             name: 'projects-c',
-            component: Projects,
+            component: ProjectsC,
         },
         {
             path: '/users',

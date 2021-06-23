@@ -30,6 +30,7 @@ Vue.use(Vuetify)
 
 
 //Vue.component('app-template', require('./components/App.vue'));
+Vue.component('alert-msj', require('./components/Alert.vue'));
 
 
 /**
@@ -43,6 +44,7 @@ import App from './components/App.vue';
 const app = new Vue({
     el: '#app',
     components: {App},
+    router: new VueRouter(routes),
     vuetify: new Vuetify(),
 
 });
