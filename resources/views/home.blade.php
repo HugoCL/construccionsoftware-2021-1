@@ -23,6 +23,7 @@
 @endsection
 <script>
     import Test from "../js/components/Test";
+    import App from "../js/components/App";
     export default {
         components: {Test}
     }

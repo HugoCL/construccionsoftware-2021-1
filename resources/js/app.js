@@ -9,7 +9,13 @@ window.Vue = require('vue').default;
 import Vuetify from 'vuetify'
 import Vue from 'vue'
 
+import VueRouter from 'vue-router'
+Vue.use(VueRouter)
+import routes from './routes'
+
 Vue.use(Vuetify)
+
+
 
 /**
  * The following block of code may be used to automatically register your
@@ -19,8 +25,11 @@ Vue.use(Vuetify)
  * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
  */
 
-const files = require.context('./', true, /\.vue$/i)
-files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
+//const files = require.context('./', true, /\.vue$/i)
+//files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
+
+
+//Vue.component('app-template', require('./components/App.vue'));
 
 
 /**
@@ -29,11 +38,13 @@ files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 import ExampleComponent from "./components/ExampleComponent";
+import App from './components/App.vue';
 
 const app = new Vue({
-    components: {ExampleComponent},
-    vuetify: new Vuetify(),
     el: '#app',
+    components: {App},
+    vuetify: new Vuetify(),
+
 });
 
 
