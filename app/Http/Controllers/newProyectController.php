@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Proyecto;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class newProyectController extends Controller
 {
@@ -39,7 +40,7 @@ class newProyectController extends Controller
     /**
      * Store a newly created resource in storage.
      * Recordar que la columna id de la tabla proyecto es auto incremental
-     * no hay que darle ese campo.
+     * no hay que darle ese campo, pero igualmente puede ser obtenido.
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
@@ -51,6 +52,15 @@ class newProyectController extends Controller
         $proyecto->fechaInicio = $request->dates[0];
         $proyecto->fechaTermino = $request->dates[1];
         $proyecto->save();
+
+        $id = $proyecto->getAttribute('id');
+        foreach ($request->bosses as $boss){
+            DB::insert('insert into dirige (id_proyecto, id_usuario) values (?, ?)', [$id, $boss]);
+        }
+        foreach ($request->workers as $worker){
+            DB::insert('insert into participa (refProyecto, correo) values (?, ?)', [$id, $worker]);
+        }
+
 
         return $proyecto;
     }
