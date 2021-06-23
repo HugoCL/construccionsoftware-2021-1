@@ -35,7 +35,14 @@ class TareaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $tarea = new Tarea();
+        $tarea->id = $request->id_tarea;
+        $tarea->id_proyecto = $request->id_proy;
+        $tarea->estado = $request->status;
+        $tarea->descripcion = $request->description;
+        $tarea->save();
+
+        return $tarea;
     }
 
     /**
