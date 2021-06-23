@@ -35,7 +35,12 @@ class TrabajaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $trabaja = new Trabaja();
+        $trabaja->id_proyecto=$request->id_proyecto;
+        $trabaja->id_tarea=$request->id_tarea;
+        $trabaja->id_usuario=$request->id_usuario;
+        $trabaja->duracion=$request->duracion;
+        $trabaja->save();
     }
 
     /**
