@@ -158,6 +158,7 @@ export default {
     taskDesc: '',
     taskMembers: [],
     taskTags: [],
+    taskChanges:[],
     peopleNames: ['Juanito Pérez', 'Juliana Soza', 'Juancho Silva', 'Manuel Hernandez', 'Jesus Alberga', 'Pedro Perez'],
 
     tasks: [
@@ -166,21 +167,24 @@ export default {
         members: ['Juanito Pérez', 'Juliana Soza'],
         desc: 'Lorem ipsum dolor sit amet tempus penatibus taciti feugiat cras fames laoreet bibendum ligula nibh. Tristique convallis leo nibh porta odio feugiat blandit ullamcorper scelerisque cursus, luctus aptent netus sagittis egestas quis felis pulvinar ut vestibulum, ante mi cum suspendisse ornare potenti praesent eleifend varius. Quis dignissim dictum imperdiet bibendum mattis, vivamus phasellus donec tempor.',
         date: '25/06/2021',
-        tags: ['HU02','TA02','P1']
+        tags: ['HU02','TA02','P1'],
+        changes:['7/7/7   Usuario','7/7/7   Usuario','7/7/7   Usuario',]
       },
       {
         name: 'Implementar botones',
         members: ['Juancho Silva', 'Manuel Hernandez', 'Jesus Alberga'],
         desc: 'Lorem ipsum dolor sit amet consectetur adipiscing Tristique egestas quis felis pulvinar ut vestibulum, ante mi cum suspendisse ornare potenti praesent eleifend varius. Quis dignissim dictum imperdiet bibendum mattis, vivamus phasellus donec tempor.',
         date: '10/06/2021',
-        tags: ['HU02','TA02','P2']
+        tags: ['HU02','TA02','P2'],
+          changes:['7/7/7   Usuario','8/7/7   Usuario','9/7/7   Usuario',]
       },
       {
         name: 'Seleccionar colores',
         members: ['Pedro Perez'],
         desc: 'Lorem ipsum dolor sit amet consectetur adipiscing elit senectus fringilla arcu a, iaculis sodales magna sollicitudin ridiculus tempus penatibus facilisis ac cursus nullam praesent, venenatis lectus taciti feugiat cras fames laoreet bibendum ligula nibh. Tristique convallis leo nibh porta odio feugiat blandit ullamcorper scelerisque cursus, luctus aptent netus sagittis egestas quis felis pulvinar ut vestibulum, ante mi cum suspendisse ornare potenti praesent eleifend varius. Quis dignissim dictum imperdiet bibendum mattis, vivamus phasellus donec tempor.',
         date: '01/07/2021',
-        tags: ['HU02','TA02','P3']
+        tags: ['HU02','TA02','P3'],
+          changes:['7/7/7   Usuario','7/7/7   Usuario','7/7/7   Usuario',]
       }
 
     ]
@@ -203,7 +207,8 @@ export default {
         members: this.taskMembers,
         desc: this.taskDesc,
         date: this.taskDate,
-        tags: this.taskTags
+        tags: this.taskTags,
+        changes: this.taskChanges
 
       });
 
@@ -213,6 +218,7 @@ export default {
       this.taskMembers = '';
       this.taskDesc = '';
       this.taskTags = '';
+      this.taskChanges='';
       this.dialog = false;
     }
   }

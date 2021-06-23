@@ -94,11 +94,45 @@
 
                     </v-col>
                 </v-list-item>
+                <v-list-item>
+                    <v-card-action>
+                        <div align ="center">
+                            <v-btn
+                                class="mx-2"
+
+
+                                dark
+                                color="primary"
+                                @click="dialog1=true"
+                            >Changes
+                            </v-btn>
+                        </div>
+                    </v-card-action>
+                </v-list-item>
             </v-list>
 
 
         </v-card>
     </v-dialog>
+      <v-dialog v-model ="dialog1" width="300">
+          <v-card >
+              <v-toolbar class = "mb-2"
+
+                         color="primary"
+                         dark
+              >Changes History</v-toolbar>
+
+              <v-card-text v-for="(item,index) in taskData.changes":key="index">
+                  {{item}}
+              </v-card-text>
+
+              <v-btn  @click ="dialog1=false"
+                      color ="ml-2"
+                      class = "mb-2"
+                      rounded
+              > Close </v-btn>
+          </v-card>
+      </v-dialog>
 
     <!-- Botón o tarjeta de cada tarea -->
     <v-card
@@ -168,6 +202,7 @@
     name: 'Task',
     data: () => ({
       dialog: false,
+      dialog1:false,
       /**
      * variables a usar en v-check para checklist de tarea
      * lista testCheckList contiene una variable que almacena una "micro-tarea" string
