@@ -28,6 +28,7 @@ Route::resource('administrar-proyectos/nuevo', 'App\Http\Controllers\newProyectC
 Route::resource('administrar-proyectos', 'App\Http\Controllers\AdminProyectsController');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('testtaskscomponents', [TestTasksComponentsController::class, 'index']);
+Route::resource('/user', 'App\Http\Controllers\UsuarioController');
 
 //Route::get('/proyects', [newProyectController::class, 'index']);
 
