@@ -6,7 +6,7 @@
         <v-list-item>
             <v-list-item-content>
                 <div class="text-overline mb-1">
-                    <v-list-item-title class="text-h5 mb-1" >
+                    <v-list-item-title class="text-h6 mb-1" >
                         {{proyectData.nombre}}
                     </v-list-item-title>
 
@@ -31,7 +31,7 @@
                     </v-row>
 
                 </v-list-item-content>
-                <v-list-item-content class = "col-md-12">
+                <v-list-item-content cols="12">
                     <div>
                         {{proyectData.descripcion}}
                     </div>
@@ -42,14 +42,14 @@
             </v-list-item-content>
 
         </v-list-item>
-        <v-card-actions style="float:right">
-            <v-btn class="ma-10 btn-primary" style="margin-right:10px" >
+        <v-card-actions style="float:right" >
+            <v-btn class="ma-2" color="primary" >
                 Editar
                 <v-icon right>mdi-border-color</v-icon>
             </v-btn>
-            <v-btn class="ma-10 btn-danger" color="red">
+            <v-btn class="ma-2 btn-danger" color="red">
                 Eliminar
-                <v-icon dark right>mdi-delete</v-icon>
+                <v-icon right>mdi-delete</v-icon>
             </v-btn>
 
         </v-card-actions>

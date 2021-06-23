@@ -2,54 +2,59 @@
     <div class="container" data-app>
         <div class="row justify-content-center">
             <div cols="12" style="float: right" >
-                    <v-col cols="3">
-                        <v-dialog transition="dialog-top-transition"  max-width="800">
-                            <template v-slot:activator="{ on, attrs }">
-                                <v-btn class = "btn btn-primary" v-bind="attrs"  v-on="on"> <v-icon dark right>mdi-plus-circle-outline</v-icon>Nuevo Proyecto</v-btn>
-                                <v-btn class = "btn btn-primary" v-on:click="refresh">  <v-icon dark right>mdi-refresh</v-icon>Refrescar</v-btn>
-                            </template>
-                            <template v-slot:default="dialog">
-                                <v-card>
-                                    <v-toolbar>
-                                        <v-row>
-                                            <v-col cols="11">
-                                                Nuevo Proyecto
-                                            </v-col>
-                                            <v-col cols="1" style="float: right;">
-                                                <v-btn style="background: red;" @click="dialog.value = false"><v-icon>mdi-close</v-icon></v-btn>
-                                            </v-col>
-                                        </v-row>
+                    <v-row>
+                        <v-col class="col-md-8 align-left" >
+                            <h4>Administrar Proyectos</h4>
+                        </v-col>
+                        <v-col class="col-md-4">
+                            <v-dialog transition="dialog-top-transition"  max-width="800">
+                                <template v-slot:activator="{ on, attrs }">
+                                    <div class="text-right d-flex align-right justify-space-around">
 
-                                    </v-toolbar>
+                                        <v-btn class="mr-4" v-bind="attrs"  v-on="on"> <v-icon dark rightclass="mr-4" >mdi-plus-circle-outline</v-icon>Nuevo Proyecto</v-btn>
+                                        <v-btn class="mr-4" color = "primary" v-on:click="refresh">  <v-icon right class="mr-4" >mdi-refresh</v-icon>Refrescar</v-btn>
+                                    </div>
+                                </template>
+                                <template v-slot:default="dialog">
+                                    <v-card>
+                                        <v-toolbar>
+                                            <v-row>
+                                                <v-col cols="10">
+                                                    Nuevo Proyecto
+                                                </v-col>
+                                                <v-col cols="2"  class="" style="float: right;">
+                                                    <v-btn style="background: red;" @click="dialog.value = false"><v-icon>mdi-close</v-icon></v-btn>
+                                                </v-col>
+                                            </v-row>
 
-                                    <v-card-text>
-                                        <crear-proyecto></crear-proyecto>
-                                    </v-card-text>
-                                </v-card>
-                            </template>
-                        </v-dialog>
-                    </v-col>
-                    <v-col cols="3">
+                                        </v-toolbar>
 
-                    </v-col>
-            </div>
+                                        <v-card-text>
+                                            <crear-proyecto></crear-proyecto>
+                                        </v-card-text>
+                                    </v-card>
+                                </template>
+                            </v-dialog>
 
-            <div class="col-md-8">
+                        </v-col>
 
-                <div class="card">
-                    <div class="card-header">Administrar Proyectos</div>
-                    <div class="card-body">
-                        <ul class="list-group">
-                            <li class="list-group-item"
-                            v-for="(proyect,index) in proyectos":key="index">
-                                <proyect-card
-                                    :proyectData="proyect"
-                                > </proyect-card>
-                            </li>
-                        </ul>
-                    </div>
+                    </v-row>
                 </div>
-            </div>
+
+            <v-div  cols="12"
+                    sm="6"
+                    md="8">
+                <ul class="list-group">
+                    <li class="list-group-item"
+                        v-for="(proyect,index) in proyectos":key="index">
+                        <proyect-card
+                            :proyectData="proyect"
+                        > </proyect-card>
+                    </li>
+                </ul>
+
+
+            </v-div>
         </div>
     </div>
 </template>
