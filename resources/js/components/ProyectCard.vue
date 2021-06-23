@@ -20,14 +20,12 @@
 
                     <v-row >
                         <v-col cols="3">
-                            Fecha Inicio: {{proyectData.fecha_inicio}}
+                            Fecha Inicio: {{proyectData.fechaInicio}}
                         </v-col>
                         <v-col cols="3">
-                            Fecha Termino: {{proyectData.fecha_termino}}
+                            Fecha Termino: {{proyectData.fechaTermino}}
                         </v-col >
-                        <v-col>
-                            Miembros: {{proyectData.miembros.toString().slice(0, 15)+'...'}}
-                        </v-col>
+
                     </v-row>
 
                 </v-list-item-content>

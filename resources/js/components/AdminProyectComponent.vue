@@ -34,6 +34,7 @@
 export default {
     data(){
         return{
+
             proyectos:[
                 {
                     id: "123123",
@@ -60,6 +61,16 @@ export default {
                     miembros: ['Juanito Pérez', 'Juliana Soza']
                 }]
         }
+    },
+    created(){
+        axios.get('/proyectos')
+            .then(response => {
+                const res  = response.data;
+                this.proyectos = res;
+            })
+            .catch(function(error) {
+                console.log(error.data);
+            })
     },
     methods:{
         newProyect: function (e){

@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Proyecto;
 use Illuminate\Http\Request;
 
-class AdminProyectsController extends Controller
+class ProjectsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +15,7 @@ class AdminProyectsController extends Controller
     public function index()
     {
         //
-        return view('AdminProyectsComponent');
+        return Proyecto::all();
     }
 
     /**
