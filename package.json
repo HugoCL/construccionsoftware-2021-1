@@ -26,8 +26,10 @@
         "vue-template-compiler": "^2.6.12"
     },
     "dependencies": {
+        "chart.js": "^3.4.0",
         "mix": "^0.0.1",
         "vue-axios": "^3.2.4",
+        "vue-chartjs": "^3.5.1",
         "vue-router": "^3.5.1",
         "vuetify": "^2.5.3",
         "vuetify-loader": "^1.7.2"
