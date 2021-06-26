@@ -7,7 +7,7 @@
             <v-list-item-content>
                 <div class="text-overline mb-1">
                     <v-list-item-title class="text-h6 mb-1" >
-                        {{proyectData.nombre}}
+                        <a  v-bind:href="'/administrar-proyectos/'+proyectData.id" v-on:click="getProject(proyectData.id)"> {{proyectData.nombre}} </a>
                     </v-list-item-title>
 
                 </div>
@@ -45,7 +45,7 @@
                 Editar
                 <v-icon right>mdi-border-color</v-icon>
             </v-btn>
-            <v-btn class="ma-2 btn-danger" color="red">
+            <v-btn class="ma-2 btn-danger" color="red" v-on:click="deleteProject(proyectData.id)">
                 Eliminar
                 <v-icon right>mdi-delete</v-icon>
             </v-btn>
@@ -64,7 +64,14 @@ export default {
         }
     },
     methods:{
+        getProject: function (id){
+            axios.get('/administrar-proyectos/'+id);
+        },
 
+        deleteProject: function (id){
+            axios.delete('/administrar-proyectos/'+id);
+            //window.location.href="administrar-proyectos";
+        }
     },
     props:{
        proyectData: null

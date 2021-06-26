@@ -46,7 +46,7 @@
                     md="8">
                 <ul class="list-group">
                     <li class="list-group-item"
-                        v-for="(proyect,index) in proyectos":key="index">
+                        v-for="(proyect,index) in projects" :key="index">
                         <proyect-card
                             :proyectData="proyect"
                         > </proyect-card>
@@ -63,43 +63,7 @@
 export default {
     data(){
         return{
-
-            proyectos:[
-                {
-                    id: "123123",
-                    nombre:"Proyecto 1",
-                    descripcion: 'Lorem ipsum dolor sit amet tempus penatibus taciti feugiat cras fames laoreet bibendum ligula nibh. Tristique convallis leo nibh porta odio feugiat blandit ullamcorper scelerisque cursus, luctus aptent netus sagittis egestas quis felis pulvinar ut vestibulum, ante mi cum suspendisse ornare potenti praesent eleifend varius. Quis dignissim dictum imperdiet bibendum mattis, vivamus phasellus donec tempor.',
-                    fecha_inicio : '2019-09-10',
-                    fecha_termino : '2019-09-11',
-                    miembros: ['Pedro Perez']
-                },
-                {
-                    id: "123124",
-                    nombre:"Proyecto 2",
-                    descripcion: 'Lorem ipsum dolor sit amet tempus penatibus taciti feugiat cras fames laoreet bibendum ligula nibh. Tristique convallis leo nibh porta odio feugiat blandit ullamcorper scelerisque cursus, luctus aptent netus sagittis egestas quis felis pulvinar ut vestibulum, ante mi cum suspendisse ornare potenti praesent eleifend varius. Quis dignissim dictum imperdiet bibendum mattis, vivamus phasellus donec tempor.',
-                    fecha_inicio : '2019-09-10',
-                    fecha_termino : '2019-09-11',
-                    miembros: ['Juancho Silva', 'Manuel Hernandez', 'Jesus Alberga']
-                },
-                {
-                    id: "123125",
-                    nombre:"Proyecto 3",
-                    descripcion: 'Lorem ipsum dolor sit amet tempus penatibus taciti feugiat cras fames laoreet bibendum ligula nibh. Tristique convallis leo nibh porta odio feugiat blandit ullamcorper scelerisque cursus, luctus aptent netus sagittis egestas quis felis pulvinar ut vestibulum, ante mi cum suspendisse ornare potenti praesent eleifend varius. Quis dignissim dictum imperdiet bibendum mattis, vivamus phasellus donec tempor.',
-                    fecha_inicio : '2019-09-10',
-                    fecha_termino : '2019-09-11',
-                    miembros: ['Juanito Pérez', 'Juliana Soza']
-                }]
         }
-    },
-    created(){
-        axios.get('/proyectos')
-            .then(response => {
-                const res  = response.data;
-                this.proyectos = res;
-            })
-            .catch(function(error) {
-                console.log(error.data);
-            })
     },
     methods:{
         newProyect: function (e){
@@ -108,6 +72,9 @@ export default {
         refresh: function (){
             window.location.href="administrar-proyectos";
         }
+    },
+    props:{
+        projects: null
     }
 
 }

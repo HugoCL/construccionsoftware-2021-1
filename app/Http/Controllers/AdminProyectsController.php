@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Proyecto;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -14,8 +15,8 @@ class AdminProyectsController extends Controller
      */
     public function index()
     {
-        //
-        return view('AdminProyectsComponent');
+        $projects = Proyecto::all();
+        return view('AdminProyectsComponent', compact('projects'));
     }
 
     /**
@@ -47,7 +48,10 @@ class AdminProyectsController extends Controller
      */
     public function show($id)
     {
-        //
+        $project = Proyecto::find($id);
+
+        echo $project;
+
     }
 
     /**
@@ -81,6 +85,7 @@ class AdminProyectsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $proyecto = Proyecto::find($id);
+        $proyecto->delete();
     }
 }
