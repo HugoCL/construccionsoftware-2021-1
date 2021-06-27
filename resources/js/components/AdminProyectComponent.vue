@@ -1,12 +1,12 @@
 <template>
     <div class="container" data-app>
         <div class="row justify-content-center">
-            <div cols="12" style="float: right" >
+            <div cols="10" style="float: right" >
                     <v-row>
-                        <v-col class="col-md-8 align-left" >
+                        <v-col class="col-md-8 text-left" >
                             <h4>Administrar Proyectos</h4>
                         </v-col>
-                        <v-col class="col-md-4">
+                        <v-col class="col-md-2">
                             <v-dialog transition="dialog-top-transition"  max-width="800">
                                 <template v-slot:activator="{ on, attrs }">
                                     <div class="text-right d-flex align-right justify-space-around">
@@ -19,10 +19,10 @@
                                     <v-card>
                                         <v-toolbar>
                                             <v-row>
-                                                <v-col cols="10">
+                                                <v-col cols="auto">
                                                     Nuevo Proyecto
                                                 </v-col>
-                                                <v-col cols="2"  class="" style="float: right;">
+                                                <v-col cols="1"  class=" text-right" style="float: right">
                                                     <v-btn style="background: red;" @click="dialog.value = false"><v-icon>mdi-close</v-icon></v-btn>
                                                 </v-col>
                                             </v-row>
@@ -41,7 +41,7 @@
                     </v-row>
                 </div>
 
-            <div  cols="12"
+            <div  cols="10"
                     sm="6"
                     md="8">
                 <ul class="list-group">
@@ -66,8 +66,8 @@ export default {
         }
     },
     methods:{
-        newProyect: function (e){
-            window.location.href="administrar-proyectos/nuevo";
+        editProyect: function (e){
+
         },
         refresh: function (){
             window.location.href="administrar-proyectos";

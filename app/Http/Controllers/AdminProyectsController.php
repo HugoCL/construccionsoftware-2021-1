@@ -50,8 +50,7 @@ class AdminProyectsController extends Controller
     {
         $project = Proyecto::find($id);
 
-        echo $project;
-
+        return view('SingleProjectComponent', compact('project'));
     }
 
     /**

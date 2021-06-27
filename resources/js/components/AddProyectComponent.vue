@@ -56,6 +56,7 @@
                         full-width
                         v-model="proyecto.dates"
                         range
+                        locale="es-cl"
                         class="my-4"
                     ></v-date-picker>
                 </v-col>
@@ -84,7 +85,7 @@
               proyectos:[],
               proyecto: {
                   name: '',
-                  dates: ['2019-09-10', '2019-09-20'],
+                  dates: [],
                   description: '',
                   bosses: [],
                   workers: [],
@@ -150,11 +151,15 @@
                    }
                );
                const nuevoProyecto = this.proyecto;
-               this.proyecto = {name: '', description: '', dates: ['2019-09-10', '2019-09-20'], bosses: [], workers: []};
+               this.proyecto = {name: '', description: '', dates: [], bosses: [], workers: []};
                axios.post('/administrar-proyectos/nuevo', nuevoProyecto)
                    .then(response => {
                        console.log(response.data);
                    });
+               window.location.href="administrar-proyectos";
+               window.location.href="administrar-proyectos";
+
+
 
            }
        }

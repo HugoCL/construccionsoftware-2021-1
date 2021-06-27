@@ -25,7 +25,9 @@
                         <v-col cols="3">
                             Fecha Termino: {{proyectData.fechaTermino}}
                         </v-col >
-
+                        <v-col cols="3">
+                            ID: {{proyectData.id}}
+                        </v-col >
                     </v-row>
 
                 </v-list-item-content>
@@ -41,14 +43,13 @@
 
         </v-list-item>
         <v-card-actions style="float:right" >
-            <v-btn class="ma-2" color="primary" >
-                Editar
-                <v-icon right>mdi-border-color</v-icon>
-            </v-btn>
-            <v-btn class="ma-2 btn-danger" color="red" v-on:click="deleteProject(proyectData.id)">
-                Eliminar
-                <v-icon right>mdi-delete</v-icon>
-            </v-btn>
+
+
+                        <v-btn class="ma-2 btn-danger" color="red" v-on:click="deleteProject(proyectData.id)">
+                            Eliminar
+                            <v-icon right>mdi-delete</v-icon>
+                        </v-btn>
+
 
         </v-card-actions>
 
@@ -57,7 +58,9 @@
 </template>
 
 <script>
+import EditProyectComponent from "./EditProyectComponent";
 export default {
+    components: {EditProyectComponent},
     data(){
         return{
 
@@ -70,8 +73,11 @@ export default {
 
         deleteProject: function (id){
             axios.delete('/administrar-proyectos/'+id);
-            //window.location.href="administrar-proyectos";
-        }
+            window.location.href="administrar-proyectos";
+            window.location.href="administrar-proyectos";
+
+        },
+
     },
     props:{
        proyectData: null
