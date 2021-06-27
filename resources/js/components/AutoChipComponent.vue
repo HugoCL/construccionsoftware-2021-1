@@ -36,6 +36,8 @@ export default {
     name: "AutoChipComponent",
     data () {
         return {
+            auxList: null,
+            auxName: null
         }
     },
 

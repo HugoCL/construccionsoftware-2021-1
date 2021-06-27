@@ -3,11 +3,15 @@
         class="mx-auto"
         outlined
     >
-        <v-list-item>
+        <v-list-item
+            class="btn text-left"
+            v-bind:href="'/administrar-proyectos/'+proyectData.id"
+            v-on:click="getProject(proyectData.id)"
+        >
             <v-list-item-content>
                 <div class="text-overline mb-1">
                     <v-list-item-title class="text-h6 mb-1" >
-                        <a  v-bind:href="'/administrar-proyectos/'+proyectData.id" v-on:click="getProject(proyectData.id)"> {{proyectData.nombre}} </a>
+                        <a  > {{proyectData.nombre}} </a>
                     </v-list-item-title>
 
                 </div>

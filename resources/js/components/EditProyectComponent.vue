@@ -9,7 +9,7 @@
                             <v-text-field
                                 outlined
                                 filled
-                                v-model="this.project.nombre"
+                                v-model="projectName"
                                 label ="Nombre Proyecto"
                             >
                             </v-text-field>
@@ -27,9 +27,11 @@
                             <v-textarea
                                 outlined
                                 filled
+                                auto-grow
                                 counter
-                                v-model="this.project.descripcion"
+                                v-model="description"
                                 label ="DESCRIPCION"
+                                @click=""
                             >
                             </v-textarea>
 
@@ -42,6 +44,93 @@
                 <!--Mostrar fechas-->
                 <v-card-text>
                     <v-row>
+                        <v-col>
+                            <v-card-subtitle>
+                            <v-row>
+                                <v-dialog
+                                    v-model="modalS"
+                                    persistent
+                                    width="290px"
+                                >
+                                    <template v-slot:activator="{ on, attrs }">
+                                        <v-text-field
+                                            v-model="startDate"
+                                            label="Fecha de Inicio"
+                                            prepend-icon="mdi-calendar"
+                                            readonly
+                                            v-bind="attrs"
+                                            v-on="on"
+                                        ></v-text-field>
+                                    </template>
+                                    <v-date-picker
+                                        locale="es-cl"
+                                        v-model="startDate"
+                                        scrollable
+                                    >
+                                        <v-spacer></v-spacer>
+                                        <v-btn
+                                            text
+                                            color="primary"
+                                            @click="closeDialogStart"
+                                        >
+                                            Cancel
+                                        </v-btn>
+                                        <v-btn
+                                            text
+                                            color="primary"
+                                            @click="saveStartDate"
+                                        >
+                                            OK
+                                        </v-btn>
+                                    </v-date-picker>
+                                </v-dialog>
+                            </v-row>
+                            </v-card-subtitle>
+                        </v-col>
+
+                            <v-col>
+                                <v-card-subtitle>
+                                    <v-row>
+                                        <v-dialog
+                                            v-model="modalE"
+                                            persistent
+                                            width="290px"
+                                        >
+                                            <template v-slot:activator="{ on, attrs }">
+                                                <v-text-field
+                                                    v-model="endDate"
+                                                    label="Fecha de Termino"
+                                                    prepend-icon="mdi-calendar"
+                                                    readonly
+                                                    v-bind="attrs"
+                                                    v-on="on"
+                                                ></v-text-field>
+                                            </template>
+                                            <v-date-picker
+                                                locale="es-cl"
+                                                v-model="endDate"
+                                                scrollable
+                                            >
+                                                <v-spacer></v-spacer>
+                                                <v-btn
+                                                    text
+                                                    color="primary"
+                                                    @click="closeDialogEnd"
+                                                >
+                                                    Cancel
+                                                </v-btn>
+                                                <v-btn
+                                                    text
+                                                    color="primary"
+                                                    @click="saveEndDate"
+                                                >
+                                                    OK
+                                                </v-btn>
+                                            </v-date-picker>
+                                        </v-dialog>
+                                    </v-row>
+                                </v-card-subtitle>
+                            </v-col>
 
                     </v-row>
 
@@ -49,18 +138,31 @@
 
 
                 <!--Mostrar Distintos miembros-->
-                    <v-card-text
-                        v-for="(field,index) in fields" :key="index">
-                        <v-card-subtitle class="text-h5">{{field.name}}</v-card-subtitle>
-                        <v-card-subtitle>
-                            <auto-chip-component :selectList = "field.selected"
-                                                 :fullList = "field.fullList"
-                            ></auto-chip-component>
-                        </v-card-subtitle>
+                    <v-card-text>
+                        <v-row>
+                        <v-col
+                            v-for="(field,index) in fields" :key="index"
+                        >
+                            <v-card-subtitle class="text-h5">{{field.name}}</v-card-subtitle>
+                            <v-card-subtitle>
+                                <auto-chip-component
+                                    :name = "field.name"
+                                    :selectList = "field.selected"
+                                    :fullList = "field.fullList"
+                                ></auto-chip-component>
+                            </v-card-subtitle>
+                        </v-col>
+                        </v-row>
                     </v-card-text>
 
             </v-card>
         </v-col>
+        <v-col>
+            <v-btn class="btn" v-on:click="test">
+                Test
+            </v-btn>
+        </v-col>
+
         <!--
         <v-col>
             <v-card>
@@ -93,8 +195,13 @@ export default {
                     fullList : this.users
                 },
             ],
-            startDate: null,
-            endDate:null
+            projectName:this.project.nombre,
+            description:this.project.descripcion,
+            startDate: this.project.fechaInicio,
+            endDate:this.project.fechaTermino,
+            currentMember:null,
+            modalS:false,
+            modalE:false
         //Se deben incluir listas para cada tipo de miembros
         }
     },
@@ -106,9 +213,39 @@ export default {
 
     },
     methods:{
-        editNameEnable(){
-            this.name = !this.name;
+        test(){
+            console.table(this.project)
+
+            this.project.fechaInicio=this.startDate
+            this.project.fechaTermino=this.endDate
+            this.project.descripcion=this.description
+            this.project.nombre=this.projectName
+            console.table(this.project)
+
+
+
+
+        },
+        closeDialogStart(){
+            this.modalS = false
+            this.startDate= this.project.fechaInicio
+
+        },
+        saveStartDate(){
+            this.modalS = false
+            this.project.fechaInicio = this.startDate
+        },
+        closeDialogEnd(){
+            this.modalE = false
+            this.endDate= this.project.fechaTermino
+
+        },
+        saveEndDate(){
+            this.modalE = false
+            this.project.fechaTermino = this.endDate
+
         }
+
     }
 }
 </script>
