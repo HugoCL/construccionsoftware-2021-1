@@ -1,10 +1,11 @@
 <template>
+
     <v-combobox
-        v-model="boss"
-        :items="bosses"
+        v-model="selectList"
+        :items="fullList"
         chips
         clearable
-        label="Selector"
+        label="Seleccione miembros"
         multiple
         prepend-icon="mdi-filter-variant"
         solo
@@ -12,6 +13,7 @@
         <template v-slot:selection="{ attrs, item, select, selected }">
             <v-chip
                 v-bind="attrs"
+                color="primary"
                 :input-value="selected"
                 close
                 @click="select"
@@ -27,19 +29,19 @@ export default {
     name: "AutoChipComponent",
     data () {
         return {
-            name: "Jefes de Proyecto",
-            boss : ["Nicolas","Juan"],
-            bosses: ["Juan","Nicolas","Andres"]
         }
     },
 
     methods: {
         remove (item) {
-            this.boss.splice(this.boss.indexOf(item), 1)
-            this.boss = [...this.boss]
+            this.selectList.splice(this.selectList.indexOf(item), 1)
+            this.selectList = [...this.selectList]
         },
     },
     props:{
+        name: null,
+        selectList : null,
+        fullList: null
 
     },
 }
