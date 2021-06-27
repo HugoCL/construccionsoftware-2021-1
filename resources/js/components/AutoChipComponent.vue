@@ -3,6 +3,9 @@
     <v-combobox
         v-model="selectList"
         :items="fullList"
+        item-text="correo"
+        item-value="correo"
+        :return-object="true"
         chips
         clearable
         label="Seleccione miembros"
@@ -19,12 +22,16 @@
                 @click="select"
                 @click:close="remove(item)"
             >
-                <strong>{{ item }}</strong>&nbsp;
+                <strong>{{ item.nombre }} [{{item.correo}}]</strong>&nbsp;
             </v-chip>
         </template>
     </v-combobox>
+
+
 </template>
 <script>
+
+
 export default {
     name: "AutoChipComponent",
     data () {
@@ -36,7 +43,7 @@ export default {
         remove (item) {
             this.selectList.splice(this.selectList.indexOf(item), 1)
             this.selectList = [...this.selectList]
-        },
+        }
     },
     props:{
         name: null,

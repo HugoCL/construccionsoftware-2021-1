@@ -103,10 +103,11 @@
       },
 
       created(){
+
           /*
-                    axios.post('/user', {correo: 'ncastillo@hotmail.com', nombre: 'Nicolas'});
-                    axios.post('/user', {correo: 'awallberg@hotmail.com', nombre: 'Andres'});
-                    axios.post('/user', {correo: 'mvalenzuela@hotmail.com', nombre: 'Manuel'});  */
+                axios.post('/user', {correo: 'ncastillo@hotmail.com', nombre: 'Nicolas'});
+                axios.post('/user', {correo: 'awallberg@hotmail.com', nombre: 'Andres'});
+                axios.post('/user', {correo: 'mvalenzuela@hotmail.com', nombre: 'Manuel'});  */
 
            axios.get('/user')
                .then(response=>{

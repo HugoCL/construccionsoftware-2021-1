@@ -17,8 +17,6 @@ class CreateParticipatesTable extends Migration
             $table->integer('id_project');
             $table->string('id_user');
 
-            $table->primary(['id_project','id_user']);
-
             $table->foreign('id_project')->references('id')->on('proyectos')->cascadeOnDelete();
             $table->foreign('id_user')->references('correo')->on('usuarios');
 

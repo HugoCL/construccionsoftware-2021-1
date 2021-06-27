@@ -59,9 +59,6 @@
                         </v-card-subtitle>
                     </v-card-text>
 
-
-
-
             </v-card>
         </v-col>
         <!--
@@ -88,16 +85,12 @@ export default {
         return {
             fields : [
                 {   name:"Jefes de proyecto",
-                    selected : ["Nicolas Castillo"],
-                    fullList : ["Nicolas Castillo","Hugo Castro"]
+                    selected : this.leads,
+                    fullList : this.users
                 },
-                {   name:"Programadores",
-                    selected : ["Alberto Fugget"],
-                    fullList : ["Alberto Fugget","Pablo Marmol"]
-                },
-                {   name:"Diseñadores",
-                    selected : ["Nicolas C","Juan Hernandez"],
-                    fullList : ["Juan Hernandez","Nicolas C","Andres Wallberg"]
+                {   name:"Desarrolladores",
+                    selected : this.devs,
+                    fullList : this.users
                 },
             ],
             startDate: null,
@@ -106,6 +99,9 @@ export default {
         }
     },
     props:{
+        leads: [],
+        devs: [],
+        users: [],
         project: null
 
     },
