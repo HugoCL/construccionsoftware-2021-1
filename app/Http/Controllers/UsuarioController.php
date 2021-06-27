@@ -4,13 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Usuario;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 
 class UsuarioController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
+     * Recordar que esta es una relacion, el modelo 'user', es el usuario como tal
      * @return \Illuminate\Database\Eloquent\Collection|Usuario[]
      */
     public function index()
