@@ -41,11 +41,11 @@
 
         </v-list-item>
         <v-card-actions style="float:right" >
-            <v-btn class="ma-2" color="primary" >
+            <v-btn align="center" class="ma-2" color="secondary" >
                 Editar
                 <v-icon right>mdi-border-color</v-icon>
             </v-btn>
-            <v-btn class="ma-2 btn-danger" color="red">
+            <v-btn align="center" class="ma-2 btn-danger white--text" color="red">
                 Eliminar
                 <v-icon right>mdi-delete</v-icon>
             </v-btn>

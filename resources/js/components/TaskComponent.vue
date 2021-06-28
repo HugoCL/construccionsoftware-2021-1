@@ -3,7 +3,7 @@
     <!-- Cuadro que se abre al presionar una tarea y muestra su info-->
     <v-dialog
       v-model="dialog"
-      width="500"
+      width="60%"
       scrollable
     >
         <v-card
@@ -11,9 +11,9 @@
             color="primary"
             class="white--text subheading">
             <v-card-title color="primary" class="pt-1 pb-1">{{ taskData.name }}</v-card-title>
-            <v-divider></v-divider>
+            <v-divider class="pb-0 pt-0"></v-divider>
             <v-container row wrap>
-                <v-row  class="pl-3">
+                <v-row  class="pl-3 pb-2">
                     <v-chip-group  center-active column class="pl-3 pr-1 pt-2 pb-2">
                         <v-chip
                             v-for='(tag, index) in taskData.tags' :key='tag'
@@ -25,7 +25,6 @@
                     </v-chip-group>
                 </v-row>
             </v-container>
-            <v-divider></v-divider>
             <v-list dense>
                 <v-list-item>
                     <v-list-item-content>
@@ -114,7 +113,7 @@
 
         </v-card>
     </v-dialog>
-      <v-dialog v-model ="dialog1" width="300">
+      <v-dialog v-model ="dialog1" width="50%">
           <v-card >
               <v-toolbar class = "mb-2"
 
@@ -136,21 +135,21 @@
 
     <!-- Botón o tarjeta de cada tarea -->
     <v-card
-      class="white--text"
+      class="white--text pb-0"
       light
       color="primary"
       @click="dialog = true"
     >
       <v-card-title
-        class="subheading font-weight-bold pb-1 pt-1"
+        class="subheading font-weight-bold pb-2 pt-2"
       >
           {{taskData.name}}
       </v-card-title>
 
-      <v-divider></v-divider>
+      <v-divider class="mt-0"></v-divider>
         <v-container row wrap>
-            <v-row  class="pl-3">
-              <v-chip-group  center-active column class="pl-3 pr-1 pt-2 pb-2" >
+            <v-row align="center"  class="pl-3 pb-0">
+              <v-chip-group  center-active column class="pl-3 pr-1 pt-0 pb-0" >
                 <v-chip v-for='(tag, index) in taskData.tags' :key='tag' color="secondary"  class="white--text font-weight-bold">
                   {{tag}}
                 </v-chip>

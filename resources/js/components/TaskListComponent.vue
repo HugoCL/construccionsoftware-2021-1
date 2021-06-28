@@ -18,12 +18,12 @@
       <v-dialog
         v-model="dialog"
         persistent
-        max-width="600px"
+        width="60%"
       >
         <v-card class="pt-0 pb-0">
           <v-toolbar
             color="primary"
-            class="white--text pt-0 pb-0"
+            class="white--text pt-0 pb-0 title"
           >
             Crear nueva tarea
           </v-toolbar>
@@ -35,8 +35,9 @@
                 v-model="taskName"
                 label="Nombre"
                 hide-details="auto"
+                outlined
               ></v-text-field>
-                <div v-model="taskTags">
+                <div v-model="taskTags" outlined>
                     <div v-for='(tag, index) in taskTags' :key='tag' class='tag-input__tag'>
                         {{ tag }}
                         <span @click='removeTag(index)'>x</span>
@@ -45,7 +46,7 @@
                         title="Para terminar una etiqueta pulsa enter o una coma"
                         type='text'
                         placeholder="Añadir etiquetas"
-                        class='tag-input__text'
+                        class='tag-input__text pl-2 body-2'
                         @keydown.enter='addTag'
                         @keydown.188='addTag'
                         @keydown.delete='removeLastTag'
@@ -54,13 +55,17 @@
               <v-textarea
                 v-model="taskDesc"
                 label="Description"
+                outlined
               ></v-textarea>
               <v-combobox
                 v-model="taskMembers"
                 :items="peopleNames"
                 label="Miembros disponibles"
                 multiple
+                dense
                 chips
+                small-chips
+                outlined
               >
               </v-combobox>
             </v-col>
@@ -75,20 +80,24 @@
             transition="scale-transition"
             offset-y
             min-width="auto"
+
           >
             <template v-slot:activator="{ on, attrs }">
               <v-text-field
+                class="pl-2 mr-3"
                 v-model="taskDate"
                 label="Picker in menu"
                 prepend-icon="mdi-calendar"
                 readonly
                 v-bind="attrs"
                 v-on="on"
+                outlined
               ></v-text-field>
             </template>
             <v-date-picker
               v-model="taskDate"
               no-title
+              range
               scrollable
             >
               <v-spacer></v-spacer>
@@ -134,6 +143,7 @@
         v-for="(task, index) in tasks"
         :key="index"
         cols="12"
+        class="pb-0"
       >
         <Task
           :taskData="task"
@@ -232,7 +242,7 @@ export default {
     height: 30px;
     float: left;
     margin-right: 10px;
-    background-color: #3f51b5;
+    background-color: #576DB9;
     color: white;
     margin-top: 10px;
     line-height: 30px;

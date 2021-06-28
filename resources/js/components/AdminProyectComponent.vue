@@ -7,23 +7,31 @@
                             <h4>Administrar Proyectos</h4>
                         </v-col>
                         <v-col class="col-md-4">
-                            <v-dialog transition="dialog-top-transition"  max-width="800">
+                            <v-dialog transition="dialog-top-transition"  width="64%">
                                 <template v-slot:activator="{ on, attrs }">
                                     <div class="text-right d-flex align-right justify-space-around">
 
                                         <v-btn class="mr-4" v-bind="attrs"  v-on="on"> <v-icon dark rightclass="mr-4" >mdi-plus-circle-outline</v-icon>Nuevo Proyecto</v-btn>
-                                        <v-btn class="mr-4" color = "primary" v-on:click="refresh">  <v-icon right class="mr-4" >mdi-refresh</v-icon>Refrescar</v-btn>
+                                        <v-btn class="mr-4" color = "secondary" v-on:click="refresh">  <v-icon right class="mr-4" >mdi-refresh</v-icon>Refrescar</v-btn>
                                     </div>
                                 </template>
-                                <template v-slot:default="dialog">
+                                <template v-slot:default="dialog" >
                                     <v-card>
-                                        <v-toolbar>
-                                            <v-row>
-                                                <v-col cols="10">
-                                                    Nuevo Proyecto
+                                        <v-toolbar class="elevation-0">
+                                            <v-row align="center">
+                                                <v-col cols="10" >
+                                                    <span class="pl-2 mt-2 pt-2 title" >
+                                                        Nuevo proyecto
+                                                    </span>
                                                 </v-col>
-                                                <v-col cols="2"  class="" style="float: right;">
-                                                    <v-btn style="background: red;" @click="dialog.value = false"><v-icon>mdi-close</v-icon></v-btn>
+                                                <v-col cols="2" style="float: right;" class="text-right">
+                                                    <span class="pr-2">
+                                                        <v-btn color="transparent" class="pl-1 pr-1 pt-1 pb-1 elevation-0" @click="dialog.value = false" min-width="0" min-height="0">
+                                                            <v-icon>
+                                                                mdi-close
+                                                            </v-icon>
+                                                        </v-btn>
+                                                    </span>
                                                 </v-col>
                                             </v-row>
 
