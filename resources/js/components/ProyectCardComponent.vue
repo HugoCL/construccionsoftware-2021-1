@@ -41,11 +41,15 @@
 
         </v-list-item>
         <v-card-actions style="float:right" >
-            <v-btn class="ma-2" color="primary" >
+            <v-btn class="btn ma-2" color="primary" >
                 Editar
                 <v-icon right>mdi-border-color</v-icon>
             </v-btn>
-            <v-btn class="ma-2 btn-danger" color="red">
+            <v-btn href="/administrar-proyectos/integrantes?id=1234" class="btn ma-2 btn-secondary" color="">
+                Integrantes
+                <v-icon right >mdi-account</v-icon>
+            </v-btn>
+            <v-btn class="btn ma-2 btn-danger" color="red">
                 Eliminar
                 <v-icon right>mdi-delete</v-icon>
             </v-btn>

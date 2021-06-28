@@ -26,6 +26,7 @@ Route::get('/', function () {
 Auth::routes();
 Route::resource('/proyectos', 'App\Http\Controllers\ProjectsController');
 Route::resource('administrar-proyectos/nuevo', 'App\Http\Controllers\newProyectController');
+Route::resource('administrar-proyectos/integrantes', 'App\Http\Controllers\IntegrantsControllerController');
 Route::resource('administrar-proyectos', 'App\Http\Controllers\AdminProyectsController');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('testtaskscomponents', [TestTasksComponentsController::class, 'index']);
