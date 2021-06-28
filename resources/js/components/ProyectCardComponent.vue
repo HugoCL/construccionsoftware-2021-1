@@ -3,11 +3,15 @@
         class="mx-auto"
         outlined
     >
-        <v-list-item>
+        <v-list-item
+            class="btn text-left"
+            v-bind:href="'/administrar-proyectos/'+proyectData.id"
+            v-on:click="getProject(proyectData.id)"
+        >
             <v-list-item-content>
                 <div class="text-overline mb-1">
                     <v-list-item-title class="text-h6 mb-1" >
-                        {{proyectData.nombre}}
+                        <a  > {{proyectData.nombre}} </a>
                     </v-list-item-title>
 
                 </div>
@@ -25,7 +29,9 @@
                         <v-col cols="3">
                             Fecha Termino: {{proyectData.fechaTermino}}
                         </v-col >
-
+                        <v-col cols="3">
+                            ID: {{proyectData.id}}
+                        </v-col >
                     </v-row>
 
                 </v-list-item-content>
@@ -41,14 +47,13 @@
 
         </v-list-item>
         <v-card-actions style="float:right" >
-            <v-btn class="ma-2" color="primary" >
-                Editar
-                <v-icon right>mdi-border-color</v-icon>
-            </v-btn>
-            <v-btn class="ma-2 btn-danger" color="red">
-                Eliminar
-                <v-icon right>mdi-delete</v-icon>
-            </v-btn>
+
+
+                        <v-btn class="ma-2 btn-danger" color="red" v-on:click="deleteProject(proyectData.id)">
+                            Eliminar
+                            <v-icon right>mdi-delete</v-icon>
+                        </v-btn>
+
 
         </v-card-actions>
 
@@ -57,13 +62,25 @@
 </template>
 
 <script>
+import EditProyectComponent from "./EditProyectComponent";
 export default {
+    components: {EditProyectComponent},
     data(){
         return{
 
         }
     },
     methods:{
+        getProject: function (id){
+            axios.get('/administrar-proyectos/'+id);
+        },
+
+        deleteProject: function (id){
+            axios.delete('/administrar-proyectos/'+id);
+            window.location.href="administrar-proyectos";
+            window.location.href="administrar-proyectos";
+
+        },
 
     },
     props:{
