@@ -16,7 +16,7 @@
                 <v-row  class="pl-3">
                     <v-chip-group  center-active column class="pl-3 pr-1 pt-2 pb-2">
                         <v-chip
-                            v-for='(tag, index) in taskData.tags' :key='tag'
+                            v-for='(tag) in taskData.tags' :key='tag'
                             color="secondary"
                             class="white--text font-weight-bold"
                         >
@@ -106,6 +106,17 @@
                                 @click="dialog1=true"
                             >Changes
                             </v-btn>
+                            
+
+                            <v-btn
+                                class="mx-2"
+                                dark
+                                color ="primary"
+                                @click="dialog3=true">
+                                graficos
+                            </v-btn>
+
+
                         </div>
                     </v-card-action>
                 </v-list-item>
@@ -122,7 +133,7 @@
                          dark
               >Changes History</v-toolbar>
 
-              <v-card-text v-for="(item,index) in taskData.changes":key="index">
+              <v-card-text v-for="(item,index) in taskData.changes" :key="index">
                   {{item}}
               </v-card-text>
 
@@ -133,6 +144,42 @@
               > Close </v-btn>
           </v-card>
       </v-dialog>
+
+        <v-dialog v-model ="dialog3" widht="400">
+          <v-card>
+            <v-toolbar>Prueba de graficos</v-toolbar>
+              <v-sheet dark color="primary" v-model= "list">
+                <v-sparkline
+                  :value="values"
+                  color="rgba(255, 255, 255, .7)"
+                  height="100"
+                  padding="24"
+                  stroke-linecap="round"
+                  smooth
+                >
+                  <template v-slot:label="item">
+                    {{ item.value }}
+                  </template>
+                </v-sparkline>
+
+              </v-sheet>
+              Tareas creadas vs tareas completadas
+              <v-sheet v-model= "proyects" v-for="(item,aux) in proyects" :key="aux"
+                dark
+                color="primary"
+              >
+                {{item.nombre}} 
+                <v-progress-circular
+                  
+                  :value= "item.porcentaje"
+                >{{item.numtareasCompletada}}/{{item.numTareas}}</v-progress-circular>
+              </v-sheet>
+            <v-btn
+              @click ="dialog3=false"
+
+            >hola</v-btn>
+          </v-card>
+        </v-dialog>
 
     <!-- Botón o tarjeta de cada tarea -->
     <v-card
@@ -151,7 +198,7 @@
         <v-container row wrap>
             <v-row  class="pl-3">
               <v-chip-group  center-active column class="pl-3 pr-1 pt-2 pb-2" >
-                <v-chip v-for='(tag, index) in taskData.tags' :key='tag' color="secondary"  class="white--text font-weight-bold">
+                <v-chip v-for='(tag) in taskData.tags' :key='tag' color="secondary"  class="white--text font-weight-bold">
                   {{tag}}
                 </v-chip>
               </v-chip-group>
@@ -197,12 +244,33 @@
 </template>
 
 <script>
+  
 
   export default {
+    
+
     name: 'Task',
     data: () => ({
+      values: [1,2,3,4,1,10],
+      list: ["a","b","c","d","e"],
+      
+      proyects: [{
+        nombre: "nombre1",
+        numTareas: 3,
+        numtareasCompletada:1,
+        porcentaje: 33
+        },
+        {
+        nombre: "nombre2",
+        numTareas: 5,
+        numtareasCompletada: 2,
+        porcentaje: 45
+        }
+      ],
+      
       dialog: false,
       dialog1:false,
+      dialog3:false,
       /**
      * variables a usar en v-check para checklist de tarea
      * lista testCheckList contiene una variable que almacena una "micro-tarea" string
@@ -212,9 +280,10 @@
     taskCheckLists:[ {
         taskCheck: "¡ejemplo de tarea! borrame",
         checkeada: false
-     },
-    ]
+        },
+      ]
     }),
+ 
     props: {
       taskData: null
     },
@@ -241,7 +310,10 @@
       quitarTareaCheck: function(tarea){
           let index = this.taskCheckLists.indexOf(tarea);
           this.taskCheckLists.splice(index,1);
-        }
+        },
+      getPercent: function(x,y){
+        return x/y;
+      }
     }
   }
 </script>
