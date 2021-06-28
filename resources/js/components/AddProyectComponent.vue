@@ -69,9 +69,6 @@
             </v-btn>
 
         </div>
-        <div>
-            <TaskList></TaskList>
-        </div>
 </div>
 
 </template>

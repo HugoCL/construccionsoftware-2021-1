@@ -57,7 +57,7 @@
             ></v-textarea>
             <v-combobox
               v-model="taskMembers"
-              :items="peopleNames"
+              :items="formatedPeopleNames"
               label="Miembros disponibles"
               multiple
               chips
@@ -137,7 +137,7 @@
       >
         <Task
           :taskData="task"
-          :peopleNames="peopleNames"
+          :peopleNames="formatedPeopleNames"
         />
       </v-col>
     </v-row>
@@ -160,12 +160,11 @@ export default {
     taskMembers: [],
     taskTags: [],
     taskChanges: [],
-    peopleNames: ['Juanito Pérez', 'Juliana Soza', 'Juancho Silva', 'Manuel Hernandez', 'Jesus Alberga', 'Pedro Perez'],
-
+    formatedPeopleNames: [],
     tasks: [
       {
         name: 'Crear interfaz',
-        members: ['Juanito Pérez', 'Juliana Soza'],
+        members: [],
         desc: 'Lorem ipsum dolor sit amet tempus penatibus taciti feugiat cras fames laoreet bibendum ligula nibh. Tristique convallis leo nibh porta odio feugiat blandit ullamcorper scelerisque cursus, luctus aptent netus sagittis egestas quis felis pulvinar ut vestibulum, ante mi cum suspendisse ornare potenti praesent eleifend varius. Quis dignissim dictum imperdiet bibendum mattis, vivamus phasellus donec tempor.',
         date: '2021-06-26',
         tags: ['HU02', 'TA02', 'P1'],
@@ -173,7 +172,7 @@ export default {
       },
       {
         name: 'Implementar botones',
-        members: ['Juancho Silva', 'Manuel Hernandez', 'Jesus Alberga'],
+        members: [],
         desc: 'Lorem ipsum dolor sit amet consectetur adipiscing Tristique egestas quis felis pulvinar ut vestibulum, ante mi cum suspendisse ornare potenti praesent eleifend varius. Quis dignissim dictum imperdiet bibendum mattis, vivamus phasellus donec tempor.',
         date: '2021-06-10',
         tags: ['HU02', 'TA02', 'P2'],
@@ -181,7 +180,7 @@ export default {
       },
       {
         name: 'Seleccionar colores',
-        members: ['Pedro Perez'],
+        members: [],
         desc: 'Lorem ipsum dolor sit amet consectetur adipiscing elit senectus fringilla arcu a, iaculis sodales magna sollicitudin ridiculus tempus penatibus facilisis ac cursus nullam praesent, venenatis lectus taciti feugiat cras fames laoreet bibendum ligula nibh. Tristique convallis leo nibh porta odio feugiat blandit ullamcorper scelerisque cursus, luctus aptent netus sagittis egestas quis felis pulvinar ut vestibulum, ante mi cum suspendisse ornare potenti praesent eleifend varius. Quis dignissim dictum imperdiet bibendum mattis, vivamus phasellus donec tempor.',
         date: '2021-07-01',
         tags: ['HU02', 'TA02', 'P3'],
@@ -190,7 +189,15 @@ export default {
 
     ]
   }),
+  props: {
+    peopleNames: []
+  },
   methods: {
+    formatPeopleNames: function () {
+      for (let user of this.peopleNames) {
+        this.formatedPeopleNames.push(user.nombre+' '+user.correo);
+      }
+    },
     addTag(event) {
       event.preventDefault()
       var val = event.target.value.trim()
@@ -221,6 +228,9 @@ export default {
       this.taskChanges = '';
       this.dialog = false;
     }
+  },
+  mounted() {
+    this.formatPeopleNames();
   }
 }
 </script>
