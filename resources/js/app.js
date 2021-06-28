@@ -13,6 +13,7 @@ import tasklist from './components/TaskListComponent'
 Vue.component('crear-proyecto', require('./components/AddProyectComponent.vue').default);
 Vue.component('proyect-card', require('./components/ProyectCardComponent.vue').default);
 Vue.component('admin-proyects', require('./components/AdminProyectComponent.vue').default);
+Vue.component('users-table',require('./components/UsersTableComponent.vue'.default));
 
 
 

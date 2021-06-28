@@ -27,6 +27,7 @@ Auth::routes();
 Route::resource('/proyectos', 'App\Http\Controllers\ProjectsController');
 Route::resource('administrar-proyectos/nuevo', 'App\Http\Controllers\newProyectController');
 Route::resource('administrar-proyectos', 'App\Http\Controllers\AdminProyectsController');
+Route::resource('lista-usuarios','App\Http\Controllers\UsersTableController');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('testtaskscomponents', [TestTasksComponentsController::class, 'index']);
 Route::resource('/user', 'App\Http\Controllers\UsuarioController');
