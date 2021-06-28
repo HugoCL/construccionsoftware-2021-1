@@ -325,7 +325,7 @@ export default {
     tasks: null,
     taskData: null,
     peopleNames: null,
-    sortedTasks: null,
+    sortedTasks: null
   },
   methods: {
     /*
@@ -367,7 +367,9 @@ export default {
       taskData.members = this.taskMembers;
       taskData.tags = this.taskTags;
       taskData.date = this.taskDate;
+      this.sortByUser();
       this.editDialog = false;
+
     },
     deleteTask: function () {
       let deleted = this.tasks.splice(this.tasks.indexOf(this.taskData), 1);
@@ -387,6 +389,10 @@ export default {
     removeTag(index) {
       this.taskTags.splice(index, 1)
     },
+    sortByUser: function (){
+      this.$emit('sort-tasks');
+
+    }
   }
 }
 </script>

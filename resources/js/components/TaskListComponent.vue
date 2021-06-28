@@ -146,6 +146,7 @@
           :taskData="task"
           :peopleNames="formatedPeopleNames"
           :sortedTasks="sortedTasks"
+          @sort-tasks="sortByUser"
         />
       </v-col>
     </v-row>
@@ -217,9 +218,6 @@ export default {
           }
         }
       }
-
-
-
     },
     formatPeopleNames: function () {
       for (let user of this.peopleNames) {
