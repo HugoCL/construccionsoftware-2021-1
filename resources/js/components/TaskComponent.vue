@@ -324,7 +324,8 @@ export default {
   props: {
     tasks: null,
     taskData: null,
-    peopleNames: null
+    peopleNames: null,
+    sortedTasks: null,
   },
   methods: {
     /*
@@ -369,7 +370,11 @@ export default {
       this.editDialog = false;
     },
     deleteTask: function () {
-      this.tasks.splice(this.tasks.indexOf(this.taskData), 1);
+      let deleted = this.tasks.splice(this.tasks.indexOf(this.taskData), 1);
+      for (let item of this.sortedTasks) {
+        let tasks = item.tasks;
+        tasks.splice(tasks.indexOf(deleted), 1);
+      }
     },
     addTag(event) {
       event.preventDefault()
