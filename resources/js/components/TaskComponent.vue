@@ -322,6 +322,7 @@ export default {
     ]
   }),
   props: {
+    tasks: null,
     taskData: null,
     peopleNames: null
   },
@@ -368,7 +369,7 @@ export default {
       this.editDialog = false;
     },
     deleteTask: function () {
-
+      this.tasks.splice(this.tasks.indexOf(this.taskData), 1);
     },
     addTag(event) {
       event.preventDefault()

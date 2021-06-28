@@ -136,6 +136,7 @@
         cols="12"
       >
         <Task
+          :tasks="tasks"
           :taskData="task"
           :peopleNames="formatedPeopleNames"
         />
