@@ -1,9 +1,9 @@
 <template>
     <v-card
-        class="mx-auto"
+        class="mx-0 px-0"
         outlined
     >
-        <v-list-item>
+        <v-list-item class="mx-0">
             <v-list-item-content>
                 <div class="text-overline mb-1">
                     <v-list-item-title class="text-h6 mb-1" >

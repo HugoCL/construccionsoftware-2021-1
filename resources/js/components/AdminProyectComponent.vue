@@ -1,30 +1,28 @@
 <template>
     <div class="container" data-app>
-        <div class="row justify-content-center">
-            <div cols="12" style="float: right" >
-                    <v-row>
-                        <v-col class="col-md-8 align-left" >
-                            <h4>Administrar Proyectos</h4>
-                        </v-col>
-                        <v-col class="col-md-4">
-                            <v-dialog transition="dialog-top-transition"  width="64%">
-                                <template v-slot:activator="{ on, attrs }">
-                                    <div class="text-right d-flex align-right justify-space-around">
+        <v-container>
+            <v-row >
+                <v-col cols="3" class="title mr-16 pr-0">
+                    Administrar proyectos
+                </v-col>
+                <v-col cols="2">
+                    <v-dialog transition="dialog-top-transition"  width="64%">
+                        <template v-slot:activator="{ on, attrs }">
+                            <div>
 
-                                        <v-btn class="mr-4" v-bind="attrs"  v-on="on"> <v-icon dark rightclass="mr-4" >mdi-plus-circle-outline</v-icon>Nuevo Proyecto</v-btn>
-                                        <v-btn class="mr-4" color = "secondary" v-on:click="refresh">  <v-icon right class="mr-4" >mdi-refresh</v-icon>Refrescar</v-btn>
-                                    </div>
-                                </template>
-                                <template v-slot:default="dialog" >
-                                    <v-card>
-                                        <v-toolbar class="elevation-0">
-                                            <v-row align="center">
-                                                <v-col cols="10" >
+                                <v-btn v-bind="attrs" color="secondary" v-on="on"> <v-icon class="pr-2">mdi-plus-circle-outline</v-icon>Nuevo Proyecto</v-btn>
+                            </div>
+                        </template>
+                        <template v-slot:default="dialog" >
+                            <v-card>
+                                <v-toolbar class="elevation-0">
+                                    <v-row align="center">
+                                        <v-col cols="10" >
                                                     <span class="pl-2 mt-2 pt-2 title" >
                                                         Nuevo proyecto
                                                     </span>
-                                                </v-col>
-                                                <v-col cols="2" style="float: right;" class="text-right">
+                                        </v-col>
+                                        <v-col cols="2" style="float: right;" class="text-right">
                                                     <span class="pr-2">
                                                         <v-btn color="transparent" class="pl-1 pr-1 pt-1 pb-1 elevation-0" @click="dialog.value = false" min-width="0" min-height="0">
                                                             <v-icon>
@@ -32,38 +30,33 @@
                                                             </v-icon>
                                                         </v-btn>
                                                     </span>
-                                                </v-col>
-                                            </v-row>
+                                        </v-col>
+                                    </v-row>
 
-                                        </v-toolbar>
+                                </v-toolbar>
 
-                                        <v-card-text>
-                                            <crear-proyecto></crear-proyecto>
-                                        </v-card-text>
-                                    </v-card>
-                                </template>
-                            </v-dialog>
+                                <v-card-text>
+                                    <crear-proyecto></crear-proyecto>
+                                </v-card-text>
+                            </v-card>
+                        </template>
+                    </v-dialog>
+                </v-col>
+            </v-row>
+            <v-row>
+                <v-col cols="6">
+                    <ul class="list-group mx-0 px-0">
+                        <li class="list-group-item"
+                            v-for="(proyect,index) in proyectos":key="index">
+                            <proyect-card
+                                :proyectData="proyect"
+                             > </proyect-card>
+                        </li>
+                    </ul>
+                </v-col>
+            </v-row>
+        </v-container>
 
-                        </v-col>
-
-                    </v-row>
-                </div>
-
-            <div  cols="12"
-                    sm="6"
-                    md="8">
-                <ul class="list-group">
-                    <li class="list-group-item"
-                        v-for="(proyect,index) in proyectos":key="index">
-                        <proyect-card
-                            :proyectData="proyect"
-                        > </proyect-card>
-                    </li>
-                </ul>
-
-
-            </div>
-        </div>
     </div>
 </template>
 

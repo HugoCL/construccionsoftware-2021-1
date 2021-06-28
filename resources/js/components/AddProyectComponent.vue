@@ -62,7 +62,7 @@
                         >
                             <template v-slot:activator="{ on, attrs }">
                                 <v-text-field
-                                    class="pl-2 mr-3"
+                                    class="pl-2"
                                     v-model="taskDate"
                                     label="Picker in menu"
                                     prepend-icon="mdi-calendar"
@@ -104,17 +104,28 @@
 
 
             </v-row>
-            <v-btn
-                class="btn w-100"
-                @click="send"
-            >
-                Enviar
-            </v-btn>
+            <v-container class="mb-4 mx-0 px-0">
+                <v-row class="justify-center">
+                    <v-btn
+                        class="justify-center"
+                        width="50%"
+                        @click="send"
+                        color="primary"
+                    >
+                        <v-icon  class="pr-2">
+                            mdi-send
+                        </v-icon>
+                        Enviar
+                    </v-btn>
+                </v-row>
+            </v-container>
 
         </div>
-        <div class="pb-0">
-            <TaskList></TaskList>
-        </div>
+        <v-container class="pb-0 mx-0 px-0">
+            <v-row>
+                <TaskList></TaskList>
+            </v-row>
+        </v-container>
 </div>
 
 </template>

@@ -1,18 +1,20 @@
 <template>
   <v-container light fluid>
       <!--Barra de tareas-->
-      <v-toolbar
-        color="primary"
-        class="mb-1"
-      >
-        <v-btn
-          color="secondary"
-          @click="dialog = true"
-
-        >
-          Nueva tarea
+      <v-row class="justify-center  mx-0 px-0">
+          <v-btn
+              color="secondary"
+              @click="dialog = true"
+              class="mb-4"
+              width="50%"
+          >
+              <v-icon class="pr-2">
+                  mdi-card-plus-outline
+              </v-icon>
+              Nueva tarea
         </v-btn>
-      </v-toolbar>
+      </v-row>
+
 
     <!--Cuadro de diálogo para crear nueva tarea-->
       <v-dialog
@@ -143,7 +145,7 @@
         v-for="(task, index) in tasks"
         :key="index"
         cols="12"
-        class="pb-0"
+        class="py-2"
       >
         <Task
           :taskData="task"
