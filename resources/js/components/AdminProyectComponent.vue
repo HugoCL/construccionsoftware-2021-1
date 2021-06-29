@@ -54,7 +54,7 @@
                     md="8">
                 <ul class="list-group">
                     <li class="list-group-item"
-                        v-for="(proyect,index) in proyectos":key="index">
+                        v-for="(proyect,index) in proyectos" :key="index">
                         <proyect-card
                             :proyectData="proyect"
                         > </proyect-card>
