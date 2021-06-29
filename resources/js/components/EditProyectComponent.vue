@@ -155,7 +155,7 @@
         </v-row>
         <!--Task list-->
         <v-row>
-            <TaskList :peopleNames="temporalUsers"/>
+            <TaskList :peopleNames="users"/>
         </v-row>
 
     </v-container>
@@ -171,12 +171,6 @@ export default {
     components: {TaskList, AutoChipComponent},
     data(){
         return {
-          temporalUsers: [
-            {
-              nombre: 'Andres',
-              correo: 'awallberg@hotmail.com'
-            }
-          ],
             fields : [
                 {   name:"Jefes de proyecto",
                     selected : this.leads,

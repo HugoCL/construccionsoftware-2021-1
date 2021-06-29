@@ -6,7 +6,7 @@
             <v-container>
                 <edit-proyect-component
                     :project="{{json_encode($project)}}"
-                  
+                    :users="{{json_encode($users)}}"
                 >
                 </edit-proyect-component>
             </v-container>
