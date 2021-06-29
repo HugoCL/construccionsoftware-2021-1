@@ -136,89 +136,85 @@
 
 </template>
 <script>
-  import TaskList from "./TaskListComponent";
-  export default {
-      components: {TaskList},
-      data(){
-          return {
-              items: [],
-              proyectos:[],
-              proyecto: {
-                  name: '',
-                  dates: [],
-                  description: '',
-                  bosses: [],
-                  workers: [],
-                  select: null,
-              },
+import TaskList from "./TaskListComponent";
+export default {
+    components: {TaskList},
+    data(){
+        return {
+            items: [],
+            proyectos:[],
+            proyecto: {
+                name: '',
+                dates: [],
+                description: '',
+                bosses: [],
+                workers: [],
+                select: null,
+            },
+            emailRules: [
+                v => !!v || 'E-mail is required',
+                v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
+            ],
+        }
+    },
 
+    created(){
 
+        /*
+              axios.post('/user', {correo: 'ncastillo@hotmail.com', nombre: 'Nicolas'});
+              axios.post('/user', {correo: 'awallberg@hotmail.com', nombre: 'Andres'});
+              axios.post('/user', {correo: 'mvalenzuela@hotmail.com', nombre: 'Manuel'});  */
 
+        axios.get('/user')
+            .then(response=>{
+                const users = [];
+                const res = response.data;
+                this.items = res;
+                console.log(res);
 
-              emailRules: [
-                  v => !!v || 'E-mail is required',
-                  v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
-              ],
-          }
-      },
+            });
+    },
 
-      created(){
+    methods: {
+        send () {
+            if(this.proyecto.name.trim() === '' || this.proyecto.dates.length === 0 || this.proyecto.description.trim() === ''
+                || this.proyecto.bosses.length === 0 || this.proyecto.workers.length === 0){
+                alert('Debes completar todos los campos antes de guardar');
+                return;
+            }
 
-          /*
-                axios.post('/user', {correo: 'ncastillo@hotmail.com', nombre: 'Nicolas'});
-                axios.post('/user', {correo: 'awallberg@hotmail.com', nombre: 'Andres'});
-                axios.post('/user', {correo: 'mvalenzuela@hotmail.com', nombre: 'Manuel'});  */
+            const d1 = new Date(this.proyecto.dates[0]);
+            const d2 = new Date(this.proyecto.dates[1]);
 
-           axios.get('/user')
-               .then(response=>{
-                   const users = [];
-                   const res = response.data;
-                   this.items = res;
-                   console.log(res);
+            if (+d1 >= +d2){
+                console.log(this.proyecto.dates[0] + '-' + this.proyecto.dates[1])
+                if (+d1 === +d2) {
+                    alert('Las fechas no pueden ser iguales');
+                    return;
+                }
+                let aux = this.proyecto.dates[1];
 
-               });
-       },
+                this.proyecto.dates[1] = this.proyecto.dates[0];
+                this.proyecto.dates[0] = aux;
 
-       methods: {
-           send () {
-               if(this.proyecto.name.trim() === '' || this.proyecto.dates.length === 0 || this.proyecto.description.trim() === ''
-                   || this.proyecto.bosses.length === 0 || this.proyecto.workers.length === 0){
-                   alert('Debes completar todos los campos antes de guardar');
-                   return;
-               }
+            }
 
-               const d1 = new Date(this.proyecto.dates[0]);
-               const d2 = new Date(this.proyecto.dates[1]);
-
-               if (+d1 >= +d2){
-                   console.log(this.proyecto.dates[0] + '-' + this.proyecto.dates[1])
-                   if (+d1 === +d2) {
-                       alert('Las fechas no pueden ser iguales');
-                       return;
-                   }
-                   let aux = this.proyecto.dates[1];
-
-                   this.proyecto.dates[1] = this.proyecto.dates[0];
-                   this.proyecto.dates[0] = aux;
-
-               }
-
-               console.log(
-                   {
-                       'name':this.proyecto.name,
-                       'dates':this.proyecto.dates,
-                       'bosses':this.proyecto.bosses,
-                       'workers':this.proyecto.workers
-                   }
-               );
-               const nuevoProyecto = this.proyecto;
-               this.proyecto = {name: '', description: '', dates: [], bosses: [], workers: []};
-               axios.post('/administrar-proyectos/nuevo', nuevoProyecto)
-                   .then(response => {
-                       console.log(response.data);
-                   });
-               window.location.href="http://127.0.0.1:8000/administrar-proyectos";
-           }
-       }
-   }
+            console.log(
+                {
+                    'name':this.proyecto.name,
+                    'dates':this.proyecto.dates,
+                    'bosses':this.proyecto.bosses,
+                    'workers':this.proyecto.workers
+                }
+            );
+            const nuevoProyecto = this.proyecto;
+            this.proyecto = {name: '', description: '', dates: [], bosses: [], workers: []};
+            axios.post('/administrar-proyectos/nuevo', nuevoProyecto)
+                .then(response => {
+                    console.log(response.data);
+                });
+            window.location.href="http://127.0.0.1:8000/administrar-proyectos";
+        }
+    }
+}
 </script>
