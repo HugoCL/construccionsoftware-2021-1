@@ -116,7 +116,7 @@
     <!-- Cuadro que se abre al presionar una tarea y muestra su info-->
     <v-dialog
       v-model="dialog"
-      width="500"
+      width="60%"
       scrollable
     >
       <v-card
@@ -228,9 +228,9 @@
 
       </v-card>
     </v-dialog>
-    <v-dialog v-model="dialog1" width="300">
-      <v-card>
-        <v-toolbar class="mb-2"
+      <v-dialog v-model ="dialog1" width="50%">
+          <v-card >
+              <v-toolbar class = "mb-2"
 
                    color="primary"
                    dark
@@ -252,13 +252,13 @@
 
     <!-- Botón o tarjeta de cada tarea -->
     <v-card
-      class="white--text"
+      class="white--text pb-0"
       light
       color="primary"
       @click="dialog = true"
     >
       <v-card-title
-        class="subheading font-weight-bold pb-1 pt-1"
+        class="subheading font-weight-bold pb-2 pt-2"
       >
         {{ taskData.name }}
       </v-card-title>
