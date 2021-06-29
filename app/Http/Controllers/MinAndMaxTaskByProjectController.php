@@ -103,9 +103,12 @@ class MinAndMaxTaskByProjectController extends Controller
     public function moreTasksByProject()
     {
         $projectIDs = Proyecto::query()->select(['id']);
-        $projectTasks = Tarea::query()->select(['*'])->whereIn('id_project', $projectIDs)->get();
-        return $projectTasks->max('id');
+        $projectTasks = Tarea::query()->select(['*'])->whereIn('id_proyecto', $projectIDs)->get();
 
+        $auxArray =  $this->repeatedValueCount($projectIDs->id, $projectTasks);
+        return $auxArray.max();
+
+        //return $projectTasks->max('id');
         //return $projectTasks->where('id', DB::raw("(select max('id') from project tasks)"))->get();
         /*return Proyecto::query()->select(['*'])->whereIn('id', function ($query){
             $query->selectRaw('max(id)')->from('minAndMaxTaskByProject')->groupBy('id');
@@ -120,8 +123,29 @@ class MinAndMaxTaskByProjectController extends Controller
     public function lessTasksByProject()
     {
         $projectIDs = Proyecto::query()->select(['id']);
-        $projectTasks = Tarea::query()->select(['*'])->whereIn('id_project', $projectIDs)->get();
-        return $projectTasks->min('id');
+        $projectTasks = Tarea::query()->select(['*'])->whereIn('id_proyecto', $projectIDs)->get();
+
+        $auxArray =  $this->repeatedValueCount($projectIDs->id, $projectTasks);
+        return $auxArray.min();
+
+        //return $projectTasks->min('id');
+        //return $projectTasks->where('id', DB::raw("(select min('id') from project tasks)"))->get();
+        /*return Proyecto::query()->select(['*'])->whereIn('id', function ($query){
+            $query->selectRaw('min(id)')->from('minAndMaxTaskByProject')->groupBy('id');
+        })->toSql();*/
+    }
+
+    /**
+     * This function is counting how many times appears the array data
+     *
+     * @param $value
+     * @param $projectTasks
+     * @return mixed
+     */
+    public function repeatedValueCount($value, $projectTasks)
+    {
+        $arrayValues = array_count_values($projectTasks->id_proyecto);
+        return $arrayValues[$value];
     }
 
 }

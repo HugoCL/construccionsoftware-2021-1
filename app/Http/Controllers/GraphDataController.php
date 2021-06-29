@@ -128,7 +128,7 @@ class GraphDataController extends Controller
     {
         //$project = Proyecto::find($id_project); //<- Eloquent
         $projectIDs = Proyecto::query()->select(['id']);
-        return Tarea::query()->select(['*'])->whereIn('id_project', $projectIDs)->get();
+        return Tarea::query()->select(['*'])->whereIn('id_proyecto', $projectIDs)->get();
 
 
         /*$tasks = Tarea::all();
