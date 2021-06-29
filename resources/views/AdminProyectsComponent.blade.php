@@ -4,7 +4,8 @@
     <div id="app">
     <v-app app>
         <v-container>
-            <admin-proyects></admin-proyects>
+            <admin-proyects
+                :projects="{{json_encode($projects)}}"></admin-proyects>
         </v-container>
     </v-app>
     </div>

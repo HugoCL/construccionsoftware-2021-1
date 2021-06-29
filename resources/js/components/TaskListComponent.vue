@@ -57,7 +57,7 @@
             ></v-textarea>
             <v-combobox
               v-model="taskMembers"
-              :items="peopleNames"
+              :items="formatedPeopleNames"
               label="Miembros disponibles"
               multiple
               chips
@@ -129,15 +129,24 @@
     </v-dialog>
 
     <!--Muestra las tareas disponibles-->
-    <v-row>
+    <v-row
+      v-for="(userTask, index1) in sortedTasks"
+      :key="index1"
+    >
+      <v-col cols="12">
+        <h2>{{ userTask.username }}</h2>
+      </v-col>
       <v-col
-        v-for="(task, index) in tasks"
-        :key="index"
+        v-for="(task, index2) in userTask.tasks"
+        :key="index2"
         cols="12"
       >
         <Task
+          :tasks="tasks"
           :taskData="task"
-          :peopleNames="peopleNames"
+          :peopleNames="formatedPeopleNames"
+          :sortedTasks="sortedTasks"
+          @sort-tasks="sortByUser"
         />
       </v-col>
     </v-row>
@@ -160,12 +169,12 @@ export default {
     taskMembers: [],
     taskTags: [],
     taskChanges: [],
-    peopleNames: ['Juanito Pérez', 'Juliana Soza', 'Juancho Silva', 'Manuel Hernandez', 'Jesus Alberga', 'Pedro Perez'],
-
+    formatedPeopleNames: [],
+    sortedTasks: [],
     tasks: [
       {
         name: 'Crear interfaz',
-        members: ['Juanito Pérez', 'Juliana Soza'],
+        members: ['Andres awallberg@hotmail.com'],
         desc: 'Lorem ipsum dolor sit amet tempus penatibus taciti feugiat cras fames laoreet bibendum ligula nibh. Tristique convallis leo nibh porta odio feugiat blandit ullamcorper scelerisque cursus, luctus aptent netus sagittis egestas quis felis pulvinar ut vestibulum, ante mi cum suspendisse ornare potenti praesent eleifend varius. Quis dignissim dictum imperdiet bibendum mattis, vivamus phasellus donec tempor.',
         date: '2021-06-26',
         tags: ['HU02', 'TA02', 'P1'],
@@ -173,7 +182,7 @@ export default {
       },
       {
         name: 'Implementar botones',
-        members: ['Juancho Silva', 'Manuel Hernandez', 'Jesus Alberga'],
+        members: ['Andres awallberg@hotmail.com'],
         desc: 'Lorem ipsum dolor sit amet consectetur adipiscing Tristique egestas quis felis pulvinar ut vestibulum, ante mi cum suspendisse ornare potenti praesent eleifend varius. Quis dignissim dictum imperdiet bibendum mattis, vivamus phasellus donec tempor.',
         date: '2021-06-10',
         tags: ['HU02', 'TA02', 'P2'],
@@ -181,7 +190,7 @@ export default {
       },
       {
         name: 'Seleccionar colores',
-        members: ['Pedro Perez'],
+        members: ['Andres awallberg@hotmail.com'],
         desc: 'Lorem ipsum dolor sit amet consectetur adipiscing elit senectus fringilla arcu a, iaculis sodales magna sollicitudin ridiculus tempus penatibus facilisis ac cursus nullam praesent, venenatis lectus taciti feugiat cras fames laoreet bibendum ligula nibh. Tristique convallis leo nibh porta odio feugiat blandit ullamcorper scelerisque cursus, luctus aptent netus sagittis egestas quis felis pulvinar ut vestibulum, ante mi cum suspendisse ornare potenti praesent eleifend varius. Quis dignissim dictum imperdiet bibendum mattis, vivamus phasellus donec tempor.',
         date: '2021-07-01',
         tags: ['HU02', 'TA02', 'P3'],
@@ -190,7 +199,31 @@ export default {
 
     ]
   }),
+  props: {
+    peopleNames: []
+  },
   methods: {
+    sortByUser: function (){
+      this.sortedTasks = [];
+      for (let i = 0; i < this.formatedPeopleNames.length; i++) {
+        let user = this.formatedPeopleNames[i];
+        this.sortedTasks.push({
+          username: user,
+          tasks: []
+        });
+        for (let j = 0; j < this.tasks.length; j++) {
+          let task = this.tasks[j];
+          if(task.members.includes(user)){
+            this.sortedTasks[i].tasks.push(task);
+          }
+        }
+      }
+    },
+    formatPeopleNames: function () {
+      for (let user of this.peopleNames) {
+        this.formatedPeopleNames.push(user.nombre+' '+user.correo);
+      }
+    },
     addTag(event) {
       event.preventDefault()
       var val = event.target.value.trim()
@@ -220,7 +253,12 @@ export default {
       this.taskTags = '';
       this.taskChanges = '';
       this.dialog = false;
+      this.sortByUser();
     }
+  },
+  mounted() {
+    this.formatPeopleNames();
+    this.sortByUser();
   }
 }
 </script>

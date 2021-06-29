@@ -322,8 +322,10 @@ export default {
     ]
   }),
   props: {
+    tasks: null,
     taskData: null,
-    peopleNames: null
+    peopleNames: null,
+    sortedTasks: null
   },
   methods: {
     /*
@@ -365,10 +367,16 @@ export default {
       taskData.members = this.taskMembers;
       taskData.tags = this.taskTags;
       taskData.date = this.taskDate;
+      this.sortByUser();
       this.editDialog = false;
+
     },
     deleteTask: function () {
-
+      let deleted = this.tasks.splice(this.tasks.indexOf(this.taskData), 1);
+      for (let item of this.sortedTasks) {
+        let tasks = item.tasks;
+        tasks.splice(tasks.indexOf(deleted), 1);
+      }
     },
     addTag(event) {
       event.preventDefault()
@@ -381,6 +389,10 @@ export default {
     removeTag(index) {
       this.taskTags.splice(index, 1)
     },
+    sortByUser: function (){
+      this.$emit('sort-tasks');
+
+    }
   }
 }
 </script>
