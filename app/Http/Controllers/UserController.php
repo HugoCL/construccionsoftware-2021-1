@@ -40,7 +40,7 @@ class UserController extends Controller
      */
     public function edit($id) {
         $user = User::find($id);
-        return View::make('users.save')->with('user', $user);
+        return View::make('users.edit')->with('user', $user);
     }
 
     /**
@@ -51,12 +51,12 @@ class UserController extends Controller
      * @param  int  $id
      * @return User retorna el user solo si se confirma
      */
-    public function update($id)
+    public function update(Request $request,int $id)
     {
         if($id== auth()->id()){
             $user = User::find($id);
-            $user->name = User::get('name');
-            $user->email = User::get('email');
+            $user->name = $request->name;
+            $user->email = $request->email;
             $user->save();
             return $user;
         }else{
