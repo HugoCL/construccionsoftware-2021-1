@@ -225,6 +225,7 @@ export default {
       }
     },
     addTag(event) {
+
       event.preventDefault()
       var val = event.target.value.trim()
       if (val.length > 0) {
@@ -232,10 +233,20 @@ export default {
         event.target.value = ''
       }
     },
+    send(newTask){
+      const iddProyecto = (window.location).href.charAt((window.location).href.length-1);
+      console.log(newTask);
+      axios.post('administrar-proyectos/tareaNueva', newTask)
+          .then(response => {
+              console.log(response.data);
+          });
+      window.location.href="administrar-proyectos";
+    },
     removeTag(index) {
       this.taskTags.splice(index, 1)
     },
     createTask: function () {
+
       this.tasks.push({
         name: this.taskName,
         members: this.taskMembers,
@@ -245,7 +256,8 @@ export default {
         changes: this.taskChanges
 
       });
-
+      const newTask = {name: this.taskName, members: this.taskMembers, desc: this.taskDesc, date: this.taskDate, tags: this.taskTags, changes: this.taskChanges};
+      this.send(newTask);
       this.taskName = '';
       this.taskDesc = '';
       this.taskMembers = '';
