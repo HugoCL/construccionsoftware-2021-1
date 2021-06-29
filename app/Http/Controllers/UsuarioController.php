@@ -4,13 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Usuario;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 
 class UsuarioController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
+     * Recordar que esta es una relacion, el modelo 'user', es el usuario como tal
      * @return \Illuminate\Database\Eloquent\Collection|Usuario[]
      */
     public function index()
@@ -23,9 +22,13 @@ class UsuarioController extends Controller
      *
      * @return void
      */
-    public function create()
+    public function create(array $data)
     {
-        //
+        $usuario= Usuario::create([
+            'name' => $data['name'],
+            'email' => $data['email']]);
+        $usuario->save();
+        return $usuario;
     }
 
     /**
@@ -52,7 +55,8 @@ class UsuarioController extends Controller
      */
     public function show($id)
     {
-        //
+        $usuario = Usuario::find($id);
+        return View::make('usuario.mostrar')->with('user', $usuario);
     }
 
     /**
@@ -63,7 +67,8 @@ class UsuarioController extends Controller
      */
     public function edit($id)
     {
-        //
+        $usuario = Usuario::find($id);
+        return View::make('usuario.editar')->with('user', $usuario);
     }
 
     /**
@@ -75,7 +80,11 @@ class UsuarioController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $usuario = Usuario::find($id);
+        $usuario->name = $request->name;
+        $usuario->email = $request->email;
+        $usuario->save();
+        return $usuario;
     }
 
     /**
@@ -86,6 +95,7 @@ class UsuarioController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $usuario = Usuario::find($id);
+        $usuario->delete();
     }
 }
