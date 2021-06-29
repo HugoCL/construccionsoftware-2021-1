@@ -25,9 +25,13 @@ class GraphDataController extends Controller
      */
     public function index()
     {
+        return projectTasks();
         /*$authUserID = auth()->user()->getAuthIdentifier();
         $notas = Nota::where('Authentication User ID: ', $authUserID)->paginate(5);
         return view('notas.lista',compact('notas'));*/
+
+        //$projectIDs = DB::table('usuarios')->whereIn('correo', $idDevs)->get(); //whereIn coleccion completa
+
     }
 
     /**
@@ -124,15 +128,20 @@ class GraphDataController extends Controller
             return null;
     }
 
+
     /**
-     * This function is returning the specific project tasks
+     * This function is returning all project's task
      *
-     * @param $id_project
+     * @return \Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection
      */
-    public function projectTasks($id_project)
+    public function projectTasks()
     {
         //$project = Proyecto::find($id_project); //<- Eloquent
-        $tasks = Tarea::all();
+        $projectIDs = Proyecto::query()->select(['id']);
+        return Tarea::query()->select(['*'])->whereIn('id_project', $projectIDs)->get();
+
+
+        /*$tasks = Tarea::all();
         $taskIDs = $tasks->getQueueableIds();
 
         $projectList = Proyecto::all();
@@ -150,7 +159,7 @@ class GraphDataController extends Controller
             //for(recorrer las tareas de un proyecto)
             //if($taskIDs[$i] == ) si la id de las tareas de un proyecto
             //
-        }
+        }*/
     }
 
     public function taskUsers($id_task)
