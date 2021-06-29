@@ -1,5 +1,5 @@
 <template>
-    <v-card v-model="dialogGrap" >
+    <v-card>
       <v-toolbar>Graficos del proyecto</v-toolbar>
       <v-sheet dark color="primary" >
         Tareas por sprint
@@ -44,8 +44,6 @@
           </v-card>
         </v-col>
       </v-row>
-
-            <v-btn dark color="primary" @click="dialogGrap = false"> cerrar </v-btn>
     </v-card>
 </template>
 <script>

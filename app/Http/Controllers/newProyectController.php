@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Lead;
+use App\Models\Participate;
 use App\Models\Proyecto;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
 
 class newProyectController extends Controller
 {
@@ -53,7 +57,25 @@ class newProyectController extends Controller
         $proyecto->fechaTermino = $request->dates[1];
         $proyecto->save();
 
-        return $proyecto;
+        $bosses = ($request->bosses);
+
+        for ($i=0; $i < count($bosses); $i++){
+            $lead = new Lead();
+            $lead->id_project = $proyecto->id;
+            $lead->id_user = $bosses[$i];
+            $lead->save();
+        }
+
+        $workers = ($request->workers);
+
+        for ($i=0; $i < count($workers); $i++){
+            $work = new Participate();
+            $work->id_project = $proyecto->id;
+            $work->id_user = $workers[$i];
+            $work->save();
+        }
+        return $bosses;
+
     }
 
     /**
@@ -119,7 +141,6 @@ class newProyectController extends Controller
      */
     public function destroy($id)
     {
-        $proyecto = Proyecto::find($id);
-        $proyecto->delete();
+
     }
 }
