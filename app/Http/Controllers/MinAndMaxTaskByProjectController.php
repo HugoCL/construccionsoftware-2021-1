@@ -12,7 +12,7 @@ class MinAndMaxTaskByProjectController extends Controller
 {
 
     public $isFewerTasks = false;
-
+    public $isMaxFishishedTaskProject = false;
     /**
      * Display a listing of the resource.
      *
@@ -24,6 +24,11 @@ class MinAndMaxTaskByProjectController extends Controller
             return moreTasksByProject();
         else
             return lessTasksByProject();
+
+        if($this->isMaxFishishedTaskProject == false)
+            return projectWithMoreFinishedTasks();
+        else
+            return projectWithLessFinishedTasks();
     }
 
     /**
@@ -98,7 +103,7 @@ class MinAndMaxTaskByProjectController extends Controller
     /**
      * This function is returning the project with more task ID
      *
-     * @return mixed
+     * @return string
      */
     public function moreTasksByProject()
     {
@@ -118,7 +123,7 @@ class MinAndMaxTaskByProjectController extends Controller
     /**
      * This function is returning the project with less task ID
      *
-     * @return mixed
+     * @return string
      */
     public function lessTasksByProject()
     {
@@ -146,6 +151,49 @@ class MinAndMaxTaskByProjectController extends Controller
     {
         $arrayValues = array_count_values($projectTasks->id_proyecto);
         return $arrayValues[$value];
+    }
+
+    /**
+     * This function is returning the project with more finished tasks.
+     *
+     * @return string
+     */
+    public function projectWithMoreFinishedTasks()
+    {
+        $projectIDs = Proyecto::query()->select(['id']);
+        $projectTasks = Tarea::query()->select(['*'])->whereIn('id_proyecto', $projectIDs)->get();
+        $arrayValues = null;
+
+        foreach($projectTasks as $projectTask)
+        {
+            if($projectTask->estado == true)  //finished task
+            {
+                $arrayValues = $this->repeatedValueCount($projectTask->estado, $projectTask);
+            }
+        }
+        return $arrayValues.max();
+
+    }
+
+    /**
+     * This function is returning the project with less finished tasks.
+     *
+     * @return string
+     */
+    public function projectWithLessFinishedTasks()
+    {
+        $projectIDs = Proyecto::query()->select(['id']);
+        $projectTasks = Tarea::query()->select(['*'])->whereIn('id_proyecto', $projectIDs)->get();
+        $arrayValues = null;
+
+        foreach($projectTasks as $projectTask)
+        {
+            if($projectTask->estado == true)  //finished task
+            {
+                $arrayValues = $this->repeatedValueCount($projectTask->estado, $projectTask);
+            }
+        }
+        return $arrayValues.min();
     }
 
 }
