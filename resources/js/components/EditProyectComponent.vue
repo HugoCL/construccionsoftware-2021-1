@@ -7,7 +7,7 @@
                 elavation="1"
             >
                 <v-fade-transition>
-                <v-btn class="ma-2 btn-secondary" v-on:click="save" :disabled="noEdit" v-if="!noEdit">
+                <v-btn class="ma-2 btn-secondary" v-on:click="save(project.id)" :disabled="noEdit" v-if="!noEdit">
                     <v-icon>mdi-content-save-edit-outline</v-icon>
                     Guardar
                 </v-btn>
@@ -224,7 +224,8 @@ export default {
             }
             console.log(this.projectUp);
 
-            //axios.put('/administrar-proyectos/'+id);
+            axios.put('/administrar-proyectos/'+id, this.projectUp);
+            this.disableEdit();
         },
         closeDialogStart() {
             this.modalS = false
