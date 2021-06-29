@@ -10,7 +10,7 @@
                             <v-text-field
                                 outlined
                                 filled
-                                v-model="projectName"
+                                v-model="projectUp.name"
                                 label ="Nombre Proyecto"
                             >
                             </v-text-field>
@@ -26,7 +26,7 @@
                                 filled
                                 auto-grow
                                 counter
-                                v-model="description"
+                                v-model="projectUp.description"
                                 label ="DESCRIPCION"
                                 @click=""
                             >
@@ -47,7 +47,7 @@
                                     >
                                         <template v-slot:activator="{ on, attrs }">
                                             <v-text-field
-                                                v-model="startDate"
+                                                v-model="projectUp.dates[0]"
                                                 label="Fecha de Inicio"
                                                 prepend-icon="mdi-calendar"
                                                 readonly
@@ -58,7 +58,7 @@
                                         </template>
                                         <v-date-picker
                                             locale="es-cl"
-                                            v-model="startDate"
+                                            v-model="projectUp.dates[0]"
                                             scrollable
                                         >
                                             <v-spacer></v-spacer>
@@ -91,7 +91,7 @@
                                     <template v-slot:activator="{ on, attrs }">
                                         <v-text-field
                                             outlined
-                                            v-model="endDate"
+                                            v-model="projectUp.dates[1]"
                                             label="Fecha de Termino"
                                             prepend-icon="mdi-calendar"
                                             readonly
@@ -101,7 +101,7 @@
                                     </template>
                                     <v-date-picker
                                         locale="es-cl"
-                                        v-model="endDate"
+                                        v-model="projectUp.dates[1]"
                                         scrollable
                                     >
                                         <v-spacer></v-spacer>
@@ -133,7 +133,7 @@
         <!--Barra Botones-->
         <v-row>
             <v-col>
-                <v-btn class="btn" v-on:click="test" :disabled="noEdit">
+                <v-btn class="btn" v-on:click="save(project.id)" :disabled="noEdit">
                     <v-icon>mdi-content-save-edit-outline</v-icon>
                     Guardar
                 </v-btn>
@@ -174,10 +174,12 @@ export default {
                     fullList : this.users
                 },
             ],
-            projectName:this.project.nombre,
-            description:this.project.descripcion,
-            startDate: this.project.fechaInicio,
-            endDate:this.project.fechaTermino,
+            projects: [],
+            projectUp: {
+                name: this.project.nombre,
+                description:this.project.descripcion,
+                dates: [this.project.fechaInicio, this.project.fechaTermino],
+            },
             currentMember:null,
             modalS:false,
             modalE:false,
@@ -192,13 +194,26 @@ export default {
         project: null
     },
     methods: {
-        test() {
+        save(id) {
             // console.table(this.project)
-            this.project.fechaInicio = this.startDate
-            this.project.fechaTermino = this.endDate
-            this.project.descripcion = this.description
-            this.project.nombre = this.projectName
-            //console.table(this.project)
+            const d1 = new Date(this.projectUp.dates[0]);
+            const d2 = new Date(this.projectUp.dates[1]);
+
+            if (+d1 >= +d2){
+                console.log(this.projectUp.dates[0] + '-' + this.projectUp.dates[1])
+                if (+d1 === +d2) {
+                    alert('Las fechas no pueden ser iguales');
+                    return;
+                }
+                let aux = this.projectUp.dates[1];
+
+                this.projectUp.dates[1] = this.projectUp.dates[0];
+                this.projectUp.dates[0] = aux;
+
+            }
+            console.log(this.projectUp);
+
+            //axios.put('/administrar-proyectos/'+id);
         },
         closeDialogStart() {
             this.modalS = false
@@ -218,8 +233,6 @@ export default {
         deleteProject: function (id){
             axios.delete('/administrar-proyectos/'+id);
             window.location.href="/administrar-proyectos";
-
-
         },
 
     }
