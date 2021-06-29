@@ -5,12 +5,13 @@
             <v-col
                 class="text-right"
                 elavation="1"
-            >   <v--transition>
+            >
+                <v-fade-transition>
                 <v-btn class="ma-2 btn-secondary" v-on:click="save" :disabled="noEdit" v-if="!noEdit">
                     <v-icon>mdi-content-save-edit-outline</v-icon>
                     Guardar
                 </v-btn>
-                </v--transition>
+                </v-fade-transition>
                 <v-btn class="btn-primary ma-2" v-on:click="disableEdit" primary>
                     <v-icon>mdi-pen</v-icon>
                     Editar
@@ -71,7 +72,6 @@
                                         <template v-slot:activator="{ on, attrs }">
                                             <v-text-field
                                                 :disabled="noEdit"
-                                                v-model="startDate"
                                                 v-model="projectUp.dates[0]"
                                                 label="Fecha de Inicio"
                                                 prepend-icon="mdi-calendar"
@@ -220,7 +220,7 @@ export default {
 
                 this.projectUp.dates[1] = this.projectUp.dates[0];
                 this.projectUp.dates[0] = aux;
-
+                this.noEdit=!this.noEdit
             }
             console.log(this.projectUp);
 
