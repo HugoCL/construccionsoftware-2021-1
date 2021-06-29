@@ -24,7 +24,6 @@
         <template>
             <v-app id="app">
                 <header-app @toggle-drawer="$refs.navbar.drawer = !$refs.navbar.drawer"></header-app>
-
                 <navdrawer-app ref="navbar"></navdrawer-app>
 
                 <!--<main class="py-4">-->

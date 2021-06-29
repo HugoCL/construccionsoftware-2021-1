@@ -4,6 +4,7 @@
         app
         :mini-variant.sync="expandOnHover"
         :expand-on-hover="drawer"
+        permanent
         color="bgwoptico"
         class="rounded-0">
 
@@ -24,52 +25,67 @@
         <v-list
           nav
           dense
+          rounded
         >
-          <v-list-item>
-            <v-list-item-icon>
-              <v-icon>mdi-view-dashboard</v-icon>
-            </v-list-item-icon>
-            <v-list-item-title>
-                <a class="nav-link black--text" href="/">Dashboard</a>
-                <!--<router-link to="/proyectos" > Dashboard </router-link>-->
+            <!-- CAMBIANDO COD. PARA NAVEGAR (evaluando para el proximo sprint) -->
+            <!--<v-list-item-group
+              v-model="selectedItem"
+              color="accent"
+            >
+              <v-list-item
+                v-for="(item, i) in items"
+                :key="i"
+                link
+              >
+                <v-list-item-icon>
+                    <v-icon v-text="item.icon"></v-icon>
+                </v-list-item-icon>
+
+                <v-list-item-content>
+                    <v-list-item-title class="white--text"> {{item.text}} </v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+            </v-list-item-group>-->
+
+            <v-list-item link>
+                <v-list-item-icon>
+                <v-icon>mdi-view-dashboard</v-icon>
+                </v-list-item-icon>
+                <v-list-item-title>
+                <a class="nav-link white--text" href="/">Dashboard</a>
                 </v-list-item-title>
-          </v-list-item>
-          <v-list-item link :to="{name: 'administrar-proyectos'}">
-            <v-list-item-icon>
-              <v-icon>mdi-folder-multiple</v-icon>
-            </v-list-item-icon>
-            <v-list-item-title>
-                <a class="nav-link black--text" href="/administrar-proyectos">Proyectos</a>
-                <!--<router-link href="/administrar-proyectos" > Proyectos2 </router-link>-->
-                <!--<router-link to="/administrar-proyectos" > Proyectos3 </router-link>-->
+            </v-list-item>
+            <v-list-item link>
+                <v-list-item-icon>
+                <v-icon >mdi-folder-multiple</v-icon>
+                </v-list-item-icon>
+                <v-list-item-title>
+                    <a class="nav-link white--text" href="/administrar-proyectos">Proyectos</a>
                 </v-list-item-title>
-          </v-list-item>
-          <v-list-item link exact :to="{name: 'users'}">
-            <v-list-item-icon>
-              <v-icon>mdi-account-multiple</v-icon>
-            </v-list-item-icon>
-            <v-list-item-title class="nav-link black--text">Usuarios</v-list-item-title>
-          </v-list-item>
+            </v-list-item>
+            <v-list-item link>
+                <v-list-item-icon>
+                <v-icon>mdi-account-multiple</v-icon>
+                </v-list-item-icon>
+                <v-list-item-title>
+                    <a class="nav-link white--text" href="/">Usuarios</a>
+                </v-list-item-title>
+            </v-list-item>
         </v-list>
       </v-navigation-drawer>
     </v-card>
 </template>
 <script>
   export default {
-    //
-    data () {
-      return {
-        drawer: true,
-        expandOnHover: true
-      }
-    },
-    methods:{
-        newProyect: function (e){
-            window.location.href="administrar-proyectos/nuevo";
-        },
-        refresh: function (){
-            window.location.href="administrar-proyectos";
-        }
-    }
+    data: () => ({
+      selectedItem: 0,
+      items: [
+        { text: 'Dashboard', icon: 'mdi-view-dashboard' },
+        { text: 'Proyectos', icon: 'mdi-folder-multiple' },
+        { text: 'Usuarios', icon: 'mdi-account-multiple' },
+      ],
+      drawer: true,
+      expandOnHover: true
+    }),
   }
 </script>
