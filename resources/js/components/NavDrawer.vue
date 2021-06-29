@@ -52,7 +52,7 @@
                 <v-icon>mdi-view-dashboard</v-icon>
                 </v-list-item-icon>
                 <v-list-item-title>
-                <a class="nav-link white--text" href="/">Dashboard</a>
+                <a class="nav-link black--text" href="/">Dashboard</a>
                 </v-list-item-title>
             </v-list-item>
             <v-list-item link>
@@ -60,7 +60,7 @@
                 <v-icon >mdi-folder-multiple</v-icon>
                 </v-list-item-icon>
                 <v-list-item-title>
-                    <a class="nav-link white--text" href="/administrar-proyectos">Proyectos</a>
+                    <a class="nav-link black--text" href="/administrar-proyectos">Proyectos</a>
                 </v-list-item-title>
             </v-list-item>
             <v-list-item link>
@@ -68,7 +68,7 @@
                 <v-icon>mdi-account-multiple</v-icon>
                 </v-list-item-icon>
                 <v-list-item-title>
-                    <a class="nav-link white--text" href="/">Usuarios</a>
+                    <a class="nav-link black--text" href="/">Usuarios</a>
                 </v-list-item-title>
             </v-list-item>
         </v-list>
