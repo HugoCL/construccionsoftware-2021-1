@@ -43,7 +43,7 @@ class TareaController extends Controller
     {
         $task  = new Tarea();
         $task ->id = $request->id_tarea;
-        $task ->id_proyecto = $request->id_proy;
+        $task ->id_proyecto = $request->id_pro;
         $task ->estado = $request->status;
         $task ->descripcion = $request->description;
         $task ->save();

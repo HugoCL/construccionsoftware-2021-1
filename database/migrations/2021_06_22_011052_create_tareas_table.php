@@ -14,7 +14,7 @@ class CreateTareasTable extends Migration
     public function up()
     {
         Schema::create('tareas', function (Blueprint $table) {
-            $table->integer('id');
+            $table->integer('id') -> autoIncrement();
             $table->integer('id_proyecto');
             $table-> primary(['id','id_proyecto']);
             $table->foreign('id_proyecto') -> references('id') -> on('proyectos');

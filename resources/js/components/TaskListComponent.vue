@@ -200,6 +200,7 @@ export default {
     ]
   }),
   props: {
+    id_pro: null,
     peopleNames: []
   },
   methods: {
@@ -236,11 +237,12 @@ export default {
     send(newTask){
       const iddProyecto = (window.location).href.charAt((window.location).href.length-1);
       console.log(newTask);
-      axios.post('administrar-proyectos/tareaNueva', newTask)
+      axios.post('/administrar-proyectos/tareaNueva', newTask)
           .then(response => {
               console.log(response.data);
           });
-      window.location.href="administrar-proyectos";
+      /*window.location.href="administrar-proyectos";
+      window.location.href="administrar-proyectos";*/
     },
     removeTag(index) {
       this.taskTags.splice(index, 1)
@@ -256,7 +258,7 @@ export default {
         changes: this.taskChanges
 
       });
-      const newTask = {name: this.taskName, members: this.taskMembers, desc: this.taskDesc, date: this.taskDate, tags: this.taskTags, changes: this.taskChanges};
+      const newTask = {name: this.taskName, members: this.taskMembers, desc: this.taskDesc, date: this.taskDate, tags: this.taskTags, changes: this.taskChanges, id_pro:this.id_pro};
       this.send(newTask);
       this.taskName = '';
       this.taskDesc = '';

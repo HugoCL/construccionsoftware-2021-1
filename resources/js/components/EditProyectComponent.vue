@@ -158,7 +158,7 @@
             </v-col>
           </v-row>
         </v-card-text>
-        <TaskList :peopleNames="users"/>
+        <TaskList :peopleNames="users" :id_pro="project.id"/>
       </v-card>
     </v-col>
     <v-col>
