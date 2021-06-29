@@ -23,7 +23,8 @@
                         ></v-textarea>
 
                         <v-select
-                            v-model="bosses"
+                            item-text="correo"
+                            v-model="proyecto.bosses"
                             :items="items"
                             label="Jefe/s de proyecto"
                             multiple
@@ -34,7 +35,8 @@
                         ></v-select>
 
                         <v-select
-                            v-model="workers"
+                            item-text="correo"
+                            v-model="proyecto.workers"
                             :items="items"
                             label="Empleados del proyecto"
                             multiple
@@ -54,6 +56,7 @@
                         full-width
                         v-model="proyecto.dates"
                         range
+                        locale="es-cl"
                         class="my-4"
                     ></v-date-picker>
                 </v-col>
@@ -66,9 +69,6 @@
             </v-btn>
 
         </div>
-        <div>
-            <TaskList></TaskList>
-        </div>
 </div>
 
 </template>
@@ -78,21 +78,19 @@
       components: {TaskList},
       data(){
           return {
-              items: [
-                  'juan',
-                  'lopez',
-                  'ramirez'
-              ],
+              items: [],
               proyectos:[],
               proyecto: {
                   name: '',
-                  dates: ['2019-09-10', '2019-09-20'],
-                  description: ''
+                  dates: [],
+                  description: '',
+                  bosses: [],
+                  workers: [],
+                  select: null,
               },
 
-              select: null,
-              bosses: [],
-              workers: [],
+
+
 
               emailRules: [
                   v => !!v || 'E-mail is required',
@@ -102,48 +100,66 @@
       },
 
       created(){
+
           /*
-          axios.post('/user', {correo: 'ncastillo@hotmail.com', nombre: 'Nicolas'});
-          axios.post('/user', {correo: 'awallberg@hotmail.com', nombre: 'Andres'});
-          axios.post('/user', {correo: 'mvalenzuela@hotmail.com', nombre: 'Manuel'});*/
+                axios.post('/user', {correo: 'ncastillo@hotmail.com', nombre: 'Nicolas'});
+                axios.post('/user', {correo: 'awallberg@hotmail.com', nombre: 'Andres'});
+                axios.post('/user', {correo: 'mvalenzuela@hotmail.com', nombre: 'Manuel'});  */
 
-          axios.get('/user')
-              .then(response=>{
-                  const users = [];
-                  const res = response.data;
-                  for (let user in res){
-                      console.log(res[user]);
-                      users.push(res[user].nombre.concat(' [', res[user].correo+']'));
-                  }
-                  this.items = users;
+           axios.get('/user')
+               .then(response=>{
+                   const users = [];
+                   const res = response.data;
+                   this.items = res;
+                   console.log(res);
 
-              });
-      },
+               });
+       },
 
-      methods: {
-          send () {
-              if(this.proyecto.name.trim() === ''){
-                  alert('Debes completar todos los campos antes de guardar');
-                  return;
-              }
+       methods: {
+           send () {
+               if(this.proyecto.name.trim() === '' || this.proyecto.dates.length === 0 || this.proyecto.description.trim() === ''
+                   || this.proyecto.bosses.length === 0 || this.proyecto.workers.length === 0){
+                   alert('Debes completar todos los campos antes de guardar');
+                   return;
+               }
 
-              console.log(
-                  {
-                      'name':this.proyecto.name,
-                      'dates':this.proyecto.dates,
-                      'bosses':this.bosses,
-                      'workers':this.workers
-                  }
-              );
-              const nuevoProyecto = this.proyecto;
-              this.proyecto = {name: '', description: '', dates: ['2019-09-10', '2019-09-20']};
-              axios.post('/administrar-proyectos/nuevo', nuevoProyecto)
-                  .then(response => {
-                      const res = response.data;
-                      this.proyectos.push(res);
-                  });
+               const d1 = new Date(this.proyecto.dates[0]);
+               const d2 = new Date(this.proyecto.dates[1]);
 
-          }
-      }
-  }
+               if (+d1 >= +d2){
+                   console.log(this.proyecto.dates[0] + '-' + this.proyecto.dates[1])
+                   if (+d1 === +d2) {
+                       alert('Las fechas no pueden ser iguales');
+                       return;
+                   }
+                   let aux = this.proyecto.dates[1];
+
+                   this.proyecto.dates[1] = this.proyecto.dates[0];
+                   this.proyecto.dates[0] = aux;
+
+               }
+
+               console.log(
+                   {
+                       'name':this.proyecto.name,
+                       'dates':this.proyecto.dates,
+                       'bosses':this.proyecto.bosses,
+                       'workers':this.proyecto.workers
+                   }
+               );
+               const nuevoProyecto = this.proyecto;
+               this.proyecto = {name: '', description: '', dates: [], bosses: [], workers: []};
+               axios.post('/administrar-proyectos/nuevo', nuevoProyecto)
+                   .then(response => {
+                       console.log(response.data);
+                   });
+               window.location.href="administrar-proyectos";
+               window.location.href="administrar-proyectos";
+
+
+
+           }
+       }
+   }
 </script>

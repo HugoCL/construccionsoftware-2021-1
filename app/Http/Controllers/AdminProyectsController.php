@@ -2,8 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Lead;
+use App\Models\Participate;
+use App\Models\Proyecto;
+use App\Models\Usuario;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
 
 class AdminProyectsController extends Controller
 {
@@ -14,8 +19,8 @@ class AdminProyectsController extends Controller
      */
     public function index()
     {
-        //
-        return view('AdminProyectsComponent');
+        $projects = Proyecto::all();
+        return view('AdminProyectsComponent', compact('projects'));
     }
 
     /**
@@ -47,7 +52,16 @@ class AdminProyectsController extends Controller
      */
     public function show($id)
     {
-        //
+        $project = Proyecto::find($id);
+        $idDevs = Participate::query()->select(['id_user'])->where('id_project', $id)->get();
+        $idLeads = Lead::query()->select(['id_user'])->where('id_project', $id)->get();
+
+        $users = Usuario::all();
+
+        $devs = DB::table('usuarios')->whereIn('correo', $idDevs)->get();
+        $leads = DB::table('usuarios')->whereIn('correo', $idLeads)->get();
+
+        return view('SingleProjectComponent', compact('project', 'devs', 'leads', 'users'));
     }
 
     /**
@@ -81,6 +95,7 @@ class AdminProyectsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $proyecto = Proyecto::find($id);
+        $proyecto->delete();
     }
 }
