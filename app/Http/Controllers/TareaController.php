@@ -13,21 +13,24 @@ class TareaController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return void
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function index()
     {
         //
+        return view('TaskComponent');
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return void
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function create()
     {
         //
+        $tarea = new Tarea();
+        return view('create.task', compact('tarea'));
     }
 
     /**
@@ -51,35 +54,35 @@ class TareaController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param Tarea $tarea
-     * @return void
+     * @param  int  $id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function show($id)
     {
         //
         $tarea = Tarea::find($id);
-        return view('show.tarea', compact('tarea'));
+        return view('show.task', compact('tarea'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param Tarea $tarea
-     * @return void
+     * @param  int  $id
+     * @return  \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function edit($id)
     {
         //
         $tarea = Tarea::find($id);
-        return view('proyect.edit', compact('tarea'));
+        return view('task.edit', compact('tarea'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param Request $request
-     * @param Tarea $tarea
-     * @return void
+     * @param  int  $id
+     * @return Response
      */
     public function update(Request $request, $id)
     {
@@ -97,10 +100,10 @@ class TareaController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param Tarea $tarea
+     * @param  int  $id
      * @return void
      */
-    public function destroy(Tarea $tarea)
+    public function destroy(Tarea $id)
     {
         //
     }
