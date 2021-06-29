@@ -3,8 +3,8 @@
         <app-header @toggle-drawer="$refs.navdrawer.drawer = !$refs.navdrawer.drawer"></app-header>
         <navbar ref="navdrawer"></navbar>
         <v-main>
-            <v-container>
-                <router-view></router-view>
+            <v-container >
+                <router-view class="primary"></router-view>
             </v-container>
         </v-main>
 

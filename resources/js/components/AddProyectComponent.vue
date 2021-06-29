@@ -24,6 +24,7 @@
                             label="Descripción del proyecto"
                             required
                             outlined
+                            auto-grow
                         ></v-textarea>
 
                         <v-select

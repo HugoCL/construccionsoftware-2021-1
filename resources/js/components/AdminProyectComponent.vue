@@ -1,8 +1,8 @@
 <template>
-    <div class="container" data-app>
+    <div class="container mx-0 px-0" data-app style="background-color: transparent">
         <v-container>
             <v-row >
-                <v-col cols="3" class="title mr-16 pr-0">
+                <v-col cols="3" class="title mr-15 ml-1 pr-0 pb-0">
                     Administrar proyectos
                 </v-col>
                 <v-col cols="2">
@@ -10,7 +10,7 @@
                         <template v-slot:activator="{ on, attrs }">
                             <div>
 
-                                <v-btn v-bind="attrs" color="secondary" v-on="on"> <v-icon class="pr-2">mdi-plus-circle-outline</v-icon>Nuevo Proyecto</v-btn>
+                                <v-btn v-bind="attrs" color="secondary" v-on="on"> <v-icon class="pr-2" >mdi-plus</v-icon>Nuevo Proyecto</v-btn>
                             </div>
                         </template>
                         <template v-slot:default="dialog" >
@@ -43,10 +43,10 @@
                     </v-dialog>
                 </v-col>
             </v-row>
-            <v-row>
+            <v-row class="mt-0">
                 <v-col cols="6">
                     <ul class="list-group mx-0 px-0">
-                        <li class="list-group-item"
+                        <li class="list-group-item mb-4"
                             v-for="(proyect,index) in proyectos":key="index">
                             <proyect-card
                                 :proyectData="proyect"

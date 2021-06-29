@@ -1,6 +1,6 @@
 <template>
     <v-card
-        class="mx-0 px-0"
+        class="mx-0 px-0 mb-4"
         outlined
     >
         <v-list-item class="mx-0">
@@ -43,11 +43,11 @@
         <v-card-actions style="float:right" >
             <v-btn align="center" class="ma-2" color="secondary" >
                 Editar
-                <v-icon right>mdi-border-color</v-icon>
+                <v-icon right color="woptico">mdi-border-color</v-icon>
             </v-btn>
             <v-btn align="center" class="ma-2 btn-danger white--text" color="red">
                 Eliminar
-                <v-icon right>mdi-delete</v-icon>
+                <v-icon right color="woptico">mdi-delete</v-icon>
             </v-btn>
 
         </v-card-actions>
