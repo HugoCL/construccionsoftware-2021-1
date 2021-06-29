@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Proyecto;
 use App\Models\Tarea;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -52,9 +54,11 @@ class TareaController extends Controller
      * @param Tarea $tarea
      * @return void
      */
-    public function show(Tarea $tarea)
+    public function show($id)
     {
         //
+        $tarea = Tarea::find($id);
+        return view('show.tarea', compact('tarea'));
     }
 
     /**
@@ -63,9 +67,11 @@ class TareaController extends Controller
      * @param Tarea $tarea
      * @return void
      */
-    public function edit(Tarea $tarea)
+    public function edit($id)
     {
         //
+        $tarea = Tarea::find($id);
+        return view('proyect.edit', compact('tarea'));
     }
 
     /**
@@ -75,9 +81,17 @@ class TareaController extends Controller
      * @param Tarea $tarea
      * @return void
      */
-    public function update(Request $request, Tarea $tarea)
+    public function update(Request $request, $id)
     {
         //
+        $tarea = Tarea::find($id);;
+        $tarea->id = $request->id_tarea;
+        $tarea->id_proyecto = $request->id_proy;
+        $tarea->estado = $request->status;
+        $tarea->descripcion = $request->description;
+        $tarea->save();
+
+        return $tarea;
     }
 
     /**
