@@ -166,7 +166,7 @@ export default {
     dialog: false,
     taskName: '',
     taskDesc: '',
-    taskMembers: [],
+  taskMembers: [],
     taskTags: [],
     taskChanges: [],
     formatedPeopleNames: [],
