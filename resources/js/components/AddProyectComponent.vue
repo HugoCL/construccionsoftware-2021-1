@@ -154,11 +154,7 @@
                    .then(response => {
                        console.log(response.data);
                    });
-               window.location.href="administrar-proyectos";
-               window.location.href="administrar-proyectos";
-
-
-
+               window.location.href="http://127.0.0.1:8000/administrar-proyectos";
            }
        }
    }
