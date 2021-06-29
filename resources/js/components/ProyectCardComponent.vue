@@ -77,9 +77,7 @@ export default {
 
         deleteProject: function (id){
             axios.delete('/administrar-proyectos/'+id);
-            window.location.href="administrar-proyectos";
-            window.location.href="administrar-proyectos";
-
+            this.$emit('delete', id);
         },
 
     },
