@@ -12,13 +12,6 @@ use App\Nota;
 class GraphDataController extends Controller
 {
     /**
-     * Indicates if the model's ID is auto-incrementing.
-     *
-     * @var bool
-     */
-    public $incrementing = true;
-
-    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -29,8 +22,6 @@ class GraphDataController extends Controller
         /*$authUserID = auth()->user()->getAuthIdentifier();
         $notas = Nota::where('Authentication User ID: ', $authUserID)->paginate(5);
         return view('notas.lista',compact('notas'));*/
-
-        //$projectIDs = DB::table('usuarios')->whereIn('correo', $idDevs)->get(); //whereIn coleccion completa
 
     }
 
@@ -54,7 +45,6 @@ class GraphDataController extends Controller
     {
         $graphData = new Graph_data();
         $graphData->id = $request->id;
-
         $graphData->save();
         return $graphData;
     }
@@ -160,17 +150,5 @@ class GraphDataController extends Controller
             //if($taskIDs[$i] == ) si la id de las tareas de un proyecto
             //
         }*/
-    }
-
-    public function taskUsers($id_task)
-    {
-        $tasks = Tarea::all();
-
-        foreach ($tasks as $task)
-        {
-            //if($task->id == $id_task)
-
-
-        }
     }
 }

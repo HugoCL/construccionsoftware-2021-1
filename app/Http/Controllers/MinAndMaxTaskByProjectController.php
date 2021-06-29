@@ -2,10 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\MinAndMaxTasksByProject;
+use App\Models\Proyecto;
+use App\Models\Tarea;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class MinAndMaxTaskByProjectController extends Controller
 {
+
+    public $isFewerTasks = false;
+
     /**
      * Display a listing of the resource.
      *
@@ -13,7 +20,10 @@ class MinAndMaxTaskByProjectController extends Controller
      */
     public function index()
     {
-        //
+        if($this->isFewerTasks == false)
+            return moreTasksByProject();
+        else
+            return lessTasksByProject();
     }
 
     /**
@@ -34,7 +44,10 @@ class MinAndMaxTaskByProjectController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $taskByProject = new MinAndMaxTasksByProject();
+        $taskByProject->id = $request->id;
+        $taskByProject->save();
+        return $taskByProject;
     }
 
     /**
@@ -81,4 +94,34 @@ class MinAndMaxTaskByProjectController extends Controller
     {
         //
     }
+
+    /**
+     * This function is returning the project with more task ID
+     *
+     * @return mixed
+     */
+    public function moreTasksByProject()
+    {
+        $projectIDs = Proyecto::query()->select(['id']);
+        $projectTasks = Tarea::query()->select(['*'])->whereIn('id_project', $projectIDs)->get();
+        return $projectTasks->max('id');
+
+        //return $projectTasks->where('id', DB::raw("(select max('id') from project tasks)"))->get();
+        /*return Proyecto::query()->select(['*'])->whereIn('id', function ($query){
+            $query->selectRaw('max(id)')->from('minAndMaxTaskByProject')->groupBy('id');
+        })->toSql();*/
+    }
+
+    /**
+     * This function is returning the project with less task ID
+     *
+     * @return mixed
+     */
+    public function lessTasksByProject()
+    {
+        $projectIDs = Proyecto::query()->select(['id']);
+        $projectTasks = Tarea::query()->select(['*'])->whereIn('id_project', $projectIDs)->get();
+        return $projectTasks->min('id');
+    }
+
 }
