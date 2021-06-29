@@ -30,6 +30,7 @@ Route::resource('administrar-proyectos', 'App\Http\Controllers\AdminProyectsCont
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('testtaskscomponents', [TestTasksComponentsController::class, 'index']);
 Route::resource('/user', 'App\Http\Controllers\UsuarioController');
+Route::resource('/columna-backlog', 'App\Http\Controllers\BacklogController');
 
 //Route::get('/proyects', [newProyectController::class, 'index']);
 
