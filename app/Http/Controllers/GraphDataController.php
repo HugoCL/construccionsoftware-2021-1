@@ -4,9 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Graph_data;
 use App\Models\Proyecto;
-use App\Models\User;
+use App\Models\Tarea;
 use App\Models\Usuario;
 use Illuminate\Http\Request;
+use App\Nota;
 
 class GraphDataController extends Controller
 {
@@ -24,7 +25,9 @@ class GraphDataController extends Controller
      */
     public function index()
     {
-        //
+        /*$authUserID = auth()->user()->getAuthIdentifier();
+        $notas = Nota::where('Authentication User ID: ', $authUserID)->paginate(5);
+        return view('notas.lista',compact('notas'));*/
     }
 
     /**
@@ -46,7 +49,7 @@ class GraphDataController extends Controller
     public function store(Request $request)
     {
         $graphData = new Graph_data();
-        $graphData->id = $request->id_graphData;
+        $graphData->id = $request->id;
 
         $graphData->save();
         return $graphData;
@@ -98,33 +101,67 @@ class GraphDataController extends Controller
     }
 
     /**
-     * This function is returning the specific project by one user
+     * This function is returning the user projects
      *
      * @param $id_user
-     * @param $id_project
-     * @return mixed|null
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany|null
      */
-    public function userProject($id_user, $id_project)
+    public function userProjects($id_user)
     {
-        $user = Usuario::find($id_user); //<- Eloquent
-        $userProjectList = $user->leadProject(); //obtiene los proyectos que dirije el usuario
-        foreach($userProjectList as $project)
+        $userList = Usuario::all(); //Getting all users
+        $searchedUser = null; //Declaring searched user variable
+
+        //For each user
+        foreach ($userList as $user)
         {
-            if($project->id == $id_project)
-                return $project;
-            else
-                return null;
+            if($user->id == $id_user)//If user ID is equals to searched user ID.
+                $searchedUser = $user;
         }
+
+        if($searchedUser!=null)
+            return $searchedUser->leadProject(); //Returning user project
+        else
+            return null;
     }
 
+    /**
+     * This function is returning the specific project tasks
+     *
+     * @param $id_project
+     */
     public function projectTasks($id_project)
     {
-        $project = Proyecto::find($id_project); //<- Eloquent
-        //return $project->getTasks(); <-- retornar todas las tareas de un proyecto
+        //$project = Proyecto::find($id_project); //<- Eloquent
+        $tasks = Tarea::all();
+        $taskIDs = $tasks->getQueueableIds();
+
+        $projectList = Proyecto::all();
+        $searchedProject = null;
+
+        foreach ($projectList as $project)
+        {
+            if($project->id == $id_project)
+                $searchedProject = $project;
+        }
+
+        $userList = $searchedProject->leadBy();
+        for($i = 0; i < $taskIDs.count(); $i++)
+        {
+            //for(recorrer las tareas de un proyecto)
+            //if($taskIDs[$i] == ) si la id de las tareas de un proyecto
+            //
+        }
     }
 
     public function taskUsers($id_task)
     {
+        $tasks = Tarea::all();
 
+        foreach ($tasks as $task)
+        {
+            //if($task->id == $id_task)
+
+
+        }
     }
 }
