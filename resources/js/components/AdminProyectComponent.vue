@@ -22,7 +22,7 @@
                                                 <v-col cols="auto">
                                                     Nuevo Proyecto
                                                 </v-col>
-                                                <v-col cols="1"  class=" text-right" style="float: right">
+                                                <v-col cols="3"  sm="4" class=" text-right" style="float: right">
                                                     <v-btn style="background: red;" @click="dialog.value = false"><v-icon>mdi-close</v-icon></v-btn>
                                                 </v-col>
                                             </v-row>
@@ -47,9 +47,11 @@
                 <ul class="list-group">
                     <li class="list-group-item"
                         v-for="(proyect,index) in projects" :key="index">
+                        <v-fab-transition>
                         <proyect-card
                             :proyectData="proyect"
                         > </proyect-card>
+                        </v-fab-transition>
                     </li>
                 </ul>
 

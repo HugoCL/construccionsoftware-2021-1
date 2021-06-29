@@ -1,13 +1,35 @@
 <template>
-    <v-container fluid light>
+    <v-container class="">
+        <!--Barra Botones-->
+        <v-row class="">
+            <v-col
+                class="text-right"
+                elavation="1"
+            >   <v--transition>
+                <v-btn class="ma-2 btn-secondary" v-on:click="save" :disabled="noEdit" v-if="!noEdit">
+                    <v-icon>mdi-content-save-edit-outline</v-icon>
+                    Guardar
+                </v-btn>
+                </v--transition>
+                <v-btn class="btn-primary ma-2" v-on:click="disableEdit" primary>
+                    <v-icon>mdi-pen</v-icon>
+                    Editar
+                </v-btn>
+                <v-btn class="ma-2 btn-danger" color="red" v-on:click="deleteProject(project.id)">
+                    <v-icon>mdi-delete</v-icon>
+                    Eliminar
+                </v-btn>
+            </v-col>
+        </v-row>
         <!--Editar/Ver Proyecto-->
         <v-row>
-            <v-col cols="12" md="12" disabled="noEdit">
+            <v-col cols="12" md="12" >
                     <!-- Nombre Proyecto -->
-                    <v-row >
+                    <v-row class="ma-2">
                         <v-col cols="12" md ="12">
 
                             <v-text-field
+                                :disabled="noEdit"
                                 outlined
                                 filled
                                 v-model="projectName"
@@ -19,9 +41,10 @@
 
                     </v-row>
                     <!--Descripcion-->
-                    <v-row>
+                    <v-row class="ma-2">
                         <v-col cols="12" md ="12">
                             <v-textarea
+                                :disabled="noEdit"
                                 outlined
                                 filled
                                 auto-grow
@@ -36,7 +59,7 @@
 
                     </v-row>
                     <!--Mostrar fechas-->
-                    <v-row>
+                    <v-row class="ma-2">
                         <!--Fecha Incio-->
                         <v-col>
                             <v-row>
@@ -47,6 +70,8 @@
                                     >
                                         <template v-slot:activator="{ on, attrs }">
                                             <v-text-field
+                                                class="ma-2"
+                                                :disabled="noEdit"
                                                 v-model="startDate"
                                                 label="Fecha de Inicio"
                                                 prepend-icon="mdi-calendar"
@@ -90,7 +115,9 @@
                                 >
                                     <template v-slot:activator="{ on, attrs }">
                                         <v-text-field
+                                            class="ma-2"
                                             outlined
+                                            :disabled="noEdit"
                                             v-model="endDate"
                                             label="Fecha de Termino"
                                             prepend-icon="mdi-calendar"
@@ -130,23 +157,7 @@
         <v-row>
             <TaskList :peopleNames="users"/>
         </v-row>
-        <!--Barra Botones-->
-        <v-row>
-            <v-col>
-                <v-btn class="btn" v-on:click="test" :disabled="noEdit">
-                    <v-icon>mdi-content-save-edit-outline</v-icon>
-                    Guardar
-                </v-btn>
-                <v-btn v-on:click="disableEdit">
-                    <v-icon>mdi-pen</v-icon>
-                    Editar
-                </v-btn>
-                <v-btn class="ma-2 btn-danger" color="red" v-on:click="deleteProject(project.id)">
-                    <v-icon right>mdi-delete</v-icon>
-                    Eliminar
-                </v-btn>
-            </v-col>
-        </v-row>
+
     </v-container>
 
 </template>
@@ -192,7 +203,7 @@ export default {
         project: null
     },
     methods: {
-        test() {
+        save() {
             // console.table(this.project)
             this.project.fechaInicio = this.startDate
             this.project.fechaTermino = this.endDate
