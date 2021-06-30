@@ -167,7 +167,6 @@
 
 <script>
 import Task from './TaskComponent';
-
 export default {
   name: 'TaskList',
   components: {Task},
@@ -296,8 +295,6 @@ export default {
 </script>
 
 <style scoped>
-
-
 .tag-input__tag {
   height: 30px;
   float: left;
@@ -309,12 +306,10 @@ export default {
   padding: 0 5px;
   border-radius: 5px;
 }
-
 .tag-input__tag > span {
   cursor: pointer;
   opacity: 0.75;
 }
-
 .tag-input__text {
   border: none;
   outline: none;
