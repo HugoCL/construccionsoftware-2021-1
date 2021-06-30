@@ -1,11 +1,10 @@
-@extends('layouts.theme')
+@extends('layouts.app')
 
 @section('content')
     <div id="app">
     <v-app app>
         <v-container>
-            <admin-proyects
-                :projects="{{json_encode($projects)}}"></admin-proyects>
+            <!--<admin-proyects></admin-proyects>-->
         </v-container>
     </v-app>
     </div>
