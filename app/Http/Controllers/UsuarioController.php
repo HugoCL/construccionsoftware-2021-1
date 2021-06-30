@@ -25,8 +25,8 @@ class UsuarioController extends Controller
     public function create(array $data)
     {
         $usuario= Usuario::create([
-            'name' => $data['name'],
-            'email' => $data['email']]);
+            'nombre' => $data['name'],
+            'correo' => $data['email']]);
         $usuario->save();
         return $usuario;
     }
@@ -40,8 +40,8 @@ class UsuarioController extends Controller
     public function store(Request $request)
     {
         $usuario = new Usuario();
-        $usuario->correo = $request->correo;
-        $usuario->nombre = $request->nombre;
+        $usuario->correo = $request->email;
+        $usuario->nombre = $request->name;
         $usuario->save();
 
         return $usuario;
@@ -81,8 +81,8 @@ class UsuarioController extends Controller
     public function update(Request $request, $id)
     {
         $usuario = Usuario::find($id);
-        $usuario->name = $request->name;
-        $usuario->email = $request->email;
+        $usuario->nombre = $request->name;
+        $usuario->correo = $request->email;
         $usuario->save();
         return $usuario;
     }
