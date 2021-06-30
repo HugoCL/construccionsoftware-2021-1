@@ -15,6 +15,7 @@ import tasklist from './components/TaskListComponent'
 Vue.component('crear-proyecto', require('./components/AddProyectComponent.vue').default);
 Vue.component('proyect-card', require('./components/ProyectCardComponent.vue').default);
 Vue.component('admin-proyects', require('./components/AdminProyectComponent.vue').default);
+Vue.component('menu-kanban',require('./components/MenuKanban.vue').default);
 
 Vue.component('header-app', require('./components/Header.vue').default);
 Vue.component('navdrawer-app', require('./components/NavDrawer.vue').default);
@@ -27,5 +28,3 @@ const app = new Vue({
     components: {App, example, tasklist, Card, Board},
     vuetify
 });
-
-
