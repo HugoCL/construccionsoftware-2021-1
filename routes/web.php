@@ -31,7 +31,8 @@ Route::resource('lista-usuarios','App\Http\Controllers\UsersTableController');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('testtaskscomponents', [TestTasksComponentsController::class, 'index']);
 Route::resource('/user', 'App\Http\Controllers\UsuarioController');
-
+Route::resource('/graph', 'App\Http\Controllers\GraphDataController');
+Route::resource('/minAndMaxTaskByProject', 'App\Http\Controllers\MinAndMaxTaskByProjectController');
 //Route::get('/proyects', [newProyectController::class, 'index']);
 
 //Para probar el creador de tareas
