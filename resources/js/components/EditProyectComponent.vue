@@ -155,7 +155,7 @@
         </v-row>
         <!--Task list-->
         <v-row>
-            <TaskList :peopleNames="users"/>
+            <TaskList :peopleNames="users" :id_pro="project.id"/>
         </v-row>
 
     </v-container>
@@ -246,13 +246,6 @@ export default {
             window.location.href="/administrar-proyectos";
         },
 
-    },
-  mounted() {
-      alert(JSON.stringify(this.users));
-  }
+    }
 }
 </script>
-
-<style scoped>
-
-</style>
