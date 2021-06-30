@@ -371,29 +371,27 @@ export default {
             this.sortByUser();
             this.editDialog = false;
 
-        },
-        deleteTask: function () {
-            let deleted = this.tasks.splice(this.tasks.indexOf(this.taskData), 1);
-            for (let item of this.sortedTasks) {
-                let tasks = item.tasks;
-                tasks.splice(tasks.indexOf(deleted), 1);
-            }
-        },
-        addTag(event) {
-            event.preventDefault()
-            let val = event.target.value.trim()
-            if (val.length > 0) {
-                this.taskTags.push(val)
-                event.target.value = ''
-            }
-        },
-        removeTag(index) {
-            this.taskTags.splice(index, 1)
-        },
-        sortByUser: function (){
-            this.$emit('sort-tasks');
-
-        }
+    },
+    deleteTask: function () {
+      let deleted = this.tasks.splice(this.tasks.indexOf(this.taskData), 1);
+      for (let item of this.sortedTasks) {
+        let tasks = item.tasks;
+        tasks.splice(tasks.indexOf(deleted), 1);
+      }
+    },
+    addTag(event) {
+      event.preventDefault()
+      let val = event.target.value.trim()
+      if (val.length > 0) {
+        this.taskTags.push(val)
+        event.target.value = ''
+      }
+    },
+    removeTag(index) {
+      this.taskTags.splice(index, 1)
+    },
+    sortByUser: function (){
+      this.$emit('sort-tasks');
     }
 }
 </script>
