@@ -39,7 +39,7 @@ class GraphProjectController extends Controller
         $GraphProject->id_proyecto = $request->id_proyecto;
         $GraphProject->id_tarea = $request->id_tarea;
         $GraphProject->estado_proyecto= $request-> estado_proyecto;
-        $GraphProject->estado_tarea= $request-> estado_tarea
+        $GraphProject->estado_tarea= $request-> estado_tarea;
         $GraphProject>save();
 
         return $GraphProject;
