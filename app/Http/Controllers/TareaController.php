@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Proyecto;
 use App\Models\Tarea;
+use App\Models\task_aux;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -29,7 +30,7 @@ class TareaController extends Controller
     public function create()
     {
         //
-        $task = new Tarea();
+        $task = new task_aux();
         return view('create.taskk',compact('task'));
     }
 
@@ -41,11 +42,10 @@ class TareaController extends Controller
      */
     public function store(Request $request)
     {
-        $task  = new Tarea();
-        $task ->id = $request->id_tarea;
+        $task  = new task_aux();
+        $task ->id = $request->id;
         $task ->id_proyecto = $request->id_pro;
-        $task ->estado = $request->status;
-        $task ->descripcion = $request->description;
+        $task ->descripcion = $request->desc;
         $task ->save();
 
         return $task ;
@@ -59,7 +59,7 @@ class TareaController extends Controller
     public function show($id)
     {
         //
-        $task = Tarea::find($id);
+        $task = task_aux::find($id);
         return view('show.taskk', compact('task'));
     }
 
@@ -72,7 +72,7 @@ class TareaController extends Controller
     public function edit($id)
     {
         //
-        $task = Tarea::find($id);
+        $task = task_aux::find($id);
         return view('taskk.edit', compact('task'));
     }
 
@@ -80,17 +80,16 @@ class TareaController extends Controller
      * Update the specified resource in storage.
      *
      * @param Request $request
-     * @param int  $id
+     * @param  int  $id
      * @return Response
      */
     public function update(Request $request, int $id)
     {
         //
-        $task  = Tarea::find($id);
-        $task ->id = $request->id_tarea;
-        $task ->id_proyecto = $request->id_proy;
-        $task ->estado = $request->status;
-        $task ->descripcion = $request->description;
+        $task = task_aux::find($id);
+        $task->id = $request->id;
+        $task ->id_proyecto = $request->id_pro;
+        $task ->descripcion = $request->desc;
         $task ->save();
 
         return $task ;
@@ -106,7 +105,7 @@ class TareaController extends Controller
     public function destroy($id)
     {
         //
-        $task  = Tarea::find($id);
+        $task  = task_aux::find($id);
         return view('taskk.destroy', compact('task'));
     }
 }

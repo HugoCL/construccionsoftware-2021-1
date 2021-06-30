@@ -241,8 +241,6 @@ export default {
           .then(response => {
               console.log(response.data);
           });
-      /*window.location.href="administrar-proyectos";
-      window.location.href="administrar-proyectos";*/
     },
     removeTag(index) {
       this.taskTags.splice(index, 1)
