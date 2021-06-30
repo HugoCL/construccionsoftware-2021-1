@@ -68,7 +68,7 @@
                 <v-icon>mdi-account-multiple</v-icon>
                 </v-list-item-icon>
                 <v-list-item-title>
-                    <a class="nav-link black--text" href="/">Usuarios</a>
+                    <a class="nav-link black--text" href="/lista-usuarios">Usuarios</a>
                 </v-list-item-title>
             </v-list-item>
         </v-list>

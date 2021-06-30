@@ -159,7 +159,8 @@
         <v-row>
             <TaskList :peopleNames="users" :id_pro="project.id"/>
         </v-row>
-
+        <!--Miembros Emilio-->
+        <integrantes-proyectos></integrantes-proyectos>
     </v-container>
 
 </template>
