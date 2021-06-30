@@ -56,7 +56,8 @@
                         </div>
                         <v-textarea
                             v-model="taskDesc"
-                            label="Description"
+                            label="Descripción"
+                            auto-grow
                             outlined
                         ></v-textarea>
                         <v-combobox

@@ -57,17 +57,17 @@
                             ref="menu"
                             v-model="menu"
                             :close-on-content-click="false"
-                            :return-value.sync="taskDate"
+                            :return-value.sync="proyecto.dates"
                             transition="scale-transition"
                             offset-y
                             min-width="auto"
 
                         >
-                            <template v-slot:activator="{ on, attrs }">
+                        <template v-slot:activator="{ on, attrs }">
                                 <v-text-field
                                     class="pl-2"
-                                    v-model="taskDate"
-                                    label="Picker in menu"
+                                    v-model="proyecto.dates"
+                                    label="Rango de fechas"
                                     prepend-icon="mdi-calendar"
                                     readonly
                                     v-bind="attrs"
@@ -76,7 +76,7 @@
                                 ></v-text-field>
                             </template>
                             <v-date-picker
-                                v-model="taskDate"
+                                v-model="proyecto.dates"
                                 no-title
                                 range
                                 scrollable
@@ -92,7 +92,7 @@
                                 <v-btn
                                     text
                                     color="primary"
-                                    @click="$refs.menu.save(taskDate)"
+                                    @click="$refs.menu.save(proyecto.dates)"
                                 >
                                     Guardar
                                 </v-btn>
@@ -104,7 +104,8 @@
 
                 </v-col>
 
-                <v-col cols="4">
+
+                <!--<v-col cols="4">
                     <v-date-picker
                         color="#000000"
                         full-width
@@ -113,7 +114,7 @@
                         locale="es-cl"
                         class="my-4"
                     ></v-date-picker>
-                </v-col>
+                </v-col>-->
             </v-row>
             <v-container class="mb-4 mx-0 px-0">
                 <v-row class="justify-center">
