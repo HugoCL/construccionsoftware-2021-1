@@ -393,6 +393,7 @@ export default {
     sortByUser: function (){
       this.$emit('sort-tasks');
     }
+  }
 }
 </script>
 <style scoped>
