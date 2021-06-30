@@ -16,10 +16,10 @@ class TareaController extends Controller
      *
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function index()
+    public function index($id)
     {
-        //
-        return view('TaskComponent');
+        $task = task_aux::find($id);
+        return view('TaskListComponent', compact($task));
     }
 
     /**

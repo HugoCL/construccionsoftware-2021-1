@@ -1,5 +1,8 @@
 // Body
-$body-bg: #f8fafc;
+$body-bg: #ebf1fb !important;
+.theme--light.v-application{
+    background: #ebf1fb !important;
+}
 
 // Typography
 $font-family-sans-serif: 'Roboto', sans-serif;
@@ -17,3 +20,5 @@ $yellow: #ffed4a;
 $green: #38c172;
 $teal: #4dc0b5;
 $cyan: #6cb2eb;
+
+

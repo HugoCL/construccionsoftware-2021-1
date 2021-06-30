@@ -246,9 +246,6 @@ export default {
             window.location.href="/administrar-proyectos";
         },
 
-    },
-  mounted() {
-      alert(JSON.stringify(this.users));
-  }
+    }
 }
 </script>

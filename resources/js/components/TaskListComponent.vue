@@ -1,29 +1,31 @@
 <template>
   <v-container light fluid>
     <!--Barra de tareas-->
-    <v-toolbar
-      color="primary"
-      class="mb-1"
-    >
+    <v-row class="justify-center  mx-0 px-0">
       <v-btn
         color="secondary"
         @click="dialog = true"
-
+        class="mb-4"
+        width="50%"
       >
+        <v-icon class="pr-2">
+          mdi-card-plus-outline
+        </v-icon>
         Nueva tarea
       </v-btn>
-    </v-toolbar>
+    </v-row>
+
 
     <!--Cuadro de diálogo para crear nueva tarea-->
     <v-dialog
       v-model="dialog"
       persistent
-      max-width="600px"
+      width="60%"
     >
       <v-card class="pt-0 pb-0">
         <v-toolbar
           color="primary"
-          class="white--text pt-0 pb-0"
+          class="white--text pt-0 pb-0 title"
         >
           Crear nueva tarea
         </v-toolbar>
@@ -35,8 +37,9 @@
               v-model="taskName"
               label="Nombre"
               hide-details="auto"
+              outlined
             ></v-text-field>
-            <div v-model="taskTags">
+            <div v-model="taskTags" outlined>
               <div v-for='(tag, index) in taskTags' :key='tag' class='tag-input__tag'>
                 {{ tag }}
                 <span @click='removeTag(index)'>x</span>
@@ -45,7 +48,7 @@
                 title="Para terminar una etiqueta pulsa enter o una coma"
                 type='text'
                 placeholder="Añadir etiquetas"
-                class='tag-input__text'
+                class='tag-input__text pl-2 body-2'
                 @keydown.enter='addTag'
                 @keydown.188='addTag'
                 @keydown.delete='removeLastTag'
@@ -54,13 +57,17 @@
             <v-textarea
               v-model="taskDesc"
               label="Description"
+              outlined
             ></v-textarea>
             <v-combobox
               v-model="taskMembers"
               :items="formatedPeopleNames"
               label="Miembros disponibles"
               multiple
+              dense
               chips
+              small-chips
+              outlined
             >
             </v-combobox>
           </v-col>
@@ -75,20 +82,24 @@
           transition="scale-transition"
           offset-y
           min-width="auto"
+
         >
           <template v-slot:activator="{ on, attrs }">
             <v-text-field
+              class="pl-2 mr-3"
               v-model="taskDate"
               label="Picker in menu"
               prepend-icon="mdi-calendar"
               readonly
               v-bind="attrs"
               v-on="on"
+              outlined
             ></v-text-field>
           </template>
           <v-date-picker
             v-model="taskDate"
             no-title
+            range
             scrollable
           >
             <v-spacer></v-spacer>
@@ -166,7 +177,7 @@ export default {
     dialog: false,
     taskName: '',
     taskDesc: '',
-  taskMembers: [],
+    taskMembers: [],
     taskTags: [],
     taskChanges: [],
     formatedPeopleNames: [],
@@ -204,7 +215,7 @@ export default {
     peopleNames: []
   },
   methods: {
-    sortByUser: function (){
+    sortByUser: function () {
       this.sortedTasks = [];
       for (let i = 0; i < this.formatedPeopleNames.length; i++) {
         let user = this.formatedPeopleNames[i];
@@ -214,7 +225,7 @@ export default {
         });
         for (let j = 0; j < this.tasks.length; j++) {
           let task = this.tasks[j];
-          if(task.members.includes(user)){
+          if (task.members.includes(user)) {
             this.sortedTasks[i].tasks.push(task);
           }
         }
@@ -222,7 +233,7 @@ export default {
     },
     formatPeopleNames: function () {
       for (let user of this.peopleNames) {
-        this.formatedPeopleNames.push(user.nombre+' '+user.correo);
+        this.formatedPeopleNames.push(user.nombre + ' ' + user.correo);
       }
     },
     addTag(event) {
@@ -234,13 +245,13 @@ export default {
         event.target.value = ''
       }
     },
-    send(newTask){
-      const iddProyecto = (window.location).href.charAt((window.location).href.length-1);
+    send(newTask) {
+      const iddProyecto = (window.location).href.charAt((window.location).href.length - 1);
       console.log(newTask);
       axios.post('/administrar-proyectos/tareaNueva', newTask)
-          .then(response => {
-              console.log(response.data);
-          });
+        .then(response => {
+          console.log(response.data);
+        });
     },
     removeTag(index) {
       this.taskTags.splice(index, 1)
@@ -256,7 +267,15 @@ export default {
         changes: this.taskChanges
 
       });
-      const newTask = {name: this.taskName, members: this.taskMembers, desc: this.taskDesc, date: this.taskDate, tags: this.taskTags, changes: this.taskChanges, id_pro:this.id_pro};
+      const newTask = {
+        name: this.taskName,
+        members: this.taskMembers,
+        desc: this.taskDesc,
+        date: this.taskDate,
+        tags: this.taskTags,
+        changes: this.taskChanges,
+        id_pro: this.id_pro
+      };
       this.send(newTask);
       this.taskName = '';
       this.taskDesc = '';
@@ -271,6 +290,7 @@ export default {
   mounted() {
     this.formatPeopleNames();
     this.sortByUser();
+
   }
 }
 </script>
@@ -282,7 +302,7 @@ export default {
   height: 30px;
   float: left;
   margin-right: 10px;
-  background-color: #3f51b5;
+  background-color: #576DB9;
   color: white;
   margin-top: 10px;
   line-height: 30px;
