@@ -17,6 +17,7 @@ Vue.component('crear-proyecto', require('./components/AddProyectComponent.vue').
 Vue.component('proyect-card', require('./components/ProyectCardComponent.vue').default);
 Vue.component('admin-proyects', require('./components/AdminProyectComponent.vue').default);
 Vue.component('menu-kanban',require('./components/MenuKanban.vue').default);
+Vue.component('integrantes-proyectos', require('./components/IntegrantsComponent.vue').default);
 
 Vue.component('header-app', require('./components/Header.vue').default);
 Vue.component('navdrawer-app', require('./components/NavDrawer.vue').default);
