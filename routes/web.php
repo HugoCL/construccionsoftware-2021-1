@@ -34,6 +34,7 @@ Route::get('testtaskscomponents', [TestTasksComponentsController::class, 'index'
 Route::resource('/user', 'App\Http\Controllers\UsuarioController');
 Route::resource('/graph', 'App\Http\Controllers\GraphDataController');
 Route::resource('/minAndMaxTaskByProject', 'App\Http\Controllers\MinAndMaxTaskByProjectController');
+Route::resource('/sprint', 'App\Http\Controllers\SprintController');
 //Route::get('/proyects', [newProyectController::class, 'index']);
 
 //Para probar el creador de tareas

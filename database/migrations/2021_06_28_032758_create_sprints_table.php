@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTareasTable extends Migration
+class CreateSprintsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,18 +13,15 @@ class CreateTareasTable extends Migration
      */
     public function up()
     {
-        Schema::create('tareas', function (Blueprint $table) {
-            $table->integer('id') -> autoIncrement();
+        Schema::create('sprints', function (Blueprint $table) {
+            $table->integer('id');
             $table->integer('id_proyecto');
-            $table->integer('id_sprint');
-            $table-> primary(['id','id_proyecto','id_sprint']);
 
+            $table->primary(['id','id_proyecto']);
 
             $table->foreign('id_proyecto') -> references('id') -> on('proyectos');
-            $table->foreign('id_sprint') -> references('id') -> on('sprints');
-
-            $table-> enum('estado',['pendiente','hecho', 'no hecho']) -> nullable(false);
-            $table-> text('descripcion');
+            $table->date('fechaInicio');
+            $table->date('fechaTermino');
             $table->timestamps();
         });
     }
@@ -36,6 +33,6 @@ class CreateTareasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tareas');
+        Schema::dropIfExists('sprints');
     }
 }
