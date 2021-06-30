@@ -1,6 +1,6 @@
 <template>
     <v-app>
-        <div>
+        <v-container>
             <v-alert
                 dense
                 type="info"
@@ -28,7 +28,7 @@
             >
                 I'm a dense alert with the <strong>outlined</strong> prop and a <strong>type</strong> of error
             </v-alert>
-        </div>
+        </v-container>
     </v-app>
 </template>
 

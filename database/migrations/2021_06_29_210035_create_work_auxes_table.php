@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateWorkTasksTable extends Migration
+class CreateWorkAuxesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreateWorkTasksTable extends Migration
      */
     public function up()
     {
-        Schema::create('work_tasks', function (Blueprint $table) {
+        Schema::create('work_auxes', function (Blueprint $table) {
             $table->integer('id_project');
-            $table->integer('id_task');
+            $table->integer('id_task') ;
             $table->string('id_user');
-
-            $table->primary(['id_project','id_task','id_user']);
+            //solo debe tener 2 PK
+            $table->primary(['id_project','id_task']);
 
             $table->integer('duracion');
 
@@ -36,6 +36,6 @@ class CreateWorkTasksTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('work_tasks');
+        Schema::dropIfExists('work_auxes');
     }
 }

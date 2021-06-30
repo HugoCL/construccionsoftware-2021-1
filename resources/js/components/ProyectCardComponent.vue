@@ -1,10 +1,10 @@
 <template>
     <v-card
-        class="mx-auto"
+        class="mx-0 px-0 mb-4"
         outlined
     >
         <v-list-item
-            class="btn text-left"
+            class="btn text-left mx-0"
             v-bind:href="'/administrar-proyectos/'+proyectData.id"
             v-on:click="getProject(proyectData.id)"
         >
@@ -49,7 +49,7 @@
         <v-card-actions style="float:right" >
 
 
-                        <v-btn class="ma-2 btn-danger" color="red" v-on:click="deleteProject(proyectData.id)">
+                        <v-btn class="ma-2 btn-danger white--text" color="error" v-on:click="deleteProject(proyectData.id)">
                             Eliminar
                             <v-icon right>mdi-delete</v-icon>
                         </v-btn>

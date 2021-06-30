@@ -14,12 +14,15 @@ Vue.component('crear-proyecto', require('./components/AddProyectComponent.vue').
 Vue.component('proyect-card', require('./components/ProyectCardComponent.vue').default);
 Vue.component('admin-proyects', require('./components/AdminProyectComponent.vue').default);
 
+Vue.component('header-app', require('./components/Header.vue').default);
+Vue.component('navdrawer-app', require('./components/NavDrawer.vue').default);
+Vue.component('footer-app', require('./components/Footer.vue').default);
 
 
-
+import App from "./components/App.vue";
 const app = new Vue({
     el: '#app',
-    components: {example, tasklist},
+    components: {App, example, tasklist},
     vuetify
 });
 

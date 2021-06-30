@@ -25,137 +25,139 @@
         <!--Editar/Ver Proyecto-->
         <v-row>
             <v-col cols="12" md="12" >
-                    <!-- Nombre Proyecto -->
-                    <v-row class="ma-2">
-                        <v-col cols="12" md ="12">
+                <!-- Nombre Proyecto -->
+                <v-row class="ma-2">
+                    <v-col cols="12" md ="12">
 
-                            <v-text-field
-                                :disabled="noEdit"
-                                outlined
-                                filled
-                                v-model="projectUp.name"
-                                label ="Nombre Proyecto"
+                        <v-text-field
+                            :disabled="noEdit"
+                            outlined
+                            filled
+                            dense
+                            v-model="projectUp.name"
+                            label ="Nombre Proyecto"
+                        >
+                        </v-text-field>
+
+                    </v-col>
+
+                </v-row>
+                <!--Descripcion-->
+                <v-row class="ma-2">
+                    <v-col cols="12" md ="12">
+                        <v-textarea
+                            :disabled="noEdit"
+                            outlined
+                            filled
+                            auto-grow
+                            counter
+                            v-model="projectUp.description"
+                            label ="DESCRIPCION"
+                            @click=""
+                        >
+                        </v-textarea>
+
+                    </v-col>
+
+                </v-row>
+                <!--Mostrar fechas-->
+                <v-row class="ma-2">
+                    <!--Fecha Incio-->
+                    <v-col>
+                        <v-row>
+                            <v-dialog
+                                v-model="modalS"
+                                persistent
+                                width="290px"
                             >
-                            </v-text-field>
-
-                        </v-col>
-
-                    </v-row>
-                    <!--Descripcion-->
-                    <v-row class="ma-2">
-                        <v-col cols="12" md ="12">
-                            <v-textarea
-                                :disabled="noEdit"
-                                outlined
-                                filled
-                                auto-grow
-                                counter
-                                v-model="projectUp.description"
-                                label ="DESCRIPCION"
-                                @click=""
-                            >
-                            </v-textarea>
-
-                        </v-col>
-
-                    </v-row>
-                    <!--Mostrar fechas-->
-                    <v-row class="ma-2">
-                        <!--Fecha Incio-->
-                        <v-col>
-                            <v-row>
-                                    <v-dialog
-                                        v-model="modalS"
-                                        persistent
-                                        width="290px"
-                                    >
-                                        <template v-slot:activator="{ on, attrs }">
-                                            <v-text-field
-                                                :disabled="noEdit"
-                                                v-model="projectUp.dates[0]"
-                                                label="Fecha de Inicio"
-                                                prepend-icon="mdi-calendar"
-                                                readonly
-                                                outlined
-                                                v-bind="attrs"
-                                                v-on="on"
-                                            ></v-text-field>
-                                        </template>
-                                        <v-date-picker
-                                            locale="es-cl"
-                                            v-model="projectUp.dates[0]"
-                                            scrollable
-                                        >
-                                            <v-spacer></v-spacer>
-                                            <v-btn
-                                                text
-                                                color="primary"
-                                                @click="closeDialogStart"
-                                            >
-                                                Cancel
-                                            </v-btn>
-                                            <v-btn
-                                                text
-                                                color="primary"
-                                                @click="saveStartDate"
-                                            >
-                                                OK
-                                            </v-btn>
-                                        </v-date-picker>
-                                    </v-dialog>
-                                </v-row>
-                        </v-col>
-                        <!--Fecha termino-->
-                        <v-col>
-                            <v-row>
-                                <v-dialog
-                                    v-model="modalE"
-                                    persistent
-                                    width="290px"
+                                <template v-slot:activator="{ on, attrs }">
+                                    <v-text-field
+                                        :disabled="noEdit"
+                                        v-model="projectUp.dates[0]"
+                                        label="Fecha de Inicio"
+                                        prepend-icon="mdi-calendar"
+                                        readonly
+                                        outlined
+                                        class="pt-2"
+                                        v-bind="attrs"
+                                        v-on="on"
+                                    ></v-text-field>
+                                </template>
+                                <v-date-picker
+                                    locale="es-cl"
+                                    v-model="projectUp.dates[0]"
+                                    scrollable
                                 >
-                                    <template v-slot:activator="{ on, attrs }">
-                                        <v-text-field
-                                            class="ma-2"
-                                            outlined
-                                            v-model="projectUp.dates[1]"
-                                            :disabled="noEdit"
-                                            label="Fecha de Termino"
-                                            prepend-icon="mdi-calendar"
-                                            readonly
-                                            v-bind="attrs"
-                                            v-on="on"
-                                        ></v-text-field>
-                                    </template>
-                                    <v-date-picker
-                                        locale="es-cl"
-                                        v-model="projectUp.dates[1]"
-                                        scrollable
+                                    <v-spacer></v-spacer>
+                                    <v-btn
+                                        text
+                                        color="primary"
+                                        @click="closeDialogStart"
                                     >
-                                        <v-spacer></v-spacer>
-                                        <v-btn
-                                            text
-                                            color="primary"
-                                            @click="closeDialogEnd"
-                                        >
-                                            Cancel
-                                        </v-btn>
-                                        <v-btn
-                                            text
-                                            color="primary"
-                                            @click="saveEndDate"
-                                        >
-                                            OK
-                                        </v-btn>
-                                    </v-date-picker>
-                                </v-dialog>
-                            </v-row>
-                        </v-col>
-                    </v-row>
+                                        Cancel
+                                    </v-btn>
+                                    <v-btn
+                                        text
+                                        color="primary"
+                                        @click="saveStartDate"
+                                    >
+                                        OK
+                                    </v-btn>
+                                </v-date-picker>
+                            </v-dialog>
+                        </v-row>
+                    </v-col>
+                    <!--Fecha termino-->
+                    <v-col>
+                        <v-row>
+                            <v-dialog
+                                v-model="modalE"
+                                persistent
+                                width="290px"
+                            >
+                                <template v-slot:activator="{ on, attrs }">
+                                    <v-text-field
+                                        class="ma-2"
+                                        outlined
+                                        v-model="projectUp.dates[1]"
+                                        :disabled="noEdit"
+                                        label="Fecha de Termino"
+                                        prepend-icon="mdi-calendar"
+                                        readonly
+                                        v-bind="attrs"
+                                        v-on="on"
+                                    ></v-text-field>
+                                </template>
+                                <v-date-picker
+                                    locale="es-cl"
+                                    v-model="projectUp.dates[1]"
+                                    scrollable
+                                >
+                                    <v-spacer></v-spacer>
+                                    <v-btn
+                                        text
+                                        color="primary"
+                                        @click="closeDialogEnd"
+                                    >
+                                        Cancel
+                                    </v-btn>
+                                    <v-btn
+                                        text
+                                        color="primary"
+                                        @click="saveEndDate"
+                                    >
+                                        OK
+                                    </v-btn>
+                                </v-date-picker>
+                            </v-dialog>
+                        </v-row>
+                    </v-col>
+                </v-row>
             </v-col>
         </v-row>
         <!--Task list-->
         <v-row>
-            <TaskList :peopleNames="users"/>
+            <TaskList :peopleNames="users" :id_pro="project.id"/>
         </v-row>
 
     </v-container>
@@ -250,7 +252,3 @@ export default {
     }
 }
 </script>
-
-<style scoped>
-
-</style>
