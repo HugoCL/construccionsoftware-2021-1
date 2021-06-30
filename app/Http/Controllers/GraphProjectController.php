@@ -40,9 +40,19 @@ class GraphProjectController extends Controller
         $GraphProject->id_tarea = $request->id_tarea;
         $GraphProject->estado_proyecto= $request-> estado_proyecto;
         $GraphProject->estado_tarea= $request-> estado_tarea;
+
         $GraphProject>save();
 
         return $GraphProject;
+    }
+    public function dates($GraphProject)
+    {
+        $tareas_totales = DB::table('Tarea')->count();
+        $tareas_hechas =DB::TABLE('select * from Tarea where estado = :estado', ['estado' => 'hecho'])->count();
+        $tareas_pendientes =DB::TABLE('select * from Tarea where estado = :estado', ['estado' => 'pendiente'])->count();
+        $tareas_no_hechas =DB::TABLE('select * from Tarea where estado = :estado', ['estado' => 'no hecho'])->count();
+
+        return [$tareas_totales, $tareas_hechas, $tareas_pendientes, $tareas_no_hechas];
     }
 
     /**

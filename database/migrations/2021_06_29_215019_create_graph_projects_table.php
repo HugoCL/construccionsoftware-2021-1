@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Schema;
 
 class CreateGraphProjectsTable extends Migration
@@ -19,9 +20,13 @@ class CreateGraphProjectsTable extends Migration
             $table->foreign('id_tarea') -> references('id') -> on('tarea');
             $table->foreign('estado_proyecto') -> references('estado') -> on('proyecto');
             $table->foreign('estado_tarea') -> references('estado') -> on('tarea');
+
+
             $table->timestamps();
         });
     }
+
+
 
     /**
      * Reverse the migrations.
