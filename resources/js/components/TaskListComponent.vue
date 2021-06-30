@@ -144,13 +144,14 @@
             v-for="(userTask, index1) in sortedTasks"
             :key="index1"
         >
-            <v-col cols="12">
-                <h2>{{ userTask.username }}</h2>
+            <v-col cols="12" class="headline mb-0">
+                {{ userTask.username }}
             </v-col>
             <v-col
                 v-for="(task, index2) in userTask.tasks"
                 :key="index2"
                 cols="12"
+                class="mt-2"
             >
                 <Task
                     :tasks="tasks"
