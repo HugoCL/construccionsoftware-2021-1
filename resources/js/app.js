@@ -10,6 +10,7 @@ files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(
 
 import Board from "./components/Board";
 import Card from "./components/Card";
+import DropBacklog from "./components/DropBacklog";
 import example from "./components/ExampleComponent";
 import tasklist from './components/TaskListComponent'
 Vue.component('crear-proyecto', require('./components/AddProyectComponent.vue').default);
