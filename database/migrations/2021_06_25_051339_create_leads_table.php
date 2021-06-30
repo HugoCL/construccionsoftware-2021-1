@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateParticipaTable extends Migration
+class CreateLeadsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,13 @@ class CreateParticipaTable extends Migration
      */
     public function up()
     {
-        Schema::create('participa', function (Blueprint $table) {
-            $table->bigInteger("refProyecto");
-            $table->string("correo");
+        Schema::create('leads', function (Blueprint $table) {
+            $table->integer('id_project');
+            $table->string('id_user');
+
+            $table->foreign('id_project')->references('id')->on('proyectos')->cascadeOnDelete();
+            $table->foreign('id_user')->references('correo')->on('usuarios');
+
             $table->timestamps();
         });
     }
@@ -27,6 +31,6 @@ class CreateParticipaTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('participa');
+        Schema::dropIfExists('leads');
     }
 }

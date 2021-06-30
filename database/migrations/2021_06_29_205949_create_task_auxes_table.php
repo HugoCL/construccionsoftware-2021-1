@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateProyectoUsuarioTable extends Migration
+class CreateTaskAuxesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,12 @@ class CreateProyectoUsuarioTable extends Migration
      */
     public function up()
     {
-        Schema::create('dirige', function (Blueprint $table) {
-
+        Schema::create('task_auxes', function (Blueprint $table) {
+            $table->integer('id') -> autoIncrement();
             $table->integer('id_proyecto');
-            $table->string('id_usuario');
-
-            $table->primary(['id_proyecto','id_usuario']);
-
-            $table->foreign('id_proyecto')->references('id')->on('proyectos');
-            $table->foreign('id_usuario')->references('correo')->on('usuarios');
-
+            $table->foreign('id_proyecto') -> references('id') -> on('proyectos');
+            $table-> enum('estado',['pendiente','hecho', 'no hecho']) -> nullable(false);
+            $table-> text('descripcion');
             $table->timestamps();
         });
     }
@@ -34,6 +30,6 @@ class CreateProyectoUsuarioTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('dirige');
+        Schema::dropIfExists('task_auxes');
     }
 }

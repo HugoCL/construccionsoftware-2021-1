@@ -2,27 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Proyecto;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 
-class ProjectsController extends Controller
+class IntegrantsControllerController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Database\Eloquent\Collection|Proyecto[]
+     * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        //
-        return Proyecto::all();
+        return view('IntegrantsController');
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return void
+     * @return \Illuminate\Http\Response
      */
     public function create()
     {
@@ -32,8 +29,8 @@ class ProjectsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
-     * @return void
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
@@ -44,7 +41,7 @@ class ProjectsController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return void
+     * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
@@ -55,7 +52,7 @@ class ProjectsController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return void
+     * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
@@ -65,9 +62,9 @@ class ProjectsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return void
+     * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
@@ -78,7 +75,7 @@ class ProjectsController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return void
+     * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
