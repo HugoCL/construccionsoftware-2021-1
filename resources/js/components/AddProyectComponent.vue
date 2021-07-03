@@ -98,6 +98,35 @@
                                 </v-btn>
                             </v-date-picker>
                         </v-menu>
+                        <!--Duracion Spring-->
+                        <v-row>
+                            <!--Formato Medicion-->
+                            <v-col cols="4" md="4" sm="12">
+                                <v-select
+                                    outlined
+                                    :items="rangeSprint"
+                                    label="Duracion Spring"
+                                    hint="Seleccione dia/semana/mes"
+                                    v-model="proyecto.rangeType"
+                                    @click="checkValuesSprint"
+                                    prepend-icon="mdi-calendar-range"
+                                >
+
+                                </v-select>
+                            </v-col>
+                            <!--Formato Medicion-->
+                            <v-col>
+                                <v-select
+                                    outlined
+                                    :items="valuesSprint"
+                                    label="Valor Spring"
+                                    hint="Seleccione duracion"
+                                    v-model="proyecto.rangeVal"
+                                    prepend-icon="mdi-calendar-clock"
+                                >
+                                </v-select>
+                            </v-col>
+                        </v-row>
                         <v-spacer></v-spacer>
 
                     </v-list>
@@ -115,6 +144,9 @@
                         class="my-4"
                     ></v-date-picker>
                 </v-col>-->
+            </v-row>
+            <v-row>
+
             </v-row>
             <v-container class="mb-4 mx-0 px-0">
                 <v-row class="justify-center">
@@ -150,8 +182,12 @@ export default {
                 description: '',
                 bosses: [],
                 workers: [],
+                rangeType:'',
+                rangeVal:'',
                 select: null,
             },
+            rangeSprint:['Dia','Semana','Mes'],
+            valuesSprint:[],
             emailRules: [
                 v => !!v || 'E-mail is required',
                 v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
@@ -215,6 +251,19 @@ export default {
                     console.log(response.data);
                 });
             window.location.href="http://127.0.0.1:8000/administrar-proyectos";
+        },
+        checkValuesSprint(){
+            if (this.proyecto.rangeType==='Dia')
+                this.valuesSprint=[1,2,3,4,5,6]
+            else if (this.proyecto.rangeType==='Semana')
+                this.valuesSprint=[1,2,3,4]
+            else if (this.proyecto.rangeType==='Mes')
+                this.valuesSprint=[1,2,3,4,5,6,7,8,9,9,10,11,12]
+            else
+                this.valuesSprint=[]
+
+
+
         }
     }
 }
