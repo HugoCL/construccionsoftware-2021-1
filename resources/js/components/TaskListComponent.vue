@@ -184,7 +184,7 @@ export default {
           formatedPeopleNames: [],
           sortedTasks: [],
           tasks: [
-              {
+              /*{
                   name: 'Crear interfaz',
                   members: ['Andres awallberg@hotmail.com'],
                   desc: 'Lorem ipsum dolor sit amet tempus penatibus taciti feugiat cras fames laoreet bibendum ligula nibh. Tristique convallis leo nibh porta odio feugiat blandit ullamcorper scelerisque cursus, luctus aptent netus sagittis egestas quis felis pulvinar ut vestibulum, ante mi cum suspendisse ornare potenti praesent eleifend varius. Quis dignissim dictum imperdiet bibendum mattis, vivamus phasellus donec tempor.',
@@ -207,7 +207,7 @@ export default {
                   date: '2021-07-01',
                   tags: ['HU02', 'TA02', 'P3'],
                   changes: ['7/7/7   Usuario', '7/7/7   Usuario', '7/7/7   Usuario',]
-              }
+              }*/
 
           ]
       }
@@ -218,19 +218,28 @@ export default {
   },
   methods: {
     async listar(){
+      let nTask = [];
       const res= await axios.get('/task');
-      const newT = {
-        name: res.data[2],
-        members: ['Andres awallberg@hotmail.com'],
-        desc: res.data[3],
-        date: res.data[4],
-        tags: ['HU02', 'TA02', 'P2'],
-        changes: ['7/7/7   Usuario', '7/7/7   Usuario', '7/7/7   Usuario',],
-        id_pro: this.id_pro,
-        estado :'pendiente'
-     };
       console.log(res.data);
-      this.tasks=newT;
+      for (let step = 0; step < res.data.length; step++) {
+        let new_task = res.data[step];
+
+        let newT = {
+          name: res.data[2],
+          members: ['Andres awallberg@hotmail.com'],
+          desc: res.data[3],
+          date: res.data[4],
+          tags: ['HU02', 'TA02', 'P2'],
+          changes: ['7/7/7   Usuario', '7/7/7   Usuario', '7/7/7   Usuario',],
+          id_pro: this.id_pro,
+          estado :'pendiente'
+        };
+        console.log(new_t)
+        nTask.push(newT);
+      }
+      this.tasks = nTask;
+      alert(JSON.stringify(this.tasks));
+      this.sortByUser();
     },
     send(newTask) {
       const iddProyecto = (window.location).href.charAt((window.location).href.length - 1);
@@ -308,6 +317,7 @@ export default {
   },
   mounted() {
     this.formatPeopleNames();
+    this.listar();
     this.sortByUser();
   }
 }
