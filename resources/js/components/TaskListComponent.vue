@@ -220,21 +220,20 @@ export default {
     async listar(){
       let nTask = [];
       const res= await axios.get('/task');
-      console.log(res.data);
+      //console.log(res.data);
       for (let step = 0; step < res.data.length; step++) {
         let new_task = res.data[step];
-
+        console.log(new_task)
         let newT = {
-          name: res.data[2],
+          name: new_task.name,
           members: ['Andres awallberg@hotmail.com'],
-          desc: res.data[3],
-          date: res.data[4],
+          desc: new_task.desc,
+          date: new_task.date,
           tags: ['HU02', 'TA02', 'P2'],
           changes: ['7/7/7   Usuario', '7/7/7   Usuario', '7/7/7   Usuario',],
-          id_pro: this.id_pro,
+          id_pro: new_task.id_proyecto,
           estado :'pendiente'
         };
-        console.log(new_t)
         nTask.push(newT);
       }
       this.tasks = nTask;
