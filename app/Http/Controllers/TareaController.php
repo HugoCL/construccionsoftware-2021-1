@@ -13,11 +13,11 @@ class TareaController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     *@return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function index($id)
+    public function index()
     {
-        return Task::get();
+        return view('TareaSola');
     }
 
     /**
@@ -40,7 +40,7 @@ class TareaController extends Controller
      */
     public function store(Request $request)
     {
-        $task = new Task();
+        $task  = new Task();
         $task->id = $request->id;
         $task->id_proyecto = $request->id_pro;
         $task->name = $request->name;
@@ -54,13 +54,14 @@ class TareaController extends Controller
 
     /**
      * Display the specified resource.
-     * @param  \App\Models\Task $task
-     * @return \Illuminate\Http\Response
+     * @param int  $id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function show(Task $task)
+    public function show($id)
     {
         //
-        return $task;
+        $task = Task::find($id);
+        return view('show.taskk', compact('task'));
     }
 
     /**
@@ -91,7 +92,7 @@ class TareaController extends Controller
         $task->id_proyecto = $request->id_pro;
         $task->name = $request->name;
         $task->desc = $request->desc;
-        $task->date = $request->date;
+        $task->date = $request->dates;
         $task->estado =  $request->estado;
         $task ->save();
 
@@ -102,12 +103,13 @@ class TareaController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Task $task
-     * @return \Illuminate\Http\Response
+     * @param int  $id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function destroy(Task $task)
+    public function destroy($id)
     {
         //
-        $task->delete();
+        $task  = Task::find($id);
+        return view('taskk.destroy', compact('task'));
     }
 }

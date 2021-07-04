@@ -263,14 +263,13 @@ export default {
         event.target.value = ''
       }
     },
-    send(newTask) {
-      const iddProyecto = (window.location).href.charAt((window.location).href.length - 1);
-      console.log(newTask);
-      axios.post('administrar-proyectos/task', newTask)
-        .then(response => {
-          console.log(response.data);
-        });
-    },
+      send(newTask) {
+          const iddProyecto = (window.location).href.charAt((window.location).href.length - 1);
+          axios.post('/administrar-proyectos/tareaNueva', newTask)
+              .then(response => {
+                  console.log(response.data);
+              });
+      },
     removeTag(index) {
       this.taskTags.splice(index, 1)
     },
@@ -289,13 +288,14 @@ export default {
         name: this.taskName,
         members: this.taskMembers,
         desc: this.taskDesc,
-        date: this.taskDate,
+        date: this.taskDate[0],
         tags: this.taskTags,
         changes: this.taskChanges,
         id_pro: this.id_pro,
-        estado :'pendiente'
+        estado :"pendiente"
       };
-      //this.send(newTask);
+      console.log(newTask.date);
+      this.send(newTask);
       this.taskName = '';
       this.taskDesc = '';
       this.taskMembers = '';
@@ -303,14 +303,13 @@ export default {
       this.taskTags = '';
       this.taskChanges = '';
       this.dialog = false;
+      this.listar();
       this.sortByUser();
     }
   },
-  created() {
-    this.sortByUser();
-  },
-    mounted() {
+  mounted() {
     this.formatPeopleNames();
+    this.listar();
     this.sortByUser();
   }
 }
