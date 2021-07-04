@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.theme')
 
 @section('content')
     <div id="app">
@@ -6,6 +6,7 @@
             <v-container>
                 <edit-proyect-component
                     :project="{{json_encode($project)}}"
+                    :users="{{json_encode($users)}}"
                 >
                 </edit-proyect-component>
             </v-container>

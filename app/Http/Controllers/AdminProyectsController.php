@@ -85,7 +85,7 @@ class AdminProyectsController extends Controller
     public function update(Request $request, $id)
     {
         $proyecto = Proyecto::find($id);
-        $proyecto->nombre = $request->nombre;
+        $proyecto->nombre = $request->name;
         $proyecto->descripcion = $request->description;
         $proyecto->fechaInicio = $request->dates[0];
         $proyecto->fechaTermino = $request->dates[1];
