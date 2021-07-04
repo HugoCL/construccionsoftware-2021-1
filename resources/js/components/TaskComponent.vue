@@ -332,12 +332,37 @@ export default {
         /*
          funciones para checklist de la ventana de tareas creadas
        */
+        async listar(){
+            const res= await axios.get('/task');
+            console.log(res.data);
+            this.tasks=res.data;
+        },
+        async guardar(id){
+            const res= await axios.post('/task',this.taskDate);
+            this.listar();
+        },
+        send(newTask) {
+            console.log("llega")
+            const iddProyecto = (window.location).href.charAt((window.location).href.length - 1);
+            console.log(newTask);
+            axios.post('administrar-proyectos/task', newTask)
+                .then(response => {
+                    console.log(response.data);
+                });
+        },
+        async eliminar(id){
+            const res= await axios.delete('/task/'+id);
+            this.listar();
+            this.sortByUser;
+
+        },
         addTask: function () {
             let tarea = this.newTaskCheck;
             if (tarea) {
                 this.taskCheckLists.push({taskCheck: tarea, chekeada: false});
                 this.newTaskCheck = "";
             }
+            this.send(this.taskDate);
         },
 
         chekear: function (tarea) {
@@ -378,6 +403,8 @@ export default {
         let tasks = item.tasks;
         tasks.splice(tasks.indexOf(deleted), 1);
       }
+      this.eliminar(this.tasks.id);
+      this.eliminar(this.tasks.id);
     },
     addTag(event) {
       event.preventDefault()

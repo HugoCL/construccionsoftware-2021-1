@@ -114,6 +114,7 @@
               text
               color="primary"
               @click="$refs.menu.save(taskDate)"
+
             >
               Guardar
             </v-btn>
@@ -231,6 +232,7 @@ export default {
       console.log(res.data);
       this.tasks=newT;
     },
+
     sortByUser: function () {
       this.sortedTasks = [];
       for (let i = 0; i < this.formatedPeopleNames.length; i++) {
@@ -261,14 +263,14 @@ export default {
         event.target.value = ''
       }
     },
-    /*send(newTask) {
+    send(newTask) {
       const iddProyecto = (window.location).href.charAt((window.location).href.length - 1);
       console.log(newTask);
       axios.post('administrar-proyectos/task', newTask)
         .then(response => {
           console.log(response.data);
         });
-    },*/
+    },
     removeTag(index) {
       this.taskTags.splice(index, 1)
     },
@@ -305,7 +307,6 @@ export default {
     }
   },
   created() {
-    this.listar();
     this.sortByUser();
   },
     mounted() {

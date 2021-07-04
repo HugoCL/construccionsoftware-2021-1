@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Task;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
 class TaskController extends Controller
@@ -70,6 +71,7 @@ class TaskController extends Controller
     public function edit($id)
     {
         //
+
     }
 
     /**
@@ -82,17 +84,27 @@ class TaskController extends Controller
     public function update(Request $request, Task $task)
     {
         //
-        $task->update($request->all());
+        $task = new Task();
+        $task->id = $request->id;
+        $task->id_proyecto = $request->id_pro;
+        $task->name = $request->name;
+        $task->desc = $request->desc;
+        $task->date = $request->date;
+        $task->estado =  $request->estado;
+        $task ->save();
+
+        return $task ;
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\Task $task
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Task $task)
     {
         //
+        $task->delete();
     }
 }

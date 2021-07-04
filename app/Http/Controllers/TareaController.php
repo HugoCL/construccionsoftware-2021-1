@@ -3,8 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Proyecto;
-use App\Models\Tarea;
-use App\Models\task_aux;
+use App\Models\Task;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -18,8 +17,7 @@ class TareaController extends Controller
      */
     public function index($id)
     {
-        /*$task = task_aux::find($id);
-        return view('TaskListComponent', compact($task));*/
+        return Task::get();
     }
 
     /**
@@ -30,37 +28,39 @@ class TareaController extends Controller
     public function create()
     {
         //
-        /*$task = new task_aux();
-        return view('create.taskk',compact('task'));*/
+        $task = new Task();
+        return view('create.taskk',compact('task'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param Request $request
-     * @return Tarea
+     * @return Task
      */
     public function store(Request $request)
     {
-        /*$task  = new task_aux();
-        $task ->id = $request->id;
-        $task ->id_proyecto = $request->id_pro;
-        $task ->descripcion = $request->desc;
+        $task = new Task();
+        $task->id = $request->id;
+        $task->id_proyecto = $request->id_pro;
+        $task->name = $request->name;
+        $task->desc = $request->desc;
+        $task->date = $request->date;
+        $task->estado =  $request->estado;
         $task ->save();
 
-        return $task ;*/
+        return $task ;
     }
 
     /**
      * Display the specified resource.
-     * @param int  $id
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @param  \App\Models\Task $task
+     * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Task $task)
     {
         //
-        /*$task = task_aux::find($id);
-        return view('show.taskk', compact('task'));*/
+        return $task;
     }
 
     /**
@@ -72,8 +72,8 @@ class TareaController extends Controller
     public function edit($id)
     {
         //
-        /*$task = task_aux::find($id);
-        return view('taskk.edit', compact('task'));*/
+        $task = Task::find($id);
+        return view('taskk.edit', compact('task'));
     }
 
     /**
@@ -86,26 +86,28 @@ class TareaController extends Controller
     public function update(Request $request, int $id)
     {
         //
-        /*$task = task_aux::find($id);
+        $task = Task::find($id);
         $task->id = $request->id;
-        $task ->id_proyecto = $request->id_pro;
-        $task ->descripcion = $request->desc;
+        $task->id_proyecto = $request->id_pro;
+        $task->name = $request->name;
+        $task->desc = $request->desc;
+        $task->date = $request->date;
+        $task->estado =  $request->estado;
         $task ->save();
 
-        return $task ;*/
+        return $task ;
 
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param int  $id
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @param  \App\Models\Task $task
+     * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Task $task)
     {
         //
-        /*$task  = task_aux::find($id);
-        return view('taskk.destroy', compact('task'));*/
+        $task->delete();
     }
 }
