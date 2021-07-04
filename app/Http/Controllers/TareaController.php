@@ -92,7 +92,7 @@ class TareaController extends Controller
         $task->id_proyecto = $request->id_pro;
         $task->name = $request->name;
         $task->desc = $request->desc;
-        $task->date = $request->dates;
+        $task->date = $request->dates[0];
         $task->estado =  $request->estado;
         $task ->save();
 

@@ -232,7 +232,13 @@ export default {
       console.log(res.data);
       this.tasks=newT;
     },
-
+    send(newTask) {
+      const iddProyecto = (window.location).href.charAt((window.location).href.length - 1);
+      axios.post('/administrar-proyectos/tareaNueva', newTask)
+          .then(response => {
+              console.log(response.data);
+          });
+    },
     sortByUser: function () {
       this.sortedTasks = [];
       for (let i = 0; i < this.formatedPeopleNames.length; i++) {
@@ -263,13 +269,7 @@ export default {
         event.target.value = ''
       }
     },
-      send(newTask) {
-          const iddProyecto = (window.location).href.charAt((window.location).href.length - 1);
-          axios.post('/administrar-proyectos/tareaNueva', newTask)
-              .then(response => {
-                  console.log(response.data);
-              });
-      },
+
     removeTag(index) {
       this.taskTags.splice(index, 1)
     },
@@ -294,7 +294,6 @@ export default {
         id_pro: this.id_pro,
         estado :"pendiente"
       };
-      console.log(newTask.date);
       this.send(newTask);
       this.taskName = '';
       this.taskDesc = '';
@@ -309,7 +308,6 @@ export default {
   },
   mounted() {
     this.formatPeopleNames();
-    this.listar();
     this.sortByUser();
   }
 }
