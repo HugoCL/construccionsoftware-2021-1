@@ -108,6 +108,7 @@
                             hint="Seleccione metodologia"
                             v-model="proyecto.projectType"
                             prepend-icon="mdi-folder-account-outline"
+                            @click="addDays"
                         >
                         </v-select>
                         <!--Config Duracion-->
@@ -117,10 +118,11 @@
                                 <v-select
                                     outlined
                                     :items="values"
-                                    label="Cantidad"
+                                    label="Cantidad de Sesiones"
                                     hint="Seleccione numero"
                                     v-model="proyecto.projectReps"
                                     prepend-icon="mdi-calendar-plus"
+                                    @click="addDays"
                                 >
 
                                 </v-select>
@@ -130,10 +132,11 @@
                                 <v-select
                                     outlined
                                     :items="ranges"
-                                    label="Duracion"
+                                    label="Medida (dia/semana/mes)"
                                     hint="Seleccione dia/semana/mes"
                                     v-model="proyecto.rangeType"
                                     prepend-icon="mdi-calendar-range"
+                                    @click="addDays"
                                 >
 
                                 </v-select>
@@ -143,10 +146,11 @@
                                 <v-select
                                     outlined
                                     :items="values"
-                                    label="Tiempo"
+                                    label="Frecuencia"
                                     hint="Seleccione duracion"
                                     v-model="proyecto.rangeVal"
                                     prepend-icon="mdi-calendar-clock"
+                                    @click="addDays"
                                 >
                                 </v-select>
                             </v-col>
@@ -202,7 +206,7 @@ export default {
             proyectos:[],
             proyecto: {
                 name: '',
-                startDate:'',
+                dates: [],
                 description: '',
                 bosses: [],
                 workers: [],
@@ -233,7 +237,6 @@ export default {
 
         axios.get('/user')
             .then(response=>{
-                const users = [];
                 const res = response.data;
                 this.items = res;
                 console.log(res);
@@ -243,29 +246,64 @@ export default {
 
     methods: {
         send () {
-            console.log(
-                {
-                    'name':this.proyecto.name,
-                    'dates':this.proyecto.dates,
-                    'bosses':this.proyecto.bosses,
-                    'workers':this.proyecto.workers
-                }
-            );
+            if(this.proyecto.name === '' || this.proyecto.dates.length === 0 || this.proyecto.description === ''
+                || this.proyecto.bosses.length === 0 || this.proyecto.workers.length === 0
+                || this.proyecto.projectReps === '' || this.proyecto.rangeType === ''
+                || this.proyecto.rangeVal === '' || this.proyecto.projectType === ''){
+                alert('Debes completar todos los campos antes de guardar');
+                return;
+            }
+            this.addDays();
+            this.methodologyType();
+
             const nuevoProyecto = this.proyecto;
-            this.proyecto = {name: '', description: '', dates: [], bosses: [], workers: []};
+            this.proyecto = {name: '', description: '', dates: [], bosses: [], workers: [],
+                projectType:'', projectReps:'', rangeType:'', rangeVal:'',};
             axios.post('/administrar-proyectos/nuevo', nuevoProyecto)
                 .then(response => {
                     console.log(response.data);
                 });
             window.location.href="http://127.0.0.1:8000/administrar-proyectos";
         },
+        addDays() {
+            if(this.backUpDate === '' || this.proyecto.projectReps === ''
+                || this.proyecto.rangeType === '' || this.proyecto.rangeVal === '')
+                return;
+
+            let sumDias;
+            switch (this.proyecto.rangeType) {
+                case "Dia":
+                    sumDias = 1;
+                    break;
+                case "Semana":
+                    sumDias = 7;
+                    break;
+                case "Mes":
+                    sumDias = 30;
+                    break;
+            }
+
+            let date = new Date(this.backUpDate);
+            date.setDate(date.getDate() + (sumDias*parseInt(this.proyecto.rangeVal, 10)*parseInt(this.proyecto.projectReps, 10))+1);
+            this.proyecto.dates[0] = this.backUpDate;
+            this.proyecto.dates[1] = date.getFullYear() + '-' + (date.getMonth()+1) + '-' + date.getDate();
+            console.log(this.proyecto.dates);
+        },
+        methodologyType() {
+            if (this.proyecto.projectType === 'Agil - Sprint [Historias de usuario]')
+                this.proyecto.projectType = 'Agil';
+            else
+                this.proyecto.projectType = 'Tradicional';
+        },
+
         cancelDate(){
-            this.backUpDate = this.proyecto.startDate
+            this.backUpDate = this.proyecto.dates[0]
             this.dialogDate=false
         },
         selectDate(){
-            this.proyecto.startDate = this.backUpDate
+            this.proyecto.dates[0] = this.backUpDate
             this.dialogDate=false
+            this.addDays();
         }
 
     }
