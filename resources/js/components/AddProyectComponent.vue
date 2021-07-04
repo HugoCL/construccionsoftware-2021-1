@@ -1,6 +1,6 @@
 <template>
 
-<div class="row justify-content-center">
+    <div class="row justify-content-center">
 
         <div class="col-12 align-self-center pb-0">
             <v-row>
@@ -193,7 +193,7 @@
             </v-container>
 
         </div>
-</div>
+    </div>
 
 </template>
 <script>
@@ -213,9 +213,9 @@ export default {
                 projectType:'',
                 projectReps:'',
                 rangeType:'',
-                rangeVal:'',
-                select: null,
+                rangeVal:''
             },
+            select: null,
             backUpDate:'',
             dialogDate:true,
             typesProject:['Agil - Sprint [Historias de usuario]','Tradicional - Iteracion [Requisitos de sistema]'],
@@ -229,7 +229,6 @@ export default {
     },
 
     created(){
-
         /*
               axios.post('/user', {correo: 'ncastillo@hotmail.com', nombre: 'Nicolas'});
               axios.post('/user', {correo: 'awallberg@hotmail.com', nombre: 'Andres'});
@@ -256,7 +255,11 @@ export default {
             this.addDays();
             this.methodologyType();
 
+            this.proyecto.projectReps = parseInt(this.proyecto.projectReps, 10);
+            this.proyecto.rangeVal = parseInt(this.proyecto.rangeVal, 10);
+
             const nuevoProyecto = this.proyecto;
+            console.log(nuevoProyecto);
             this.proyecto = {name: '', description: '', dates: [], bosses: [], workers: [],
                 projectType:'', projectReps:'', rangeType:'', rangeVal:'',};
             axios.post('/administrar-proyectos/nuevo', nuevoProyecto)
