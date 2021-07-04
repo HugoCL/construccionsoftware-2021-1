@@ -78,7 +78,7 @@ class newProyectController extends Controller
             $work->id_user = $workers[$i];
             $work->save();
         }
-        return $bosses;
+        return $proyecto;
 
     }
 

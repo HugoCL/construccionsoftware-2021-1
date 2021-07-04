@@ -51,7 +51,7 @@
 
                     <v-row class="mt-0" >
                         <v-col cols="12">
-                            <ul class="list-group mx-0 px-0" :key="rendered">
+                            <ul class="list-group mx-0 px-0" >
                                 <li class="list-group-item mb-4"
                                     v-for="(proyect,index) in projectsView" :key="index"
                                     >

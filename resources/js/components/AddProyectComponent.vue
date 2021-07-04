@@ -317,13 +317,15 @@ export default {
         confirmSend(){
             this.methodologyType();
             const nuevoProyecto = this.proyecto;
-            this.$emit('add',nuevoProyecto);
+
             this.proyecto = {name: '', description: '', dates: [], bosses: [], workers: [],
                 projectType:'', projectReps:'', rangeType:'', rangeVal:'',};
             axios.post('/administrar-proyectos/nuevo', nuevoProyecto)
                 .then(response => {
                     console.log("Proyecto enviado")
+                    this.$emit('add',response.data);
                 });
+
 
             this.dialogConfirm=false;
             //window.location.href="http://127.0.0.1:8000/administrar-proyectos";
