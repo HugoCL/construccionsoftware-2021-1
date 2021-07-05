@@ -61,106 +61,121 @@
 
                 </v-row>
                 <!--Mostrar fechas-->
-                <v-row class="ma-2">
-                    <!--Fecha Incio-->
+                <v-row>
+                    <!--Fecha inicio/Iteracion-->
                     <v-col>
-                        <v-row>
-                            <v-dialog
-                                v-model="modalS"
-                                persistent
-                                width="290px"
+                        <v-dialog
+                        v-model="dialogDate"
+                        persistent
+                        width="290px"
+                    >
+                        <template v-slot:activator="{ on, attrs }">
+                            <v-text-field
+                                :disabled="noEdit"
+                                v-model="backUpDate"
+                                label="Fecha de Inicio Proyecto"
+                                prepend-icon="mdi-calendar"
+                                readonly
+                                outlined
+                                class="pt-2"
+                                v-bind="attrs"
+                                v-on="on"
+                            ></v-text-field>
+                        </template>
+                        <v-date-picker
+                            locale="es-cl"
+                            v-model="backUpDate"
+                            scrollable
+                        >
+                            <v-spacer></v-spacer>
+                            <v-btn
+                                text
+                                color="primary"
+                                @click="cancelDate"
                             >
-                                <template v-slot:activator="{ on, attrs }">
-                                    <v-text-field
-                                        :disabled="noEdit"
-                                        v-model="projectUp.dates[0]"
-                                        label="Fecha de Inicio"
-                                        prepend-icon="mdi-calendar"
-                                        readonly
-                                        outlined
-                                        class="pt-2"
-                                        v-bind="attrs"
-                                        v-on="on"
-                                    ></v-text-field>
-                                </template>
-                                <v-date-picker
-                                    locale="es-cl"
-                                    v-model="projectUp.dates[0]"
-                                    scrollable
-                                >
-                                    <v-spacer></v-spacer>
-                                    <v-btn
-                                        text
-                                        color="primary"
-                                        @click="closeDialogStart"
-                                    >
-                                        Cancel
-                                    </v-btn>
-                                    <v-btn
-                                        text
-                                        color="primary"
-                                        @click="saveStartDate"
-                                    >
-                                        OK
-                                    </v-btn>
-                                </v-date-picker>
-                            </v-dialog>
-                        </v-row>
+                                Cancel
+                            </v-btn>
+                            <v-btn
+                                text
+                                color="primary"
+                                @click="selectDate"
+                            >
+                                OK
+                            </v-btn>
+                        </v-date-picker>
+                    </v-dialog>
                     </v-col>
-                    <!--Fecha termino-->
+                    <!--Tipo de proyecto-->
                     <v-col>
-                        <v-row>
-                            <v-dialog
-                                v-model="modalE"
-                                persistent
-                                width="290px"
-                            >
-                                <template v-slot:activator="{ on, attrs }">
-                                    <v-text-field
-                                        class="ma-2"
-                                        outlined
-                                        v-model="projectUp.dates[1]"
-                                        :disabled="noEdit"
-                                        label="Fecha de Termino"
-                                        prepend-icon="mdi-calendar"
-                                        readonly
-                                        v-bind="attrs"
-                                        v-on="on"
-                                    ></v-text-field>
-                                </template>
-                                <v-date-picker
-                                    locale="es-cl"
-                                    v-model="projectUp.dates[1]"
-                                    scrollable
-                                >
-                                    <v-spacer></v-spacer>
-                                    <v-btn
-                                        text
-                                        color="primary"
-                                        @click="closeDialogEnd"
-                                    >
-                                        Cancel
-                                    </v-btn>
-                                    <v-btn
-                                        text
-                                        color="primary"
-                                        @click="saveEndDate"
-                                    >
-                                        OK
-                                    </v-btn>
-                                </v-date-picker>
-                            </v-dialog>
-                        </v-row>
+                        <v-select
+                        outlined
+                        :disabled="noEdit"
+                        :items="typesProject"
+                        label="Tipo de proyecto"
+                        hint="Seleccione metodologia"
+                        v-model="projectUp.projectType"
+                        prepend-icon="mdi-folder-account-outline"
+                        @click="addDays"
+                    >
+                    </v-select>
+
                     </v-col>
+                    <!--Config Duracion-->
                 </v-row>
+                    <v-row>
+                        <v-col cols="4" md="4" sm="12">
+                            <!--Cantidad de repeticiones-->
+                            <v-select
+                                :disabled="noEdit"
+                                outlined
+                                :items="values"
+                                label="Cantidad de Sesiones"
+                                hint="Seleccione numero"
+                                v-model="projectUp.projectReps"
+                                prepend-icon="mdi-calendar-plus"
+                                @click="addDays"
+                            >
+
+                            </v-select>
+                        </v-col>
+                        <!--Formato Medicion-->
+                        <v-col cols="4" md="4" sm="12">
+                            <v-select
+                                :disabled="noEdit"
+                                outlined
+                                :items="ranges"
+                                label="Medida (dia/semana/mes)"
+                                hint="Seleccione dia/semana/mes"
+                                v-model="projectUp.rangeType"
+                                prepend-icon="mdi-calendar-range"
+                                @click="addDays"
+                            >
+
+                            </v-select>
+                        </v-col>
+                        <!--Formato Medicion-->
+                        <v-col>
+                            <v-select
+                                :disabled="noEdit"
+                                outlined
+                                :items="values"
+                                label="Frecuencia"
+                                hint="Seleccione duracion"
+                                v-model="projectUp.rangeVal"
+                                prepend-icon="mdi-calendar-clock"
+                                @click="addDays"
+                            >
+                            </v-select>
+                        </v-col>
+                    </v-row>
             </v-col>
         </v-row>
         <!--Task list-->
         <v-row>
             <TaskList :peopleNames="users" :id_pro="project.id"/>
         </v-row>
-        <!--Miembros Emilio-->
-        <integrantes-proyectos></integrantes-proyectos>
+        <!--Miembros Emilio>
+        <integrantes-proyectos></integrantes-proyectos-->
     </v-container>
 
 </template>
@@ -193,10 +208,19 @@ export default {
                 name: this.project.nombre,
                 description:this.project.descripcion,
                 dates: [this.project.fechaInicio, this.project.fechaTermino],
+                projectType:this.project.metodología,
+                projectReps:this.project.cantIteraciones,
+                rangeType:this.project.medidaIteracion,
+                rangeVal:this.project.duracionIteraciones
             },
+            backUpDate:this.project.fechaInicio,
+            dialogDate:false,
+            dialogConfirm:false,
+            dialogAlert:false,
+            typesProject:['Agil - Sprint [Historias de usuario]','Tradicional - Iteracion [Requisitos de sistema]'],
+            ranges:['Dia','Semana','Mes'],
+            values:[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30],
             currentMember:null,
-            modalS:false,
-            modalE:false,
             noEdit:true
             //Se deben incluir listas para cada tipo de miembros
         }
@@ -230,25 +254,55 @@ export default {
             axios.put('/administrar-proyectos/'+id, this.projectUp);
             this.disableEdit();
         },
-        closeDialogStart() {
-            this.modalS = false
-        },
-        saveStartDate() {
-            this.modalS = false
-        },
-        closeDialogEnd() {
-            this.modalE = false
-        },
-        saveEndDate() {
-            this.modalE = false
-        },
         disableEdit(){
+            console.log(this.project)
             this.noEdit=!this.noEdit
         },
         deleteProject: function (id){
             axios.delete('/administrar-proyectos/'+id);
             window.location.href="/administrar-proyectos";
         },
+        addDays() {
+            if(this.backUpDate === '' || this.projectUp.projectReps === ''
+                || this.projectUp.rangeType === '' || this.projectUp.rangeVal === '')
+                return;
+
+            let sumDias;
+            switch (this.projectUp.rangeType) {
+                case "Dia":
+                    sumDias = 1;
+                    break;
+                case "Semana":
+                    sumDias = 7;
+                    break;
+                case "Mes":
+                    sumDias = 30;
+                    break;
+            }
+
+            let date = new Date(this.backUpDate);
+            date.setDate(date.getDate() + (sumDias*parseInt(this.projectUp.rangeVal, 10)*parseInt(this.projectUp.projectReps, 10))+1);
+            this.projectUp.dates[0] = this.backUpDate;
+            this.projectUp.dates[1] = date.getFullYear() + '-' + (date.getMonth()+1) + '-' + date.getDate();
+
+        },
+        methodologyType() {
+            if (this.projectUp.projectType === 'Agil - Sprint [Historias de usuario]')
+                this.projectUp.projectType = 'Agil';
+            else
+                this.projectUp.projectType = 'Tradicional';
+        },
+
+        cancelDate(){
+            this.backUpDate = this.projectUp.dates[0]
+            this.dialogDate=false
+        },
+        selectDate(){
+            this.projectUp.dates[0] = this.backUpDate
+            this.dialogDate=false
+            this.addDays();
+        },
+
 
     }
 }

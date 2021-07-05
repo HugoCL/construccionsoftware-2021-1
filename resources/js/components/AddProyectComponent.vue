@@ -230,8 +230,8 @@ export default {
             proyectos:[],
             proyecto: {
                 name: '',
-                dates: [],
                 description: '',
+                startDate:'',
                 bosses: [],
                 workers: [],
                 projectType:'',
