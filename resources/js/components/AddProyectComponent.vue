@@ -162,16 +162,6 @@
                 </v-col>
 
 
-                <!--<v-col cols="4">
-                    <v-date-picker
-                        color="#000000"
-                        full-width
-                        v-model="proyecto.dates"
-                        range
-                        locale="es-cl"
-                        class="my-4"
-                    ></v-date-picker>
-                </v-col>-->
             </v-row>
             <v-row>
 
@@ -189,6 +179,27 @@
                         </v-icon>
                         Enviar
                     </v-btn>
+                    <v-dialog v-model="dialogAlert" max-width="40%">
+                        <v-card>
+                            <v-card-title class="text-h6 text-center">Complete los campos antes de enviar</v-card-title>
+                            <v-card-actions>
+                                <v-spacer></v-spacer>
+                                <v-btn color="primary" @click="dialogAlert=false">Confirmar</v-btn>
+                                <v-spacer></v-spacer>
+                            </v-card-actions>
+                        </v-card>
+                    </v-dialog>
+                    <v-dialog v-model="dialogConfirm" max-width="40%">
+                        <v-card>
+                            <v-card-title class="text-h6 text-center">¿Crear proyecto?</v-card-title>
+                            <v-card-actions>
+                                <v-spacer></v-spacer>
+                                <v-btn class="btn-danger white--text" color="red" @click="dialogConfirm=false">Cancelar</v-btn>
+                                <v-btn color="primary" @click="confirmSend">Confirmar</v-btn>
+                                <v-spacer></v-spacer>
+                            </v-card-actions>
+                        </v-card>
+                    </v-dialog>
                 </v-row>
             </v-container>
 
@@ -217,7 +228,9 @@ export default {
             },
             select: null,
             backUpDate:'',
-            dialogDate:true,
+            dialogDate:false,
+            dialogConfirm:false,
+            dialogAlert:false,
             typesProject:['Agil - Sprint [Historias de usuario]','Tradicional - Iteracion [Requisitos de sistema]'],
             ranges:['Dia','Semana','Mes'],
             values:[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30],
@@ -238,7 +251,7 @@ export default {
             .then(response=>{
                 const res = response.data;
                 this.items = res;
-                console.log(res);
+
 
             });
     },
@@ -249,24 +262,17 @@ export default {
                 || this.proyecto.bosses.length === 0 || this.proyecto.workers.length === 0
                 || this.proyecto.projectReps === '' || this.proyecto.rangeType === ''
                 || this.proyecto.rangeVal === '' || this.proyecto.projectType === ''){
-                alert('Debes completar todos los campos antes de guardar');
+                this.dialogAlert=true
                 return;
             }
             this.addDays();
-            this.methodologyType();
+
 
             this.proyecto.projectReps = parseInt(this.proyecto.projectReps, 10);
             this.proyecto.rangeVal = parseInt(this.proyecto.rangeVal, 10);
+            this.dialogConfirm = true
 
-            const nuevoProyecto = this.proyecto;
-            console.log(nuevoProyecto);
-            this.proyecto = {name: '', description: '', dates: [], bosses: [], workers: [],
-                projectType:'', projectReps:'', rangeType:'', rangeVal:'',};
-            axios.post('/administrar-proyectos/nuevo', nuevoProyecto)
-                .then(response => {
-                    console.log(response.data);
-                });
-            window.location.href="http://127.0.0.1:8000/administrar-proyectos";
+
         },
         addDays() {
             if(this.backUpDate === '' || this.proyecto.projectReps === ''
@@ -290,7 +296,7 @@ export default {
             date.setDate(date.getDate() + (sumDias*parseInt(this.proyecto.rangeVal, 10)*parseInt(this.proyecto.projectReps, 10))+1);
             this.proyecto.dates[0] = this.backUpDate;
             this.proyecto.dates[1] = date.getFullYear() + '-' + (date.getMonth()+1) + '-' + date.getDate();
-            console.log(this.proyecto.dates);
+
         },
         methodologyType() {
             if (this.proyecto.projectType === 'Agil - Sprint [Historias de usuario]')
@@ -307,6 +313,20 @@ export default {
             this.proyecto.dates[0] = this.backUpDate
             this.dialogDate=false
             this.addDays();
+        },
+        confirmSend(){
+            this.methodologyType();
+            const nuevoProyecto = this.proyecto;
+            this.$emit('add',nuevoProyecto);
+            this.proyecto = {name: '', description: '', dates: [], bosses: [], workers: [],
+                projectType:'', projectReps:'', rangeType:'', rangeVal:'',};
+            axios.post('/administrar-proyectos/nuevo', nuevoProyecto)
+                .then(response => {
+                    console.log("Proyecto enviado")
+                });
+
+            this.dialogConfirm=false;
+            //window.location.href="http://127.0.0.1:8000/administrar-proyectos";
         }
 
     }
