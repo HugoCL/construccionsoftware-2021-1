@@ -232,6 +232,7 @@ export default {
                 name: '',
                 description: '',
                 startDate:'',
+                dates:[],
                 bosses: [],
                 workers: [],
                 projectType:'',

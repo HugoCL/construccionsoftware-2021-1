@@ -24,7 +24,7 @@ class CreateProyectosTable extends Migration
             $table->text('descripcion');
             $table->date('fechaInicio');
             $table->date('fechaTermino');
-            $table->string('metodología');
+            $table->string('metodologia');
             $table->integer('cantIteraciones');
             $table->integer('duracionIteraciones');
             $table->string('medidaIteracion');
