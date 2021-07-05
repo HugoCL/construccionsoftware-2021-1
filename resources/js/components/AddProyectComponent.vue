@@ -191,9 +191,22 @@
                     </v-dialog>
                     <v-dialog v-model="dialogConfirm" max-width="40%">
                         <v-card>
-                            <v-card-title class="text-h6 text-center">¿Crear proyecto?</v-card-title>
+                            <v-card-title class="text-h6 justify-center">¿Crear proyecto?</v-card-title>
+                            <v-spacer></v-spacer>
+                            <v-card-subtitle outlined>
+                                <b>Proyecto: </b>{{proyecto.name}}
+                                <v-spacer></v-spacer>
+                                <b>Descripcion: </b>{{proyecto.description}}
+                                <v-spacer></v-spacer>
+                                <b>Metodogolia: </b>{{proyecto.projectType}}
+                                <v-spacer></v-spacer>
+                                <b>Fecha Incio: </b>{{proyecto.dates[0]}}
+                                <v-spacer></v-spacer>
+                                <b>Fecha Termino: </b>{{proyecto.dates[1]}}
+                            </v-card-subtitle>
                             <v-card-actions>
                                 <v-spacer></v-spacer>
+
                                 <v-btn class="btn-danger white--text" color="red" @click="dialogConfirm=false">Cancelar</v-btn>
                                 <v-btn color="primary" @click="confirmSend">Confirmar</v-btn>
                                 <v-spacer></v-spacer>
@@ -317,7 +330,7 @@ export default {
         confirmSend(){
             this.methodologyType();
             const nuevoProyecto = this.proyecto;
-
+            this.backUpDate='';
             this.proyecto = {name: '', description: '', dates: [], bosses: [], workers: [],
                 projectType:'', projectReps:'', rangeType:'', rangeVal:'',};
             axios.post('/administrar-proyectos/nuevo', nuevoProyecto)
