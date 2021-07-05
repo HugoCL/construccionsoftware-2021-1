@@ -37,12 +37,6 @@ export default {
         taskDate: new Date().toISOString().substr(0, 10),
         menu: false, //Para el seleccionador de fecha
         dialog: false,
-        taskName: '',
-        taskDesc: '',
-        taskMembers: [],
-        taskTags: [],
-        taskChanges:[],
-        peopleNames: ['Juanito Pérez', 'Juliana Soza', 'Juancho Silva', 'Manuel Hernandez', 'Jesus Alberga', 'Pedro Perez'],
     }),
     methods: {
 
@@ -57,23 +51,6 @@ export default {
         removeTag (index) {
             this.taskTags.splice(index, 1)
         },
-        createTask: function () {
-            this.tasks.push({
-                name: this.taskName,
-                members: this.taskMembers,
-                desc: this.taskDesc,
-                date: this.taskDate,
-                tags: this.taskTags,
-                changes: this.taskChanges
-            });
-            this.taskName = '';
-            this.taskDesc = '';
-            this.taskMembers = '';
-            this.taskDesc = '';
-            this.taskTags = '';
-            this.taskChanges='';
-            this.dialog = false;
-        }
     }
 }
 
