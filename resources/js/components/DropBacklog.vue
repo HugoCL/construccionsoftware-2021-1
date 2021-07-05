@@ -1,101 +1,71 @@
 <template>
-    <main class ="flexbox">
+    <div class="row">
+        <div class="col-3">
+            <h3>Draggable 1</h3>
+            <draggable class="list-group" :list="list1" group="people" @change="log">
+                <div
+                    class="list-group-item"
+                    v-for="(element, index) in list1"
+                    :key="element.name"
+                >
+                    {{ element.name }} {{ index }}
+                </div>
+            </draggable>
+        </div>
 
-        <Board id="board-1" class="regular  green lighten-5">
-            <v-card-title>
-                Tareas aux
-            </v-card-title>
-            <Card id ="card-3" draggable="true" class="priority green lighten-4">
-                <p> Tarea 1</p>
-            </Card>
-        </Board>
-
-        <Board id="board-2" class="regular  green lighten-5" >
-            <v-card-title class="priority red lighten-4">
-                Sprint por def
-            </v-card-title>
-            <Card id ="card-5" draggable="true" class="regular  green lighten-2" >
-                <p> Tarea 2 </p>
-            </Card>
-            <Card id ="card-7" draggable="true" class="regular  green lighten-2">
-                <p> Tarea 3 </p>
-            </Card>
-        </Board>
-    </main>
+        <div class="col-3">
+            <h3>Draggable 2</h3>
+            <draggable class="list-group" :list="list2" group="people" @change="log">
+                <div
+                    class="list-group-item"
+                    v-for="(element, index) in list2"
+                    :key="element.name"
+                >
+                    {{ element.name }} {{ index }}
+                </div>
+            </draggable>
+        </div>
+    </div>
 </template>
-
 <script>
-
-import Task from './TaskComponent';
-import Board from './Board'
-import Card from './Card'
-
+import draggable from "vuedraggable";
 export default {
-    name: 'DropBacklog',
-    components: {Task, Board, Card},
-    data: () => ({
-        taskDate: new Date().toISOString().substr(0, 10),
-        menu: false, //Para el seleccionador de fecha
-        dialog: false,
-    }),
+    name: "two-lists",
+    display: "Two Lists",
+    order: 1,
+    components: {
+        draggable
+    },
+    data() {
+        return {
+            list1: [
+                { name: "John", id: 1 },
+                { name: "Joao", id: 2 },
+                { name: "Jean", id: 3 },
+                { name: "Gerard", id: 4 }
+            ],
+            list2: [
+                { name: "Juan", id: 5 },
+                { name: "Edgard", id: 6 },
+                { name: "Johnson", id: 7 }
+            ]
+        };
+    },
     methods: {
-
-        addTag (event) {
-            event.preventDefault()
-            var val = event.target.value.trim()
-            if (val.length > 0) {
-                this.taskTags.push(val)
-                event.target.value = ''
-            }
+        add: function() {
+            this.list.push({ name: "Juan" });
         },
-        removeTag (index) {
-            this.taskTags.splice(index, 1)
+        replace: function() {
+            this.list = [{ name: "Edgard" }];
         },
+        clone: function(el) {
+            return {
+                name: el.name + " cloned"
+            };
+        },
+        log: function(evt) {
+            window.console.log(evt);
+        }
     }
-}
-
+};
 </script>
-
-<style >
-
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-body{
-    background-color: #F3F3F3;
-}
-.flexbox{
-    display: flex;
-    justify-content: space-between;
-
-    width: 100%;
-    max-width: 768px;
-    height: 100vh;
-
-    overflow: hidden;
-
-    margin: 0 auto;
-    padding: 15px;
-}
-.flex .board {
-    display: flex;
-    flex-direction: column;
-
-    width: 100%;
-    max-width: 300px;
-
-    background-color: black;
-
-    padding: 15px;
-}
-.flex .board .card {
-    padding: 15px 25px;
-    background-color: #F3F3F3;
-
-    cursor: pointer;
-    margin-bottom: 15px;
-}
-
-</style>
