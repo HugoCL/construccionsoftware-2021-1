@@ -37,6 +37,7 @@ Route::resource('/kanban', 'App\Http\Controllers\KanbanController');
 Route::resource('/graph', 'App\Http\Controllers\GraphDataController');
 Route::resource('/minAndMaxTaskByProject', 'App\Http\Controllers\MinAndMaxTaskByProjectController');
 Route::resource('/sprint', 'App\Http\Controllers\SprintController');
+Route::resource('/backlog', 'App\Http\Controllers\BacklogController');
 //Route::get('/proyects', [newProyectController::class, 'index']);
 
 //Para probar el creador de tareas
