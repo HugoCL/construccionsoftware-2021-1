@@ -15,13 +15,25 @@
         </v-toolbar>
         <v-form>
           <v-row>
-            <v-col cols="12">
+            <v-col cols="8">
               <v-text-field
                 v-model="volereName"
                 label="Nombre"
                 hide-details="auto"
                 outlined
               ></v-text-field>
+            </v-col>
+            <v-col cols="4">
+              <v-combobox
+                v-model="volereRURS"
+                :items="['RU', 'RS']"
+                label="Tipo de requisito"
+                dense
+                chips
+                small-chips
+                outlined
+              >
+              </v-combobox>
             </v-col>
             <v-col cols="12">
               <v-textarea
@@ -50,7 +62,7 @@
               <v-combobox
                 v-model="volereType"
                 :items="['Funcional', 'No funcional']"
-                label="Tipo"
+                label="Tipo de función"
                 dense
                 chips
                 small-chips
@@ -185,6 +197,7 @@ export default {
   components: {VolereCard},
   data: () => ({
     dialog: false,
+    volereRURS: '',
     volereName: '',
     volereDesc: '',
     volereSource: '',
@@ -200,6 +213,7 @@ export default {
     volereCards: [
       //Tarjeta de ejemplo
       {
+        rurs: 'RS',
         number: 1,
         name: 'Registrar información de cada universidad',
         desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi consectetur cum dicta dolor dolorum\n' +

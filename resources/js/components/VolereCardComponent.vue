@@ -15,13 +15,25 @@
         </v-toolbar>
         <v-form>
           <v-row>
-            <v-col cols="12">
+            <v-col cols="8">
               <v-text-field
                 v-model="volereName"
                 label="Nombre"
                 hide-details="auto"
                 outlined
               ></v-text-field>
+            </v-col>
+            <v-col cols="4">
+              <v-combobox
+                v-model="volereRURS"
+                :items="['RU', 'RS']"
+                label="Tipo de requisito"
+                dense
+                chips
+                small-chips
+                outlined
+              >
+              </v-combobox>
             </v-col>
             <v-col cols="12">
               <v-textarea
@@ -164,7 +176,7 @@
             <v-list-item-content>
               <v-card-title>
                 {{
-                  'RU' + ("0000" + volereCard.number).substr(volereCard.number.toString().length, 5) + ':' + volereCard.name
+                  volereCard.rurs + ("0000" + volereCard.number).substr(volereCard.number.toString().length, 5) + ':' + volereCard.name
                 }}
               </v-card-title>
             </v-list-item-content>
@@ -333,7 +345,7 @@
       <v-card-title
         class="subheading font-weight-bold pb-2 pt-2"
       >
-        {{ 'RU' + ("0000" + volereCard.number).substr(volereCard.number.toString().length, 5) + ': ' + volereCard.name }}
+        {{ volereCard.rurs + ("0000" + volereCard.number).substr(volereCard.number.toString().length, 5) + ': ' + volereCard.name }}
       </v-card-title>
 
       <v-divider class="my-0 py-1"></v-divider>
@@ -366,6 +378,7 @@
 export default {
   name: "VolereCardComponent.vue",
   data: () => ({
+    volereRURS: '',
     volereDialog: false,
     editDialog: false,
     volereName: '',
@@ -390,7 +403,9 @@ export default {
       this.volereCards.splice(this.volereCards.indexOf(this.volereCard), 1);
     },
     editVolere: function(){
+
       this.editDialog = true;
+      this.volereRURS = this.volereCard.rurs;
       this.volereName = this.volereCard.name;
       this.volereDesc = this.volereCard.desc;
       this.volereSource = this.volereCard.source.join();
@@ -406,6 +421,7 @@ export default {
     },
     saveVolere: function () {
       this.editDialog = false;
+      this.volereCard.rurs = this.volereRURS;
       this.volereCard.name = this.volereName ;
       this.volereCard.desc = this.volereDesc;
       this.volereCard.source = this.volereSource.split(",");
