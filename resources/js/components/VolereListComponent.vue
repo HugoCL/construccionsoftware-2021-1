@@ -121,8 +121,8 @@
             </v-col>
             <v-col cols="12" md="6">
               <v-text-field
-                v-model="volereID"
-                label="ID"
+                v-model="volereNumber"
+                label="Número del requisito"
                 hide-details="auto"
                 outlined
                 type="number"
@@ -150,14 +150,29 @@
     </v-dialog>
     <v-row>
       <v-col cols="12">
-        <v-btn @click="dialog = true"> Crear Volere</v-btn>
+        <v-row class="justify-center ">
+          <v-btn
+            color="secondary"
+            @click="dialog = true"
+            class="mb-4"
+            width="50%"
+          >
+            <v-icon class="pr-2">
+              mdi-card-plus-outline
+            </v-icon>
+            Crear Tarjeta de Volere
+          </v-btn>
+        </v-row>
       </v-col>
       <v-col
         md="6"
         v-for="(volereCard, index) in volereCards"
         :key="index"
       >
-        <VolereCard :volereCard = "volereCard"/>
+        <VolereCard
+          :volereCard = "volereCard"
+          :volereCards = "volereCards"
+        />
       </v-col>
     </v-row>
   </v-container>
@@ -181,10 +196,11 @@ export default {
     volereMeasure: '',
     volereScale: '',
     volereIncrement: '',
-    volereID: '',
+    volereNumber: 0,
     volereCards: [
+      //Tarjeta de ejemplo
       {
-        id: 1,
+        number: 1,
         name: 'Registrar información de cada universidad',
         desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi consectetur cum dicta dolor dolorum\n' +
           '         earum explicabo itaque laborum nostrum praesentium quaerat quia quod ratione sed suscipit, tenetur voluptas.\n' +
@@ -201,9 +217,6 @@ export default {
         time: '15:45',
         increment: 1
       },
-      {
-
-      }
     ]
   }),
   methods: {
@@ -212,7 +225,7 @@ export default {
       let date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
       let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
       this.volereCards.push({
-        id: parseInt(this.volereID),
+        number: parseInt(this.volereNumber),
         name: this.volereName,
         desc: this.volereDesc,
         source: this.volereSource.split(","),
@@ -228,7 +241,17 @@ export default {
         increment: parseInt(this.volereIncrement)
       });
       this.dialog = false;
-
+      this.volereName = '';
+      this.volereDesc = '';
+      this.volereSource = '';
+      this.volereUsertype = '';
+      this.volereType = '';
+      this.volereState = '';
+      this.volerePriority = '';
+      this.volereStability = '';
+      this.volereMeasure = '';
+      this.volereScale = '';
+      this.volereIncrement = 0;
     }
   }
 }

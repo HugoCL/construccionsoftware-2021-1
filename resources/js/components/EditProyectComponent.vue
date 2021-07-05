@@ -161,7 +161,9 @@
         </v-row>
         <!--Miembros Emilio-->
         <integrantes-proyectos></integrantes-proyectos>
-        <VolereList/>
+        <v-row>
+          <VolereList/>
+        </v-row>
     </v-container>
 
 </template>
