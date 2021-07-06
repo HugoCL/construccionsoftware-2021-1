@@ -14,7 +14,14 @@ class CreateIntegrantsTable extends Migration
     public function up()
     {
         Schema::create('integrants', function (Blueprint $table) {
-            $table->id();
+            $table->integer('id_project');
+            $table->string('id_user');
+
+            $table->foreign('id_project')->references('id')->on('proyectos')->cascadeOnDelete();
+            $table->foreign('id_user')->references('correo')->on('usuarios')->cascadeOnDelete();
+
+            $table->string('rol');
+
             $table->timestamps();
         });
     }
