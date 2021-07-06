@@ -36,7 +36,13 @@ Route::resource('/user', 'App\Http\Controllers\UsuarioController');
 Route::resource('/kanban', 'App\Http\Controllers\KanbanController');
 Route::resource('/graph', 'App\Http\Controllers\GraphDataController');
 Route::resource('/minAndMaxTaskByProject', 'App\Http\Controllers\MinAndMaxTaskByProjectController');
-Route::resource('/sprint', 'App\Http\Controllers\SprintController');
+Route::resource('/sprint', 'App\Http\Controllers\SprintController')->except( 'index', 'show');
+
+//Se redeclaran las rutas, ya que se modificaron los metodos del controlador
+Route::get('/sprint-index/{idproyecto}', [\App\Http\Controllers\SprintController::class, 'index']);
+Route::get('/sprint/{idproyecto}/{idsprint}', [\App\Http\Controllers\SprintController::class, 'show']);
+
+
 //Route::get('/proyects', [newProyectController::class, 'index']);
 Route::resource('/sprint-container', 'App\Http\Controllers\SprintContainerController');
 Route::resource('/drop-backlog', 'App\Http\Controllers\BacklogController');
