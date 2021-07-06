@@ -79,7 +79,7 @@ class newProyectController extends Controller
         /////////////////////////////////
         $equipo = new Equipo();
         $equipo->nombre = "equipo_nombre";
-        $equipo->id_proyecto = $proyecto->id;
+        $equipo->id_project = $proyecto->id;
         $equipo->save();
 
         $participantes_equipo = ($request->team);
