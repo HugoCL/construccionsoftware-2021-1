@@ -32,6 +32,7 @@ Route::resource('administrar-proyectos', 'App\Http\Controllers\AdminProyectsCont
 Route::resource('lista-usuarios','App\Http\Controllers\UsersTableController');
 Route::resource('/task','App\Http\Controllers\TaskController');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::put('/taskPut',[App\Http\Controllers\EditTaskController::class,'update']);
 Route::get('testtaskscomponents', [TestTasksComponentsController::class, 'index']);
 Route::resource('/user', 'App\Http\Controllers\UsuarioController');
 Route::resource('/kanban', 'App\Http\Controllers\KanbanController');

@@ -275,9 +275,9 @@ export default {
         name: this.taskName,
         members: this.taskMembers,
         desc: this.taskDesc,
-        date: this.taskDate[0],
-        tags: this.taskTags,
-        changes: this.taskChanges,
+        date: this.taskDate,
+        tags: ""+this.taskTags,
+        changes: ""+this.taskChanges,
         id_pro: this.id_pro,
         estado :"pendiente"
       };
