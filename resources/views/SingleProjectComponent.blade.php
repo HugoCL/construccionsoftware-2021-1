@@ -10,13 +10,19 @@
                 >
                 </edit-proyect-component>
             </v-container>
+            <v-container>
+                <graph-component>
+                
+                </graph-component>
+            </v-container>
         </v-app>
     </div>
 
 @endsection
 <script>
     import EditProyectComponent from "../js/components/EditProyectComponent";
+    import GraphsComponent from "../js/components/GraphsComponent"
     export default {
-        components: {EditProyectComponent}
+        components: {EditProyectComponent,GraphsComponent}
     }
 </script>
