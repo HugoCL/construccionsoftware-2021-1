@@ -160,7 +160,7 @@
             <TaskList :peopleNames="users" :id_pro="project.id"/>
         </v-row>
         <!--Miembros Emilio-->
-        <integrantes-proyectos></integrantes-proyectos>
+        <integrantes-proyectos :devs="devs" :leads="leads" :users="users" :project="project" :participates="participates"></integrantes-proyectos>
     </v-container>
 
 </template>
@@ -205,6 +205,7 @@ export default {
         leads: [],
         devs: [],
         users: [],
+        participates: [],
         project: null
     },
     methods: {

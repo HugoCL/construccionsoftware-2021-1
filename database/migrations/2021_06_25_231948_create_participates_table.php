@@ -18,10 +18,12 @@ class CreateParticipatesTable extends Migration
             $table->string('id_user');
 
             $table->foreign('id_project')->references('id')->on('proyectos')->cascadeOnDelete();
-            $table->foreign('id_user')->references('correo')->on('usuarios');
+            $table->foreign('id_user')->references('correo')->on('usuarios')->cascadeOnDelete();
 
+            $table->string('rol');
             $table->timestamps();
         });
+
     }
 
     /**
