@@ -323,6 +323,7 @@ export default {
         ]
     }),
     props: {
+        id_task_name: null,
         tasks: null,
         taskData: null,
         peopleNames: null,
@@ -332,27 +333,20 @@ export default {
         /*
          funciones para checklist de la ventana de tareas creadas
        */
-        async listar(){
-            const res= await axios.get('/task');
-            console.log(res.data);
-            this.tasks=res.data;
-        },
-        async guardar(id){
-            const res= await axios.post('/task',this.taskDate);
-            this.listar();
+
+        async guardar(newTask){
+            const res= await axios.post('/task',newTask);
         },
         send(newTask) {
             console.log("llega")
             const iddProyecto = (window.location).href.charAt((window.location).href.length - 1);
-            console.log(newTask);
             axios.post('administrar-proyectos/task', newTask)
                 .then(response => {
                     console.log(response.data);
                 });
         },
-        async eliminar(id){
-            const res= await axios.delete('/task/'+id);
-            this.listar();
+        async eliminar(newTask){
+            const res= await axios.delete('/task/'+newTask.id);
             this.sortByUser;
 
         },
@@ -378,13 +372,33 @@ export default {
             this.taskCheckLists.splice(index, 1);
         },
         editTask: function () {
+            const iddProyecto = (window.location).href.charAt((window.location).href.length - 1);
+            let id_task;
+            for(let i=0;i<this.id_task_name.length;i++){
+                let ar = this.id_task_name[i];
+                if(ar[1]==this.taskData.name){
+                    console.log(ar[0]);
+                    id_task = ar[0];
+                }
+            }
             this.editDialog = true;
             this.taskName = this.taskData.name;
             this.taskDesc = this.taskData.desc;
             this.taskMembers = this.taskData.members;
             this.taskTags = this.taskData.tags;
             this.taskDate = this.taskData.date;
-
+            const newTask = {
+                id:id_task,
+                name: this.taskName,
+                members: this.taskMembers,
+                desc: this.taskDesc,
+                date: this.taskDate,
+                tags: this.taskTags,
+                changes: this.taskChanges,
+                id_pro: iddProyecto,
+                estado :"pendiente"
+            };
+            this.guardar(newTask)
         },
         saveEditedTask: function () {
             let taskData = this.taskData;
@@ -398,13 +412,33 @@ export default {
 
     },
     deleteTask: function () {
+        const iddProyecto = (window.location).href.charAt((window.location).href.length - 1);
       let deleted = this.tasks.splice(this.tasks.indexOf(this.taskData), 1);
+      let id_task
       for (let item of this.sortedTasks) {
         let tasks = item.tasks;
         tasks.splice(tasks.indexOf(deleted), 1);
       }
-      this.eliminar(this.tasks.id);
-      this.eliminar(this.tasks.id);
+
+        for(let i=0;i<this.id_task_name.length;i++){
+            let ar = this.id_task_name[i];
+            if(ar[1]==this.taskData.name){
+                id_task = ar[0];
+            }
+        }
+        const newTask = {
+            id:id_task,
+            name: this.taskName,
+            members: this.taskMembers,
+            desc: this.taskDesc,
+            date: this.taskDate,
+            tags: this.taskTags,
+            changes: this.taskChanges,
+            id_pro: iddProyecto,
+            estado :"pendiente"
+        };
+        this.eliminar(newTask);
+        this.sortByUser();
     },
     addTag(event) {
       event.preventDefault()

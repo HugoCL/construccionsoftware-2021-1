@@ -65,12 +65,14 @@ class TaskController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
         //
+        $task = Task::find($id);
+        return view('taskk.destroy', compact('task'));
 
     }
 
@@ -78,13 +80,13 @@ class TaskController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Task $task
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Task $task)
+    public function update(Request $request, $id)
     {
         //
-        $task = new Task();
+        $task = Task::find($id);
         $task->id = $request->id;
         $task->id_proyecto = $request->id_pro;
         $task->name = $request->name;
@@ -92,19 +94,20 @@ class TaskController extends Controller
         $task->date = $request->date;
         $task->estado =  $request->estado;
         $task ->save();
-
         return $task ;
+
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Task $task
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Task $task)
+    public function destroy($id)
     {
         //
+        $task = Task::find($id);
         $task->delete();
     }
 }
