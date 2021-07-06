@@ -20,10 +20,13 @@ class CreateSprintsTable extends Migration
 
             $table->primary(['id','id_proyecto']);
 
-            $table->foreign('id_proyecto') -> references('id') -> on('proyectos')->cascadeOnDelete();;
+
             $table->date('fechaInicio');
             $table->date('fechaTermino');
             $table->timestamps();
+        });
+        Schema::table('sprints', function($table) {
+            $table->foreign('id_proyecto')->references('id')->on('proyectos');
         });
     }
 

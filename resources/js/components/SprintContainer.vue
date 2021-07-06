@@ -169,24 +169,21 @@ export default {
     components:{
         draggable
     },
+
+
     data: () => ({
         nuevoRequisito:"",
+
+        aux1:[
+
+        ],
+
+        tareas:[
+
+        ]
+        ,
         iteracion: [
-            {
-                requisitos: ['HU01: Ejemplo1','HU02: Ejemplo2', 'HU03: Ejemplo3']
-            },
-            {
-                requisitos: ['HU04: Ejemplo4','HU05: Ejemplo5']
-            },
-            {
-                requisitos: ['HU06: Ejemplo6','HU07: Ejemplo7']
-            },
-            {
-                requisitos: ['HU04: Ejemplo4','HU05: Ejemplo5']
-            },
-            {
-                requisitos: ['HU06: Ejemplo6','HU07: Ejemplo7']
-            }
+
         ],
         backlog: [
             {
@@ -215,13 +212,49 @@ export default {
         fechaInic:'',
         state:'',
     }),
+    created() {
+        //Aqui hay que agregar el id del proyecto del tipo y tiene que quedar una url del tipo
+        // '/sprint/{idProyecto}/{indexSprint}'
+
+        this.getSprints();
+        console.log(this.tareas);
+        for (let i = 1; i <= 5; i++) {
+
+            axios.get('/sprint/1/'+i)
+                .then(response=>{
+
+                    const res = response.data;
+
+                    this.aux1 = res;
+                    let aux = [];
+
+                    for (let j = 0; j < res.length; j++) {
+
+                        aux.push(res[j].descripcion);
+
+
+                    }
+                    this.iteracion.push({requisitos:aux});
+
+                });
+        }
+    },
     methods: {
         add: function() {
             this.nuevoProyecto.push({ requisitos: this.nuevoProyecto});
             this.nuevoProyecto="";
         },
 
+        getSprints: function(){
+            //Aca se la url debe quedar tipo '/sprint-index/{idProyecto}'
+            axios.get('/sprint-index/'+1)
+                .then(response=>{
 
+                        const res = response.data;
+                        this.tareas = res;
+                    }
+                );
+        }
     }
 };
 </script>

@@ -18,7 +18,7 @@ class SprintController extends Controller
     public function index($idProyecto)
     {
         //
-        $sprints = DB::table('sprints')->where('id_proyecto', $idProyecto)->get();
+        $sprints = DB::table('sprints')->where('id_proyecto', $idProyecto)->get()->all();
         return $sprints;
     }
 
@@ -65,9 +65,8 @@ class SprintController extends Controller
         $tareas = DB::table('tareas')->where('id_proyecto', $idProyecto);
         $tareas = $tareas->select('*')->where('id_sprint', $idSprint)->get();
 
-        //$tasks = Tarea::query()->select('*')->where('id_sprint', $id);
-        //return view('SprintComponent', compact('sprint','tasks'));
-        //echo 'prueba';
+
+
         return $tareas;
 
     }
