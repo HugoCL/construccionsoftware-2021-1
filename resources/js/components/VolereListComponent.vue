@@ -177,7 +177,7 @@
         </v-row>
       </v-col>
       <v-col
-        md="6"
+        md="4"
         v-for="(volereCard, index) in volereCards"
         :key="index"
       >

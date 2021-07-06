@@ -150,7 +150,7 @@
       <v-col
         v-for="(task, index2) in userTask.tasks"
         :key="index2"
-        cols="12"
+        cols="4"
       >
         <Task
           :tasks="tasks"
@@ -229,7 +229,6 @@ export default {
         estado :'pendiente'
      };
       console.log(res.data);
-      this.tasks=newT;
     },
     sortByUser: function () {
       this.sortedTasks = [];
@@ -273,7 +272,6 @@ export default {
       this.taskTags.splice(index, 1)
     },
     createTask: function () {
-
       this.tasks.push({
         name: this.taskName,
         members: this.taskMembers,

@@ -49,12 +49,15 @@
                 </v-card>
             </v-col>
         </v-row>
-        <!--Task list-->
-        <v-row>
-            <TaskList :peopleNames="users" :id_pro="project.id"/>
-        </v-row>
+        <!--Task list (ya tiene una row dentro)-->
+
+        <TaskList :peopleNames="users" :id_pro="project.id" class="mt-5"/>
+
         <!--Miembros Emilio>
         <integrantes-proyectos></integrantes-proyectos-->
+        <v-row>
+          <VolereList v-if="verifyProyectType()" class="mt-5"/>
+        </v-row>
         <v-row>
             <v-dialog v-model="openDialogEdit" max-width="80%">
                 <v-toolbar
@@ -95,15 +98,7 @@
                 </v-card>
             </v-dialog>
         </v-row>
-        <!--Task list-->
-        <v-row>
-            <TaskList :peopleNames="users" :id_pro="project.id"/>
-        </v-row>
-        <!--Miembros Emilio-->
-        <integrantes-proyectos></integrantes-proyectos>
-        <v-row>
-          <VolereList/>
-        </v-row>
+
     </v-container>
 
 </template>
@@ -147,7 +142,7 @@ export default {
             dialogConfirm:false,
             openDialogEdit:false,
             dialogAlert:false,
-            currentMember:null,
+            currentMember:null
             //Se deben incluir listas para cada tipo de miembros
         }
     },
@@ -171,7 +166,17 @@ export default {
             axios.delete('/administrar-proyectos/'+id);
             window.location.href="/administrar-proyectos";
         },
+        verifyProyectType: function(){
+          let proyectType = this.projectUp.projectType.split('-')[0].split(' ')[0];
+          alert(proyectType);
+          if(proyectType === 'Tradicional') return true;
+          else                       return false;
+        }
 
-    }
+    },
+  mounted() {
+      //alert(JSON.stringify(this.projectUp));
+      //this.verifyProyectType();
+  }
 }
 </script>
