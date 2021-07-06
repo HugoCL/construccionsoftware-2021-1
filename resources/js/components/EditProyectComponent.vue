@@ -57,6 +57,7 @@
         <integrantes-proyectos></integrantes-proyectos-->
         <v-row>
           <VolereList v-if="verifyProyectType()" class="mt-5"/>
+          <UserStoriesList v-if="verifyProyectType()" class="mt-5"/>
         </v-row>
         <v-row>
             <v-dialog v-model="openDialogEdit" max-width="80%">
@@ -107,6 +108,7 @@
 import AutoChipComponent from "./AutoChipComponent";
 import TaskList from "./TaskListComponent";
 import VolereList from "./VolereListComponent"
+import UserStoriesList from "./UserStoriesList"
 
 export default {
     name: "EditProyectComponent",
