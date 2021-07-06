@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Equipo;
 use App\Models\Lead;
 use App\Models\Participate;
+use App\Models\Integrante;
 use App\Models\Proyecto;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
@@ -74,6 +76,22 @@ class newProyectController extends Controller
             $work->id_user = $workers[$i];
             $work->save();
         }
+        /////////////////////////////////
+        $equipo = new Equipo();
+        $equipo->nombre = "equipo_nombre";
+        $equipo->id_proyecto = $proyecto->id;
+        $equipo->save();
+
+        $participantes_equipo = ($request->team);
+        for ($i=0; $i < count($participantes_equipo); $i++) {
+            $integrante = new Integrante();
+            $integrante->id_equipo = $equipo->id;
+            $integrante->id_proyecto = $proyecto->id;
+            $integrante->id_user = $workers[$i];
+            $integrante->rol = "integrante_equipo";
+            $integrante->save();
+        }
+        /////////////////////////////////
         return $bosses;
 
     }

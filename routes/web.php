@@ -38,6 +38,7 @@ Route::resource('/graph', 'App\Http\Controllers\GraphDataController');
 Route::resource('/minAndMaxTaskByProject', 'App\Http\Controllers\MinAndMaxTaskByProjectController');
 Route::resource('/sprint', 'App\Http\Controllers\SprintController');
 Route::resource('/backlog', 'App\Http\Controllers\BacklogController');
+Route::resource('/integrantes', 'App\Http\Controllers\IntegrantesController');
 //Route::get('/proyects', [newProyectController::class, 'index']);
 
 //Para probar el creador de tareas

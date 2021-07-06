@@ -53,6 +53,19 @@
                             small-chips
                             outlined
                         ></v-select>
+
+                        <v-select
+                            item-text="correo"
+                            v-model="proyecto.team"
+                            :items="items"
+                            label="Equipo"
+                            multiple
+                            dense
+                            clearable
+                            chips
+                            small-chips
+                            outlined
+                        ></v-select>
                         <v-dialog
                             transition="dialog-bottom-transition"
                             max-width="600"
@@ -271,6 +284,7 @@ export default {
                 bosses: [],
                 workers: [],
                 select: null,
+                team:[],
             },
             emailRules: [
                 v => !!v || 'E-mail is required',
@@ -294,6 +308,8 @@ export default {
                 console.log(res);
 
             });
+
+
     },
     computed: {
         allSelected() {
@@ -333,12 +349,13 @@ export default {
         crearEquipo(selected){
             alert(selected)
             this.equipos.push(selected)
+
         },
 
         /////////////////////////////
         send () {
             if(this.proyecto.name.trim() === '' || this.proyecto.dates.length === 0 || this.proyecto.description.trim() === ''
-                || this.proyecto.bosses.length === 0 || this.proyecto.workers.length === 0){
+                || this.proyecto.bosses.length === 0 || this.proyecto.workers.length === 0 || this.proyecto.team.length === 0){
                 alert('Debes completar todos los campos antes de guardar');
                 return;
             }
@@ -364,15 +381,17 @@ export default {
                     'name':this.proyecto.name,
                     'dates':this.proyecto.dates,
                     'bosses':this.proyecto.bosses,
-                    'workers':this.proyecto.workers
+                    'workers':this.proyecto.workers,
+                    'team':this.proyecto.team
                 }
             );
             const nuevoProyecto = this.proyecto;
-            this.proyecto = {name: '', description: '', dates: [], bosses: [], workers: []};
+            this.proyecto = {name: '', description: '', dates: [], bosses: [], workers: [], team: []};
             axios.post('/administrar-proyectos/nuevo', nuevoProyecto)
                 .then(response => {
                     console.log(response.data);
                 });
+
             window.location.href="http://127.0.0.1:8000/administrar-proyectos";
         }
     }

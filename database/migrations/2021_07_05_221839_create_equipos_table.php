@@ -14,7 +14,7 @@ class CreateEquiposTable extends Migration
     public function up()
     {
         Schema::create('equipo', function (Blueprint $table) {
-            $table->integer('id')->autoIncrement();
+            //$table->integer('id')->autoIncrement();
             $table->string('nombre');
             $table->integer('id_project');
             $table->foreign('id_project')->references('id')->on('proyectos')->cascadeOnDelete();

@@ -21,6 +21,7 @@ class CreateBacklogsTable extends Migration
             //$table->integer('id_tarea');
             $table->foreign('id_proyecto')->references('id')->on('proyectos');
            // $table->foreign('id_tarea')->references('id')->on('tareas');
+            $table->timestamps();
         });
     }
 
