@@ -94,7 +94,6 @@ export default {
             console.log(nuevoProyecto)
             console.log(this.projectsView)
             this.projectsView.push(add)
-
             this.dialog=false
 
         }
