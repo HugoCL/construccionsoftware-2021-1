@@ -2,11 +2,11 @@
     <div class="container mx-0 px-0" data-app style="background-color: transparent">
         <v-container>
             <v-row >
-                <v-col cols="9" class="title mr-15 ml-1 pr-0 pb-0 ">
+                <v-col cols="3" class="title mr-15 ml-1 pr-0 pb-0 ">
                     Administrar proyectos
                 </v-col>
                 <v-col cols="2">
-                    <v-dialog v-model="dialog" transition="dialog-top-transition"  width="64%">
+                    <v-dialog transition="dialog-top-transition"  width="64%">
                         <template v-slot:activator="{ on, attrs }">
                             <div>
                                 <v-btn v-bind="attrs" color="secondary" v-on="on"> <v-icon class="pr-2" >mdi-plus</v-icon>Nuevo Proyecto</v-btn>
@@ -37,8 +37,7 @@
 
 
                                         <v-card-text>
-                                            <crear-proyecto
-                                            v-on:add="addProject($event)"></crear-proyecto>
+                                            <crear-proyecto></crear-proyecto>
                                         </v-card-text>
                                     </v-card>
                                 </template>
@@ -49,12 +48,11 @@
                     </v-row>
 
 
-                    <v-row class="mt-0" >
-                        <v-col cols="12">
-                            <ul class="list-group mx-0 px-0" >
+                    <v-row class="mt-0">
+                        <v-col cols="6">
+                            <ul class="list-group mx-0 px-0">
                                 <li class="list-group-item mb-4"
-                                    v-for="(proyect,index) in projectsView" :key="index"
-                                    >
+                                    v-for="(proyect,index) in projectsView" :key="index">
                                     <proyect-card
                                         v-on:delete="deleteProjetc($event)"
                                         :proyectData="proyect">
@@ -72,9 +70,7 @@
 export default {
     data(){
         return{
-            projectsView: this.projects,
-            dialog:false,
-
+            projectsView: this.projects
         }
     },
     methods:{
@@ -88,14 +84,6 @@ export default {
                     return;
                 }
             }
-        },
-        addProject(nuevoProyecto){
-            const add = nuevoProyecto;
-            console.log(nuevoProyecto)
-            console.log(this.projectsView)
-            this.projectsView.push(add)
-            this.dialog=false
-
         }
     },
     props:{

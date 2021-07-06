@@ -229,7 +229,7 @@
             </v-card>
         </v-dialog>
         <v-dialog v-model ="dialog1" width="50%">
-            <v-card>
+            <v-card >
                 <v-toolbar class = "mb-2"
 
                            color="primary"
