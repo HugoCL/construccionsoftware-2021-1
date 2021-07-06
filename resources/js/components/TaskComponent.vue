@@ -323,7 +323,6 @@ export default {
         },
         ]
     }),
- 
     props: {
         tasks: null,
         taskData: null,
