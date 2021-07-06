@@ -80,20 +80,7 @@ export default{
             porcentajeTareas: 33
         }
     },
-    created() {
-        axios.get('/graph-project')
-            .then(response => {
-                const res  = response.data;
-                console.log(res);
-                this.proyectos = res;
-                console.log(this.proyectos);
-            })
-            .catch(function(error) {
-                console.log(error.data);
-            })
-    },
     methods: {
-
 
 
     },

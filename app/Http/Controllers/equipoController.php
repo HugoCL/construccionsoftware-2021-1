@@ -38,4 +38,3 @@ class equipoController extends Controller
 
     }
 }
-
