@@ -16,6 +16,7 @@ class CreateSprintsTable extends Migration
         Schema::create('sprints', function (Blueprint $table) {
             $table->integer('id');
             $table->integer('id_proyecto');
+            $table->integer('nro_sprint');
 
             $table->primary(['id','id_proyecto']);
 
