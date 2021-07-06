@@ -66,96 +66,7 @@
                             small-chips
                             outlined
                         ></v-select>
-                        <v-dialog
-                            transition="dialog-bottom-transition"
-                            max-width="600"
-                        >
-                            <template v-slot:activator="{ on, attrs }">
-                                <v-btn
-                                    color="primary"
-                                    v-bind="attrs"
-                                    v-on="on"
-                                >Crear equipo</v-btn>
-                            </template>
-                            <v-card
-                                class="mx-auto"
-                                max-width="500"
-                            >
-                                <v-toolbar
-                                    flat
-                                    color="transparent"
-                                >
-                                    <v-app-bar-nav-icon></v-app-bar-nav-icon>
-                                    <v-toolbar-title>Creacion de equipo</v-toolbar-title>
-                                    <v-spacer></v-spacer>
-                                </v-toolbar>
 
-                                <v-container class="py-0">
-                                    <v-row
-                                        align="center"
-                                        justify="start"
-                                    >
-                                        <v-col
-                                            v-for="(selection, i) in selections"
-                                            :key="selection.text"
-                                            class="shrink"
-                                        >
-                                            <v-chip
-                                                :disabled="loading"
-                                                close
-                                                @click:close="selected.splice(i, 1)"
-                                            >
-                                                <v-icon
-                                                    left
-                                                    v-text="selection.icon"
-                                                ></v-icon>
-                                                {{ selection.text }}
-                                            </v-chip>
-                                        </v-col>
-
-                                        <v-col
-                                            v-if="!allSelected"
-                                            cols="12"
-                                        >
-                                        </v-col>
-                                    </v-row>
-                                </v-container>
-
-                                <v-divider v-if="!allSelected"></v-divider>
-
-                                <v-list>
-                                    <template v-for="item in categories">
-                                        <v-list-item
-                                            v-if="!selected.includes(item)"
-                                            :key="item.text"
-                                            @click="selected.push(item)"
-                                        >
-                                            <v-list-item-avatar>
-                                                <v-icon
-                                                    :disabled="loading"
-                                                    v-text="item.icon"
-                                                ></v-icon>
-                                            </v-list-item-avatar>
-                                            <v-list-item-title v-text="item.text"></v-list-item-title>
-                                        </v-list-item>
-                                    </template>
-                                </v-list>
-
-                                <v-divider></v-divider>
-
-                                <v-card-actions>
-                                    <v-spacer></v-spacer>
-                                    <v-btn
-                                        :disabled="!selected.length"
-                                        color="purple"
-                                        text
-                                        @click="crearEquipo(selected)"
-                                    >
-                                        Crear
-                                    </v-btn>
-                                </v-card-actions>
-                            </v-card>
-                        </v-dialog>
 
                         <v-menu
                             ref="menu"
@@ -346,11 +257,6 @@ export default {
 
     methods: {
         /////////////////////////////////
-        crearEquipo(selected){
-            alert(selected)
-            this.equipos.push(selected)
-
-        },
 
         /////////////////////////////
         send () {

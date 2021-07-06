@@ -87,7 +87,7 @@ class newProyectController extends Controller
             $integrante = new Integrante();
             $integrante->id_equipo = $equipo->id;
             $integrante->id_proyecto = $proyecto->id;
-            $integrante->id_user = $workers[$i];
+            $integrante->id_user = $participantes_equipo[$i];
             $integrante->rol = "integrante_equipo";
             $integrante->save();
         }
