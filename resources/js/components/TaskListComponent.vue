@@ -170,50 +170,67 @@ import Task from './TaskComponent';
 export default {
   name: 'TaskList',
   components: {Task},
-  data: () => ({
-    taskDate: new Date().toISOString().substr(0, 10),
-    menu: false, //Para el seleccionador de fecha
-    dialog: false,
-    taskName: '',
-    taskDesc: '',
-    taskMembers: [],
-    taskTags: [],
-    taskChanges: [],
-    formatedPeopleNames: [],
-    sortedTasks: [],
-    tasks: [
-      {
-        name: 'Crear interfaz',
-        members: ['Andres awallberg@hotmail.com'],
-        desc: 'Lorem ipsum dolor sit amet tempus penatibus taciti feugiat cras fames laoreet bibendum ligula nibh. Tristique convallis leo nibh porta odio feugiat blandit ullamcorper scelerisque cursus, luctus aptent netus sagittis egestas quis felis pulvinar ut vestibulum, ante mi cum suspendisse ornare potenti praesent eleifend varius. Quis dignissim dictum imperdiet bibendum mattis, vivamus phasellus donec tempor.',
-        date: '2021-06-26',
-        tags: ['HU02', 'TA02', 'P1'],
-        changes: ['7/7/7   Usuario', '7/7/7   Usuario', '7/7/7   Usuario',]
-      },
-      {
-        name: 'Implementar botones',
-        members: ['Andres awallberg@hotmail.com'],
-        desc: 'Lorem ipsum dolor sit amet consectetur adipiscing Tristique egestas quis felis pulvinar ut vestibulum, ante mi cum suspendisse ornare potenti praesent eleifend varius. Quis dignissim dictum imperdiet bibendum mattis, vivamus phasellus donec tempor.',
-        date: '2021-06-10',
-        tags: ['HU02', 'TA02', 'P2'],
-        changes: ['7/7/7   Usuario', '8/7/7   Usuario', '9/7/7   Usuario',]
-      },
-      {
-        name: 'Seleccionar colores',
-        members: ['Andres awallberg@hotmail.com'],
-        desc: 'Lorem ipsum dolor sit amet consectetur adipiscing elit senectus fringilla arcu a, iaculis sodales magna sollicitudin ridiculus tempus penatibus facilisis ac cursus nullam praesent, venenatis lectus taciti feugiat cras fames laoreet bibendum ligula nibh. Tristique convallis leo nibh porta odio feugiat blandit ullamcorper scelerisque cursus, luctus aptent netus sagittis egestas quis felis pulvinar ut vestibulum, ante mi cum suspendisse ornare potenti praesent eleifend varius. Quis dignissim dictum imperdiet bibendum mattis, vivamus phasellus donec tempor.',
-        date: '2021-07-01',
-        tags: ['HU02', 'TA02', 'P3'],
-        changes: ['7/7/7   Usuario', '7/7/7   Usuario', '7/7/7   Usuario',]
-      }
+  data(){
+      return{
+          taskDate: new Date().toISOString().substr(0, 10),
+          menu: false, //Para el seleccionador de fecha
+          dialog: false,
+          taskName: '',
+          taskDesc: '',
+          taskMembers: [],
+          taskTags: [],
+          taskChanges: [],
+          formatedPeopleNames: [],
+          sortedTasks: [],
+          tasks: [
+              {
+                  name: 'Crear interfaz',
+                  members: ['Andres awallberg@hotmail.com'],
+                  desc: 'Lorem ipsum dolor sit amet tempus penatibus taciti feugiat cras fames laoreet bibendum ligula nibh. Tristique convallis leo nibh porta odio feugiat blandit ullamcorper scelerisque cursus, luctus aptent netus sagittis egestas quis felis pulvinar ut vestibulum, ante mi cum suspendisse ornare potenti praesent eleifend varius. Quis dignissim dictum imperdiet bibendum mattis, vivamus phasellus donec tempor.',
+                  date: '2021-06-26',
+                  tags: ['HU02', 'TA02', 'P1'],
+                  changes: ['7/7/7   Usuario', '7/7/7   Usuario', '7/7/7   Usuario',]
+              },
+              {
+                  name: 'Implementar botones',
+                  members: ['Andres awallberg@hotmail.com'],
+                  desc: 'Lorem ipsum dolor sit amet consectetur adipiscing Tristique egestas quis felis pulvinar ut vestibulum, ante mi cum suspendisse ornare potenti praesent eleifend varius. Quis dignissim dictum imperdiet bibendum mattis, vivamus phasellus donec tempor.',
+                  date: '2021-06-10',
+                  tags: ['HU02', 'TA02', 'P2'],
+                  changes: ['7/7/7   Usuario', '8/7/7   Usuario', '9/7/7   Usuario',]
+              },
+              {
+                  name: 'Seleccionar colores',
+                  members: ['Andres awallberg@hotmail.com'],
+                  desc: 'Lorem ipsum dolor sit amet consectetur adipiscing elit senectus fringilla arcu a, iaculis sodales magna sollicitudin ridiculus tempus penatibus facilisis ac cursus nullam praesent, venenatis lectus taciti feugiat cras fames laoreet bibendum ligula nibh. Tristique convallis leo nibh porta odio feugiat blandit ullamcorper scelerisque cursus, luctus aptent netus sagittis egestas quis felis pulvinar ut vestibulum, ante mi cum suspendisse ornare potenti praesent eleifend varius. Quis dignissim dictum imperdiet bibendum mattis, vivamus phasellus donec tempor.',
+                  date: '2021-07-01',
+                  tags: ['HU02', 'TA02', 'P3'],
+                  changes: ['7/7/7   Usuario', '7/7/7   Usuario', '7/7/7   Usuario',]
+              }
 
-    ]
-  }),
+          ]
+      }
+  },
   props: {
     id_pro: null,
     peopleNames: []
   },
   methods: {
+    async listar(){
+      const res= await axios.get('/task');
+      const newT = {
+        name: res.data[2],
+        members: ['Andres awallberg@hotmail.com'],
+        desc: res.data[3],
+        date: res.data[4],
+        tags: ['HU02', 'TA02', 'P2'],
+        changes: ['7/7/7   Usuario', '7/7/7   Usuario', '7/7/7   Usuario',],
+        id_pro: this.id_pro,
+        estado :'pendiente'
+     };
+      console.log(res.data);
+      this.tasks=newT;
+    },
     sortByUser: function () {
       this.sortedTasks = [];
       for (let i = 0; i < this.formatedPeopleNames.length; i++) {
@@ -244,14 +261,14 @@ export default {
         event.target.value = ''
       }
     },
-    send(newTask) {
+    /*send(newTask) {
       const iddProyecto = (window.location).href.charAt((window.location).href.length - 1);
       console.log(newTask);
-      axios.post('/administrar-proyectos/tareaNueva', newTask)
+      axios.post('administrar-proyectos/task', newTask)
         .then(response => {
           console.log(response.data);
         });
-    },
+    },*/
     removeTag(index) {
       this.taskTags.splice(index, 1)
     },
@@ -273,9 +290,10 @@ export default {
         date: this.taskDate,
         tags: this.taskTags,
         changes: this.taskChanges,
-        id_pro: this.id_pro
+        id_pro: this.id_pro,
+        estado :'pendiente'
       };
-      this.send(newTask);
+      //this.send(newTask);
       this.taskName = '';
       this.taskDesc = '';
       this.taskMembers = '';
@@ -286,10 +304,13 @@ export default {
       this.sortByUser();
     }
   },
-  mounted() {
+  created() {
+    this.listar();
+    this.sortByUser();
+  },
+    mounted() {
     this.formatPeopleNames();
     this.sortByUser();
-
   }
 }
 </script>
