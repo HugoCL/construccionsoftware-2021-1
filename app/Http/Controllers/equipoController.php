@@ -26,4 +26,15 @@ class equipoController extends Controller
 
         return $equipo;
     }
+
+    public function destroy($id)
+    {
+        if($id== auth()->id()){
+            $equipo = Equipo::find($id);
+            $equipo->delete();
+        }else{
+            return view ('home');
+        }
+
+    }
 }
