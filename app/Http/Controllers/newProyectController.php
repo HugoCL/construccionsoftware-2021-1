@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Equipo;
 use App\Models\Lead;
 use App\Models\Participate;
+use App\Models\Integrante;
 use App\Models\Proyecto;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
@@ -55,6 +57,10 @@ class newProyectController extends Controller
         $proyecto->descripcion = $request->description;
         $proyecto->fechaInicio = $request->dates[0];
         $proyecto->fechaTermino = $request->dates[1];
+        $proyecto->metodología = $request->projectType;
+        $proyecto->cantIteraciones = $request->projectReps;
+        $proyecto->duracionIteraciones = $request->rangeVal;
+        $proyecto->medidaIteracion = $request->rangeType;
         $proyecto->save();
 
         $bosses = ($request->bosses);
@@ -70,11 +76,29 @@ class newProyectController extends Controller
 
         for ($i=0; $i < count($workers); $i++){
             $work = new Participate();
+            $work->rol = "rol";
             $work->id_project = $proyecto->id;
             $work->id_user = $workers[$i];
             $work->save();
         }
-        return $bosses;
+
+        /////////////////////////////////
+        $equipo = new Equipo();
+        $equipo->nombre = "equipo_nombre";
+        $equipo->id_project = $proyecto->id;
+        $equipo->save();
+
+        $participantes_equipo = ($request->team);
+        for ($i=0; $i < count($participantes_equipo); $i++) {
+            $integrante = new Integrante();
+            $integrante->id_equipo = $equipo->id;
+            $integrante->id_proyecto = $proyecto->id;
+            $integrante->id_user = $participantes_equipo[$i];
+            $integrante->rol = "integrante_equipo";
+            $integrante->save();
+        }
+        /////////////////////////////////
+        return $proyecto;
 
     }
 
