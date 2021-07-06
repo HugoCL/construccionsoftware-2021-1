@@ -151,7 +151,7 @@
       <v-col
         v-for="(task, index2) in userTask.tasks"
         :key="index2"
-        cols="12"
+        cols="4"
       >
         <Task
           :id_task_name = "id_name"
@@ -262,7 +262,6 @@ export default {
       this.taskTags.splice(index, 1)
     },
     createTask: function () {
-
       this.tasks.push({
         name: this.taskName,
         members: this.taskMembers,
