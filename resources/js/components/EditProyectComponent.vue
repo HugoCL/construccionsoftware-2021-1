@@ -161,6 +161,9 @@
         </v-row>
         <!--Miembros Emilio-->
         <integrantes-proyectos></integrantes-proyectos>
+        <v-row>
+          <VolereList/>
+        </v-row>
     </v-container>
 
 </template>
@@ -168,10 +171,11 @@
 <script>
 import AutoChipComponent from "./AutoChipComponent";
 import TaskList from "./TaskListComponent";
+import VolereList from "./VolereListComponent"
 
 export default {
     name: "EditProyectComponent",
-    components: {TaskList, AutoChipComponent},
+    components: {TaskList, AutoChipComponent, VolereList},
     data(){
         return {
             fields : [
