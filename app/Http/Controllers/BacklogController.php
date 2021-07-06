@@ -2,24 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Sprint;
-use App\Models\Tarea;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use phpDocumentor\Reflection\Types\Compound;
 
-class SprintController extends Controller
+class BacklogController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($idProyecto)
+    public function index()
     {
-        //
-        $sprints = DB::table('sprints')->where('id_proyecto', $idProyecto)->get();
-        return $sprints;
+        return view('dropBacklog');
     }
 
     /**
@@ -30,8 +24,6 @@ class SprintController extends Controller
     public function create()
     {
         //
-        $sprint = new Sprint();
-        return view('createSprint', compact('sprint'));
     }
 
     /**
@@ -43,11 +35,6 @@ class SprintController extends Controller
     public function store(Request $request)
     {
         //
-        $sprint = new Sprint();
-        $sprint->id_proyecto = $request->id_proyecto;
-        $sprint->fechaInicio = $request->fechaInicio;
-        $sprint->fechaTermino = $request->fechaTermino;
-        $sprint->save();
     }
 
     /**
@@ -56,20 +43,9 @@ class SprintController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($idProyecto, $idSprint)
+    public function show($id)
     {
         //
-
-
-        //Aqui es probable que se deba cambiar tareas por tasks
-        $tareas = DB::table('tareas')->where('id_proyecto', $idProyecto);
-        $tareas = $tareas->select('*')->where('id_sprint', $idSprint)->get();
-
-        //$tasks = Tarea::query()->select('*')->where('id_sprint', $id);
-        //return view('SprintComponent', compact('sprint','tasks'));
-        //echo 'prueba';
-        return $tareas;
-
     }
 
     /**
@@ -93,15 +69,6 @@ class SprintController extends Controller
     public function update(Request $request, $id)
     {
         //
-
-        $sprint = Sprint::find($id);
-        $sprint->fechaInicio = $request->fechaInicio;
-        $sprint->fechaTermino = $request->fechaTermino;
-        $sprint->save();
-
-
-        return $sprint;
-        //return view('vistaSprints');
     }
 
     /**
@@ -113,7 +80,5 @@ class SprintController extends Controller
     public function destroy($id)
     {
         //
-        $sprint = Sprint::find($id);
-        $sprint->delete();
     }
 }

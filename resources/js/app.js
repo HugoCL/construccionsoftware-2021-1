@@ -24,6 +24,7 @@ Vue.component('navdrawer-app', require('./components/NavDrawer.vue').default);
 Vue.component('footer-app', require('./components/Footer.vue').default);
 Vue.component('sprint-container', require('./components/SprintContainer.vue').default);
 
+Vue.component('drop-backlog', require('./components/DropBacklog').default);
 
 import App from "./components/App.vue";
 const app = new Vue({

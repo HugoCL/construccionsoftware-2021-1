@@ -14,13 +14,13 @@ class CreateTareasTable extends Migration
     public function up()
     {
         Schema::create('tareas', function (Blueprint $table) {
-            $table->integer('id') -> autoIncrement();
+            $table->integer('id');
             $table->integer('id_proyecto');
             $table->integer('id_sprint');
-            $table-> primary(['id','id_proyecto','id_sprint']);
+            $table-> primary(['id','id_proyecto']);
 
 
-            $table->foreign('id_proyecto') -> references('id') -> on('proyectos');
+            $table->foreign('id_proyecto') -> references('id') -> on('proyectos')->cascadeOnDelete();;
             $table->foreign('id_sprint') -> references('id') -> on('sprints');
 
             $table-> enum('estado',['pendiente','hecho', 'no hecho']) -> nullable(false);
