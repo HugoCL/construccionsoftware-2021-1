@@ -249,8 +249,8 @@ export default {
     components: {TaskList},
     data(){
         return {
-            equipos: [],
-            newEquipo:[],
+            //equipos: [],
+            //newEquipo:[],
             items: [
                 {
                     text: 'Estudiante 1',

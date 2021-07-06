@@ -76,11 +76,12 @@ class newProyectController extends Controller
 
         for ($i=0; $i < count($workers); $i++){
             $work = new Participate();
+            $work->rol = "rol";
             $work->id_project = $proyecto->id;
             $work->id_user = $workers[$i];
             $work->save();
         }
-        
+
         /////////////////////////////////
         $equipo = new Equipo();
         $equipo->nombre = "equipo_nombre";

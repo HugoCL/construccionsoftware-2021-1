@@ -38,12 +38,7 @@ Route::resource('/kanban', 'App\Http\Controllers\KanbanController');
 Route::resource('/graph', 'App\Http\Controllers\GraphDataController');
 Route::resource('/minAndMaxTaskByProject', 'App\Http\Controllers\MinAndMaxTaskByProjectController');
 Route::resource('/sprint', 'App\Http\Controllers\SprintController');
-<<<<<<< HEAD
+
 Route::resource('/backlog', 'App\Http\Controllers\BacklogController');
 Route::resource('/integrantes', 'App\Http\Controllers\IntegrantesController');
-=======
 
->>>>>>> ncastillo-HU08-TA02
-//Route::get('/proyects', [newProyectController::class, 'index']);
-
-//Para probar el creador de tareas

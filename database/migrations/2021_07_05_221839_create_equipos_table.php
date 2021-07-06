@@ -18,7 +18,7 @@ class CreateEquiposTable extends Migration
             $table->string('nombre');
             $table->integer('id_project');
             $table->foreign('id_project')->references('id')->on('proyectos')->cascadeOnDelete();
-
+            $table->timestamps();
         });
     }
 
@@ -29,6 +29,6 @@ class CreateEquiposTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('equipos');
+        Schema::dropIfExists('equipo');
     }
 }
