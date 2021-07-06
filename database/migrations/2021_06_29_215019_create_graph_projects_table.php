@@ -16,11 +16,8 @@ class CreateGraphProjectsTable extends Migration
     {
         Schema::create('graph_projects', function (Blueprint $table) {
             $table->integer('id');
-            $table->foreign('id_proyecto') -> references('id') -> on('proyectos');
-            $table->foreign('id_tarea') -> references('id') -> on('tarea');
-            $table->foreign('estado_proyecto') -> references('estado') -> on('proyecto');
-            $table->foreign('estado_tarea') -> references('estado') -> on('tarea');
-
+            $table->foreign('id_proyecto') -> references('id') -> on('proyectos') -> cascadeOnDelete();
+            $table->foreign('id_tarea') -> references('id') -> on('tarea')-> cascadeOnDelete();
 
             $table->timestamps();
         });

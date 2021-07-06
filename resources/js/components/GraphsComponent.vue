@@ -30,9 +30,9 @@
       </v-sheet>
 
       <v-sheet>Grafico tareas persona/proyecto</v-sheet>
-      <v-row class="mb-1"> 
-        <v-col align-self="center" class="p-n4" v-for="(item2, aux2) in personas" :key="aux2"> 
-          <v-card  
+      <v-row class="mb-1">
+        <v-col align-self="center" class="p-n4" v-for="(item2, aux2) in personas" :key="aux2">
+          <v-card
             class= "d-flex flex-no-wrap "
             dark
             color="primary"
@@ -50,7 +50,7 @@
 export default{
     data(){
       /**
-       * Variables momentaneas para el manejo de graficos 
+       * Variables momentaneas para el manejo de graficos
        * se debe relacionar con el backend para mostrar datos de un proyecto seleccionado
        */
         return{
@@ -81,6 +81,7 @@ export default{
         }
     },
     methods: {
+
 
     },
 }
