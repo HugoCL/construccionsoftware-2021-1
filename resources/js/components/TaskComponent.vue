@@ -297,6 +297,7 @@
 </template>
 
 <script>
+  
 
 export default {
     name: 'Task',
@@ -322,6 +323,7 @@ export default {
         },
         ]
     }),
+ 
     props: {
         tasks: null,
         taskData: null,
