@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\integrant;
+use App\Models\Integrant;
 use Illuminate\Http\Request;
 
 class IntegrantController extends Controller
@@ -41,10 +41,10 @@ class IntegrantController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\integrant  $integrant
+     * @param  \App\Models\Integrant  $integrant
      * @return \Illuminate\Http\Response
      */
-    public function show(integrant $integrant)
+    public function show(Integrant $integrant)
     {
         //
     }
@@ -52,10 +52,10 @@ class IntegrantController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\integrant  $integrant
+     * @param  \App\Models\Integrant  $integrant
      * @return \Illuminate\Http\Response
      */
-    public function edit(integrant $integrant)
+    public function edit(Integrant $integrant)
     {
         //
     }
@@ -64,10 +64,10 @@ class IntegrantController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\integrant  $integrant
+     * @param  \App\Models\Integrant  $integrant
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, integrant $integrant)
+    public function update(Request $request, Integrant $integrant)
     {
         //
     }
@@ -75,10 +75,10 @@ class IntegrantController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\integrant  $integrant
+     * @param  \App\Models\Integrant  $integrant
      * @return \Illuminate\Http\Response
      */
-    public function destroy(integrant $integrant)
+    public function destroy(Integrant $integrant)
     {
         //
     }
