@@ -89,7 +89,7 @@
                     <v-card-actions>
                         <v-spacer></v-spacer>
                         <v-btn color="secondary" class="btn-danger white--text" @click="openDialogEdit=false">Cancelar</v-btn>
-                        <v-btn color="red" class="btn-danger white--text" @click="save(projectUp.id)">Confirmar</v-btn>
+                        <v-btn color="red" class="btn-danger white--text" @click="save(project.id)">Confirmar</v-btn>
                         <v-spacer></v-spacer>
                     </v-card-actions>
                 </v-card>
@@ -151,9 +151,9 @@ export default {
         save(id) {
             // console.table(this.project)
 
-            console.log(this.projectUp);
+            console.log(id);
 
-            //axios.put('/administrar-proyectos/'+id, this.projectUp);
+            axios.put('/administrar-proyectos/'+id, this.projectUp);
             this.openDialogEdit=false;
         },
 

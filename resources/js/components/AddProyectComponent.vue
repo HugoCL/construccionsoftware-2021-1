@@ -312,13 +312,6 @@ export default {
             this.proyecto.dates[1] = date.getFullYear() + '-' + (date.getMonth()+1) + '-' + date.getDate();
 
         },
-        methodologyType() {
-            if (this.proyecto.projectType === 'Agil - Sprint [Historias de usuario]')
-                this.proyecto.projectType = 'Agil';
-            else
-                this.proyecto.projectType = 'Tradicional';
-        },
-
         cancelDate(){
             this.backUpDate = this.proyecto.dates[0]
             this.dialogDate=false
@@ -329,7 +322,6 @@ export default {
             this.addDays();
         },
         confirmSend(){
-            this.methodologyType();
             const nuevoProyecto = this.proyecto;
             this.backUpDate='';
             this.proyecto = {name: '', description: '', dates: [], bosses: [], workers: [],
