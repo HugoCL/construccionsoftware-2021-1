@@ -20,7 +20,7 @@ class CreateTasksTable extends Migration
             $table->string('name');
             $table->text('desc');
             $table->date('date');
-            $table-> enum('estado',['pendiente','hecho', 'no hecho']) -> nullable(false);
+            $table-> enum('estado', ['pendiente','hecho', 'no hecho']) -> nullable(false);
             $table->timestamps();
         });
     }
