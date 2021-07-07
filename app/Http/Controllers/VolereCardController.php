@@ -55,6 +55,9 @@ class VolereCardController extends Controller
         $cardVolere->date = $request->date;
         $cardVolere->time = $request->time;
         $cardVolere->increment = $request->increment;
+        $cardVolere->save();
+
+        return $cardVolere;
     }
 
     /**
@@ -66,6 +69,7 @@ class VolereCardController extends Controller
     public function show($id)
     {
         //
+        $
     }
 
     /**
