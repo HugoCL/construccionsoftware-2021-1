@@ -16,10 +16,7 @@
                         </div>
                     @endif
 
-
                     {{ __('¡Estás dentro!') }}
-                    <br>
-                    <a href="/administrar-proyectos/tarea"> <div class="btn btn-primary">integrantes/tarea</div> </a>
 
                 </div>
             </div>
