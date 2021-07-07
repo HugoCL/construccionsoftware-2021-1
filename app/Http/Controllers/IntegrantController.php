@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Integrant;
 use Illuminate\Http\Request;
 
-class IntegrantsControllerController extends Controller
+class IntegrantController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,7 @@ class IntegrantsControllerController extends Controller
      */
     public function index()
     {
-        return view('IntegrantsController');
+        //
     }
 
     /**
@@ -35,37 +35,27 @@ class IntegrantsControllerController extends Controller
      */
     public function store(Request $request)
     {
-        $integrant = new Integrant([
-            'id_proyect' => $request->input('id_proyect'),
-            'id_user' => $request->input('id_user'),
-            'rol' => $request->input('rol'),
-            'created_at' => $request->input('created_at'),
-            'updated_at' => $request->input('updated_at'),
-        ]);
-        $integrant->save();
-
-        return response()->json('Integrant created!');
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Integrant  $integrant
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Integrant $integrant)
     {
-        $integrant = Integrant::find($id);
-        return response()->json($integrant);
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Integrant  $integrant
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Integrant $integrant)
     {
         //
     }
@@ -74,28 +64,22 @@ class IntegrantsControllerController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Models\Integrant  $integrant
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Integrant $integrant)
     {
-        $integrant = Integrant::find($id);
-        $integrant->update($request->all());
-
-        return response()->json('Integrant updated!');
+        //
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\Integrant  $integrant
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Integrant $integrant)
     {
-        $integrant = Integrant::find($id);
-        $integrant->delete();
-
-        return response()->json('Integrant deleted!');
+        //
     }
 }

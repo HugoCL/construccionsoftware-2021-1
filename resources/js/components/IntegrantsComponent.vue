@@ -3,7 +3,7 @@
 <div class="row justify-content-center">
 
     <div class="col-10">
-        <h4 class="font-weight-light text-center my-4">Proyecto {{name}}</h4>
+        <h4 class="font-weight-light text-center my-4">Integrantes del proyecto: {{name}}</h4>
 
 
 
@@ -14,7 +14,7 @@
                 :key="i"
             >
                 <v-expansion-panel-header>
-                    {{integrant.name}}
+                    {{integrant.nombre}}
                     <div class="col-2">
                         <v-icon @click="editIntegrant(integrant)">mdi-pencil</v-icon>
                         <v-icon @click="delIntegrant(integrant)" >mdi-delete</v-icon>
@@ -29,7 +29,7 @@
 
                      <v-combobox multiple
                             v-model="integrant.rols"
-                            label="Roles"
+                            label="Rol"
                             append-icon
                             chips
                             deletable-chips>
@@ -93,22 +93,8 @@
 
       data(){
           return {
-              name : '_Nombre',
-              integrants: [
-                    {
-                        name: 'Integrante 1',
-                        rols: [
-                            'Administrador',
-                            'Tester'
-                        ]
-                    },
-                    {
-                        name: 'Integrante 2',
-                         rols: [
-                            'Programador'
-                        ]
-                    }
-              ],
+              name : this.project.nombre, //nombre del proyecto
+              integrants:this.devs,//just show developers
               dialog: false,
               edit: false,
               newIntegrant: {
@@ -127,6 +113,7 @@
           addIntegrant(){
               if(this.edit){
                 this.item.name = this.newIntegrant.name
+                this.item.rols = this.newIntegrant.rols
                 this.edit = false
               }else{
                 this.integrants.push(Object.assign({}, this.newIntegrant))
@@ -144,7 +131,14 @@
               this.dialog = true
               this.edit = false
           }
-
+      },
+      props:{
+          leads: [],//leads define by email
+          devs: [],//developers define by email
+          users: [],//user table
+          particips: [],//relation between user-proyect
+          project: null, //actual project
+          newIntegrants: [],
       }
   }
 </script>
