@@ -18,17 +18,6 @@ class equipoController extends Controller
         return view('AddProyectComponent')->with($equipo);
     }
 
-    public function store(Request $request)
-    {
-        $equipo = new Equipo();
-        $equipo->nombre = $request->nombre;
-        $equipo->id_project = $request->id_project;
-        $equipo->save();
-
-        return $equipo;
-    }
-
-
     public function update(Request $request, $id, $integrantes)
     {
         //
@@ -50,4 +39,15 @@ class equipoController extends Controller
             return view('home');
         }
     }
+
+    public function store(Request $request)
+    {
+        $equipo = new Equipo();
+        $equipo->nombre = $request->nombre;
+        $equipo->id_project = $request->id_project;
+        $equipo->save();
+
+        return $equipo;
+    }
+
 }
