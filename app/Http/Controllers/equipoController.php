@@ -3,17 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Models\Equipo;
-use App\Models\Integrante;
-use App\Models\Proyecto;
 use Illuminate\Http\Request;
 
 class equipoController extends Controller
 {
-    /**
-     * @param Request $request
-     * @param $id
-     * @return mixed
-     */
+    public function index()
+    {
+        return Equipo::all();
+    }
+
+    public function edit($id)
+    {
+        $equipo = Equipo::find($id);
+        return view('AddProyectComponent')->with($equipo);
+    }
+
     public function update(Request $request, $id, $integrantes)
     {
         //
@@ -34,5 +38,15 @@ class equipoController extends Controller
         } else {
             return view('home');
         }
+    }
+
+    public function store(Request $request)
+    {
+        $equipo = new Equipo();
+        $equipo->nombre = $request->nombre;
+        $equipo->id_project = $request->id_project;
+        $equipo->save();
+
+        return $equipo;
     }
 }

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Equipo;
+use App\Models\Integrante;
 use App\Models\Lead;
 use App\Models\Participate;
 use App\Models\Proyecto;
@@ -61,6 +63,11 @@ class newProyectController extends Controller
         $proyecto->medidaIteracion = $request->rangeType;
         $proyecto->save();
 
+        $equipo = new Equipo();
+        $equipo->nombre = "equipo_nombre";
+        $equipo->id_project = $proyecto->id;
+        $equipo->save();
+
         $bosses = ($request->bosses);
 
         for ($i=0; $i < count($bosses); $i++) {
@@ -68,6 +75,14 @@ class newProyectController extends Controller
             $lead->id_project = $proyecto->id;
             $lead->id_user = $bosses[$i];
             $lead->save();
+
+            $integrante = new Integrante();
+            $integrante->id_equipo = $equipo->id;
+            $integrante->id_proyecto = $proyecto->id;
+            $integrante->id_user = $bosses[$i];
+            $integrante->rol = "admin";
+            $integrante->save();
+
         }
 
         $workers = ($request->workers);
@@ -78,6 +93,14 @@ class newProyectController extends Controller
             $work->rol = "developer";
             $work->id_user = $workers[$i];
             $work->save();
+
+            $integrante = new Integrante();
+            $integrante->id_equipo = $equipo->id;
+            $integrante->id_proyecto = $proyecto->id;
+            $integrante->id_user = $workers[$i];
+            $integrante->rol = "developer";
+            $integrante->save();
+
         }
         return $proyecto;
     }

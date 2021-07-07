@@ -37,6 +37,7 @@ Vue.component("kanban", require("./components/KanbanComponent.vue").default);
 Vue.component("header-app", require("./components/Header.vue").default);
 Vue.component("navdrawer-app", require("./components/NavDrawer.vue").default);
 Vue.component("footer-app", require("./components/Footer.vue").default);
+Vue.component("graph-component", require("./components/GraphsComponent").default);
 
 Vue.component(
     "sprint-container",
