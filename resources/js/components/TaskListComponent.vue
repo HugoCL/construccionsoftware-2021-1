@@ -176,7 +176,6 @@
 
 
     </v-col>
-
   </v-container>
 </template>
 
