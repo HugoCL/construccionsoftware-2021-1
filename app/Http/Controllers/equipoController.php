@@ -9,6 +9,10 @@ use Illuminate\Http\Request;
 
 class equipoController extends Controller
 {
+    public function edit($id){
+        $equipo = Equipo::find($id);
+        return view('AddProyectComponent')->with($equipo);
+    }
     /**
      * @param Request $request
      * @param $id

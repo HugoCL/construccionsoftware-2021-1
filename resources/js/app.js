@@ -15,6 +15,7 @@ import Board from "./components/Board";
 import Card from "./components/Card";
 import DropBacklog from "./components/DropBacklog";
 import example from "./components/ExampleComponent";
+import tarea from './components/tareaComponent.vue'
 import tasklist from "./components/TaskListComponent";
 Vue.component(
     "crear-proyecto",
@@ -33,18 +34,14 @@ Vue.component(
     "integrantes-proyectos",
     require("./components/IntegrantsComponent.vue").default
 );
-Vue.component("kanban", require("./components/KanbanComponent.vue").default);
-Vue.component("header-app", require("./components/Header.vue").default);
-Vue.component("navdrawer-app", require("./components/NavDrawer.vue").default);
-Vue.component("footer-app", require("./components/Footer.vue").default);
-
+Vue.component('tarea', require('./components/tareaComponent.vue').default);
 Vue.component(
     "sprint-container",
     require("./components/SprintContainer.vue").default
 );
 import App from "./components/App.vue";
 const app = new Vue({
-    el: "#app",
-    components: { App, example, tasklist, Card, Board },
-    vuetify,
+    el: '#app',
+    components: {App, example, tasklist, Card, Board, tarea},
+    vuetify
 });
