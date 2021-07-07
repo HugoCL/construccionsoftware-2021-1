@@ -55,11 +55,15 @@ class newProyectController extends Controller
         $proyecto->descripcion = $request->description;
         $proyecto->fechaInicio = $request->dates[0];
         $proyecto->fechaTermino = $request->dates[1];
+        $proyecto->metodología = $request->projectType;
+        $proyecto->cantIteraciones = $request->projectReps;
+        $proyecto->duracionIteraciones = $request->rangeVal;
+        $proyecto->medidaIteracion = $request->rangeType;
         $proyecto->save();
 
         $bosses = ($request->bosses);
 
-        for ($i=0; $i < count($bosses); $i++){
+        for ($i=0; $i < count($bosses); $i++) {
             $lead = new Lead();
             $lead->id_project = $proyecto->id;
             $lead->id_user = $bosses[$i];
@@ -68,14 +72,14 @@ class newProyectController extends Controller
 
         $workers = ($request->workers);
 
-        for ($i=0; $i < count($workers); $i++){
+        for ($i=0; $i < count($workers); $i++) {
             $work = new Participate();
             $work->id_project = $proyecto->id;
+            $work->rol = "developer";
             $work->id_user = $workers[$i];
             $work->save();
         }
-        return $bosses;
-
+        return $proyecto;
     }
 
     /**
@@ -110,7 +114,6 @@ class newProyectController extends Controller
          */
 
         return view('proyect.edit', compact('proyecto'));
-
     }
 
     /**
@@ -141,6 +144,5 @@ class newProyectController extends Controller
      */
     public function destroy($id)
     {
-
     }
 }

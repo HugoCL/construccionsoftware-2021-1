@@ -47,14 +47,21 @@
 
         </v-list-item>
         <v-card-actions style="float:right" >
-
-
-                        <v-btn class="ma-2 btn-danger white--text" color="error" v-on:click="deleteProject(proyectData.id)">
-                            Eliminar
-                            <v-icon right>mdi-delete</v-icon>
-                        </v-btn>
-
-
+            <v-btn class="ma-2 btn-danger white--text" color="error" v-on:click="dialogAlert=true">
+                Eliminar
+                <v-icon right>mdi-delete</v-icon>
+                <v-dialog v-model="dialogAlert" max-width="40%">
+                    <v-card>
+                        <v-card-title class="text-h6 text-c">Seguro que desea borrar el proyecto?</v-card-title>
+                        <v-card-actions>
+                            <v-spacer></v-spacer>
+                            <v-btn color="secondary" class="btn-danger white--text" @click="dialogAlert=false">Cancelar</v-btn>
+                            <v-btn color="red" class="btn-danger white--text" @click="deleteProject(proyectData.id)">Confirmar</v-btn>
+                            <v-spacer></v-spacer>
+                        </v-card-actions>
+                    </v-card>
+                </v-dialog>
+            </v-btn>
         </v-card-actions>
 
 
@@ -67,7 +74,7 @@ export default {
     components: {EditProyectComponent},
     data(){
         return{
-
+            dialogAlert:false
         }
     },
     methods:{
@@ -78,6 +85,7 @@ export default {
         deleteProject: function (id){
             axios.delete('/administrar-proyectos/'+id);
             this.$emit('delete', id);
+            this.dialogAlert=true;
         },
 
     },

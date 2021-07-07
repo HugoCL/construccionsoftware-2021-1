@@ -87,8 +87,6 @@ class AdminProyectsController extends Controller
         $proyecto = Proyecto::find($id);
         $proyecto->nombre = $request->name;
         $proyecto->descripcion = $request->description;
-        $proyecto->fechaInicio = $request->dates[0];
-        $proyecto->fechaTermino = $request->dates[1];
         $proyecto->save();
 
         return $proyecto;

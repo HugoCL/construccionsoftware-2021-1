@@ -18,8 +18,8 @@ class TareaController extends Controller
      */
     public function index($id)
     {
-        $task = task_aux::find($id);
-        return view('TaskListComponent', compact($task));
+        /*$task = task_aux::find($id);
+        return view('TaskListComponent', compact($task));*/
     }
 
     /**
@@ -30,8 +30,8 @@ class TareaController extends Controller
     public function create()
     {
         //
-        $task = new task_aux();
-        return view('create.taskk',compact('task'));
+        /*$task = new task_aux();
+        return view('create.taskk',compact('task'));*/
     }
 
     /**
@@ -42,13 +42,13 @@ class TareaController extends Controller
      */
     public function store(Request $request)
     {
-        $task  = new task_aux();
+        /*$task  = new task_aux();
         $task ->id = $request->id;
         $task ->id_proyecto = $request->id_pro;
         $task ->descripcion = $request->desc;
         $task ->save();
 
-        return $task ;
+        return $task ;*/
     }
 
     /**
@@ -59,8 +59,8 @@ class TareaController extends Controller
     public function show($id)
     {
         //
-        $task = task_aux::find($id);
-        return view('show.taskk', compact('task'));
+        /*$task = task_aux::find($id);
+        return view('show.taskk', compact('task'));*/
     }
 
     /**
@@ -72,8 +72,8 @@ class TareaController extends Controller
     public function edit($id)
     {
         //
-        $task = task_aux::find($id);
-        return view('taskk.edit', compact('task'));
+        /*$task = task_aux::find($id);
+        return view('taskk.edit', compact('task'));*/
     }
 
     /**
@@ -86,14 +86,13 @@ class TareaController extends Controller
     public function update(Request $request, int $id)
     {
         //
-        $task = task_aux::find($id);
+        /*$task = task_aux::find($id);
         $task->id = $request->id;
         $task ->id_proyecto = $request->id_pro;
         $task ->descripcion = $request->desc;
         $task ->save();
 
-        return $task ;
-
+        return $task ;*/
     }
 
     /**
@@ -105,7 +104,7 @@ class TareaController extends Controller
     public function destroy($id)
     {
         //
-        $task  = task_aux::find($id);
-        return view('taskk.destroy', compact('task'));
+        /*$task  = task_aux::find($id);
+        return view('taskk.destroy', compact('task'));*/
     }
 }
