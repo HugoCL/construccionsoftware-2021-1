@@ -7,13 +7,13 @@ use Illuminate\Http\Request;
 
 class equipoController extends Controller
 {
-
     public function index()
     {
         return Equipo::all();
     }
 
-    public function edit($id){
+    public function edit($id)
+    {
         $equipo = Equipo::find($id);
         return view('AddProyectComponent')->with($equipo);
     }
@@ -49,5 +49,4 @@ class equipoController extends Controller
 
         return $equipo;
     }
-
 }
