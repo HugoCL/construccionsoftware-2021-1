@@ -36,6 +36,6 @@ class equipoController extends Controller
         $equipo->id_project = $request->id_project;
         $equipo->save();
 
-        return $proyecto;
+        return $equipo;
     }
 }
