@@ -155,6 +155,15 @@
                 </v-row>
             </v-col>
         </v-row>
+        <v-row class="justify-center  mx-0 px-0">
+            <v-btn v-bind:href="/sprint-container/"
+                   color="secondary"
+                   @click="dialog = true"
+                   class="mb-4"
+                   width="50%">
+                Iteración
+            </v-btn>
+        </v-row>
         <!--Task list-->
         <v-row>
             <TaskList :peopleNames="users" :id_pro="project.id"/>
