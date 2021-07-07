@@ -62,6 +62,47 @@
                     </v-card>
                 </v-dialog>
             </v-btn>
+
+            <v-btn class="ma-2 btn-danger white--text" color="error" v-on:click="dialogEdit=true">
+                Editar Equipo
+                <v-icon right>mdi-delete</v-icon>
+                <v-dialog v-model="dialogEdit" color="red" max-width="40%" v-for="(equipo,index) in proyecto.equipos" :key="index">
+                    <v-card color="red lighten-5">
+                        <v-card-title class="text-h6 text-c">Equipos</v-card-title>
+                        <v-card-actions>
+                            <v-alert type="success">
+                                {{equipo.nombreequipo}}
+                                <v-btn color="secondary" class="btn-danger white--text" @click="dialogAlert=false"><v-icon center>mdi-delete</v-icon></v-btn>
+                                <v-btn color="red" class="btn-danger white--text" @click="deleteProject(proyectData.id)"><v-icon dark>mdi-minus</v-icon></v-btn>
+                                <card color ="red">
+                                    <div v-for="(estudiante, index1) in equipo.estudiante" :key="index1"> {{estudiante.name}}
+                                        <v-btn color="secondary" class="btn-danger white--text" @click="dialogAlert=false"><v-icon center>mdi-delete</v-icon></v-btn>
+                                        <v-btn color="red" class="btn-danger white--text" @click="deleteProject(proyectData.id)"><v-icon dark>mdi-minus</v-icon></v-btn>
+                                    </div>
+                                </card>
+                            </v-alert>
+                        </v-card-actions>
+
+                        <v-card-actions>
+                            <v-alert type="info">
+                                Equipo 1
+                            </v-alert>
+                        </v-card-actions>
+
+                        <v-card-actions>
+                            <v-alert type="warning">
+                                Equipo 2
+                            </v-alert>
+                        </v-card-actions>
+                        <v-card-actions>
+                            <v-alert type="error">
+                                Equipo 3
+                            </v-alert>
+                        </v-card-actions>
+                    </v-card>
+                </v-dialog>
+            </v-btn>
+
         </v-card-actions>
 
 
@@ -74,7 +115,34 @@ export default {
     components: {EditProyectComponent},
     data(){
         return{
+            dialogAlert:false,
+            dialogEdit:false,
+            dialogEliminar: false,
 
+            proyecto: {
+                id:'0',
+                equipos: [
+
+                    {
+                        nombreequipo:'tim',
+                        estudiante:
+                    [
+                        {name: 'Elwea tim 1', correo:'ajcorreo sd@askdja.cl'},
+                        {name: 'El weta tim 1', correo:'corre@askdja.cl'},
+                        {name: 'El kalsjdasd3 tim 1', correo:'perra@askdja.cl'},
+
+                    ]},
+                    {
+                        nombreequipo:'tim 2',
+                        estudiante:
+                            [
+                                {name: 'Elwea tim 2', correo:'ajcorreo sd@askdja.cl'},
+                                {name: 'El weta tim 2', correo:'corre@askdja.cl'},
+                                {name: 'El kalsjdasd3 tim 2', correo:'perra@askdja.cl'},
+
+                            ]},
+                ]
+            }
         }
     },
     methods:{
@@ -85,6 +153,13 @@ export default {
         deleteProject: function (id){
             axios.delete('/administrar-proyectos/'+id);
             this.$emit('delete', id);
+        },
+
+        deleteTeam: function (){
+
+        },
+        editTeam: function (){
+
         },
 
     },
