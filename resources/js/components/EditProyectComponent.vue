@@ -31,17 +31,10 @@
                         </p>
                         <p>
 
-                        <v-text-field
-                            :disabled="noEdit"
-                            outlined
-                            filled
-                            dense
-                            v-model="projectUp.name"
-                            label ="Nombre Proyecto"
-                        >
-                        </v-text-field>
+                            <b>Descripcion:   </b>{{this.projectUp.description}}
+                        </p>
 
-                    </v-col>
+                    </v-card-text>
 
                 </v-card>
             </v-col>
@@ -66,13 +59,23 @@
                             <v-card-actions>
                                 <v-spacer></v-spacer>
                                 <v-btn color="secondary" class="btn-danger white--text" @click="dialogAlert=false">Cancelar</v-btn>
-                                <v-btn color="red" class="btn-danger white--text" @click="deleteProject(project.id)">Confirmar</v-btn>
+                                <v-btn color="red" class="btn-danger white--text" @click="deleteProject(proyectData.id)">Confirmar</v-btn>
                                 <v-spacer></v-spacer>
                             </v-card-actions>
                         </v-card>
                     </v-dialog>
                 </v-btn>
             </v-col>
+        </v-row>
+        <!-- Botón temporal para sprint container-->
+        <v-row class="justify-center  mx-0 px-0">
+            <v-btn v-bind:href="/sprint-container/"
+                   color="secondary"
+                   @click="dialog = true"
+                   class="mb-4"
+                   width="50%">
+                Iteración
+            </v-btn>
         </v-row>
         <!--Task list-->
         <v-row>
@@ -95,17 +98,16 @@
                 <v-card color="">
 
                     <v-card-actions>
-                            <v-text-field
-                                outlined
-                                filled
-                                dense
-                                v-model="projectUp.name"
-                                label ="Nombre Proyecto"
-                            ></v-text-field>
+                        <v-text-field
+                            outlined
+                            filled
+                            dense
+                            v-model="projectUp.name"
+                            label ="Nombre Proyecto"
+                        ></v-text-field>
                     </v-card-actions>
                     <v-card-actions>
                         <v-textarea
-                            :disabled="noEdit"
                             outlined
                             filled
                             auto-grow
@@ -115,120 +117,16 @@
                             @click=""
                         >
                         </v-textarea>
-
-                    </v-col>
-
-                </v-row>
-                <!--Mostrar fechas-->
-                <v-row class="ma-2">
-                    <!--Fecha Incio-->
-                    <v-col>
-                        <v-row>
-                            <v-dialog
-                                v-model="modalS"
-                                persistent
-                                width="290px"
-                            >
-                                <template v-slot:activator="{ on, attrs }">
-                                    <v-text-field
-                                        :disabled="noEdit"
-                                        v-model="projectUp.dates[0]"
-                                        label="Fecha de Inicio"
-                                        prepend-icon="mdi-calendar"
-                                        readonly
-                                        outlined
-                                        class="pt-2"
-                                        v-bind="attrs"
-                                        v-on="on"
-                                    ></v-text-field>
-                                </template>
-                                <v-date-picker
-                                    locale="es-cl"
-                                    v-model="projectUp.dates[0]"
-                                    scrollable
-                                >
-                                    <v-spacer></v-spacer>
-                                    <v-btn
-                                        text
-                                        color="primary"
-                                        @click="closeDialogStart"
-                                    >
-                                        Cancel
-                                    </v-btn>
-                                    <v-btn
-                                        text
-                                        color="primary"
-                                        @click="saveStartDate"
-                                    >
-                                        OK
-                                    </v-btn>
-                                </v-date-picker>
-                            </v-dialog>
-                        </v-row>
-                    </v-col>
-                    <!--Fecha termino-->
-                    <v-col>
-                        <v-row>
-                            <v-dialog
-                                v-model="modalE"
-                                persistent
-                                width="290px"
-                            >
-                                <template v-slot:activator="{ on, attrs }">
-                                    <v-text-field
-                                        class="ma-2"
-                                        outlined
-                                        v-model="projectUp.dates[1]"
-                                        :disabled="noEdit"
-                                        label="Fecha de Termino"
-                                        prepend-icon="mdi-calendar"
-                                        readonly
-                                        v-bind="attrs"
-                                        v-on="on"
-                                    ></v-text-field>
-                                </template>
-                                <v-date-picker
-                                    locale="es-cl"
-                                    v-model="projectUp.dates[1]"
-                                    scrollable
-                                >
-                                    <v-spacer></v-spacer>
-                                    <v-btn
-                                        text
-                                        color="primary"
-                                        @click="closeDialogEnd"
-                                    >
-                                        Cancel
-                                    </v-btn>
-                                    <v-btn
-                                        text
-                                        color="primary"
-                                        @click="saveEndDate"
-                                    >
-                                        OK
-                                    </v-btn>
-                                </v-date-picker>
-                            </v-dialog>
-                        </v-row>
-                    </v-col>
-                </v-row>
-            </v-col>
+                    </v-card-actions>
+                    <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn color="secondary" class="btn-danger white--text" @click="openDialogEdit=false">Cancelar</v-btn>
+                        <v-btn color="red" class="btn-danger white--text" @click="save(project.id)">Confirmar</v-btn>
+                        <v-spacer></v-spacer>
+                    </v-card-actions>
+                </v-card>
+            </v-dialog>
         </v-row>
-        <v-row class="justify-center  mx-0 px-0">
-            <v-btn v-bind:href="/sprint-container/"
-                   color="secondary"
-                   @click="dialog = true"
-                   class="mb-4"
-                   width="50%">
-                Iteración
-            </v-btn>
-        </v-row>
-        <!--Task list-->
-        <v-row>
-            <TaskList :peopleNames="users" :id_pro="project.id"/>
-        </v-row>
-        <!--Miembros Emilio-->
-        <integrantes-proyectos :devs="devs" :leads="leads" :users="users" :project="project" :participates="participates"></integrantes-proyectos>
     </v-container>
 
 </template>
@@ -263,13 +161,17 @@ export default {
                 name: this.project.nombre,
                 description:this.project.descripcion,
                 dates: [this.project.fechaInicio, this.project.fechaTermino],
+                projectType:this.project.metodología,
+                projectReps:this.project.cantIteraciones,
+                rangeType:this.project.medidaIteracion,
+                rangeVal:this.project.duracionIteraciones
             },
             backUpDate:this.project.fechaInicio,
             dialogDate:false,
             dialogConfirm:false,
             openDialogEdit:false,
             dialogAlert:false,
-            currentMember:null
+            currentMember:null,
             //Se deben incluir listas para cada tipo de miembros
         }
     },
@@ -277,53 +179,21 @@ export default {
         leads: [],
         devs: [],
         users: [],
-        participates: [],
         project: null
     },
     methods: {
         save(id) {
             // console.table(this.project)
-            const d1 = new Date(this.projectUp.dates[0]);
-            const d2 = new Date(this.projectUp.dates[1]);
 
-            if (+d1 >= +d2){
-                console.log(this.projectUp.dates[0] + '-' + this.projectUp.dates[1])
-                if (+d1 === +d2) {
-                    alert('Las fechas no pueden ser iguales');
-                    return;
-                }
-                let aux = this.projectUp.dates[1];
-
-                this.projectUp.dates[1] = this.projectUp.dates[0];
-                this.projectUp.dates[0] = aux;
-                this.noEdit=!this.noEdit
-            }
-            console.log(this.projectUp);
+            console.log(id);
 
             axios.put('/administrar-proyectos/'+id, this.projectUp);
-            this.disableEdit();
+            this.openDialogEdit=false;
         },
-        closeDialogStart() {
-            this.modalS = false
-        },
-        saveStartDate() {
-            this.modalS = false
-        },
-        closeDialogEnd() {
-            this.modalE = false
-        },
-        saveEndDate() {
-            this.modalE = false
-        },
-        disableEdit(){
-            this.noEdit=!this.noEdit
-        },
+
         deleteProject: function (id){
             axios.delete('/administrar-proyectos/'+id);
             window.location.href="/administrar-proyectos";
-            window.location.href="/administrar-proyectos";
-            this.dialogAlert = false;
-
         },
         verifyProyectType: function(){
           let proyectType = this.projectUp.projectType.split('-')[0].split(' ')[0];
@@ -332,10 +202,6 @@ export default {
           else                       return false;
         }
 
-    },
-  mounted() {
-      //alert(JSON.stringify(this.projectUp));
-      //this.verifyProyectType();
-  }
+    }
 }
 </script>

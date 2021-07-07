@@ -20,6 +20,7 @@
                             <div class="list-group-item" v-for="element in arrInProgres" :key="element.name">
                                 {{element.name}}
                             </div>
+
                         </draggable>
                     </div>
                 </div>

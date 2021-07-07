@@ -347,7 +347,7 @@ export default {
         },
         send(newTask) {
             const iddProyecto = (window.location).href.charAt((window.location).href.length - 1);
-            axios.post('administrar-proyectos/task', newTask)
+            axios.post('/administrar-proyectos/task', newTask)
                 .then(response => {
                     console.log(response.data);
                 });

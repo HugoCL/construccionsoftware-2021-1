@@ -30,10 +30,10 @@ Route::resource('administrar-proyectos/integrantes', 'App\Http\Controllers\Integ
 Route::resource('/administrar-proyectos/tareaNueva', 'App\Http\Controllers\TareaController');
 Route::resource('/administrar-proyectos/tarea', 'App\Http\Controllers\TareasController');
 Route::resource('administrar-proyectos', 'App\Http\Controllers\AdminProyectsController');
-Route::resource('lista-usuarios','App\Http\Controllers\UsersTableController');
-Route::resource('/task','App\Http\Controllers\TaskController');
+Route::resource('lista-usuarios', 'App\Http\Controllers\UsersTableController');
+Route::resource('/task', 'App\Http\Controllers\TaskController');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::put('/taskPut',[App\Http\Controllers\EditTaskController::class,'update']);
+Route::put('/taskPut', [App\Http\Controllers\EditTaskController::class,'update']);
 Route::get('testtaskscomponents', [TestTasksComponentsController::class, 'index']);
 Route::resource('/user', 'App\Http\Controllers\UsuarioController');
 Route::resource('/kanban', 'App\Http\Controllers\KanbanController');
@@ -44,4 +44,6 @@ Route::resource('/graph-project', 'App\Http\Controllers\GraphProjectController')
 //Route::get('/proyects', [newProyectController::class, 'index']);
 Route::resource('/sprint-container', 'App\Http\Controllers\SprintContainerController');
 
+Route::resource('/backlog', 'App\Http\Controllers\BacklogController');
+Route::resource('/integrantes', 'App\Http\Controllers\IntegrantesController');
 //Para probar el creador de tareas
