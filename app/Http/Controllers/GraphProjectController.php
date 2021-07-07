@@ -14,12 +14,16 @@ class GraphProjectController extends Controller
      */
     public function index()
     {
-        $tareas_totales = DB::table('Tarea')->count();
-        $tareas_hechas = DB::table('Tarea')->where('estado', '=', 'hecho')->count();
-        $tareas_pendientes = DB::table('Tarea')->where('estado', '=', 'pendiente')->count();
-        $tareas_no_hechas = DB::table('Tarea')->where('estado', '=', 'no-hecho')->count();
+        $tareas_totales = DB::table('tareas')->count();
+        $tareas_hechas = DB::table('tareas')->where('estado', '=', 'hecho')->count();
+        $tareas_pendientes = DB::table('tareas')->where('estado', '=', 'pendiente')->count();
+        $tareas_no_hechas = DB::table('tareas')->where('estado', '=', 'no-hecho')->count();
 
-        return [$tareas_totales, $tareas_hechas, $tareas_pendientes, $tareas_no_hechas];
+        //return [$tareas_totales, $tareas_hechas, $tareas_pendientes, $tareas_no_hechas];
+        return response()->json([
+            'tareasTotales' => $tareas_totales,
+            'tareasHechas' => $tareas_hechas
+        ]);
     }
 
     /**

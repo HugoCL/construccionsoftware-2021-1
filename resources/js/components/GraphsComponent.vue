@@ -87,8 +87,10 @@ export default{
         axios.get('/graph-project')
             .then(response => {
                 const res  = response.data;
-                this.numTareasTotal = res[0].numTareasTotal;
-                console.log(res[0].numTareasTotal);
+                this.numTareasTotal = res.tareasTotales;
+                this.numTareasCompletadas = res.tareasHechas;
+                console.log(res.tareasTotales);
+                console.log(res.tareasHechas);
                 this.proyectos = res;
                 console.log(this.proyectos);
             })
