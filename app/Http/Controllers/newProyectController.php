@@ -82,7 +82,6 @@ class newProyectController extends Controller
             $integrante->id_user = $bosses[$i];
             $integrante->rol = "admin";
             $integrante->save();
-
         }
 
         $workers = ($request->workers);
@@ -100,7 +99,6 @@ class newProyectController extends Controller
             $integrante->id_user = $workers[$i];
             $integrante->rol = "developer";
             $integrante->save();
-
         }
         return $proyecto;
     }
