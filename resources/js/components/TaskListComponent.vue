@@ -140,27 +140,40 @@
     </v-dialog>
 
     <!--Muestra las tareas disponibles-->
-    <v-row
+    <v-col
       v-for="(userTask, index1) in sortedTasks"
       :key="index1"
+      md="12"
+      sm="12"
+      cols="12"
+        outlined
     >
-      <v-col cols="12">
-        <h2>{{ userTask.username }}</h2>
-      </v-col>
-      <v-col
-        v-for="(task, index2) in userTask.tasks"
-        :key="index2"
-        cols="12"
-      >
-        <Task
-          :tasks="tasks"
-          :taskData="task"
-          :peopleNames="formatedPeopleNames"
-          :sortedTasks="sortedTasks"
-          @sort-tasks="sortByUser"
-        />
-      </v-col>
-    </v-row>
+     <v-card>
+                <v-toolbar
+                    color="secondary"
+                    class="white--text pt-0 pb-0 text-h5"
+                >
+                    {{ userTask.username }}
+                </v-toolbar>
+                <v-card-actions
+
+                 >
+                     <v-col v-for="(task, index2) in userTask.tasks"
+                            :key="index2"
+                            cols="3" md="3">
+                         <Task
+                             :tasks="tasks"
+                             :taskData="task"
+                             :peopleNames="formatedPeopleNames"
+                             :sortedTasks="sortedTasks"
+                             @sort-tasks="sortByUser"
+                         />
+                     </v-col>
+                 </v-card-actions>
+            </v-card>
+
+
+    </v-col>
   </v-container>
 </template>
 
