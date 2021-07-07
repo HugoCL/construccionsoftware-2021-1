@@ -160,7 +160,7 @@
       </v-card>
 
     </v-dialog>
-    
+
     <v-dialog
       v-model="volereDialog"
       width="60%"
