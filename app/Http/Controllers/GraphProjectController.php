@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class GraphProjectController extends Controller
 {
@@ -14,9 +15,9 @@ class GraphProjectController extends Controller
     public function index()
     {
         $tareas_totales = DB::table('Tarea')->count();
-        $tareas_hechas =DB::TABLE('select * from Tarea where estado = :estado', ['estado' => 'hecho'])->count();
-        $tareas_pendientes =DB::TABLE('select * from Tarea where estado = :estado', ['estado' => 'pendiente'])->count();
-        $tareas_no_hechas =DB::TABLE('select * from Tarea where estado = :estado', ['estado' => 'no hecho'])->count();
+        $tareas_hechas = DB::table('Tarea')->where('estado', '=', 'hecho')->count();
+        $tareas_pendientes = DB::table('Tarea')->where('estado', '=', 'pendiente')->count();
+        $tareas_no_hechas = DB::table('Tarea')->where('estado', '=', 'no-hecho')->count();
 
         return [$tareas_totales, $tareas_hechas, $tareas_pendientes, $tareas_no_hechas];
     }

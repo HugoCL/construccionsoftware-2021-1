@@ -47,6 +47,9 @@
     </v-card>
 </template>
 <script>
+import GraphDataComponent from "./GraphDataComponent";
+import App from "./App";
+
 export default{
     data(){
       /**
@@ -84,7 +87,8 @@ export default{
         axios.get('/graph-project')
             .then(response => {
                 const res  = response.data;
-                console.log(res);
+                this.numTareasTotal = res[0].numTareasTotal;
+                console.log(res[0].numTareasTotal);
                 this.proyectos = res;
                 console.log(this.proyectos);
             })
@@ -93,9 +97,6 @@ export default{
             })
     },
     methods: {
-
-
-
     },
 }
 </script>
