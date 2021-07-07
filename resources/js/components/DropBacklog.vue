@@ -64,6 +64,7 @@ export default {
                         title: 'Implementar la columna Backlog',
                         des: 'S1 - TA01: Implementar la interfaz tipo columna que tendrá el backlog (1)',
                         content: 'Inconvenientes con integración por problemas con el entorno de desarrollo (Entre CodePen, para el prototipo y PHPStorm para el desarrollo), específicamente con ExternalScript y ExternalStylesHeets, más tiempo de estudio requerido. Sin ningún problema de comunicación entre Frontend y Backend.'
+
                     },
                     {
                         color:'orange lighten-1',
@@ -71,6 +72,7 @@ export default {
                         title: 'Implementar el menú lateral de navegación en la página',
                         des: 'S1 - TA02: Implementar menú en todas las paginas(1)',
                         content: 'Manejar la forma de mostrar las iteraciones dentro de un tablero kanban perteneciente aun proyecto. (Tips: Algunas formas son mediante deslizamiento, en donde todas las iteraciones [columnas] están una al lado de la otra; por pestañas o tabs, algo similar a excel; o puede ser un menu colapsable).'
+
                     }
                 ],
                 design: []

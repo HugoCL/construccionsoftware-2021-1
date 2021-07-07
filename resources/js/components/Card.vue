@@ -10,12 +10,19 @@
                 <v-toolbar
                     color="orange lighten-1"
                 >
-                    <i class="material-icons handle">reorder</i>
-                    <v-app-bar-nav-icon>
+                    <v-app-bar-nav-icon onclick="colorPicker=true">
                         <i class="handle"><v-app-bar-nav-icon></v-app-bar-nav-icon></i>
                     </v-app-bar-nav-icon>
-
-                    <v-toolbar-title>{{data.title}}</v-toolbar-title>
+                    <div v-show="colorPicker">
+                        <v-card>
+                            <v-color-picker
+                                dot-size="19"
+                                hide-inputs
+                                swatches-max-height="100"
+                            ></v-color-picker>
+                        </v-card>
+                    </div>
+                    <v-toolbar-title>{{data.head}}</v-toolbar-title>
 
                     <v-spacer></v-spacer>
                     <div class="mx-1"></div>
@@ -64,7 +71,6 @@
                             <v-col>
                                 <div class="text-overline">
                                     {{data.head}}
-
                                     <v-menu
                                         open-on-hover
                                         offset-y
@@ -197,10 +203,32 @@
                     </div>
                 </v-expand-transition>
                 <v-expand-transition>
-                    <div v-show="edit">
+                    <div v-show="edit" v-on:keyup.enter="">
                         <v-card-text>
-                            <input v-model="newText" v-on:keyup.enter="addNewText" placeholder=data.head>
+                            <div>
+                                <input v-model="newHead" v-on:keyup.enter="addNewText" placeholder="Codigo de tarea">
+                                <input v-model="newTitle" v-on:keyup.enter="addNewText" placeholder="Titulo">
+                            </div>
+                            <div>
+                                <input v-model="newDes" v-on:keyup.enter="addNewText" placeholder="Sub-Titulo">
+                            </div>
+                            <div>
+                                <input v-model="newContent" v-on:keyup.enter="addNewText" placeholder="Contenido">
+                            </div>
                         </v-card-text>
+                        <v-btn
+                            text
+                            @click="edit = false"
+                        >
+                            Cancel
+                        </v-btn>
+                        <v-btn
+                            color="primary"
+                            text
+                            @click="editCard"
+                        >
+                            Save
+                        </v-btn>
                     </div>
                 </v-expand-transition>
             </v-card>
@@ -215,6 +243,11 @@ export default {
     props: ['data'],
     data() {
         return {
+            newHead: this.data.head,
+            newTitle: this.data.title,
+            newDes: this.data.des,
+            newContent: this.data.content,
+            colorPicker: false,
             edit: false,
             show: false,
             chip1: false,
@@ -222,8 +255,17 @@ export default {
             chip3: false,
         }
     },
-    addNewText: function() {
-        data.content.change(this.newText)
+    methods: {
+        addNewText: function () {
+
+        },
+        editCard: function () {
+            this.edit = false,
+            this.data.head = this.newHead,
+            this.data.title = this.newTitle,
+            this.data.des = this.newDes,
+            this.data.content = this.newContent
+        },
     }
 }
 </script>
