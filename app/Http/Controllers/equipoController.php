@@ -9,15 +9,17 @@ use Illuminate\Http\Request;
 
 class equipoController extends Controller
 {
-    public function edit($id){
+    public function index()
+    {
+        return Equipo::all();
+    }
+
+    public function edit($id)
+    {
         $equipo = Equipo::find($id);
         return view('AddProyectComponent')->with($equipo);
     }
-    /**
-     * @param Request $request
-     * @param $id
-     * @return mixed
-     */
+
     public function update(Request $request, $id, $integrantes)
     {
         //
@@ -38,5 +40,15 @@ class equipoController extends Controller
         } else {
             return view('home');
         }
+    }
+
+    public function store(Request $request)
+    {
+        $equipo = new Equipo();
+        $equipo->nombre = $request->nombre;
+        $equipo->id_project = $request->id_project;
+        $equipo->save();
+
+        return $equipo;
     }
 }
