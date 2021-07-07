@@ -38,7 +38,7 @@ class VolereCardController extends Controller
     public function store(Request $request)
     {
         //
-        $cardVolere = new cards_volere;
+        $cardVolere = new cards_volere();
         $cardVolere->id = $request->id;
         $cardVolere->rurs= $request->rurs;
         $cardVolere->number = $request->number;
@@ -123,5 +123,4 @@ class VolereCardController extends Controller
         $cardVolere = cards_volere::find($id);
         $cardVolere->delete();
     }
-
 }

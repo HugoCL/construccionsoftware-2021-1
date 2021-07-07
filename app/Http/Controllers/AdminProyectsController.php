@@ -64,7 +64,7 @@ class AdminProyectsController extends Controller
 
         $participates = DB::table('participates')->whereIn('id_user', $idParticipates)->get();
 
-        return view('SingleProjectComponent', compact('project', 'devs', 'leads', 'users','participates'));
+        return view('SingleProjectComponent', compact('project', 'devs', 'leads', 'users', 'participates'));
     }
 
     /**

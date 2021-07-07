@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 
 class VolereListdController extends Controller
 {
-
     /**
      * Display a listing of the resource.
      *
@@ -28,8 +27,8 @@ class VolereListdController extends Controller
     public function create()
     {
         //
-        $cardVolere = new cards_volere;
-        return view('cardVolere.taskk',compact('cardVolere'));
+        $cardVolere = new cards_volere();
+        return view('cardVolere.taskk', compact('cardVolere'));
     }
 
     /**
@@ -41,7 +40,7 @@ class VolereListdController extends Controller
     public function store(Request $request)
     {
         //
-        $cardVolere = new cards_volere;
+        $cardVolere = new cards_volere();
         $cardVolere->id = $request->id;
         $cardVolere->rurs= $request->rurs;
         $cardVolere->number = $request->number;

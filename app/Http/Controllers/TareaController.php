@@ -29,7 +29,7 @@ class TareaController extends Controller
     {
         //
         $task = new Task();
-        return view('create.taskk',compact('task'));
+        return view('create.taskk', compact('task'));
     }
 
     /**
@@ -97,7 +97,6 @@ class TareaController extends Controller
         $task ->save();
 
         return $task ;
-
     }
 
     /**
