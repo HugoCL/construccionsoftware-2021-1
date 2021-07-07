@@ -105,7 +105,85 @@
                 </v-form>
             </v-card>
         </v-dialog>
+        <!--Mostrar información-->
+        <v-dialog
+            v-model="storiesUsersDialog"
+            width="60%"
+        >
+            <v-card>
+                <v-toolbar
+                    class="mb-2 pr-0"
+                    color="primary"
+                    dark
+                >
 
+                    <v-list-item>
+                        <v-list-item-content>
+                            <v-card-title>
+                                INFORMACION CORRESPONDIENTE
+                            </v-card-title>
+                        </v-list-item-content>
+
+                        <v-list-item-content
+                            class="aling-end"
+                        >
+                            <v-row>
+                                <v-col md="2" class="offset-8"></v-col>
+                            </v-row>
+                        </v-list-item-content>
+                    </v-list-item>
+                </v-toolbar>
+
+                <v-card-title>NOMBRE HISTORIO DE USUARIO:</v-card-title>
+                <v-card-subtitle class="text--primary">
+                    INFORMACION CORRESPONDIENTE
+                </v-card-subtitle>
+
+                <v-row>
+                    <v-col
+                        sm="2"
+                        md="0"
+                        >
+                        <v-subheader
+                            v-text="'YO como'"
+                            class="mb-4 mt-2"
+                            style="font-size: 16px;"
+                        ></v-subheader>
+                    </v-col>
+                    <v-col>
+                        INFORMACION CORRESPONDIENTE AL QUIERO
+                    </v-col>
+                </v-row>
+
+
+                <v-row>
+                    <v-col
+                        sm="2"
+                        md="0"
+                        >
+                        <v-subheader
+                            v-text="'Quiero'"
+                            class="mb-4 mt-2"
+                            style="font-size: 16px;"
+                        ></v-subheader>
+                    </v-col>
+                    <v-col>
+                        INFORMACION CORRESPONDIENTE AL QUIERO
+                    </v-col>
+                </v-row>
+
+                <v-row>
+                    <v-col></v-col>
+                    <v-col></v-col>
+                </v-row>
+                <v-row>
+                    <v-col></v-col>
+                    <v-col></v-col>
+                </v-row>
+
+
+            </v-card>
+        </v-dialog> <!-- Fin mostrar informacion-->
         <v-card
             class="white--text pb-0"
             light
