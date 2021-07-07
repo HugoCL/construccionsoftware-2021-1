@@ -302,46 +302,69 @@
 <script>
 
 export default {
-  name: 'Task',
-  data: () => ({
-    menu: false,
-    dialog: false,
-    dialog1: false,
-    editDialog: false,
-    taskName: '',
-    taskDesc: '',
-    taskMembers: [],
-    taskTags: [],
-    taskDate: '',
-    /**
-     * variables a usar en v-check para checklist de tarea
-     * lista testCheckList contiene una variable que almacena una "micro-tarea" string
-     * y una variable booleana "chekeada" para manejar el cuadro check
-     */
-    newTaskCheck: "",
-    taskCheckLists: [{
-      taskCheck: "¡Ejemplo de tarea! Borrame",
-      checkeada: false
+    name: 'Task',
+    data: () => ({
+        id_taskAu: '',
+        menu: false,
+        dialog: false,
+        dialog1: false,
+        editDialog: false,
+        taskName: '',
+        taskDesc: '',
+        taskMembers: [],
+        taskTags: [],
+        taskDate: '',
+        /**
+         * variables a usar en v-check para checklist de tarea
+         * lista testCheckList contiene una variable que almacena una "micro-tarea" string
+         * y una variable booleana "chekeada" para manejar el cuadro check
+         */
+        newTaskCheck: "",
+        taskCheckLists: [{
+            taskCheck: "¡Ejemplo de tarea! Borrame",
+            checkeada: false
+        },
+        ]
+    }),
+    props: {
+        id_task_name: null,
+        tasks: null,
+        taskData: null,
+        peopleNames: null,
+        sortedTasks: null
     },
-    ]
-  }),
-  props: {
-    tasks: null,
-    taskData: null,
-    peopleNames: null,
-    sortedTasks: null
-  },
-  methods: {
-    /*
-     funciones para checklist de la ventana de tareas creadas
-   */
-    addTask: function () {
-      let tarea = this.newTaskCheck;
-      if (tarea) {
-        this.taskCheckLists.push({taskCheck: tarea, chekeada: false});
-        this.newTaskCheck = "";
-      }
-    },
+    methods: {
+        /*
+         funciones para checklist de la ventana de tareas creadas
+       */
+
+        async guardar(newTask){
+            axios.put('/task/'+newTask.id,newTask)
+            .then(response =>{
+                console.log(response.data);
+            })
+        },
+        send(newTask) {
+            const iddProyecto = (window.location).href.charAt((window.location).href.length - 1);
+            axios.post('administrar-proyectos/task', newTask)
+                .then(response => {
+                    console.log(response.data);
+                });
+        },
+        async eliminar(newTask){
+            console.log(newTask.id);
+            const res= await axios.delete('/task/'+newTask.id);
+            this.sortByUser;
+
+        },
+        addTask: function () {
+            let tarea = this.newTaskCheck;
+            if (tarea) {
+                this.taskCheckLists.push({taskCheck: tarea, chekeada: false});
+                this.newTaskCheck = "";
+            }
+            this.send(this.taskDate);
+        },
 
     chekear: function (tarea) {
       tarea.checkeada = true;
@@ -351,36 +374,71 @@ export default {
       return tarea.checkeada;
     },
 
-    quitarTareaCheck: function (tarea) {
-      let index = this.taskCheckLists.indexOf(tarea);
-      this.taskCheckLists.splice(index, 1);
-    },
-    editTask: function () {
-      this.editDialog = true;
-      this.taskName = this.taskData.name;
-      this.taskDesc = this.taskData.desc;
-      this.taskMembers = this.taskData.members;
-      this.taskTags = this.taskData.tags;
-      this.taskDate = this.taskData.date;
+        quitarTareaCheck: function (tarea) {
+            let index = this.taskCheckLists.indexOf(tarea);
+            this.taskCheckLists.splice(index, 1);
+        },
+        editTask: function () {
 
-    },
-    saveEditedTask: function () {
-      let taskData = this.taskData;
-      taskData.name = this.taskName;
-      taskData.desc = this.taskDesc;
-      taskData.members = this.taskMembers;
-      taskData.tags = this.taskTags;
-      taskData.date = this.taskDate;
-      this.sortByUser();
-      this.editDialog = false;
+            this.editDialog = true;
+            this.taskName = this.taskData.name;
+            this.taskDesc = this.taskData.desc;
+            this.taskMembers = this.taskData.members;
+            this.taskTags = this.taskData.tags;
+            this.taskDate = this.taskData.date;
+            for(let i=0;i<this.id_task_name.length;i++){
+                let ar = this.id_task_name[i];
+                if(ar[1]==this.taskData.name){
+                    console.log(ar[0]);
+                    this.id_taskAu = ar[0];
+                }
+            }
+        },
+        saveEditedTask: function () {
+            const iddProyecto = (window.location).href.charAt((window.location).href.length - 1);
+            let taskData = this.taskData;
+            taskData.id = this.id_taskAu;
+            taskData.name = this.taskName;
+            taskData.desc = this.taskDesc;
+            taskData.members = this.taskMembers;
+            taskData.tags = this.taskTags;
+            taskData.date = this.taskDate;
+            taskData.id_proyecto = iddProyecto;
+            taskData.estado = "pendiente"
+            console.log(taskData);
+            this.guardar(taskData);
+            this.sortByUser();
+            this.editDialog = false;
 
     },
     deleteTask: function () {
+        const iddProyecto = (window.location).href.charAt((window.location).href.length - 1);
       let deleted = this.tasks.splice(this.tasks.indexOf(this.taskData), 1);
+      let id_task
       for (let item of this.sortedTasks) {
         let tasks = item.tasks;
         tasks.splice(tasks.indexOf(deleted), 1);
       }
+
+        for(let i=0;i<this.id_task_name.length;i++){
+            let ar = this.id_task_name[i];
+            if(ar[1]==this.taskData.name){
+                id_task = ar[0];
+            }
+        }
+        const newTask = {
+            id:id_task,
+            name: this.taskName,
+            members: this.taskMembers,
+            desc: this.taskDesc,
+            date: this.taskDate,
+            tags: ""+this.taskTags,
+            changes: ""+this.taskChanges,
+            id_pro: iddProyecto,
+            estado :"pendiente"
+        };
+        this.eliminar(newTask);
+        this.sortByUser();
     },
     addTag(event) {
       event.preventDefault()

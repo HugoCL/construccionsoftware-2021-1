@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Task;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
 class TaskController extends Controller
@@ -64,35 +65,46 @@ class TaskController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
         //
+
+
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Task $task
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Task $task)
+    public function update(Request $request, $id)
     {
         //
-        $task->update($request->all());
+        $task = Task::find($id);
+        $task->name = $request->name;
+        $task->desc = $request->desc;
+        $task->date = $request->date;
+        $task->estado =  $request->estado;
+        $task ->save();
+        return $task ;
+
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
         //
+        $task = Task::find($id);
+        $task->delete();
     }
 }
