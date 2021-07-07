@@ -145,13 +145,17 @@ export default {
                 name: this.project.nombre,
                 description:this.project.descripcion,
                 dates: [this.project.fechaInicio, this.project.fechaTermino],
+                projectType:this.project.metodología,
+                projectReps:this.project.cantIteraciones,
+                rangeType:this.project.medidaIteracion,
+                rangeVal:this.project.duracionIteraciones
             },
             backUpDate:this.project.fechaInicio,
             dialogDate:false,
             dialogConfirm:false,
             openDialogEdit:false,
             dialogAlert:false,
-            currentMember:null
+            currentMember:null,
             //Se deben incluir listas para cada tipo de miembros
         }
     },
@@ -159,64 +163,23 @@ export default {
         leads: [],
         devs: [],
         users: [],
-        participates: [],
         project: null
     },
     methods: {
         save(id) {
             // console.table(this.project)
-            const d1 = new Date(this.projectUp.dates[0]);
-            const d2 = new Date(this.projectUp.dates[1]);
 
-            if (+d1 >= +d2){
-                console.log(this.projectUp.dates[0] + '-' + this.projectUp.dates[1])
-                if (+d1 === +d2) {
-                    alert('Las fechas no pueden ser iguales');
-                    return;
-                }
-                let aux = this.projectUp.dates[1];
-
-                this.projectUp.dates[1] = this.projectUp.dates[0];
-                this.projectUp.dates[0] = aux;
-                this.noEdit=!this.noEdit
-            }
-            console.log(this.projectUp);
+            console.log(id);
 
             axios.put('/administrar-proyectos/'+id, this.projectUp);
-            this.disableEdit();
+            this.openDialogEdit=false;
         },
-        closeDialogStart() {
-            this.modalS = false
-        },
-        saveStartDate() {
-            this.modalS = false
-        },
-        closeDialogEnd() {
-            this.modalE = false
-        },
-        saveEndDate() {
-            this.modalE = false
-        },
-        disableEdit(){
-            this.noEdit=!this.noEdit
-        },
+
         deleteProject: function (id){
             axios.delete('/administrar-proyectos/'+id);
             window.location.href="/administrar-proyectos";
-            window.location.href="/administrar-proyectos";
-            this.dialogAlert = false;
-
         },
-        verifyProyectType: function(){
-          let proyectType = this.projectUp.projectType.split('-')[0].split(' ')[0];
-          if(proyectType === 'Tradicional') return true;
-          else                       return false;
-        }
 
-    },
-  mounted() {
-      //alert(JSON.stringify(this.projectUp));
-      //this.verifyProyectType();
-  }
+    }
 }
 </script>
