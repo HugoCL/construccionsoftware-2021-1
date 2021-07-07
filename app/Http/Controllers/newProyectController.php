@@ -75,6 +75,7 @@ class newProyectController extends Controller
         for ($i=0; $i < count($workers); $i++){
             $work = new Participate();
             $work->id_project = $proyecto->id;
+            $work->rol = "developer";
             $work->id_user = $workers[$i];
             $work->save();
         }

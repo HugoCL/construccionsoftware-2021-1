@@ -325,7 +325,7 @@ export default {
             const nuevoProyecto = this.proyecto;
             this.backUpDate='';
             this.proyecto = {name: '', description: '', dates: [], bosses: [], workers: [],
-                projectType:'', projectReps:'', rangeType:'', rangeVal:'',};
+                projectType:'', projectReps:'', rangeType:'', rangeVal:''};
             axios.post('/administrar-proyectos/nuevo', nuevoProyecto)
                 .then(response => {
                     console.log("Proyecto enviado")
