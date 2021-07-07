@@ -16,7 +16,7 @@ class VolereCardController extends Controller
     public function index()
     {
         //
-        return view('VolereSola');
+        return  cards_volere::get();
     }
 
     /**
@@ -27,15 +27,13 @@ class VolereCardController extends Controller
     public function create()
     {
         //
-        $cardVolere = new cards_volere;
-        return view('cardVolere.taskk',compact('cardVolere'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return cards_volere
+     * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
@@ -63,13 +61,13 @@ class VolereCardController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\cards_volere $cardVolere
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(cards_volere $cardVolere)
     {
         //
-        $
+        return $cardVolere;
     }
 
     /**
@@ -93,6 +91,24 @@ class VolereCardController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $cardVolere = cards_volere::find($id);
+        $cardVolere->id = $request->id;
+        $cardVolere->rurs= $request->rurs;
+        $cardVolere->number = $request->number;
+        $cardVolere->name = $request->name;
+        $cardVolere->desc = $request->desc;
+        $cardVolere->type = $request->type;
+        $cardVolere->state = $request->state;
+        $cardVolere->priority = $request->priority;
+        $cardVolere->stability = $request->stability;
+        $cardVolere->measure = $request->measure;
+        $cardVolere->scale = $request->scale;
+        $cardVolere->date = $request->date;
+        $cardVolere->time = $request->time;
+        $cardVolere->increment = $request->increment;
+        $cardVolere->save();
+
+        return $cardVolere;
     }
 
     /**
@@ -104,5 +120,8 @@ class VolereCardController extends Controller
     public function destroy($id)
     {
         //
+        $cardVolere = cards_volere::find($id);
+        $cardVolere->delete();
     }
+
 }
