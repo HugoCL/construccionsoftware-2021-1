@@ -59,7 +59,7 @@
                             <v-card-actions>
                                 <v-spacer></v-spacer>
                                 <v-btn color="secondary" class="btn-danger white--text" @click="dialogAlert=false">Cancelar</v-btn>
-                                <v-btn color="red" class="btn-danger white--text" @click="deleteProject(proyectData.id)">Confirmar</v-btn>
+                                <v-btn color="red" class="btn-danger white--text" @click="deleteProject(project.id)">Confirmar</v-btn>
                                 <v-spacer></v-spacer>
                             </v-card-actions>
                         </v-card>
@@ -183,10 +183,12 @@ export default {
         deleteProject: function (id){
             axios.delete('/administrar-proyectos/'+id);
             window.location.href="/administrar-proyectos";
+            window.location.href="/administrar-proyectos";
+            this.dialogAlert = false;
+
         },
         verifyProyectType: function(){
           let proyectType = this.projectUp.projectType.split('-')[0].split(' ')[0];
-          alert(proyectType);
           if(proyectType === 'Tradicional') return true;
           else                       return false;
         }

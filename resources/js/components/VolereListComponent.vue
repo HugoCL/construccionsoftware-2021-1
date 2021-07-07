@@ -13,150 +13,150 @@
         >
           <v-card-title>Crear Tarjeta de Volere</v-card-title>
         </v-toolbar>
-        <v-form>
-          <v-row>
-            <v-col cols="8">
-              <v-text-field
-                v-model="volereName"
-                label="Nombre"
-                hide-details="auto"
-                outlined
-              ></v-text-field>
-            </v-col>
-            <v-col cols="4">
-              <v-combobox
-                v-model="volereRURS"
-                :items="['RU', 'RS']"
-                label="Tipo de requisito"
-                dense
-                chips
-                small-chips
-                outlined
-              >
-              </v-combobox>
-            </v-col>
-            <v-col cols="12">
-              <v-textarea
-                v-model="volereDesc"
-                label="Description"
-                outlined
-              ></v-textarea>
-            </v-col>
-            <v-col cols="12">
-              <v-text-field
-                v-model="volereSource"
-                label="Fuente (separar nombres con comas)"
-                hide-details="auto"
-                outlined
-              ></v-text-field>
-            </v-col>
-            <v-col cols="12">
-              <v-text-field
-                v-model="volereUsertype"
-                label="Tipo de usuario (separar tipos con comas)"
-                hide-details="auto"
-                outlined
-              ></v-text-field>
-            </v-col>
-            <v-col cols="12" md="6">
-              <v-combobox
-                v-model="volereType"
-                :items="['Funcional', 'No funcional']"
-                label="Tipo de función"
-                dense
-                chips
-                small-chips
-                outlined
-              >
-              </v-combobox>
-            </v-col>
-            <v-col cols="12" md="6">
-              <v-combobox
-                v-model="volereState"
-                :items="['Cumple', 'No cumple']"
-                label="Estado"
-                dense
-                chips
-                small-chips
-                outlined
-              >
-              </v-combobox>
-            </v-col>
-            <v-col cols="12" md="6">
-              <v-combobox
-                v-model="volerePriority"
-                :items="['No urgente', 'Urgente', 'Crítica']"
-                label="Prioridad"
-                dense
-                chips
-                small-chips
-                outlined
-              >
-              </v-combobox>
-            </v-col>
-            <v-col cols="12" md="6">
-              <v-combobox
-                v-model="volereStability"
-                :items="['Transable', 'Intransable']"
-                label="Estabilidad"
-                dense
-                chips
-                small-chips
-                outlined
-              >
-              </v-combobox>
-            </v-col>
-            <v-col cols="12">
-              <v-text-field
-                v-model="volereMeasure"
-                label="Medida"
-                hide-details="auto"
-                outlined
-              ></v-text-field>
-            </v-col>
-            <v-col cols="12">
-              <v-text-field
-                v-model="volereScale"
-                label="Escala"
-                hide-details="auto"
-                outlined
-              ></v-text-field>
-            </v-col>
-            <v-col cols="12" md="6">
-                <v-text-field
-                  v-model="volereIncrement"
-                  label="Incremento"
-                  hide-details="auto"
-                  outlined
-                  type="number"
-                ></v-text-field>
-            </v-col>
-            <v-col cols="12" md="6">
-              <v-text-field
-                v-model="volereNumber"
-                label="Número del requisito"
-                hide-details="auto"
-                outlined
-                type="number"
-              ></v-text-field>
-            </v-col>
-          </v-row>
+         <v-form class="ma-5">
+           <v-row>
+             <v-col cols="8">
+               <v-text-field
+                 v-model="volereName"
+                 label="Nombre"
+                 hide-details="auto"
+                 outlined
+               ></v-text-field>
+             </v-col>
+             <v-col cols="4">
+               <v-combobox
+                 v-model="volereRURS"
+                 :items="['RU', 'RS']"
+                 label="Tipo de requisito"
+                 dense
+                 chips
+                 small-chips
+                 outlined
+               >
+               </v-combobox>
+             </v-col>
+             <v-col cols="12">
+               <v-textarea
+                 v-model="volereDesc"
+                 label="Description"
+                 outlined
+               ></v-textarea>
+             </v-col>
+             <v-col cols="12">
+               <v-text-field
+                 v-model="volereSource"
+                 label="Fuente (separar nombres con comas)"
+                 hide-details="auto"
+                 outlined
+               ></v-text-field>
+             </v-col>
+             <v-col cols="12">
+               <v-text-field
+                 v-model="volereUsertype"
+                 label="Tipo de usuario (separar tipos con comas)"
+                 hide-details="auto"
+                 outlined
+               ></v-text-field>
+             </v-col>
+             <v-col cols="12" md="6">
+               <v-combobox
+                 v-model="volereType"
+                 :items="['Funcional', 'No funcional']"
+                 label="Tipo de función"
+                 dense
+                 chips
+                 small-chips
+                 outlined
+               >
+               </v-combobox>
+             </v-col>
+             <v-col cols="12" md="6">
+               <v-combobox
+                 v-model="volereState"
+                 :items="['Cumple', 'No cumple']"
+                 label="Estado"
+                 dense
+                 chips
+                 small-chips
+                 outlined
+               >
+               </v-combobox>
+             </v-col>
+             <v-col cols="12" md="6">
+               <v-combobox
+                 v-model="volerePriority"
+                 :items="['No urgente', 'Urgente', 'Crítica']"
+                 label="Prioridad"
+                 dense
+                 chips
+                 small-chips
+                 outlined
+               >
+               </v-combobox>
+             </v-col>
+             <v-col cols="12" md="6">
+               <v-combobox
+                 v-model="volereStability"
+                 :items="['Transable', 'Intransable']"
+                 label="Estabilidad"
+                 dense
+                 chips
+                 small-chips
+                 outlined
+               >
+               </v-combobox>
+             </v-col>
+             <v-col cols="12">
+               <v-text-field
+                 v-model="volereMeasure"
+                 label="Medida"
+                 hide-details="auto"
+                 outlined
+               ></v-text-field>
+             </v-col>
+             <v-col cols="12">
+               <v-text-field
+                 v-model="volereScale"
+                 label="Escala"
+                 hide-details="auto"
+                 outlined
+               ></v-text-field>
+             </v-col>
+             <v-col cols="12" md="6">
+               <v-text-field
+                 v-model="volereIncrement"
+                 label="Incremento"
+                 hide-details="auto"
+                 outlined
+                 type="number"
+               ></v-text-field>
+             </v-col>
+             <v-col cols="12" md="6">
+               <v-text-field
+                 v-model="volereNumber"
+                 label="Número del requisito"
+                 hide-details="auto"
+                 outlined
+                 type="number"
+               ></v-text-field>
+             </v-col>
+           </v-row>
 
-          <v-card-actions class="justify-end">
-            <v-btn
-              text
-              @click="dialog = false"
-            >
-              Cerrar
-            </v-btn>
-            <v-btn
-              text
-              @click="createVolere"
-            >
-              Guardar
-            </v-btn>
-          </v-card-actions>
-        </v-form>
+           <v-card-actions class="justify-end">
+             <v-btn
+               text
+               @click="dialog = false"
+             >
+               Cerrar
+             </v-btn>
+             <v-btn
+               text
+               @click="createVolere"
+             >
+               Guardar
+             </v-btn>
+           </v-card-actions>
+         </v-form>
       </v-card>
 
     </v-dialog>
