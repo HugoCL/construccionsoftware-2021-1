@@ -141,5 +141,16 @@
 </template>
 
 <script>
+export default{
+    name: "UserStories.vue",
+    data: () => ({
+
+    }),
+
+    props: {
+        userStorie: null,
+        userStories: null
+    },
+}
 </script>
 

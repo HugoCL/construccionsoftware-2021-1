@@ -170,7 +170,7 @@ export default {
         },
         verifyProyectType: function(){
           let proyectType = this.projectUp.projectType.split('-')[0].split(' ')[0];
-          alert(proyectType);
+          //alert(proyectType);
           if(proyectType === 'Tradicional') return true;
           else                       return false;
         }
