@@ -1,26 +1,16 @@
 <template>
     <v-container class="">
-        <!--Barra Botones-->
-        <v-row class="">
-            <v-col
-                class="text-right"
-                elavation="1"
-            >
 
-                <v-btn class="btn-primary ma-1" v-on:click="openDialogEdit=true" primary>
-                    <v-icon>mdi-pen</v-icon>
-                    Editar
-                </v-btn>
-                <v-btn class="ma-1 btn-danger white--text" color="red" v-on:click="deleteProject(project.id)">
-                    <v-icon>mdi-delete</v-icon>
-                    Eliminar
-                </v-btn>
-            </v-col>
-        </v-row>
         <!--Ver Proyecto-->
         <v-row >
             <v-col col="6">
                 <v-card>
+                    <v-toolbar
+                        color="primary"
+                        class="white--text pt-0 pb-0 text-h5"
+                    >
+                        Proyecto
+                    </v-toolbar>
                     <v-card-text>
                         <p class="text-h5 text--primary">
                             <!--b>Nombre del Proyecto: </b-->{{this.projectUp.name}}
@@ -49,10 +39,38 @@
                 </v-card>
             </v-col>
         </v-row>
-        <!--Task list (ya tiene una row dentro)-->
+        <!--Barra Botones-->
+        <v-row class="">
+            <v-col
+                class="text-right"
+                elavation="1"
+            >
 
-        <TaskList :peopleNames="users" :id_pro="project.id" class="mt-5"/>
-
+                <v-btn class="btn-primary ma-1" v-on:click="openDialogEdit=true" primary>
+                    <v-icon>mdi-pen</v-icon>
+                    Editar
+                </v-btn>
+                <v-btn class="ma-2 btn-danger white--text" color="error" v-on:click="dialogAlert=true">
+                    Eliminar
+                    <v-icon right>mdi-delete</v-icon>
+                    <v-dialog v-model="dialogAlert" color="red" max-width="40%">
+                        <v-card color="">
+                            <v-card-title class="text-h6 text-c">Seguro que desea borrar el proyecto?</v-card-title>
+                            <v-card-actions>
+                                <v-spacer></v-spacer>
+                                <v-btn color="secondary" class="btn-danger white--text" @click="dialogAlert=false">Cancelar</v-btn>
+                                <v-btn color="red" class="btn-danger white--text" @click="deleteProject(proyectData.id)">Confirmar</v-btn>
+                                <v-spacer></v-spacer>
+                            </v-card-actions>
+                        </v-card>
+                    </v-dialog>
+                </v-btn>
+            </v-col>
+        </v-row>
+        <!--Task list-->
+        <v-row>
+            <TaskList :peopleNames="users" :id_pro="project.id"/>
+        </v-row>
         <!--Miembros Emilio>
         <integrantes-proyectos></integrantes-proyectos-->
         <v-row>
