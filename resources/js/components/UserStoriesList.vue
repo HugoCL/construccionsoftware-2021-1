@@ -2,7 +2,7 @@
     <v-container>
         <v-dialog
             v-model="dialog"
-            width="60%"
+            width="70%"
         >
             <v-card>
                 <v-toolbar
@@ -15,22 +15,33 @@
                 <v-form>
                     <v-row>
                         <v-col
-                            cols="12"
-                            sm="4"
-                            md="2"
+                            sm="2"
+                            md="0"
+                            class="ml-10"
+                        >
+                            <v-text-field
+                                v-moder="HU_code"
+                                label="Codigo"
+                            >
+                            </v-text-field>
+                        </v-col>
+
+                        <v-col
+                            sm="2"
+                            md="0"
                         >
                             <v-subheader
                                 v-text="'Yo como '"
-                                class="mb-4 mt-2"
+                                class="mb-4 mt-2 ml-5"
                                 style="font-size: 16px;"
                             >
                             </v-subheader>
                         </v-col>
 
                         <v-col
-                            cols="12"
+                            cols="6"
                             sm="4"
-                            md="2"
+                            md="4"
                         >
                             <v-select
                                 v-model="HU_owner"
@@ -39,15 +50,17 @@
                             >
                             </v-select>
                         </v-col>
+                    </v-row>
 
+                    <v-row>
                         <v-col
                             cols="12"
-                            sm="4"
-                            md="2"
+                            sm="2"
+                            md="0'"
                         >
                             <v-subheader
                                 v-text="' quiero '"
-                                class="mb-4 mt-2"
+                                class="mb-4 mt-2 ml-5"
                                 style="font-size: 16px;"
                             >
                             </v-subheader>
@@ -55,8 +68,8 @@
 
                         <v-col
                             cols="12"
-                            sm="4"
-                            md="2"
+                            sm="8"
+                            md="8"
                         >
                             <v-text-field
                                 v-moder="HU_action"
@@ -64,15 +77,17 @@
                             >
                             </v-text-field>
                         </v-col>
+                    </v-row>
 
+                    <v-row>
                         <v-col
                             cols="12"
-                            sm="4"
-                            md="2"
+                            sm="2"
+                            md="0"
                         >
                             <v-subheader
                                 v-text="' para '"
-                                class="mb-4 mt-2"
+                                class="mb-4 mt-2 ml-5"
                                 style="font-size: 16px;"
                             >
                             </v-subheader>
@@ -80,8 +95,8 @@
 
                         <v-col
                             cols="12"
-                            sm="4"
-                            md="2"
+                            sm="8"
+                            md="8"
                         >
                             <v-text-field
                                 v-model="HU_result"
@@ -91,7 +106,7 @@
                         </v-col>
                     </v-row>
 
-                    <v-card-actions>
+                    <v-card-actions class="justify-end">
                         <v-btn
                             text
                             @click="dialog = false"
@@ -111,10 +126,10 @@
         </v-dialog>
 
         <v-row>
-            <v-col>
-                <v-row>
+            <v-col cols="12">
+                <v-row class="justify-center">
                     <v-btn
-                        color="secundary"
+                        color="secondary"
                         @click="dialog = true"
                         class="mb-4"
                         width="50%"
@@ -137,6 +152,7 @@
 </template>
 
 <script>
+import VAColorPaletteSet from '../../../../vue2-admin-lte-master/src/components/VAColorPaletteSet.vue';
 //lamo al otro componente;
 export default{
     name: "UserStoriesList.vue",
