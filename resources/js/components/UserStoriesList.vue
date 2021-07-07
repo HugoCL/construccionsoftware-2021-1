@@ -146,19 +146,24 @@
                 v-for="(userStorie, index) in userStories" :key="index"
             >
                 <!-- Llamo al otro componente  -->
+                <UserStories
+                    :userStorie = "userStorie"
+                    :userStories = "userStories"
+                />
             </v-col>
         </v-row>
     </v-container>
 </template>
 
 <script>
-import VAColorPaletteSet from '../../../../vue2-admin-lte-master/src/components/VAColorPaletteSet.vue';
 //lamo al otro componente;
+import UserStories from './UserStories';
 export default{
     name: "UserStoriesList.vue",
-    components: {}, //el otro componente
+    components: {UserStories}, //el otro componente
     data: () => ({
         dialog: false,
+        HU_code: '',
         HU_owner: '',
         HU_action: '',
         HU_result: '',
@@ -168,18 +173,25 @@ export default{
             //HU de ejemplo
             {
                 //los datos de la HU
+                code: 'HU001',
+                owner: 'Product Owner',
+                action: 'crear proyectos',
+                result: 'guardarlos en mi corazon',
+                increment: 1
             },
         ]
     }),
     methods:{
         createHU: function(){
             this.HULists.push({
+                code: this.HU_code,
                 owner: this.HU_owner,
                 action: this.HU_action,
                 result: this.HU_result,
                 increment: parseInt(this.HU_increment)
             });
             this.dialog= false;
+            this.HU_code = '',
             this.HU_owner = '';
             this.HU_action = '';
             this.HU_result = '';

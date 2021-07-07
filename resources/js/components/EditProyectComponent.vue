@@ -56,8 +56,8 @@
         <!--Miembros Emilio>
         <integrantes-proyectos></integrantes-proyectos-->
         <v-row>
-          <VolereList v-if="verifyProyectType()" class="mt-5"/>
-          <UserStoriesList v-if="verifyProyectType()" class="mt-5"/>
+          <VolereList v-if="verifyProyectType() == true" class="mt-5"/>
+          <UserStoriesList v-if="verifyProyectType() == false" class="mt-5"/>
         </v-row>
         <v-row>
             <v-dialog v-model="openDialogEdit" max-width="80%">
@@ -112,7 +112,7 @@ import UserStoriesList from "./UserStoriesList"
 
 export default {
     name: "EditProyectComponent",
-    components: {TaskList, AutoChipComponent, VolereList},
+    components: {TaskList, AutoChipComponent, VolereList, UserStoriesList},
     data(){
         return {
             fields : [
