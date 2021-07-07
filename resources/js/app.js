@@ -13,9 +13,9 @@ files
 
 import Board from "./components/Board";
 import Card from "./components/Card";
-import DropBacklog from "./components/DropBacklog";
+//import DropBacklog from "./components/DropBacklog";
 import example from "./components/ExampleComponent";
-import tarea from "./components/tareaComponent.vue";
+//import tarea from "./components/tareaComponent.vue";
 import tasklist from "./components/TaskListComponent";
 Vue.component(
     "crear-proyecto",
@@ -51,6 +51,6 @@ Vue.component("user-stories", require("./components/UserStories.vue").default);
 import App from "./components/App.vue";
 const app = new Vue({
     el: "#app",
-    components: { App, example, tasklist, Card, Board, tarea },
+    components: { App, example, tasklist, Card, Board},
     vuetify,
 });

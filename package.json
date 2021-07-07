@@ -31,6 +31,7 @@
         "vue-axios": "^3.2.4",
         "vue-multiselect": "^2.1.6",
         "vue-router": "^3.5.1",
+        "vuedraggable": "^2.24.3",
         "vuetify": "^2.5.3",
         "vuetify-loader": "^1.7.2"
     }
