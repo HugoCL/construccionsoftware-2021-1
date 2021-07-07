@@ -74,7 +74,7 @@ export default {
     components: {EditProyectComponent},
     data(){
         return{
-            dialogAlert:false
+
         }
     },
     methods:{
@@ -85,7 +85,6 @@ export default {
         deleteProject: function (id){
             axios.delete('/administrar-proyectos/'+id);
             this.$emit('delete', id);
-            this.dialogAlert=true;
         },
 
     },

@@ -31,10 +31,17 @@
                         </p>
                         <p>
 
-                            <b>Descripcion:   </b>{{this.projectUp.description}}
-                        </p>
+                        <v-text-field
+                            :disabled="noEdit"
+                            outlined
+                            filled
+                            dense
+                            v-model="projectUp.name"
+                            label ="Nombre Proyecto"
+                        >
+                        </v-text-field>
 
-                    </v-card-text>
+                    </v-col>
 
                 </v-card>
             </v-col>
@@ -97,6 +104,7 @@
                     </v-card-actions>
                     <v-card-actions>
                         <v-textarea
+                            :disabled="noEdit"
                             outlined
                             filled
                             auto-grow
@@ -105,16 +113,105 @@
                             label ="DESCRIPCION"
                             @click=""
                         >
-                    </v-textarea>
-                    </v-card-actions>
-                    <v-card-actions>
-                        <v-spacer></v-spacer>
-                        <v-btn color="secondary" class="btn-danger white--text" @click="openDialogEdit=false">Cancelar</v-btn>
-                        <v-btn color="red" class="btn-danger white--text" @click="save(project.id)">Confirmar</v-btn>
-                        <v-spacer></v-spacer>
-                    </v-card-actions>
-                </v-card>
-            </v-dialog>
+                        </v-textarea>
+
+                    </v-col>
+
+                </v-row>
+                <!--Mostrar fechas-->
+                <v-row class="ma-2">
+                    <!--Fecha Incio-->
+                    <v-col>
+                        <v-row>
+                            <v-dialog
+                                v-model="modalS"
+                                persistent
+                                width="290px"
+                            >
+                                <template v-slot:activator="{ on, attrs }">
+                                    <v-text-field
+                                        :disabled="noEdit"
+                                        v-model="projectUp.dates[0]"
+                                        label="Fecha de Inicio"
+                                        prepend-icon="mdi-calendar"
+                                        readonly
+                                        outlined
+                                        class="pt-2"
+                                        v-bind="attrs"
+                                        v-on="on"
+                                    ></v-text-field>
+                                </template>
+                                <v-date-picker
+                                    locale="es-cl"
+                                    v-model="projectUp.dates[0]"
+                                    scrollable
+                                >
+                                    <v-spacer></v-spacer>
+                                    <v-btn
+                                        text
+                                        color="primary"
+                                        @click="closeDialogStart"
+                                    >
+                                        Cancel
+                                    </v-btn>
+                                    <v-btn
+                                        text
+                                        color="primary"
+                                        @click="saveStartDate"
+                                    >
+                                        OK
+                                    </v-btn>
+                                </v-date-picker>
+                            </v-dialog>
+                        </v-row>
+                    </v-col>
+                    <!--Fecha termino-->
+                    <v-col>
+                        <v-row>
+                            <v-dialog
+                                v-model="modalE"
+                                persistent
+                                width="290px"
+                            >
+                                <template v-slot:activator="{ on, attrs }">
+                                    <v-text-field
+                                        class="ma-2"
+                                        outlined
+                                        v-model="projectUp.dates[1]"
+                                        :disabled="noEdit"
+                                        label="Fecha de Termino"
+                                        prepend-icon="mdi-calendar"
+                                        readonly
+                                        v-bind="attrs"
+                                        v-on="on"
+                                    ></v-text-field>
+                                </template>
+                                <v-date-picker
+                                    locale="es-cl"
+                                    v-model="projectUp.dates[1]"
+                                    scrollable
+                                >
+                                    <v-spacer></v-spacer>
+                                    <v-btn
+                                        text
+                                        color="primary"
+                                        @click="closeDialogEnd"
+                                    >
+                                        Cancel
+                                    </v-btn>
+                                    <v-btn
+                                        text
+                                        color="primary"
+                                        @click="saveEndDate"
+                                    >
+                                        OK
+                                    </v-btn>
+                                </v-date-picker>
+                            </v-dialog>
+                        </v-row>
+                    </v-col>
+                </v-row>
+            </v-col>
         </v-row>
 
     </v-container>
@@ -124,11 +221,10 @@
 <script>
 import AutoChipComponent from "./AutoChipComponent";
 import TaskList from "./TaskListComponent";
-import VolereList from "./VolereListComponent"
 
 export default {
     name: "EditProyectComponent",
-    components: {TaskList, AutoChipComponent, VolereList},
+    components: {TaskList, AutoChipComponent},
     data(){
         return {
             fields : [
@@ -150,10 +246,6 @@ export default {
                 name: this.project.nombre,
                 description:this.project.descripcion,
                 dates: [this.project.fechaInicio, this.project.fechaTermino],
-                projectType:this.project.metodología,
-                projectReps:this.project.cantIteraciones,
-                rangeType:this.project.medidaIteracion,
-                rangeVal:this.project.duracionIteraciones
             },
             backUpDate:this.project.fechaInicio,
             dialogDate:false,
@@ -173,13 +265,41 @@ export default {
     methods: {
         save(id) {
             // console.table(this.project)
+            const d1 = new Date(this.projectUp.dates[0]);
+            const d2 = new Date(this.projectUp.dates[1]);
 
-            console.log(id);
+            if (+d1 >= +d2){
+                console.log(this.projectUp.dates[0] + '-' + this.projectUp.dates[1])
+                if (+d1 === +d2) {
+                    alert('Las fechas no pueden ser iguales');
+                    return;
+                }
+                let aux = this.projectUp.dates[1];
+
+                this.projectUp.dates[1] = this.projectUp.dates[0];
+                this.projectUp.dates[0] = aux;
+                this.noEdit=!this.noEdit
+            }
+            console.log(this.projectUp);
 
             axios.put('/administrar-proyectos/'+id, this.projectUp);
-            this.openDialogEdit=false;
+            this.disableEdit();
         },
-
+        closeDialogStart() {
+            this.modalS = false
+        },
+        saveStartDate() {
+            this.modalS = false
+        },
+        closeDialogEnd() {
+            this.modalE = false
+        },
+        saveEndDate() {
+            this.modalE = false
+        },
+        disableEdit(){
+            this.noEdit=!this.noEdit
+        },
         deleteProject: function (id){
             axios.delete('/administrar-proyectos/'+id);
             window.location.href="/administrar-proyectos";

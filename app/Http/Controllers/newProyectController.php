@@ -55,10 +55,6 @@ class newProyectController extends Controller
         $proyecto->descripcion = $request->description;
         $proyecto->fechaInicio = $request->dates[0];
         $proyecto->fechaTermino = $request->dates[1];
-        $proyecto->metodología = $request->projectType;
-        $proyecto->cantIteraciones = $request->projectReps;
-        $proyecto->duracionIteraciones = $request->rangeVal;
-        $proyecto->medidaIteracion = $request->rangeType;
         $proyecto->save();
 
         $bosses = ($request->bosses);

@@ -200,7 +200,9 @@ export default {
           sortedTasks: [],
           tasks: []
       }
-  },
+
+    ]
+  }),
   props: {
     id_pro: null,
     peopleNames: []
