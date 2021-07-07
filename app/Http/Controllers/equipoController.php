@@ -9,7 +9,6 @@ use Illuminate\Http\Request;
 
 class equipoController extends Controller
 {
-
     /**
      * @param Request $request
      * @param $id
@@ -29,13 +28,11 @@ class equipoController extends Controller
 
     public function destroy($id)
     {
-        if($id== auth()->id()){
+        if ($id== auth()->id()) {
             $equipo = Equipo::find($id);
             $equipo->delete();
-        }else{
-            return view ('home');
+        } else {
+            return view('home');
         }
-
     }
 }
-
