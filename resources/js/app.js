@@ -43,6 +43,7 @@ Vue.component(
     "sprint-container",
     require("./components/SprintContainer.vue").default
 );
+Vue.component('user-stories', require('./components/UserStories.vue').default);
 import App from "./components/App.vue";
 const app = new Vue({
     el: "#app",
