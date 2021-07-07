@@ -22,11 +22,6 @@ class equipoController extends Controller
         return $equipo;
     }
 
-    public function edit($id){
-        //$equipo = Equipo::find($id);
-        //$integrantes= Integrante::where('id_proyecto','=',$equipo->id_proyect).andAnyOtherArgs('id_equipo','=',$id);
-        //return view('AddProyectComponent')->with($equipo,$integrantes);
-    }
 
     public function update(Request $request, $id)
     {
