@@ -23,6 +23,7 @@ Vue.component('header-app', require('./components/Header.vue').default);
 Vue.component('navdrawer-app', require('./components/NavDrawer.vue').default);
 Vue.component('footer-app', require('./components/Footer.vue').default);
 
+Vue.component('graph-component', require('./components/GraphsComponent.vue').default);
 
 import App from "./components/App.vue";
 const app = new Vue({
