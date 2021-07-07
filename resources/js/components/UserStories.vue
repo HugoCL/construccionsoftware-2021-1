@@ -105,6 +105,38 @@
                 </v-form>
             </v-card>
         </v-dialog>
+
+        <v-card
+            class="white--text pb-0"
+            light
+            color="primary"
+        >
+            <v-card-title
+                class="subheading font-weight-bold pb-2 pt-2"
+            >   <!--Reemplazar para mostrar informacion correspondiente-->
+                HU001:Ejemplo historia de usuario
+            </v-card-title>
+
+            <v-divider class="my-0 py-1"></v-divider>
+            <v-card-actions>
+                <v-btn
+                    color="accent"
+                    class="my-0"
+                >
+                    Editar
+                    <v-icon>mdi-pencil</v-icon>
+                </v-btn>
+                <v-btn
+                    color="error"
+                >
+                    Eliminar
+                    <v-icon>mdi-delete</v-icon>
+                </v-btn>
+            </v-card-actions>
+            <v-divider class="ma-0 py-0"></v-divider>
+
+        </v-card>
+
     </v-container>
 </template>
 
