@@ -352,6 +352,7 @@ export default {
                 });
         },
         async eliminar(newTask){
+            console.log(newTask.id);
             const res= await axios.delete('/task/'+newTask.id);
             this.sortByUser;
 
@@ -431,8 +432,8 @@ export default {
             members: this.taskMembers,
             desc: this.taskDesc,
             date: this.taskDate,
-            tags: this.taskTags,
-            changes: this.taskChanges,
+            tags: ""+this.taskTags,
+            changes: ""+this.taskChanges,
             id_pro: iddProyecto,
             estado :"pendiente"
         };

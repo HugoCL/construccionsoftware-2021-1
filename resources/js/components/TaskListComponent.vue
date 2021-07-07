@@ -176,7 +176,7 @@
 
 
     </v-col>
-         
+
   </v-container>
 </template>
 
@@ -210,12 +210,12 @@ export default {
     async listar(){
       let nTask = [];
       const res= await axios.get('/task');
-      console.log(res.data);
       for (let step = 0; step < res.data.length; step++) {
         let new_task = res.data[step];
         //console.log(new_task)
         let iName = [new_task.id,new_task.name];
         this.id_name.push(iName);
+        console.log(new_task.members);
         let newT = {
           name: new_task.name,
           members: ['Andres awallberg@hotmail.com'],
@@ -238,7 +238,6 @@ export default {
       const iddProyecto = (window.location).href.charAt((window.location).href.length - 1);
       axios.post('/administrar-proyectos/tareaNueva', newTask)
           .then(response => {
-              console.log(response.data);
           });
     },
     sortByUser: function () {
@@ -289,7 +288,7 @@ export default {
         name: this.taskName,
         members: this.taskMembers,
         desc: this.taskDesc,
-        date: this.taskDate,
+        date: this.taskDate[0],
         tags: ""+this.taskTags,
         changes: ""+this.taskChanges,
         id_pro: this.id_pro,
