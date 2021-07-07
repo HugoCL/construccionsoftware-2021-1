@@ -14,7 +14,7 @@ class KanbanController extends Controller
      */
     public function index()
     {
-        return view('kanban');
+        return view('KanbanComponent');
     }
 
     /**

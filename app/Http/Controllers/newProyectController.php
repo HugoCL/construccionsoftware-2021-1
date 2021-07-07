@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Equipo;
+use App\Models\Integrante;
 use App\Models\Lead;
 use App\Models\Participate;
 use App\Models\Proyecto;
@@ -55,27 +57,50 @@ class newProyectController extends Controller
         $proyecto->descripcion = $request->description;
         $proyecto->fechaInicio = $request->dates[0];
         $proyecto->fechaTermino = $request->dates[1];
+        $proyecto->metodología = $request->projectType;
+        $proyecto->cantIteraciones = $request->projectReps;
+        $proyecto->duracionIteraciones = $request->rangeVal;
+        $proyecto->medidaIteracion = $request->rangeType;
         $proyecto->save();
+
+        $equipo = new Equipo();
+        $equipo->nombre = "equipo_nombre";
+        $equipo->id_project = $proyecto->id;
+        $equipo->save();
 
         $bosses = ($request->bosses);
 
-        for ($i=0; $i < count($bosses); $i++){
+        for ($i=0; $i < count($bosses); $i++) {
             $lead = new Lead();
             $lead->id_project = $proyecto->id;
             $lead->id_user = $bosses[$i];
             $lead->save();
+
+            $integrante = new Integrante();
+            $integrante->id_equipo = $equipo->id;
+            $integrante->id_proyecto = $proyecto->id;
+            $integrante->id_user = $bosses[$i];
+            $integrante->rol = "admin";
+            $integrante->save();
         }
 
         $workers = ($request->workers);
 
-        for ($i=0; $i < count($workers); $i++){
+        for ($i=0; $i < count($workers); $i++) {
             $work = new Participate();
             $work->id_project = $proyecto->id;
+            $work->rol = "developer";
             $work->id_user = $workers[$i];
             $work->save();
-        }
-        return $bosses;
 
+            $integrante = new Integrante();
+            $integrante->id_equipo = $equipo->id;
+            $integrante->id_proyecto = $proyecto->id;
+            $integrante->id_user = $workers[$i];
+            $integrante->rol = "developer";
+            $integrante->save();
+        }
+        return $proyecto;
     }
 
     /**
@@ -110,7 +135,6 @@ class newProyectController extends Controller
          */
 
         return view('proyect.edit', compact('proyecto'));
-
     }
 
     /**
@@ -141,6 +165,5 @@ class newProyectController extends Controller
      */
     public function destroy($id)
     {
-
     }
 }

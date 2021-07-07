@@ -1,6 +1,6 @@
 <template>
 
-<div class="row justify-content-center">
+    <div class="row justify-content-center">
 
         <div class="col-12 align-self-center pb-0">
             <v-row>
@@ -16,6 +16,8 @@
                             label="Nombre del proyecto"
                             required
                             outlined
+                            prepend-icon="mdi-fountain-pen-tip"
+
 
                         ></v-text-field>
 
@@ -24,9 +26,10 @@
                             label="Descripción del proyecto"
                             required
                             outlined
+                            prepend-icon="mdi-book-open-variant"
                             auto-grow
                         ></v-textarea>
-
+                        <!--Jefes de proyecto-->
                         <v-select
                             item-text="correo"
                             v-model="proyecto.bosses"
@@ -39,8 +42,9 @@
                             chips
                             small-chips
                             outlined
+                            prepend-icon="mdi-account-hard-hat"
                         ></v-select>
-
+                        <!--Miembros del proyecto-->
                         <v-select
                             item-text="correo"
                             v-model="proyecto.workers"
@@ -52,143 +56,105 @@
                             chips
                             small-chips
                             outlined
+                            prepend-icon="mdi-account-group"
+
                         ></v-select>
+
+                        <!--Fecha inicio/Iteracion-->
                         <v-dialog
-                            transition="dialog-bottom-transition"
-                            max-width="600"
+                            v-model="dialogDate"
+                            persistent
+                            width="290px"
                         >
                             <template v-slot:activator="{ on, attrs }">
-                                <v-btn
-                                    color="primary"
-                                    v-bind="attrs"
-                                    v-on="on"
-                                >Crear equipo</v-btn>
-                            </template>
-                            <v-card
-                                class="mx-auto"
-                                max-width="500"
-                            >
-                                <v-toolbar
-                                    flat
-                                    color="transparent"
-                                >
-                                    <v-app-bar-nav-icon></v-app-bar-nav-icon>
-                                    <v-toolbar-title>Creacion de equipo</v-toolbar-title>
-                                    <v-spacer></v-spacer>
-                                </v-toolbar>
-
-                                <v-container class="py-0">
-                                    <v-row
-                                        align="center"
-                                        justify="start"
-                                    >
-                                        <v-col
-                                            v-for="(selection, i) in selections"
-                                            :key="selection.text"
-                                            class="shrink"
-                                        >
-                                            <v-chip
-                                                :disabled="loading"
-                                                close
-                                                @click:close="selected.splice(i, 1)"
-                                            >
-                                                <v-icon
-                                                    left
-                                                    v-text="selection.icon"
-                                                ></v-icon>
-                                                {{ selection.text }}
-                                            </v-chip>
-                                        </v-col>
-
-                                        <v-col
-                                            v-if="!allSelected"
-                                            cols="12"
-                                        >
-                                        </v-col>
-                                    </v-row>
-                                </v-container>
-
-                                <v-divider v-if="!allSelected"></v-divider>
-
-                                <v-list>
-                                    <template v-for="item in categories">
-                                        <v-list-item
-                                            v-if="!selected.includes(item)"
-                                            :key="item.text"
-                                            @click="selected.push(item)"
-                                        >
-                                            <v-list-item-avatar>
-                                                <v-icon
-                                                    :disabled="loading"
-                                                    v-text="item.icon"
-                                                ></v-icon>
-                                            </v-list-item-avatar>
-                                            <v-list-item-title v-text="item.text"></v-list-item-title>
-                                        </v-list-item>
-                                    </template>
-                                </v-list>
-
-                                <v-divider></v-divider>
-
-                                <v-card-actions>
-                                    <v-spacer></v-spacer>
-                                    <v-btn
-                                        :disabled="!selected.length"
-                                        color="purple"
-                                        text
-                                        @click="crearEquipo(selected)"
-                                    >
-                                        Crear
-                                    </v-btn>
-                                </v-card-actions>
-                            </v-card>
-                        </v-dialog>
-
-                        <v-menu
-                            ref="menu"
-                            v-model="menu"
-                            :close-on-content-click="false"
-                            :return-value.sync="proyecto.dates"
-                            transition="scale-transition"
-                            offset-y
-                            min-width="auto"
-
-                        >
-                        <template v-slot:activator="{ on, attrs }">
                                 <v-text-field
-                                    class="pl-2"
-                                    v-model="proyecto.dates"
-                                    label="Rango de fechas"
+                                    v-model="backUpDate"
+                                    label="Fecha de Inicio Proyecto"
                                     prepend-icon="mdi-calendar"
                                     readonly
+                                    outlined
+                                    class="pt-2"
                                     v-bind="attrs"
                                     v-on="on"
-                                    outlined
                                 ></v-text-field>
-                        </template>
+                            </template>
                             <v-date-picker
-                                v-model="proyecto.dates"
-                                no-title
-                                range
+                                locale="es-cl"
+                                v-model="backUpDate"
                                 scrollable
                             >
                                 <v-spacer></v-spacer>
                                 <v-btn
                                     text
                                     color="primary"
-                                    @click="menu = false"
+                                    @click="cancelDate"
                                 >
-                                    Cancelar
+                                    Cancel
                                 </v-btn>
                                 <v-btn
                                     text
                                     color="primary"
-                                    @click="$refs.menu.save(proyecto.dates)"
+                                    @click="selectDate"
                                 >
-                                    Guardar
+                                    OK
                                 </v-btn>
                             </v-date-picker>
-                        </v-menu>
+                        </v-dialog>
+                        <!--Tipo de proyecto-->
+                        <v-select
+                            outlined
+                            :items="typesProject"
+                            label="Tipo de proyecto"
+                            hint="Seleccione metodologia"
+                            v-model="proyecto.projectType"
+                            prepend-icon="mdi-folder-account-outline"
+                            @click="addDays"
+                        >
+                        </v-select>
+                        <!--Config Duracion-->
+                        <v-row>
+                            <v-col cols="4" md="4" sm="12">
+                                <!--Cantidad de repeticiones-->
+                                <v-select
+                                    outlined
+                                    :items="values"
+                                    label="Cantidad de Sesiones"
+                                    hint="Seleccione numero"
+                                    v-model="proyecto.projectReps"
+                                    prepend-icon="mdi-calendar-plus"
+                                    @click="addDays"
+                                >
+
+                                </v-select>
+                            </v-col>
+                            <!--Formato Medicion-->
+                            <v-col cols="4" md="4" sm="12">
+                                <v-select
+                                    outlined
+                                    :items="ranges"
+                                    label="Medida (dia/semana/mes)"
+                                    hint="Seleccione dia/semana/mes"
+                                    v-model="proyecto.rangeType"
+                                    prepend-icon="mdi-calendar-range"
+                                    @click="addDays"
+                                >
+
+                                </v-select>
+                            </v-col>
+                            <!--Formato Medicion-->
+                            <v-col>
+                                <v-select
+                                    outlined
+                                    :items="values"
+                                    label="Frecuencia"
+                                    hint="Seleccione duracion"
+                                    v-model="proyecto.rangeVal"
+                                    prepend-icon="mdi-calendar-clock"
+                                    @click="addDays"
+                                >
+                                </v-select>
+                            </v-col>
+                        </v-row>
                         <v-spacer></v-spacer>
 
                     </v-list>
@@ -196,16 +162,9 @@
                 </v-col>
 
 
-                <!--<v-col cols="4">
-                    <v-date-picker
-                        color="#000000"
-                        full-width
-                        v-model="proyecto.dates"
-                        range
-                        locale="es-cl"
-                        class="my-4"
-                    ></v-date-picker>
-                </v-col>-->
+            </v-row>
+            <v-row>
+
             </v-row>
             <v-container class="mb-4 mx-0 px-0">
                 <v-row class="justify-center">
@@ -220,11 +179,45 @@
                         </v-icon>
                         Enviar
                     </v-btn>
+                    <v-dialog v-model="dialogAlert" max-width="40%">
+                        <v-card>
+                            <v-card-title class="text-h6 text-center">Complete los campos antes de enviar</v-card-title>
+                            <v-card-actions>
+                                <v-spacer></v-spacer>
+                                <v-btn color="primary" @click="dialogAlert=false">Confirmar</v-btn>
+                                <v-spacer></v-spacer>
+                            </v-card-actions>
+                        </v-card>
+                    </v-dialog>
+                    <v-dialog v-model="dialogConfirm" max-width="40%">
+                        <v-card>
+                            <v-card-title class="text-h6 justify-center">¿Crear proyecto?</v-card-title>
+                            <v-spacer></v-spacer>
+                            <v-card-subtitle outlined>
+                                <b>Proyecto: </b>{{proyecto.name}}
+                                <v-spacer></v-spacer>
+                                <b>Descripcion: </b>{{proyecto.description}}
+                                <v-spacer></v-spacer>
+                                <b>Metodogolia: </b>{{proyecto.projectType}}
+                                <v-spacer></v-spacer>
+                                <b>Fecha Incio: </b>{{proyecto.dates[0]}}
+                                <v-spacer></v-spacer>
+                                <b>Fecha Termino: </b>{{proyecto.dates[1]}}
+                            </v-card-subtitle>
+                            <v-card-actions>
+                                <v-spacer></v-spacer>
+
+                                <v-btn class="btn-danger white--text" color="red" @click="dialogConfirm=false">Cancelar</v-btn>
+                                <v-btn color="primary" @click="confirmSend">Confirmar</v-btn>
+                                <v-spacer></v-spacer>
+                            </v-card-actions>
+                        </v-card>
+                    </v-dialog>
                 </v-row>
             </v-container>
 
         </div>
-</div>
+    </div>
 
 </template>
 <script>
@@ -233,47 +226,28 @@ export default {
     components: {TaskList},
     data(){
         return {
-            equipos: [],
-            newEquipo:[],
-            items: [
-                {
-                    text: 'Estudiante 1',
-                    icon: 'mdi-account-circle',
-                },
-                {
-                    text: 'Estudiante 2',
-                    icon: 'mdi-account-circle',
-                },
-                {
-                    text: 'Estudiante 3',
-                    icon: 'mdi-account-circle',
-                },
-                {
-                    text: 'Estudiante 4',
-                    icon: 'mdi-account-circle',
-                },
-                {
-                    text: 'Estudiante 5',
-                    icon: 'mdi-account-circle',
-                },
-            ],
-            loading: false,
-            search: '',
-            selected: [],
-
-            //////////////////////////////////////////
-
-
-
+            items: [],
             proyectos:[],
             proyecto: {
                 name: '',
-                dates: [],
                 description: '',
+                startDate:'',
+                dates:[],
                 bosses: [],
                 workers: [],
-                select: null,
+                projectType:'',
+                projectReps:'',
+                rangeType:'',
+                rangeVal:''
             },
+            select: null,
+            backUpDate:'',
+            dialogDate:false,
+            dialogConfirm:false,
+            dialogAlert:false,
+            typesProject:['Agil - Sprint [Historias de usuario]','Tradicional - Iteracion [Requisitos de sistema]'],
+            ranges:['Dia','Semana','Mes'],
+            values:[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30],
             emailRules: [
                 v => !!v || 'E-mail is required',
                 v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
@@ -282,7 +256,6 @@ export default {
     },
 
     created(){
-
         /*
               axios.post('/user', {correo: 'ncastillo@hotmail.com', nombre: 'Nicolas'});
               axios.post('/user', {correo: 'awallberg@hotmail.com', nombre: 'Andres'});
@@ -290,93 +263,80 @@ export default {
 
         axios.get('/user')
             .then(response=>{
-                const users = [];
                 const res = response.data;
                 this.items = res;
-                console.log(res);
+
 
             });
     },
-    computed: {
-        allSelected() {
-            return this.selected.length === this.items.length
-        },
-        categories() {
-            const search = this.search.toLowerCase()
-
-            if (!search) return this.items
-
-            return this.items.filter(item => {
-                const text = item.text.toLowerCase()
-
-                return text.indexOf(search) > -1
-            })
-        },
-        selections() {
-            const selections = []
-
-            for (const selection of this.selected) {
-                selections.push(selection)
-            }
-
-            return selections
-        },
-    },
-    /////////////////////////////////////////////////////////////////////////
-
-
-/////////////////////////////////////////////////////////////////
-
-
-
 
     methods: {
-        /////////////////////////////////
-        crearEquipo(selected){
-            alert(selected)
-            this.equipos.push(selected)
-        },
-
-        /////////////////////////////
         send () {
-            if(this.proyecto.name.trim() === '' || this.proyecto.dates.length === 0 || this.proyecto.description.trim() === ''
-                || this.proyecto.bosses.length === 0 || this.proyecto.workers.length === 0){
-                alert('Debes completar todos los campos antes de guardar');
+            if(this.proyecto.name === '' || this.proyecto.dates.length === 0 || this.proyecto.description === ''
+                || this.proyecto.bosses.length === 0 || this.proyecto.workers.length === 0
+                || this.proyecto.projectReps === '' || this.proyecto.rangeType === ''
+                || this.proyecto.rangeVal === '' || this.proyecto.projectType === ''){
+                this.dialogAlert=true
                 return;
             }
+            this.addDays();
 
-            const d1 = new Date(this.proyecto.dates[0]);
-            const d2 = new Date(this.proyecto.dates[1]);
 
-            if (+d1 >= +d2){
-                console.log(this.proyecto.dates[0] + '-' + this.proyecto.dates[1])
-                if (+d1 === +d2) {
-                    alert('Las fechas no pueden ser iguales');
-                    return;
-                }
-                let aux = this.proyecto.dates[1];
+            this.proyecto.projectReps = parseInt(this.proyecto.projectReps, 10);
+            this.proyecto.rangeVal = parseInt(this.proyecto.rangeVal, 10);
+            this.dialogConfirm = true
 
-                this.proyecto.dates[1] = this.proyecto.dates[0];
-                this.proyecto.dates[0] = aux;
 
+        },
+        addDays() {
+            if(this.backUpDate === '' || this.proyecto.projectReps === ''
+                || this.proyecto.rangeType === '' || this.proyecto.rangeVal === '')
+                return;
+
+            let sumDias;
+            switch (this.proyecto.rangeType) {
+                case "Dia":
+                    sumDias = 1;
+                    break;
+                case "Semana":
+                    sumDias = 7;
+                    break;
+                case "Mes":
+                    sumDias = 30;
+                    break;
             }
 
-            console.log(
-                {
-                    'name':this.proyecto.name,
-                    'dates':this.proyecto.dates,
-                    'bosses':this.proyecto.bosses,
-                    'workers':this.proyecto.workers
-                }
-            );
+            let date = new Date(this.backUpDate);
+            date.setDate(date.getDate() + (sumDias*parseInt(this.proyecto.rangeVal, 10)*parseInt(this.proyecto.projectReps, 10))+1);
+            this.proyecto.dates[0] = this.backUpDate;
+            this.proyecto.dates[1] = date.getFullYear() + '-' + (date.getMonth()+1) + '-' + date.getDate();
+
+        },
+        cancelDate(){
+            this.backUpDate = this.proyecto.dates[0]
+            this.dialogDate=false
+        },
+        selectDate(){
+            this.proyecto.dates[0] = this.backUpDate
+            this.dialogDate=false
+            this.addDays();
+        },
+        confirmSend(){
             const nuevoProyecto = this.proyecto;
-            this.proyecto = {name: '', description: '', dates: [], bosses: [], workers: []};
+            this.backUpDate='';
+            this.proyecto = {name: '', description: '', dates: [], bosses: [], workers: [],
+                projectType:'', projectReps:'', rangeType:'', rangeVal:''};
             axios.post('/administrar-proyectos/nuevo', nuevoProyecto)
                 .then(response => {
-                    console.log(response.data);
+                    console.log("Proyecto enviado")
+                    this.$emit('add',response.data);
                 });
-            window.location.href="http://127.0.0.1:8000/administrar-proyectos";
+
+
+            this.dialogConfirm=false;
+            //window.location.href="http://127.0.0.1:8000/administrar-proyectos";
         }
+
     }
 }
 </script>

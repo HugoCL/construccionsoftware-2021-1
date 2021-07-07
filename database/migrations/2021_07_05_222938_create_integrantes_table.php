@@ -21,6 +21,7 @@ class CreateIntegrantesTable extends Migration
             $table->foreign('id_user')->references('correo')->on('usuarios')->cascadeOnDelete();
             $table->foreign('id_proyecto')->references('id')->on('proyectos')->cascadeOnDelete();
             $table->foreign('id_equipo')->references('id')->on('equipo')->cascadeOnDelete();
+            $table->timestamps();
         });
     }
 

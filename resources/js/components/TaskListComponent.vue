@@ -114,6 +114,7 @@
               text
               color="primary"
               @click="$refs.menu.save(taskDate)"
+
             >
               Guardar
             </v-btn>
@@ -140,27 +141,41 @@
     </v-dialog>
 
     <!--Muestra las tareas disponibles-->
-    <v-row
+    <v-col
       v-for="(userTask, index1) in sortedTasks"
       :key="index1"
+      md="12"
+      sm="12"
+      cols="12"
+        outlined
     >
-      <v-col cols="12">
-        <h2>{{ userTask.username }}</h2>
-      </v-col>
-      <v-col
-        v-for="(task, index2) in userTask.tasks"
-        :key="index2"
-        cols="12"
-      >
-        <Task
-          :tasks="tasks"
-          :taskData="task"
-          :peopleNames="formatedPeopleNames"
-          :sortedTasks="sortedTasks"
-          @sort-tasks="sortByUser"
-        />
-      </v-col>
-    </v-row>
+     <v-card>
+                <v-toolbar
+                    color="secondary"
+                    class="white--text pt-0 pb-0 text-h5"
+                >
+                    {{ userTask.username }}
+                </v-toolbar>
+                <v-card-actions
+
+                 >
+                     <v-col v-for="(task, index2) in userTask.tasks"
+                            :key="index2"
+                            cols="3" md="3">
+                         <Task
+                             :id_task_name = "id_name"
+                             :tasks="tasks"
+                             :taskData="task"
+                             :peopleNames="formatedPeopleNames"
+                             :sortedTasks="sortedTasks"
+                             @sort-tasks="sortByUser"
+                         />
+                     </v-col>
+                 </v-card-actions>
+            </v-card>
+
+
+    </v-col>
   </v-container>
 </template>
 
@@ -170,50 +185,60 @@ import Task from './TaskComponent';
 export default {
   name: 'TaskList',
   components: {Task},
-  data: () => ({
-    taskDate: new Date().toISOString().substr(0, 10),
-    menu: false, //Para el seleccionador de fecha
-    dialog: false,
-    taskName: '',
-    taskDesc: '',
-    taskMembers: [],
-    taskTags: [],
-    taskChanges: [],
-    formatedPeopleNames: [],
-    sortedTasks: [],
-    tasks: [
-      {
-        name: 'Crear interfaz',
-        members: ['Andres awallberg@hotmail.com'],
-        desc: 'Lorem ipsum dolor sit amet tempus penatibus taciti feugiat cras fames laoreet bibendum ligula nibh. Tristique convallis leo nibh porta odio feugiat blandit ullamcorper scelerisque cursus, luctus aptent netus sagittis egestas quis felis pulvinar ut vestibulum, ante mi cum suspendisse ornare potenti praesent eleifend varius. Quis dignissim dictum imperdiet bibendum mattis, vivamus phasellus donec tempor.',
-        date: '2021-06-26',
-        tags: ['HU02', 'TA02', 'P1'],
-        changes: ['7/7/7   Usuario', '7/7/7   Usuario', '7/7/7   Usuario',]
-      },
-      {
-        name: 'Implementar botones',
-        members: ['Andres awallberg@hotmail.com'],
-        desc: 'Lorem ipsum dolor sit amet consectetur adipiscing Tristique egestas quis felis pulvinar ut vestibulum, ante mi cum suspendisse ornare potenti praesent eleifend varius. Quis dignissim dictum imperdiet bibendum mattis, vivamus phasellus donec tempor.',
-        date: '2021-06-10',
-        tags: ['HU02', 'TA02', 'P2'],
-        changes: ['7/7/7   Usuario', '8/7/7   Usuario', '9/7/7   Usuario',]
-      },
-      {
-        name: 'Seleccionar colores',
-        members: ['Andres awallberg@hotmail.com'],
-        desc: 'Lorem ipsum dolor sit amet consectetur adipiscing elit senectus fringilla arcu a, iaculis sodales magna sollicitudin ridiculus tempus penatibus facilisis ac cursus nullam praesent, venenatis lectus taciti feugiat cras fames laoreet bibendum ligula nibh. Tristique convallis leo nibh porta odio feugiat blandit ullamcorper scelerisque cursus, luctus aptent netus sagittis egestas quis felis pulvinar ut vestibulum, ante mi cum suspendisse ornare potenti praesent eleifend varius. Quis dignissim dictum imperdiet bibendum mattis, vivamus phasellus donec tempor.',
-        date: '2021-07-01',
-        tags: ['HU02', 'TA02', 'P3'],
-        changes: ['7/7/7   Usuario', '7/7/7   Usuario', '7/7/7   Usuario',]
+  data(){
+      return{
+          id_name: [],
+          taskDate: new Date().toISOString().substr(0, 10),
+          menu: false, //Para el seleccionador de fecha
+          dialog: false,
+          taskName: '',
+          taskDesc: '',
+          taskMembers: [],
+          taskTags: [],
+          taskChanges: [],
+          formatedPeopleNames: [],
+          sortedTasks: [],
+          tasks: []
       }
-
-    ]
-  }),
+  },
   props: {
     id_pro: null,
     peopleNames: []
   },
   methods: {
+    async listar(){
+      let nTask = [];
+      const res= await axios.get('/task');
+      for (let step = 0; step < res.data.length; step++) {
+        let new_task = res.data[step];
+        //console.log(new_task)
+        let iName = [new_task.id,new_task.name];
+        this.id_name.push(iName);
+        console.log(new_task.members);
+        let newT = {
+          name: new_task.name,
+          members: ['Andres awallberg@hotmail.com'],
+          desc: new_task.desc,
+          date: new_task.date,
+          tags: ['HU02', 'TA02', 'P2'],
+          changes: ['7/7/7   Usuario', '7/7/7   Usuario', '7/7/7   Usuario',],
+          id_pro: new_task.id_proyecto,
+          estado :'pendiente'
+        };
+        if(new_task.id_proyecto == this.id_pro){
+            nTask.push(newT);
+        }
+      }
+      this.tasks = nTask;
+      //alert(JSON.stringify(this.tasks));
+      this.sortByUser();
+    },
+    send(newTask) {
+      const iddProyecto = (window.location).href.charAt((window.location).href.length - 1);
+      axios.post('/administrar-proyectos/tareaNueva', newTask)
+          .then(response => {
+          });
+    },
     sortByUser: function () {
       this.sortedTasks = [];
       for (let i = 0; i < this.formatedPeopleNames.length; i++) {
@@ -244,19 +269,11 @@ export default {
         event.target.value = ''
       }
     },
-    send(newTask) {
-      const iddProyecto = (window.location).href.charAt((window.location).href.length - 1);
-      console.log(newTask);
-      axios.post('/administrar-proyectos/tareaNueva', newTask)
-        .then(response => {
-          console.log(response.data);
-        });
-    },
+
     removeTag(index) {
       this.taskTags.splice(index, 1)
     },
     createTask: function () {
-
       this.tasks.push({
         name: this.taskName,
         members: this.taskMembers,
@@ -270,10 +287,11 @@ export default {
         name: this.taskName,
         members: this.taskMembers,
         desc: this.taskDesc,
-        date: this.taskDate,
-        tags: this.taskTags,
-        changes: this.taskChanges,
-        id_pro: this.id_pro
+        date: this.taskDate[0],
+        tags: ""+this.taskTags,
+        changes: ""+this.taskChanges,
+        id_pro: this.id_pro,
+        estado :"pendiente"
       };
       this.send(newTask);
       this.taskName = '';
@@ -283,13 +301,14 @@ export default {
       this.taskTags = '';
       this.taskChanges = '';
       this.dialog = false;
+      this.listar();
       this.sortByUser();
     }
   },
   mounted() {
     this.formatPeopleNames();
+    this.listar();
     this.sortByUser();
-
   }
 }
 </script>
