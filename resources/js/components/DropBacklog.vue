@@ -3,7 +3,7 @@
         <div id="drag-scope">
             <div class="column">
                 <v-row align="center" justify="center">
-                    <v-col align="center" justify="center">
+                    <v-col>
                         <div class="title">Backlog  
                             <v-btn
                                 color="#FF1493"
@@ -16,12 +16,10 @@
                         </div>
                     </v-col>
                 </v-row>
-                <Board class="backlog  green lighten-5" :data="todos.backlog">
+                <Board class="backlog  green lighten-4" :data="todos.backlog">
                     <Card class="handle" v-for="(todo, index) in todos.backlog" :data="todo" :key="index" @remove="todos.backlog.splice(index, 1)"></Card>
                 </Board>
             </div>
-        </div>
-        <div>
             <div class="column">
                 <div class="title">Design
                     <v-btn
@@ -34,7 +32,9 @@
                     >+</v-btn>
                 </div>
                 <Board class="design red lighten-4" :data="todos.design">
-                    <Card class="handle" v-for="(todo, index) in todos.design" :data="todo" :key="index" @remove="todos.design.splice(index, 1)"></Card>
+                    <draggable class="list-group kanban-column" :list="backlog" group="task">
+                        <Card class="handle" v-for="(todo, index) in todos.design" :data="todo" :key="index" @remove="todos.design.splice(index, 1)"></Card>
+                    </draggable>
                 </Board>
             </div>
         </div>
@@ -44,6 +44,7 @@
 import Board from "./Board";
 import Card from "./Card";
 import lmdd from "../lmdd.min";
+import draggable from "vuedraggable";
 
 
 export default {
@@ -58,7 +59,7 @@ export default {
             todos: {
                 backlog: [
                     {
-                        color:'red lighten-1',
+                        color: '',
                         head: 'HU06 - TA01',
                         title: 'Implementar la columna Backlog',
                         des: 'S1 - TA01: Implementar la interfaz tipo columna que tendrá el backlog (1)',
@@ -80,7 +81,6 @@ export default {
         lmdd.set(document.getElementById('drag-scope'), {
             containerClass: 'Board',
             draggableItemClass: 'Card',
-            handleClass: 'handle',
             dataMode: true
         });
         this.$el.addEventListener('lmddend', this.handleDragEvent);
@@ -122,9 +122,11 @@ export default {
                 content: ''
             })
         },
+
     }
 };
 </script>
+
 <style>
 #vue-example {
     width: 100%;
@@ -144,44 +146,8 @@ export default {
 
 }
 
-.todo-container {
-    display: flex;
-    padding: 10px;
-    margin: 10px;
-    flex-flow: column nowrap;
-    min-height: 106px;
-}
-
-.todo-item {
-    padding: 3px;
-    margin: 5px;
-    color: black;
-    font-size: 15px;
-    background-color: grey;
-    border: 3px solid lightgoldenrodyellow;
-}
-
-.backlog .todo-item {
-    background-color: #FF5733;
-}
-
-.design .todo-item {
-    background-color: #E97373;
-}
-
 .handle {
     cursor: move;
-}
-
-.remove {
-    color: red;
-    float: right;
-    cursor: pointer;
-}
-
-.task {
-    border: 1px dotted white;
-    padding: 5px;
 }
 
 .title {
@@ -191,7 +157,11 @@ export default {
     margin: 5px;
 }
 
-.input-model {
-    padding: 0px 30px;
+.Board {
+    display: flex;
+    padding: 10px;
+    margin: 10px;
+    flex-flow: column nowrap;
+    min-height: 106px;
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-    <div class="todo-container"><slot></slot></div>
+    <div class="Board"><slot></slot></div>
 </template>
 
 <script>
