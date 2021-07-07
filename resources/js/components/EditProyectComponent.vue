@@ -59,7 +59,7 @@
                             <v-card-actions>
                                 <v-spacer></v-spacer>
                                 <v-btn color="secondary" class="btn-danger white--text" @click="dialogAlert=false">Cancelar</v-btn>
-                                <v-btn color="red" class="btn-danger white--text" @click="deleteProject(proyectData.id)">Confirmar</v-btn>
+                                <v-btn color="red" class="btn-danger white--text" @click="deleteProject(project.id)">Confirmar</v-btn>
                                 <v-spacer></v-spacer>
                             </v-card-actions>
                         </v-card>
@@ -73,6 +73,9 @@
         </v-row>
         <!--Miembros Emilio>
         <integrantes-proyectos></integrantes-proyectos-->
+        <v-row>
+          <VolereList v-if="verifyProyectType()" class="mt-5"/>
+        </v-row>
         <v-row>
             <v-dialog v-model="openDialogEdit" max-width="80%">
                 <v-toolbar
@@ -113,6 +116,7 @@
                 </v-card>
             </v-dialog>
         </v-row>
+
     </v-container>
 
 </template>
@@ -120,10 +124,11 @@
 <script>
 import AutoChipComponent from "./AutoChipComponent";
 import TaskList from "./TaskListComponent";
+import VolereList from "./VolereListComponent"
 
 export default {
     name: "EditProyectComponent",
-    components: {TaskList, AutoChipComponent},
+    components: {TaskList, AutoChipComponent, VolereList},
     data(){
         return {
             fields : [
@@ -155,7 +160,7 @@ export default {
             dialogConfirm:false,
             openDialogEdit:false,
             dialogAlert:false,
-            currentMember:null,
+            currentMember:null
             //Se deben incluir listas para cada tipo de miembros
         }
     },
@@ -178,8 +183,20 @@ export default {
         deleteProject: function (id){
             axios.delete('/administrar-proyectos/'+id);
             window.location.href="/administrar-proyectos";
-        },
+            window.location.href="/administrar-proyectos";
+            this.dialogAlert = false;
 
-    }
+        },
+        verifyProyectType: function(){
+          let proyectType = this.projectUp.projectType.split('-')[0].split(' ')[0];
+          if(proyectType === 'Tradicional') return true;
+          else                       return false;
+        }
+
+    },
+  mounted() {
+      //alert(JSON.stringify(this.projectUp));
+      //this.verifyProyectType();
+  }
 }
 </script>
