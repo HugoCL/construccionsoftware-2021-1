@@ -127,7 +127,7 @@
                                        min-height="0"
                                        @click="addCycle">
                                     <v-icon class="ma-0 pa-0 pb-1 white--text"
-                                            >
+                                    >
                                         mdi-plus
                                     </v-icon>
                                 </v-btn>
@@ -190,7 +190,7 @@
                                                            class="ma-0 pa-0 pb-2 text-right"
                                                            min-width="0"
                                                            min-height="0"
-                                                           @click="deleteCycle($event)">
+                                                           @click="deleteCycle(index1)">
                                                         <v-icon class="ma-0 pa-0 white--text"
                                                         >
                                                             mdi-delete
@@ -344,17 +344,19 @@ export default {
         },
         addCycle: function(){
             this.cycles.push({
-                cycleName: "Nueva iteración",
-                subcycle: [],
-                edit:false,
+                    cycleName: "Nueva iteración",
+                    subcycle: [],
+                    edit:false,
                 }
             )
         },
         editCycle: function (){
             this.cycleName= this.cycle.cycleName;
         },
-        deleteCycle: function (){
-            this.cycles.splice(this.cycles.indexOf(this.SprintContainer),1);
+        deleteCycle: function (id){
+            console.dir(id);
+
+            this.cycles.splice(id,1);
         },
     }
 };
