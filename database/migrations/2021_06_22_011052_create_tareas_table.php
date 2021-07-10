@@ -20,7 +20,8 @@ class CreateTareasTable extends Migration
             $table-> primary(['id','id_proyecto','id_sprint']);
 
 
-            $table->foreign('id_proyecto') -> references('id') -> on('proyectos');
+            //Se agrego el cascade
+            $table->foreign('id_proyecto') -> references('id') -> on('proyectos')->cascadeOnDelete();
             $table->foreign('id_sprint') -> references('id') -> on('sprints');
 
             $table-> enum('estado',['pendiente','hecho', 'no hecho']) -> nullable(false);

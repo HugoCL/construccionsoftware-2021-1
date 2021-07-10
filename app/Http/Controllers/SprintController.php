@@ -5,8 +5,19 @@ namespace App\Http\Controllers;
 use App\Models\Sprint;
 use App\Models\Tarea;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use phpDocumentor\Reflection\Types\Compound;
 
+/**
+ * Class SprintController
+ *
+ * @package App\Http\Controllers
+ *
+ * Este controlador se creo para realizar las acciones de un sprint,
+ * por ahora no se sabe si en realidad es necesaria, ya que como no eran conocidos
+ * el envio de variable mediante las vistas blade.php , por lo mismo se modifico la estructura de los metodos: index y show
+ * por ahora se continua trabajando con SprintContainerController
+ */
 class SprintController extends Controller
 {
     /**
@@ -14,10 +25,10 @@ class SprintController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($idProyecto)
     {
         //
-        $sprints = Sprint::all();
+        $sprints = DB::table('sprints')->where('id_proyecto', $idProyecto)->get()->all();
         return $sprints;
     }
 
@@ -55,13 +66,16 @@ class SprintController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($idProyecto, $idSprint)
     {
         //
-        $sprint = Sprint::find($id);
-        //$tasks = Tarea::query()->select('*')->where('id_sprint', $id);
-        //return view('SprintComponent', compact('sprint','tasks'));
-        return $sprint;
+
+
+        //Aqui es probable que se deba cambiar tareas por tasks
+        $tareas = DB::table('tareas')->where('id_proyecto', $idProyecto);
+        $tareas = $tareas->select('*')->where('id_sprint', $idSprint)->get();
+
+        return $tareas;
 
     }
 
@@ -106,9 +120,7 @@ class SprintController extends Controller
     public function destroy($id)
     {
         //
-
         $sprint = Sprint::find($id);
         $sprint->delete();
-
     }
 }

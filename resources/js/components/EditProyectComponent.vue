@@ -69,7 +69,7 @@
         </v-row>
         <!-- Botón temporal para sprint container-->
         <v-row class="justify-center  mx-0 px-0">
-            <v-btn v-bind:href="/sprint-container/"
+            <v-btn v-bind:href="'/sprint-container/'+project.id"
                    color="secondary"
                    @click="dialog = true"
                    class="mb-4"
@@ -84,8 +84,8 @@
         <!--Miembros Emilio>
         <integrantes-proyectos></integrantes-proyectos-->
         <v-row>
-          <VolereList v-if="verifyProyectType() == true" class="mt-5"/>
-          <UserStoriesList v-if="verifyProyectType() == false" class="mt-5"/>
+            <VolereList v-if="verifyProyectType() == true" class="mt-5"/>
+            <UserStoriesList v-if="verifyProyectType() == false" class="mt-5"/>
         </v-row>
         <v-row>
             <v-dialog v-model="openDialogEdit" max-width="80%">
@@ -196,10 +196,10 @@ export default {
             window.location.href="/administrar-proyectos";
         },
         verifyProyectType: function(){
-          let proyectType = this.projectUp.projectType.split('-')[0].split(' ')[0];
-          //alert(proyectType);
-          if(proyectType === 'Tradicional') return true;
-          else                       return false;
+            let proyectType = this.projectUp.projectType.split('-')[0].split(' ')[0];
+            //alert(proyectType);
+            if(proyectType === 'Tradicional') return true;
+            else                       return false;
         }
 
     }

@@ -127,7 +127,7 @@
                                        min-height="0"
                                        @click="addCycle">
                                     <v-icon class="ma-0 pa-0 pb-1 white--text"
-                                            >
+                                    >
                                         mdi-plus
                                     </v-icon>
                                 </v-btn>
@@ -246,7 +246,14 @@ export default {
     components: {
         draggable
     },
+    props: {
+        project_id: null,
+        sprints: null,
+        tasks: null,
+    },
     data: () => ({
+
+
         nuevoRequisito: "",
         newCycle:'',
         cycle: [],
@@ -259,7 +266,7 @@ export default {
         cycleState:'Backlog',
         cycleTypeEj: "Iteraciones",
         cycles: [
-            {
+            /*{
                 cycleName:'Iteración 1:',
                 edit: false,
                 subcycle: ['HU01: Ejemplo1', 'HU02: Ejemplo2', 'HU03: Ejemplo3'],
@@ -298,7 +305,7 @@ export default {
                 cycleState:'Backlog',
                 fechaInic: '',
                 fechaFin:'',
-            }
+            }*/
         ],
         backlog: [
             {
@@ -335,8 +342,57 @@ export default {
             }
         ],
         editedCycle: null,
+        sprintUp: {
+            id_proyecto: null,
+            fechaInicio: null,
+            fechaTermino: null
+        },
+        taskUp: {
+            id_proyecto: null,
+            id_sprint: null,
+            descripcion: null,
+            estado: null
 
+        },
     }),
+    created() {
+        console.log(this.project_id);
+        this.sprints.forEach(element => console.log(element));
+
+
+
+
+        for (let sprint of this.sprints) {
+            /*cycleName:'Iteración 4:',
+                edit:false,
+                subcycle: ['HU08: Ejemplo8', 'HU09: Ejemplo9'],
+                cycleState:'Backlog',
+                fechaInic: '',
+                fechaFin:'',
+             */
+            let name = 'Iteración '+sprint.nro_sprint;
+            let subcycle = [];
+            let cycleState = 'Backlog';
+            let fechaInicio = '';
+            let fechaFin = '';
+
+            this.tasks[sprint.nro_sprint-1].forEach(element => subcycle.push(element.descripcion));
+
+            this.cycles.push({
+                cycleName: name,
+                edit: false,
+                subcycle: subcycle,
+                cycleState: cycleState,
+                fechaInic: fechaInicio,
+                fechaFin: fechaFin
+            });
+
+        }
+        console.log(this.cycles);
+
+
+    },
+
     methods: {
         add: function () {
             this.nuevoProyecto.push({requisitos: this.nuevoProyecto});
@@ -344,9 +400,10 @@ export default {
         },
         addCycle: function(){
             this.cycles.push({
-                cycleName: "Nueva iteración",
-                subcycle: [],
-                edit:false,
+                    cycleName: "Nueva iteración",
+                    subcycle: [],
+                    edit:false,
+                    cycleState: 'Backlog'
                 }
             )
         },
@@ -363,3 +420,4 @@ export default {
 <style scoped>
 
 </style>
+
