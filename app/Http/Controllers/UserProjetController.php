@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\kanban;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
-class KanbanController extends Controller
+class UserProjetController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,6 @@ class KanbanController extends Controller
      */
     public function index()
     {
-        return view('KanbanComponent');
     }
 
     /**
@@ -24,7 +23,6 @@ class KanbanController extends Controller
      */
     public function create()
     {
-        //
     }
 
     /**
@@ -41,21 +39,20 @@ class KanbanController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\kanban  $kanban
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(kanban $kanban)
+    public function show($id)
     {
-        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\kanban  $kanban
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(kanban $kanban)
+    public function edit($id)
     {
         //
     }
@@ -64,10 +61,10 @@ class KanbanController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\kanban  $kanban
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, kanban $kanban)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -75,10 +72,10 @@ class KanbanController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\kanban  $kanban
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(kanban $kanban)
+    public function destroy($id)
     {
         //
     }

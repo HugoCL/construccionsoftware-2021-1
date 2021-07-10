@@ -71,6 +71,17 @@
                         md="4"
                       >
                         <v-text-field
+                          v-model="editedItem.id"
+                          label="Id"
+                          disabled="disabled"
+                        ></v-text-field>
+                      </v-col>
+                      <v-col
+                        cols="12"
+                        sm="6"
+                        md="4"
+                      >
+                        <v-text-field
                           v-model="editedItem.name"
                           label="Nombres"
                         ></v-text-field>
@@ -81,78 +92,8 @@
                         md="4"
                       >
                         <v-text-field
-                          v-model="editedItem.lastName"
-                          label="Apellido Paterno"
-                        ></v-text-field>
-                      </v-col>
-                      <v-col
-                        cols="12"
-                        sm="6"
-                        md="4"
-                      >
-                        <v-text-field
-                          v-model="editedItem.mothersLastName"
-                          label="Apellido Materno"
-                        ></v-text-field>
-                      </v-col>
-                      <v-col
-                        cols="12"
-                        sm="6"
-                        md="4"
-                      >
-                        <v-text-field
-                          v-model="editedItem.admission"
-                          label="Año de Ingreso"
-                        ></v-text-field>
-                      </v-col>
-                      <v-col
-                        cols="12"
-                        sm="6"
-                        md="4"
-                      >
-                        <v-text-field
-                          v-model="editedItem.rut"
-                          label="RUT"
-                        ></v-text-field>
-                      </v-col>
-                      <v-col
-                        cols="12"
-                        sm="6"
-                        md="4"
-                      >
-                        <v-text-field
-                          v-model="editedItem.enrollment"
-                          label="Matricula"
-                        ></v-text-field>
-                      </v-col>
-                      <v-col
-                        cols="12"
-                        sm="6"
-                        md="4"
-                      >
-                        <v-text-field
                           v-model="editedItem.email"
                           label="Correo"
-                        ></v-text-field>
-                      </v-col>
-                      <v-col
-                        cols="12"
-                        sm="6"
-                        md="4"
-                      >
-                        <v-text-field
-                          v-model="editedItem.phone"
-                          label="Teléfono"
-                        ></v-text-field>
-                      </v-col>
-                      <v-col
-                        cols="12"
-                        sm="6"
-                        md="4"
-                      >
-                        <v-text-field
-                          v-model="editedItem.direction"
-                          label="Dirección"
                         ></v-text-field>
                       </v-col>
                     </v-row>
@@ -227,42 +168,21 @@
       dialogDelete: false,
       search: '',
       headers: [
-        {
-          text: 'Nombres',
-          align: 'start',
-          sortable: false,
-          value: 'name',
-        },
-        {
-          text: 'Apellidos',
-          align: 'start',
-          sortable: true,
-          value: 'lastName',
-        },
-        { text: 'Ingreso', value: 'admission' },
-        { text: 'RUT', value: 'rut', sortable: false },
-        { text: 'Matricula', value: 'enrollment', sortable: false },
-        { text: 'Correo', value: 'email', sortable: false },
+        { text: 'Id', align: 'start', sortable: true, value: 'id'},
+        { text: 'Nombres', align: 'start', sortable: true, value: 'name'},
+        { text: 'Correo', value: 'email', sortable: true },
         { text: 'Acciones', value: 'actions', sortable: false },
       ],
       students: [],
       editedIndex: -1,
       editedItem: {
+        id: '',
         name: '',
-        lastName: '',
-        mothersLastName: '',
-        admission: 0,
-        rut: '',
-        enrollment: 0,
         email: '',
       },
       defaultItem: {
+        id: '',
         name: '',
-        lastName: '',
-        mothersLastName: '',
-        admission: 0,
-        rut: '',
-        enrollment: 0,
         email: '',
       },
       emailRules: [
@@ -298,93 +218,53 @@
       initialize () {
         this.students = [
           {
+            id: '1',
             name: 'Frozen Yogurt',
-            lastName: 'Ap PaternoA',
-            mothersLastName: 'Ap Materno',
-            admission: 2013,
-            rut: '15.555.666-5',
-            enrollment: 24,
             email: 'correo0001@dominio.com',
           },
           {
+            id: '2',
             name: 'Ice cream sandwich',
-            lastName: 'Ap PaternoB',
-            mothersLastName: 'Ap Materno',
-            admission: 2013,
-            rut: '15.777.888-1111',
-            enrollment: 37,
             email: 'correo0001@dominio.com',
           },
           {
+            id: '3',
             name: 'Eclair',
-            lastName: 'Ap PaternoC',
-            mothersLastName: 'Ap Materno',
-            admission: 2012,
-            rut: '14.123.456-9',
-            enrollment: 23,
             email: 'correo0001@dominio.com',
           },
           {
+            id: '4',
             name: 'Cupcake',
-            lastName: 'Ap PaternoD',
-            mothersLastName: 'Ap Materno',
-            admission: 2015,
-            rut: '16.551.214-4',
-            enrollment: 67,
             email: 'correo0001@dominio.com',
           },
           {
+            id: '5',
             name: 'Gingerbread',
-            lastName: 'Ap PaternoE',
-            mothersLastName: 'Ap Materno',
-            admission: 2016,
-            rut: '18.014.333-8',
-            enrollment: 49,
             email: 'correo0001@dominio.com',
           },
           {
+            id: '6',
             name: 'Jelly bean',
-            lastName: 'Ap PaternoF',
-            mothersLastName: 'Ap Materno',
-            admission: 2016,
-            rut: '18.693.254-8',
-            enrollment: 94,
             email: 'correo0001@dominio.com',
           },
           {
+            id: '7',
             name: 'Lollipop',
-            lastName: 'Ap PaternoG',
-            mothersLastName: 'Ap Materno',
-            admission: 2017,
-            rut: '18.856.321-7',
-            enrollment: 98,
             email: 'correo0001@dominio.com',
           },
           {
+            id: '8',
             name: 'Honeycomb',
-            lastName: 'Ap PaternoH',
-            mothersLastName: 'Ap Materno',
-            admission: 2018,
-            rut: '19.002.120-5',
-            enrollment: 87,
             email: 'correo0001@dominio.com',
           },
           {
+            id: '9',
             name: 'Donut',
-            lastName: 'Ap PaternoI',
-            mothersLastName: 'Ap Materno',
-            admission: 2019,
-            rut: '19.985.214-3',
-            enrollment: 51,
             email: 'correo0001@dominio.com',
           },
           {
+            id: '10',
             name: 'KitKat',
-            lastName: 'Ap PaternoJ',
-            mothersLastName: 'Ap Materno',
-            admission: 2020,
-            rut: '20.556.112-5',
-            enrollment: 65,
             email: 'correo0001@dominio.com',
           },
         ]

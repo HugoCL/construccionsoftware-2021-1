@@ -3,82 +3,62 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models;
 
 class BacklogController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        return view('dropBacklog');
+        $tareasBacklog = Models\Backlog::all();
+        /**
+         * Este metodo deberia mostrar la lista de las tareas del backlog
+         */
+        return view('backlog', compact('tareasBacklog'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function crearTarea()
     {
-        //
+        return view('creartarea');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function eliminarTarea()
     {
-        //
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
-        //
+        //Buscamos el registro que coincide con el id
+        $tarea = Models\Backlog::findOrFail($id);
+
+        return view('editbacklog', compact('tarea'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
-        //
+        //Recibo los datos de la nueva tarea editada
+        $nuevaTarea = request()->except(['_token','_method']);
+        //la actualizo con los nuevos datos
+        Models\Backlog::where('id', '=', $id)->update($nuevaTarea);
+        //busco nuevamente la tarea por la id dada y retorno esa vista
+        $tarea = Models\Backlog::findOrFail($id);
+        return view('editbacklog', compact('tarea'));
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    public function store(Request $request)
+    {
+        //recoger los datos de la tarea en el front
+        $nuevaTarea = request()->except('_token');
+        //y lo insertamos en la base de datos a traves del modelo Backlog.php
+        Models\Backlog::insert($nuevaTarea);
+        //Luego, retornamos los datos recogidos en un json
+        ;
+        return response()->json($nuevaTarea);
+    }
+
     public function destroy($id)
     {
-        //
+        //Recibimos la id de la tarea del backlog a borrar
+        Models\Backlog::destroy($id);
+        return redirect('backlog');
     }
 }

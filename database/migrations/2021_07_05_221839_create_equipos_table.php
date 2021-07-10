@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateParticipatesTable extends Migration
+class CreateEquiposTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,11 @@ class CreateParticipatesTable extends Migration
      */
     public function up()
     {
-        Schema::create('participates', function (Blueprint $table) {
+        Schema::create('equipo', function (Blueprint $table) {
+            //$table->integer('id')->autoIncrement();
+            $table->string('nombre');
             $table->integer('id_project');
-            $table->string('id_user');
-
             $table->foreign('id_project')->references('id')->on('proyectos')->cascadeOnDelete();
-            $table->foreign('id_user')->references('correo')->on('usuarios')->cascadeOnDelete();
-
-            $table->string('rol');
             $table->timestamps();
         });
     }
@@ -32,6 +29,6 @@ class CreateParticipatesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('participates');
+        Schema::dropIfExists('equipo');
     }
 }

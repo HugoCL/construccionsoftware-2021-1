@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\kanban;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
-class KanbanController extends Controller
+class GraphProjectController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,16 @@ class KanbanController extends Controller
      */
     public function index()
     {
-        return view('KanbanComponent');
+        $tareas_totales = DB::table('tareas')->count();
+        $tareas_hechas = DB::table('tareas')->where('estado', '=', 'hecho')->count();
+        $tareas_pendientes = DB::table('tareas')->where('estado', '=', 'pendiente')->count();
+        $tareas_no_hechas = DB::table('tareas')->where('estado', '=', 'no-hecho')->count();
+
+        //return [$tareas_totales, $tareas_hechas, $tareas_pendientes, $tareas_no_hechas];
+        return response()->json([
+            'tareasTotales' => $tareas_totales,
+            'tareasHechas' => $tareas_hechas
+        ]);
     }
 
     /**
@@ -35,16 +44,25 @@ class KanbanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $GraphProject = new GraphProject();
+        $GraphProject->id = $request->id_GraphProject;
+        $GraphProject->id_proyecto = $request->id_proyecto;
+        $GraphProject->id_tarea = $request->id_tarea;
+
+
+        $GraphProject>save();
+
+        return $GraphProject;
     }
+
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\kanban  $kanban
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(kanban $kanban)
+    public function show($id)
     {
         //
     }
@@ -52,10 +70,10 @@ class KanbanController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\kanban  $kanban
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(kanban $kanban)
+    public function edit($id)
     {
         //
     }
@@ -64,10 +82,10 @@ class KanbanController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\kanban  $kanban
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, kanban $kanban)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -75,10 +93,10 @@ class KanbanController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\kanban  $kanban
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(kanban $kanban)
+    public function destroy($id)
     {
         //
     }

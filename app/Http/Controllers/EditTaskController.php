@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\kanban;
+use App\Models\Task;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
-class KanbanController extends Controller
+class EditTaskController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +15,8 @@ class KanbanController extends Controller
      */
     public function index()
     {
-        return view('KanbanComponent');
+        //
+        return Task::get();
     }
 
     /**
@@ -41,10 +43,10 @@ class KanbanController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\kanban  $kanban
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(kanban $kanban)
+    public function show($id)
     {
         //
     }
@@ -52,10 +54,10 @@ class KanbanController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\kanban  $kanban
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(kanban $kanban)
+    public function edit($id)
     {
         //
     }
@@ -64,21 +66,31 @@ class KanbanController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\kanban  $kanban
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, kanban $kanban)
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  Task $task
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, Task $task)
     {
         //
+        $task->update($request->all());
+        $task ->save();
+        return $task ;
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\kanban  $kanban
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(kanban $kanban)
+    public function destroy($id)
     {
         //
     }
