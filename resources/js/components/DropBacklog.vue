@@ -32,9 +32,7 @@
                     >+</v-btn>
                 </div>
                 <Board class="design red lighten-4" :data="todos.design">
-                    <draggable class="list-group kanban-column" :list="backlog" group="task">
                         <Card class="handle" v-for="(todo, index) in todos.design" :data="todo" :key="index" @remove="todos.design.splice(index, 1)"></Card>
-                    </draggable>
                 </Board>
             </div>
         </div>
@@ -44,7 +42,7 @@
 import Board from "./Board";
 import Card from "./Card";
 import lmdd from "../lmdd.min";
-import draggable from "vuedraggable";
+
 
 
 export default {
@@ -69,7 +67,7 @@ export default {
                     {
                         color:'orange lighten-1',
                         head: 'HU03 - TA02',
-                        title: 'Implementar el menú lateral de navegación en la página',
+                        title: 'Implementar el menú lateral de navegación',
                         des: 'S1 - TA02: Implementar menú en todas las paginas(1)',
                         content: 'Manejar la forma de mostrar las iteraciones dentro de un tablero kanban perteneciente aun proyecto. (Tips: Algunas formas son mediante deslizamiento, en donde todas las iteraciones [columnas] están una al lado de la otra; por pestañas o tabs, algo similar a excel; o puede ser un menu colapsable).'
 

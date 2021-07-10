@@ -22,7 +22,7 @@
                             ></v-color-picker>
                         </v-card>
                     </div>
-                    <v-toolbar-title>{{data.head}}</v-toolbar-title>
+                    <v-toolbar-title>{{data.title}}</v-toolbar-title>
 
                     <v-spacer></v-spacer>
                     <div class="mx-1"></div>
@@ -53,17 +53,70 @@
                         <v-avatar
                             size="40"
                             elevation="8"
+                            @click="$destroy"
                         >
-                            <v-img src="https://cdn.discordapp.com/attachments/565725484718096404/854576874302341120/avatars-kazuma_500x500.jpg"></v-img>
+                   s         <v-img src="https://cdn.discordapp.com/attachments/565725484718096404/854576874302341120/avatars-kazuma_500x500.jpg"></v-img>
                         </v-avatar>
                     </v-badge>
                     <div class="mx-1"></div>
-                    <v-btn
-                        icon
-                        rounded
-                        color="white"
-                        elevation="8"
-                    >+</v-btn>
+
+                    <v-dialog
+                        transition="dialog-bottom-transition"
+                        max-width="600"                    >
+                        <template v-slot:activator="{ on, attrs }">
+                            <v-btn
+                                v-bind="attrs"
+                                v-on="on"
+                                icon
+                                rounded
+                                color="white"
+                                elevation="8"
+                            >+</v-btn>
+                        </template>
+                        <template v-slot:default="dialog">
+                            <v-card>
+                                <v-toolbar
+                                    color="primary"
+                                    dark
+                                >Usuarios</v-toolbar>
+                                <v-list three-line>
+                                    <template v-for="(item, index) in items">
+                                        <v-subheader
+                                            v-if="item.header"
+                                            :key="item.header"
+                                            v-text="item.header"
+                                        ></v-subheader>
+
+                                        <v-divider
+                                            v-else-if="item.divider"
+                                            :key="index"
+                                            :inset="item.inset"
+                                        ></v-divider>
+
+                                        <v-list-item
+                                            v-else
+                                            :key="item.title"
+                                        >
+                                            <v-list-item-avatar>
+                                                <v-img :src="item.avatar"></v-img>
+                                            </v-list-item-avatar>
+
+                                            <v-list-item-content>
+                                                <v-list-item-title v-html="item.title"></v-list-item-title>
+                                                <v-list-item-subtitle v-html="item.subtitle"></v-list-item-subtitle>
+                                            </v-list-item-content>
+                                        </v-list-item>
+                                    </template>
+                                </v-list>
+                                <v-card-actions class="justify-end">
+                                    <v-btn
+                                        text
+                                        @click="dialog.value = false"
+                                    >Close</v-btn>
+                                </v-card-actions>
+                            </v-card>
+                        </template>
+                    </v-dialog>
                 </v-toolbar>
                 <v-list-item three-line>
                     <v-list-item-content>
@@ -253,17 +306,40 @@ export default {
             chip1: false,
             chip2: false,
             chip3: false,
+            items: [
+                {
+                    avatar: 'https://cdn.vuetifyjs.com/images/lists/1.jpg',
+                    title: 'VicenteRojas1',
+                    subtitle: `<span class="text--primary">vrojas@alumnos.utalca.cl</span>`,
+                },
+                {
+                    avatar: 'https://cdn.vuetifyjs.com/images/lists/2.jpg',
+                    title: 'Alex1990',
+                    subtitle: `<span class="text--primary">AlexT@gmail.com</span>`,
+                },
+                {
+                    avatar: 'https://cdn.vuetifyjs.com/images/lists/3.jpg',
+                    title: 'SandraA02',
+                    subtitle: '<span class="text--primary">SandraA@hotmail.com</span>',
+                },
+                {
+                    avatar: 'https://cdn.vuetifyjs.com/images/lists/4.jpg',
+                    title: 'HugoCL',
+                    subtitle: '<span class="text--primary">hugoCL@alumnos.utalca.cl</span>',
+                },
+            ],
         }
+
     },
     methods: {
         addNewText: function () {
 
         },
         editCard: function () {
-            this.edit = false,
-            this.data.head = this.newHead,
-            this.data.title = this.newTitle,
-            this.data.des = this.newDes,
+            this.edit = false
+            this.data.head = this.newHead
+            this.data.title = this.newTitle
+            this.data.des = this.newDes
             this.data.content = this.newContent
         },
     }
