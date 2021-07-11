@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class Participate extends Model
 {
     use HasFactory;
+
 }
