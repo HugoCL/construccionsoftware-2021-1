@@ -53,10 +53,22 @@ class IntegrantsControllerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
-        $integrant = Integrant::find($id);
-        return response()->json($integrant);
+        //participates
+        $participate = Participate::query()->select('rol')->where('id_user',$id)
+            ->where('id_project', $request->id_project)
+            ->first();
+
+        $user = Usuario::query()->select(['correo','nombre'])
+            ->where('correo',$id)
+            ->first();
+        $rol = $participate-> rol;
+        $userEmail = $user-> correo;
+        $userName = $user->nombre;
+
+        return compact(['rol', 'userEmail', 'userName']);
+
     }
 
     /**

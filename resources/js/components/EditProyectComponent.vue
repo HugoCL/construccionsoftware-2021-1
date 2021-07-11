@@ -50,18 +50,14 @@
                                         small
                                         v-on="on"
                                         color="grey"
-                                        v-on:click="dialogAlert=true"
+                                        v-on:click="membersAlert=true"
                                     >
                                         <v-icon>mdi-plus</v-icon>
-                                        <v-dialog v-model="dialogAlert" color="red" max-width="40%">
-                                            <v-card color="">
-                                                <v-card-title class="text-h6 text-c">Seguro que desea borrar el proyecto?</v-card-title>
-                                                <v-card-actions>
-                                                    <v-spacer></v-spacer>
-                                                    <v-btn color="secondary" class="btn-danger white--text" @click="dialogAlert=false">Cancelar</v-btn>
-                                                    <v-btn color="red" class="btn-danger white--text" @click="deleteProject(proyectData.id)">Confirmar</v-btn>
-                                                    <v-spacer></v-spacer>
-                                                </v-card-actions>
+                                        <v-dialog v-model="membersAlert" max-width="60%" max-height="80%">
+                                            <v-card>
+                                                <integrantes-proyectos
+                                                >
+                                                </integrantes-proyectos>
                                             </v-card>
                                         </v-dialog>
                                     </v-btn>
@@ -97,7 +93,7 @@
                                         v-on:click="dialogTasks=true"
                                     >
                                         <v-icon>mdi-card-account-details-outline</v-icon>
-                                        <v-dialog v-model="dialogTasks" max-width="40%">
+                                        <v-dialog v-model="dialogTasks" max-width="80%">
                                             <v-card >
                                                 <TaskList :peopleNames="users" :id_pro="project.id"/>
                                             </v-card>
@@ -231,10 +227,13 @@ import TaskList from "./TaskListComponent";
 import VolereList from "./VolereListComponent"
 import UserStoriesList from "./UserStoriesList"
 import InfoProjectComponent from "./InfoProjectComponent";
+import AdminMembersProjectComponent from "./AdminMembersProjectComponent";
 
 export default {
     name: "EditProyectComponent",
-    components: {InfoProjectComponent, TaskList, AutoChipComponent, VolereList, UserStoriesList},
+    components: {
+        AdminMembersProjectComponent,
+        InfoProjectComponent, TaskList, AutoChipComponent, VolereList, UserStoriesList},
     data(){
         return {
             fields : [
@@ -267,6 +266,7 @@ export default {
             openDialogEdit:false,
             dialogAlert:false,
             dialogTasks:false,
+            membersAlert:false,
             currentMember:null,
             //Se deben incluir listas para cada tipo de miembros
         }
@@ -281,7 +281,7 @@ export default {
         save(id) {
             // console.table(this.project)
 
-            console.log(id);
+            console.log(this.users);
 
             axios.put('/administrar-proyectos/'+id, this.projectUp);
             this.openDialogEdit=false;

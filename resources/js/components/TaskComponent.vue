@@ -4,7 +4,7 @@
     <v-dialog
       v-model="editDialog"
       persistent
-      max-width="600px"
+      max-width="60%"
     >
       <v-card class="pt-0 pb-0">
         <v-toolbar
