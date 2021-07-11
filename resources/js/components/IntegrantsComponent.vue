@@ -27,7 +27,8 @@
             <v-expansion-panel-content>
 
 
-                 <v-combobox multiple
+                 <v-combobox
+                        @change="update(integrant)"
                         v-model="integrant.rol"
                         label="Rol"
                         append-icon
@@ -64,11 +65,13 @@
                     </v-toolbar>
 
                     <v-card-text>
-                        <v-text-field
-                            v-model="newIntegrant.name"
+                        <v-combobox
+                            :items="this.users"
+                            item-text="correo"
+                            v-model="newIntegrant"
                             label="Nombre"
                             required
-                        ></v-text-field>
+                        ></v-combobox>
                     </v-card-text>
 
                     <v-divider></v-divider>
@@ -99,10 +102,7 @@
               //integrants: this.devs.concat(this.leads) //deveps + leads list
               dialog: false,
               edit: false,
-              newIntegrant: {
-                  name: '',
-                  role : ''
-              },
+              newIntegrant: {},
               item: {}
           }
       },
@@ -110,6 +110,15 @@
           this.upIntegrants();
       },
       methods: {
+          update: function(integrant){
+              console.log(integrant)
+          },
+          deleteIntegrant: function(item){
+              console.log(item)
+          },
+          add: function(item){
+              console.log(item)
+          },
           upIntegrants: function(){
               //console.log("Comparacion fallida!!")
               //console.log(this.participates)
@@ -139,7 +148,9 @@
           },
           delIntegrant(item){
               const index = this.integrants.indexOf(item)
-              confirm('Estas seguro de borrar a '+item.name) && this.integrants.splice(index, 1)
+              if (confirm('Estas seguro de borrar a '+item.userName) && this.integrants.splice(index, 1)){
+                  this.deleteIntegrant(item);
+              }
           },
           addIntegrant(){
               if(this.edit){
@@ -147,9 +158,9 @@
                 this.item.role = this.newIntegrant.role
                 this.edit = false
               }else{
-                this.integrants.push(Object.assign({}, this.newIntegrant))
+                this.integrants.push( Object.assign( {},{ userName:this.newIntegrant.nombre, userEmail:this.newIntegrant.correo ,rol: 'developer'  } ) )
+                this.add(this.newIntegrant)
               }
-              this.newIntegrant.name = ''
               this.dialog = false
           },
           editIntegrant(item){

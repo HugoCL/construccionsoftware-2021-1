@@ -77,8 +77,8 @@
                             <!--Ver tablero-->
                             <v-tooltip top>
                                 <template v-slot:activator="{ on }">
-                                    <v-btn
-                                        v-bind:href="/sprint-container/"
+                                    <a href="/sprint-container/">
+                                        <v-btn
                                         fab
                                         dark
                                         small
@@ -88,6 +88,8 @@
                                             mdi-card-plus-outline
                                         </v-icon>
                                     </v-btn>
+                                    </a>
+
                                 </template>
                                 <span> Ver Tablero</span>
                             </v-tooltip>
