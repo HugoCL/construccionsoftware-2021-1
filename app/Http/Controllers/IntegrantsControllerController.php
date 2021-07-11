@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Integrant;
+use App\Models\Participate;
+use App\Models\User;
+use App\Models\Usuario;
 use Illuminate\Http\Request;
 
 class IntegrantsControllerController extends Controller
@@ -50,13 +53,25 @@ class IntegrantsControllerController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int  $id from user
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
-        $integrant = Integrant::find($id);
-        return response()->json($integrant);
+        //participates
+        $participate = Participate::query()->select('rol')->where('id_user',$id)
+            ->where('id_project', $request->id_project)
+            ->first();
+
+        $user = Usuario::query()->select(['correo','nombre'])
+            ->where('correo',$id)
+            ->first();
+        $rol = $participate-> rol;
+        $userEmail = $user-> correo;
+        $userName = $user->nombre;
+
+        return compact(['rol', 'userEmail', 'userName']);
+
     }
 
     /**
@@ -79,8 +94,8 @@ class IntegrantsControllerController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $integrant = Integrant::find($id);
-        $integrant->update($request->all());
+        $participate = Participate::find($id);
+        $participate->update($request->all());
 
         return response()->json('Integrant updated!');
     }
