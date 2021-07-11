@@ -1,17 +1,18 @@
 <template>
     <div class="z-depth-3 Card">
-        <div class="content lmdd-block">
+        <div class="content">
             <div class="mx-10"></div>
             <v-card
-                class="mx-auto"
+                class="mb-2"
                 outlined
                 rounded
+                elevation="13"
             >
                 <v-toolbar
-                    color="orange lighten-1"
+                    v-bind:color="data.color"
                 >
                     <v-app-bar-nav-icon onclick="colorPicker=true">
-                        <i class="handle"><v-app-bar-nav-icon></v-app-bar-nav-icon></i>
+                        <v-app-bar-nav-icon></v-app-bar-nav-icon>
                     </v-app-bar-nav-icon>
                     <div v-show="colorPicker">
                         <v-card>
@@ -22,7 +23,9 @@
                             ></v-color-picker>
                         </v-card>
                     </div>
-                    <v-toolbar-title>{{data.title}}</v-toolbar-title>
+                    <v-toolbar-title
+                        size="10 px"
+                    >{{data.title}}</v-toolbar-title>
 
                     <v-spacer></v-spacer>
                     <div class="mx-1"></div>

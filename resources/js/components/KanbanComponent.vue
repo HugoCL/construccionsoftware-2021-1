@@ -5,7 +5,6 @@
             <div class="row mt-auto">
                 <div class="col-md-4">
                     <div class="p-2 alert alert-secondary">
-
                         <Board class="backlog  green lighten-4" :data="all.arrBacklog">
                             <h3>BackLog
                                 <v-btn
@@ -18,7 +17,7 @@
                                 >+</v-btn>
                             </h3>
                             <draggable class="list-group kanban-column" :list="all.arrBacklog" group="task">
-                                <Card class="handle" v-for="(element, index) in all.arrBacklog" :data="element" :key="index" @remove="element.arrBacklog.splice(index, 1)"></Card>
+                                <Card class="handle" v-for="(element, index) in all.arrBacklog" :data="element" :key="index" @remove="all.arrBacklog.splice(index, 1)"></Card>
                             </draggable>
                             <v-divider></v-divider>
                         </Board>
@@ -38,18 +37,29 @@
                         </h3>
                         <Board class="backlog  red lighten-4" :data="all.arrInProgress">
                             <draggable class="list-group kanban-column" :list="all.arrInProgress" group="task">
-                                <Card class="handle" v-for="element in all.arrInProgress" :data="element" :key="index" @remove="element.design.splice(index, 1)"></Card>
+                                <Card class="handle" v-for="(element, index) in all.arrInProgress" :data="element" :key="index" @remove="all.arrInProgress.splice(index, 1)"></Card>
                             </draggable>
+                            <v-divider></v-divider>
                         </Board>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="p-2 alert alert-secondary">
-                        <h3>Done</h3>
+                        <h3>Done
+                            <v-btn
+                                color="#FF1493"
+                                elevation="8"
+                                icon
+                                outlined
+                                x-small
+                                @click="addNewCardDone"
+                            >+</v-btn>
+                        </h3>
                         <Board class="backlog  blue lighten-4" :data="all.arrDone">
                             <draggable class="list-group kanban-column" :list="all.arrDone" group="task">
-                                <Card class="handle" v-for="element in all.arrDone" :data="element" :key="index" @remove="element.design.splice(index, 1)"></Card>
+                                <Card class="handle" v-for="(element, index) in all.arrDone" :data="element" :key="index" @remove="all.arrDone.splice(index, 1)"></Card>
                             </draggable>
+                            <v-divider></v-divider>
                         </Board>
                     </div>
                 </div>
@@ -58,8 +68,9 @@
                         <h3>Tested</h3>
                         <Board class="backlog  orange lighten-4" :data="all.arrTested">
                             <draggable class="list-group kanban-column" :list="all.arrTested" group="task">
-                                <Card class="handle" v-for="element in all.arrTested" :data="element" :key="index" @remove="element.design.splice(index, 1)"></Card>
+                                <Card class="handle" v-for="(element, index) in all.arrTested" :data="element" :key="index" @remove="all.arrTested.splice(index, 1)"></Card>
                             </draggable>
+                            <v-divider></v-divider>
                         </Board>
                     </div>
                 </div>
@@ -75,6 +86,7 @@ import Board from "./Board";
 import Card from "./Card";
 
 export default {
+    order: 1,
     props: ['data'],
     name: "KanbanComponent",
     components:{MenuKanban,Card,Board},
@@ -84,24 +96,33 @@ export default {
             all:{
                 arrBacklog: [
                     {
-                        name: "tarea",
-                        color: '',
+                        name: "tarea1",
+                        color: 'blue',
                         head: 'HU06 - TA01',
-                        title: 'Implementar la columna Backlog',
+                        title: 'Implementar Columna',
                         des: 'S1 - TA01: Implementar la interfaz tipo columna que tendrá el backlog (1)',
                         content: 'Inconvenientes con integración por problemas con el entorno de desarrollo (Entre CodePen, para el prototipo y PHPStorm para el desarrollo), específicamente con ExternalScript y ExternalStylesHeets, más tiempo de estudio requerido. Sin ningún problema de comunicación entre Frontend y Backend.'
 
                     },
                     {
-                        name: "tarea",
-                        color:'orange lighten-1',
+                        name: "tarea2",
+                        color:'orange',
                         head: 'HU03 - TA02',
-                        title: 'Implementar el menú lateral de navegación',
+                        title: 'Implementar Menú Lateral',
                         des: 'S1 - TA02: Implementar menú en todas las paginas(1)',
                         content: 'Manejar la forma de mostrar las iteraciones dentro de un tablero kanban perteneciente aun proyecto. (Tips: Algunas formas son mediante deslizamiento, en donde todas las iteraciones [columnas] están una al lado de la otra; por pestañas o tabs, algo similar a excel; o puede ser un menu colapsable).'
                     }
                 ],
-                arrInProgress: [],
+                arrInProgress: [
+                    {
+                        name: "tarea3",
+                        color:'green lighten-2',
+                        head: 'HU07 - TA01',
+                        title: 'Implementar Estadísticas',
+                        des: 'S1- TA01: Implementar estadísticas (gráficos) sobre datos de un proyecto',
+                        content: 'Crear los scripts de backend que recaben y envien los datos a los gráficos del Frontend. Referirse a la tarea anterior para más información sobre los gráficos. (4)'
+                    }
+                ],
                 arrDone: [],
                 arrTested:[]
             }
@@ -117,7 +138,7 @@ export default {
         addNewCardBacklog: function() {
             this.all.arrBacklog.push({
                 name: this.newTask,
-                color:'orange lighten-1',
+                color:'orange',
                 head:'HU00 - TA00',
                 title:'Nueva Tarjeta',
                 des:'',
@@ -127,7 +148,17 @@ export default {
         addNewCardInProgress: function() {
             this.all.arrInProgress.push({
                 name: this.newTask,
-                color:'orange lighten-1',
+                color:'red lighten-1',
+                head:'HU00 - TA00',
+                title:'Nueva Tarjeta',
+                des:'',
+                content: ''
+            })
+        },
+        addNewCardDone: function() {
+            this.all.arrDone.push({
+                name: this.newTask,
+                color:'green lighten-2',
                 head:'HU00 - TA00',
                 title:'Nueva Tarjeta',
                 des:'',
@@ -140,8 +171,8 @@ export default {
 
 <style scoped>
     .kanban-column{
-        min-height: 350px;
-        min-width: 500px;
+        min-height: 200px;
+        min-width: 400px;
     }
     #vue-example {
         width: 100%;
