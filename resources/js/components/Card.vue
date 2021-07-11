@@ -285,7 +285,6 @@
                     </div>
                 </v-expand-transition>
             </v-card>
-
         </div>
     </div>
 </template>

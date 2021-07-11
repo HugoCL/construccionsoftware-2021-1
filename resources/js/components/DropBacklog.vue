@@ -17,7 +17,7 @@
                     </v-col>
                 </v-row>
                 <Board class="backlog  green lighten-4" :data="todos.backlog">
-                    <Card class="handle" v-for="(todo, index) in todos.backlog" :data="todo" :key="index" @remove="todos.backlog.splice(index, 1)"></Card>
+                    <Card class="handle" v-for="(todos, index) in todos.backlog" :data="todos" :key="index" @remove="todos.design.splice(index, 1)"></Card>
                 </Board>
             </div>
             <div class="column">
@@ -32,7 +32,7 @@
                     >+</v-btn>
                 </div>
                 <Board class="design red lighten-4" :data="todos.design">
-                        <Card class="handle" v-for="(todo, index) in todos.design" :data="todo" :key="index" @remove="todos.design.splice(index, 1)"></Card>
+                        <Card class="handle" v-for="(todos, index) in todos.design" :data="todos" :key="index" @remove="todos.backlog.splice(index, 1)"></Card>
                 </Board>
             </div>
         </div>
@@ -128,40 +128,40 @@ export default {
 </script>
 
 <style>
-#vue-example {
-    width: 100%;
-    margin-top: 15px;
-    margin-bottom: 15px;
-    background-color: lightcyan;
-}
+    #vue-example {
+        width: 100%;
+        margin-top: 15px;
+        margin-bottom: 15px;
+        background-color: lightcyan;
+    }
 
-#drag-scope {
-    display: flex;
-    justify-content: space-around;
-    background-color: lightcyan;
-}
+    #drag-scope {
+        display: flex;
+        justify-content: space-around;
+        background-color: lightcyan;
+    }
 
-.column {
-    flex: 1 1 350px;
+    .column {
+        flex: 1 1 350px;
 
-}
+    }
 
-.handle {
-    cursor: move;
-}
+    .handle {
+        cursor: move;
+    }
 
-.title {
-    text-align: center;
-    font-weight: bold;
-    padding: 10px;
-    margin: 5px;
-}
+    .title {
+        text-align: center;
+        font-weight: bold;
+        padding: 10px;
+        margin: 5px;
+    }
 
-.Board {
-    display: flex;
-    padding: 10px;
-    margin: 10px;
-    flex-flow: column nowrap;
-    min-height: 106px;
-}
+    .Board {
+        display: flex;
+        padding: 10px;
+        margin: 10px;
+        flex-flow: column nowrap;
+        min-height: 106px;
+    }
 </style>
