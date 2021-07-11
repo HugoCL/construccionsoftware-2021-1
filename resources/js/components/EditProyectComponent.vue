@@ -53,9 +53,19 @@
                                         v-on:click="membersAlert=true"
                                     >
                                         <v-icon>mdi-plus</v-icon>
-                                        <v-dialog v-model="membersAlert" max-width="60%" max-height="80%">
+                                        <v-dialog
+                                            v-model="membersAlert"
+                                            max-width="60%"
+                                            max-height="600 px"
+                                            style="overflow:hidden"
+
+                                        >
                                             <v-card>
                                                 <integrantes-proyectos
+                                                    :leads="leads"
+                                                    :devs="devs"
+                                                    :users="users"
+                                                    :project="project"
                                                 >
                                                 </integrantes-proyectos>
                                             </v-card>
