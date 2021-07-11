@@ -20,6 +20,10 @@ class equipoController extends Controller
         return view('AddProyectComponent')->with($equipo,$integrantes);
     }
 
+    public function create(){
+      return view::make('AddProyectComponent.create');
+    }
+
     public function update(Request $request, $id, $integrantes)
     {
         //
