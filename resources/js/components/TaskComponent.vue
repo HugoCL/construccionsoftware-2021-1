@@ -120,7 +120,7 @@
       scrollable
     >
       <v-card
-        width="500"
+        width="80%"
         color="primary"
         class="white--text subheading">
         <v-card-title color="primary" class="pt-1 pb-1">{{ taskData.name }}</v-card-title>

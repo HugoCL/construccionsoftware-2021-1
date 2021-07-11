@@ -1,6 +1,5 @@
 <template>
     <v-card>
-      <v-toolbar>Graficos del proyecto</v-toolbar>
       <v-sheet dark color="primary" >
         Tareas por sprint
         <v-sparkline

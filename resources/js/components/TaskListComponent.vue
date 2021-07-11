@@ -1,17 +1,15 @@
 <template>
   <v-container light fluid>
     <!--Barra de tareas-->
-    <v-row class="justify-center  mx-0 px-0">
+    <v-row class="justify-right  ma-2 px-0">
       <v-btn
         color="secondary"
         @click="dialog = true"
-        class="mb-4"
-        width="50%"
+
       >
-        <v-icon class="pr-2">
-          mdi-card-plus-outline
+        <v-icon>
+          mdi-plus
         </v-icon>
-        Nueva tarea
       </v-btn>
     </v-row>
 
@@ -161,7 +159,7 @@
                  >
                      <v-col v-for="(task, index2) in userTask.tasks"
                             :key="index2"
-                            cols="3" md="3">
+                            >
                          <Task
                              :id_task_name = "id_name"
                              :tasks="tasks"
