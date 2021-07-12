@@ -93,9 +93,8 @@ export default{
              * poseen nombre, tareas asignadas a la persona y por el momento un total de tareas
              */
             personas: [
-                        {nombre:"Juanito", tareasAsig: 1, prom: 0},
-                        {nombre:"Pedro", tareasAsig: 2, prom: 0},
-                        {nombre:"Silvio",tareasAsig:3, prom: 0}],
+              
+            ],
             /**
              * variables de manejo de un proyecto
              * una para el nombre del proyecto seleccionado
@@ -103,15 +102,17 @@ export default{
              * una para el num de tareas Completadas del proyecto
              * y una variable que guarde el porcentaje que da entre n°tareasCompletadas/n°tareas
              */
-            nombreProyecto: "",
+            nombreProyecto: this.nameProject,
             numTareasTotal: "",
             numTareasCompletadas:"",
-            porcentajeTareas: 33
+            porcentajeTareas: 0,
+           
         }
     },
     props: {
         idProject: null,
         nameProject: null,
+        usersIn: null,
     },
     created() {
         axios.get('/graph-project/'+this.idProject)
@@ -119,13 +120,16 @@ export default{
                 const res  = response.data;
                 this.numTareasTotal = res.tareasTotales;
                 this.numTareasCompletadas = res.tareasHechas;
+                this.usersIn = res.usuarios;
+                console.log("datos del graficos");
                 console.log(res.tareasTotales);
                 console.log(res.tareasHechas);
-                this.proyectos = res;
-                console.log(this.proyectos);
+                
+                console.log(this.usersIn);
+                this.setMiembrosGraph();
                 this.getPorcentaje();
                 this.getPorcentajeGente();
-
+                
             })
             .catch(function(error) {
                 console.log(error.data);
@@ -139,6 +143,15 @@ export default{
         for (let index = 0; index < this.personas.length; index++) {
           this.personas[index].prom = (this.personas[index].tareasAsig/this.numTareasTotal)*100;
         }
+      },
+      setMiembrosGraph(){
+        for (let index = 0; index < this.usersIn.length; index++) {
+          let personAux = {nombre: this.usersIn[index].nombre, tareasAsig: 0, prom: 0}
+          this.personas.push(personAux);
+          console.log(this.usersIn[index].nombre);
+          console.log(this.personas);
+        }
+        
       }
     },
 }

@@ -21,10 +21,10 @@ class GraphProjectController extends Controller
         $tareas_no_hechas = DB::table('tareas')->where('estado', '=', 'no-hecho')->count();
 
         //return [$tareas_totales, $tareas_hechas, $tareas_pendientes, $tareas_no_hechas];
-        return response()->json([
-            'tareasTotales' => $tareas_totales,
-            'tareasHechas' => $tareas_hechas
-        ]);
+        //return response()->json([
+        //    'tareasTotales' => $tareas_totales,
+        //    'tareasHechas' => $tareas_hechas
+        //]);
     }
 
     /**
@@ -66,7 +66,7 @@ class GraphProjectController extends Controller
     public function show($id)
     {
         //
-        $tareas = DB::table('tareas')->where('id_proyecto', '=', $id);
+        $tareas = DB::table('tasks')->where('id_proyecto', '=', $id);
         $sprints = DB::table('sprints')->where('id_proyecto', '=', $id)->get();
 
         $tareasTotales = $tareas->count();
