@@ -6,23 +6,49 @@
             <v-toolbar
                 color="primary"
                 class="rounded white--text pt-0 pb-0 text-h5 "
+                >
 
-            >
-
-                    <!--b>Nombre del Proyecto: </b-->Proyecto: {{this.projectUp.name}}
+                    <!--b>Nombre del Proyecto: </b-->{{this.projectUp.name}}
 
 
 
                 <v-col>
                     <v-responsive class="hidden-sm-and-down">
-                        <v-row>
-                            <v-col
-                                cols="1"
+                        <v-row class="pl-4">
+                            <div
+
                                 v-for="(user, index) in currentMember"
                                 :key="index"
                                 justify="center"
+                                class="mx-0 px-0 py-4"
                             >
-                                <v-tooltip top>
+                                <v-tooltip top
+                                           class="mx-0 px-0">
+                                    <template
+                                        v-slot:activator="{ on }"
+                                        class="mx-0 px-0"
+                                    >
+                                        <v-btn
+                                            color="secondary"
+                                            fab
+                                            small
+                                            v-on="on"
+                                            class="white--text font-weight-bolder px-0 mx-0"
+
+                                        >{{ user.correo.charAt(0) }}
+                                        </v-btn>
+
+                                    </template>
+                                    <span>{{ user.correo }}</span>
+                                </v-tooltip>
+
+                            </div>
+                        </v-row>
+                    </v-responsive>
+                    <v-responsive class="hidden-md-and-up">
+                        <v-row>
+                            <v-col cols="1">
+                                <v-tooltip bottom>
                                     <template
                                         v-slot:activator="{ on }"
                                     >
@@ -32,26 +58,14 @@
                                             small
                                             v-on="on"
                                             class="white--text font-weight-bolder"
-                                        >{{ user.correo.charAt(0) }}
+                                        >{{currentMember.length}}+
                                         </v-btn>
 
                                     </template>
-                                    <span>{{ user.correo }}</span>
+                                    <span v-for="(user, index) in currentMember"
+                                          :key="index"
+                                          justify="center">{{ user.correo }}<br/></span>
                                 </v-tooltip>
-
-                            </v-col>
-                        </v-row>
-                    </v-responsive>
-                    <v-responsive class="hidden-md-and-up">
-                        <v-row>
-                            <v-col cols="1">
-                                <v-btn
-                                    color="secondary"
-                                    fab
-                                    small
-                                    class="white--text font-weight-bolder">
-                                    {{currentMember.length}}
-                                </v-btn>
                             </v-col>
                         </v-row>
                     </v-responsive>
@@ -258,7 +272,7 @@
                     :projectUp="projectUp">
                 </info-project-component>
             </v-col>
-            <div class="hidden-sm-and-down px-2"></div>
+            <div class="hidden-xs-and-down px-2"></div>
             <v-col class="ma-1 pa-1 px-0 mx-0">
                 <graph-component
                     :idProject="project.id"
