@@ -181,8 +181,11 @@ export default {
             this.$emit('delete', id);
         },
 
-        deleteTeam: function (pos){
-            alert("Vamos a eliminar al tim"+pos)
+        getTeam: function (id) {
+            axios.get('/equipo/'+id);
+        },
+
+        deleteTeam: function (){
 
         },
         editTeam: function (){
