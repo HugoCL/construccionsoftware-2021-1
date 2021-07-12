@@ -13,11 +13,6 @@
                 >
                 </edit-proyect-component>
             </v-container>
-            <v-container>
-                <graph-component>
-
-                </graph-component>
-            </v-container>
         </v-app>
     </div>
 

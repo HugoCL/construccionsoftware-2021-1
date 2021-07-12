@@ -4,7 +4,7 @@
     <v-dialog
       v-model="editDialog"
       persistent
-      max-width="600px"
+      max-width="60%"
     >
       <v-card class="pt-0 pb-0">
         <v-toolbar
@@ -120,7 +120,7 @@
       scrollable
     >
       <v-card
-        width="500"
+        width="80%"
         color="primary"
         class="white--text subheading">
         <v-card-title color="primary" class="pt-1 pb-1">{{ taskData.name }}</v-card-title>

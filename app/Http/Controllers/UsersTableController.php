@@ -9,14 +9,16 @@ use Illuminate\Http\Request;
 class UsersTableController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Este es el controlador correcto para la lista de usuarios.
+     * Su Modelo es: /app/http/Models/Usuario
+     * Su Vue es: /resources/js/components/userTableComponent.vue
+     * Migrate es: /database/migrations/2021_06_20_231046_create_usuarios_table.php
      *
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function index(Request $request)
     {
-        $usuarios = Usuario::all();
-        return view('UsersTableComponent', compact('usuarios'));
+      return Usuario::all();
     }
 
     public function store(Request $request){
