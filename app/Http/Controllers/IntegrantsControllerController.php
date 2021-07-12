@@ -89,15 +89,16 @@ class IntegrantsControllerController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  int  $id from usuarios
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-        $participate = Participate::find($id);
-        $participate->update($request->all());
+        $participate = Participate::query()->where('id_user',$request->userEmail)
+            ->where('id_project', $id)
+            ->update(['rol' => $request->rol]);
 
-        return response()->json('Integrant updated!');
+        return $participate;
     }
 
     /**
