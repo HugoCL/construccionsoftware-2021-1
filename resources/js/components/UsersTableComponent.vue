@@ -280,6 +280,7 @@
         this.$nextTick(() => {
           this.editedItem = Object.assign({}, this.defaultItem)
           this.editedIndex = -1
+          axios.delete('/lista-usuario', {params: {'id': this.defaultItem.correo}})
         })
       },
 
