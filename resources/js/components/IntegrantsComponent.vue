@@ -66,7 +66,7 @@
 
                     <v-card-text>
                         <v-combobox
-                            :items="this.users"
+                            :items="this.reaming"
                             item-text="correo"
                             v-model="newIntegrant"
                             label="Nombre"
@@ -103,13 +103,33 @@
               dialog: false,
               edit: false,
               newIntegrant: {},
-              item: {}
+              item: {},
+              reaming: []
           }
       },
       created() {
           this.upIntegrants();
+          this.reamingUser();
       },
       methods: {
+          reamingUser: function () {
+              let bool = true;
+              console.log("devs");
+              console.log(this.devs);
+              for (let i = 0; i < this.users.length; i++) {
+                  bool = true;
+                  for (let j = 0; j < this.devs.length; j++) {
+                      if (this.devs[j].correo === this.users[i].correo){
+                          bool = false;
+                          break;
+                      }
+                  }
+                  if (bool){
+                      this.reaming.push(this.users[i]);
+                  }
+              }
+              console.log(this.reaming);
+          },
           update: function(integrant){
               console.log(integrant)
           },
@@ -123,13 +143,15 @@
               //console.log("Comparacion fallida!!")
               //console.log(this.participates)
               //console.log(this.users)
+              let integrantes = [];
               for (let i in this.devs){
                   axios.get('/administrar-proyectos/integrantes/'+this.devs[i].correo,{params:{'id_project':this.project.id}})
                       .then(response=> {
-                          this.integrants.push(response.data);
+                          integrantes.push(response.data);
                           console.log(response.data);
                       })
               }
+              this.integrants = integrantes;
             /*for(let p in this.participates){
                 for(let u in this.users){
                     if(this.users[u].correo === this.participates[p].id_user){
