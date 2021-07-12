@@ -283,17 +283,22 @@ export default {
         changes: this.taskChanges
 
       });
-      const newTask = {
-        name: this.taskName,
-        members: this.taskMembers,
-        desc: this.taskDesc,
-        date: this.taskDate[0],
-        tags: ""+this.taskTags,
-        changes: ""+this.taskChanges,
-        id_pro: this.id_pro,
-        estado :"pendiente"
-      };
-      this.send(newTask);
+
+      for(let i=0;i<this.taskMembers.length;i++){
+          let mem = this.taskMembers[i];
+          const newTask = {
+              name: this.taskName,
+              members: mem,
+              desc: this.taskDesc,
+              date: this.taskDate[0],
+              tags: ""+this.taskTags,
+              changes: ""+this.taskChanges,
+              id_pro: this.id_pro,
+              estado :"pendiente"
+          };
+          this.send(newTask);
+      }
+
       this.taskName = '';
       this.taskDesc = '';
       this.taskMembers = '';
