@@ -25,16 +25,9 @@
 
 
     <!--Cuadro de diálogo para crear nueva tarea-->
-    <v-dialog
-      v-model="dialog"
-      persistent
-      width="60%"
-    >
+    <v-dialog v-model="dialog" persistent width="60%">
       <v-card class="pt-0 pb-0">
-        <v-toolbar
-          color="primary"
-          class="white--text pt-0 pb-0 title"
-        >
+        <v-toolbar color="primary" class="white--text pt-0 pb-0 title">
           Crear nueva tarea
         </v-toolbar>
 
@@ -48,18 +41,22 @@
               outlined
             ></v-text-field>
             <div v-model="taskTags" outlined>
-              <div v-for='(tag, index) in taskTags' :key='tag' class='tag-input__tag'>
+              <div
+                v-for="(tag, index) in taskTags"
+                :key="tag"
+                class="tag-input__tag"
+              >
                 {{ tag }}
-                <span @click='removeTag(index)'>x</span>
+                <span @click="removeTag(index)">x</span>
               </div>
               <input
                 title="Para terminar una etiqueta pulsa enter o una coma"
-                type='text'
+                type="text"
                 placeholder="Añadir etiquetas"
-                class='tag-input__text pl-2 body-2'
-                @keydown.enter='addTag'
-                @keydown.188='addTag'
-                @keydown.delete='removeLastTag'
+                class="tag-input__text pl-2 body-2"
+                @keydown.enter="addTag"
+                @keydown.188="addTag"
+                @keydown.delete="removeLastTag"
               />
             </div>
             <v-textarea
@@ -90,7 +87,6 @@
           transition="scale-transition"
           offset-y
           min-width="auto"
-
         >
           <template v-slot:activator="{ on, attrs }">
             <v-text-field
@@ -104,26 +100,10 @@
               outlined
             ></v-text-field>
           </template>
-          <v-date-picker
-            v-model="taskDate"
-            no-title
-            range
-            scrollable
-          >
+          <v-date-picker v-model="taskDate" no-title range scrollable>
             <v-spacer></v-spacer>
-            <v-btn
-              text
-              color="primary"
-              @click="menu = false"
-            >
-              Cancelar
-            </v-btn>
-            <v-btn
-              text
-              color="primary"
-              @click="$refs.menu.save(taskDate)"
-
-            >
+            <v-btn text color="primary" @click="menu = false"> Cancelar </v-btn>
+            <v-btn text color="primary" @click="$refs.menu.save(taskDate)">
               Guardar
             </v-btn>
           </v-date-picker>
@@ -132,114 +112,95 @@
 
         <!--Botones del cuadro de diálogo-->
         <v-card-actions class="justify-end">
-          <v-btn
-            text
-            @click="dialog = false"
-          >
-            Cerrar
-          </v-btn>
-          <v-btn
-            text
-            @click="createTask"
-          >
-            Guardar
-          </v-btn>
+          <v-btn text @click="dialog = false"> Cerrar </v-btn>
+          <v-btn text @click="createTask"> Guardar </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
 
     <!--Muestra las tareas disponibles-->
-     <v-card
-       v-for="(userTask, index1) in sortedTasks"
-       :key="index1"
-       md="12"
-       sm="12"
-       cols="12"
-       outlined
-     >
-         <v-toolbar
-            color="secondary"
-            class="white--text pt-0 pb-0 text-h5"
-        >
-            {{ userTask.username }}
-        </v-toolbar>
-         <v-card-actions
-
-                 >
-                     <v-col v-for="(task, index2) in userTask.tasks"
-                            :key="index2"
-                            >
-                         <Task
-                             :id_task_name = "id_name"
-                             :tasks="tasks"
-                             :taskData="task"
-                             :peopleNames="formatedPeopleNames"
-                             :sortedTasks="sortedTasks"
-                             @sort-tasks="sortByUser"
-                         />
-                     </v-col>
-                 </v-card-actions>
-         <Task
-           :id_task_name="id_name"
-           :tasks="tasks"
-           :taskData="task"
-           :peopleNames="formatedPeopleNames"
-           :sortedTasks="sortedTasks"
-           @sort-tasks="sortByUser"
-         />
-
-     </v-card>
+    <v-card
+      v-for="(userTask, index1) in sortedTasks"
+      :key="index1"
+      md="12"
+      sm="12"
+      cols="12"
+      outlined
+    >
+      <v-toolbar color="secondary" class="white--text pt-0 pb-0 text-h5">
+        {{ userTask.username }}
+      </v-toolbar>
+      <v-card-actions>
+        <v-row>
+          <v-col 
+            cols="12"
+            md="6"
+            v-for="(task, index2) in userTask.tasks" 
+            :key="index2"
+          >
+            <Task
+              :id_task_name="id_name"
+              :tasks="tasks"
+              :taskData="task"
+              :peopleNames="formatedPeopleNames"
+              :sortedTasks="sortedTasks"
+              @sort-tasks="sortByUser"
+            />
+          </v-col>
+        </v-row>
+      </v-card-actions>
+    </v-card>
   </v-container>
 </template>
 
 
 <script>
-import Task from './TaskComponent';
+import Task from "./TaskComponent";
 export default {
-  name: 'TaskList',
-  components: {Task},
-  data(){
-      return{
-          id_name: [],
-          taskDate: new Date().toISOString().substr(0, 10),
-          menu: false, //Para el seleccionador de fecha
-          dialog: false,
-          taskName: '',
-          taskDesc: '',
-          taskMembers: [],
-          taskTags: [],
-          taskChanges: [],
-          formatedPeopleNames: [],
-          sortedTasks: [],
-          tasks: []
-      }
+  name: "TaskList",
+  components: { Task },
+  data() {
+    return {
+      id_name: [],
+      taskDate: new Date().toISOString().substr(0, 10),
+      menu: false, //Para el seleccionador de fecha
+      dialog: false,
+      taskName: "",
+      taskDesc: "",
+      taskMembers: [],
+      taskTags: [],
+      taskChanges: [],
+      formatedPeopleNames: [],
+      sortedTasks: [],
+      tasks: [],
+    };
   },
   props: {
     id_pro: null,
-    peopleNames: []
+    peopleNames: [],
   },
   methods: {
-    async listar(){
+    async listar() {
       let nTask = [];
-      const res= await axios.get('/task');
+      const res = await axios.get("/task");
       for (let step = 0; step < res.data.length; step++) {
         let new_task = res.data[step];
         //console.log(new_task)
-        let iName = [new_task.id,new_task.name];
+        let iName = [new_task.id, new_task.name];
         this.id_name.push(iName);
         console.log(new_task.members);
         let newT = {
           name: new_task.name,
-          members: ['Andres awallberg@hotmail.com'],
+          members: ["Andres awallberg@hotmail.com"],
           desc: new_task.desc,
           date: new_task.date,
-          tags: ['HU02', 'TA02', 'P2'],
-          changes: ['7/7/7   Usuario', '7/7/7   Usuario', '7/7/7   Usuario',],
+          tags: ["HU02", "TA02", "P2"],
+          changes: ["7/7/7   Usuario", "7/7/7   Usuario", "7/7/7   Usuario"],
           id_pro: new_task.id_proyecto,
-          estado :'pendiente'
+          estado: "pendiente",
         };
-        if(new_task.id_proyecto == this.id_pro){
-            nTask.push(newT);
+        if (new_task.id_proyecto == this.id_pro) {
+          nTask.push(newT);
         }
       }
       this.tasks = nTask;
@@ -247,10 +208,12 @@ export default {
       this.sortByUser();
     },
     send(newTask) {
-      const iddProyecto = (window.location).href.charAt((window.location).href.length - 1);
-      axios.post('/administrar-proyectos/tareaNueva', newTask)
-          .then(response => {
-          });
+      const iddProyecto = window.location.href.charAt(
+        window.location.href.length - 1
+      );
+      axios
+        .post("/administrar-proyectos/tareaNueva", newTask)
+        .then((response) => {});
     },
     sortByUser: function () {
       this.sortedTasks = [];
@@ -258,7 +221,7 @@ export default {
         let user = this.formatedPeopleNames[i];
         this.sortedTasks.push({
           username: user,
-          tasks: []
+          tasks: [],
         });
         for (let j = 0; j < this.tasks.length; j++) {
           let task = this.tasks[j];
@@ -270,21 +233,20 @@ export default {
     },
     formatPeopleNames: function () {
       for (let user of this.peopleNames) {
-        this.formatedPeopleNames.push(user.nombre + ' ' + user.correo);
+        this.formatedPeopleNames.push(user.nombre + " " + user.correo);
       }
     },
     addTag(event) {
-
-      event.preventDefault()
-      var val = event.target.value.trim()
+      event.preventDefault();
+      var val = event.target.value.trim();
       if (val.length > 0) {
-        this.taskTags.push(val)
-        event.target.value = ''
+        this.taskTags.push(val);
+        event.target.value = "";
       }
     },
 
     removeTag(index) {
-      this.taskTags.splice(index, 1)
+      this.taskTags.splice(index, 1);
     },
     createTask: function () {
       this.tasks.push({
@@ -293,37 +255,36 @@ export default {
         desc: this.taskDesc,
         date: this.taskDate,
         tags: this.taskTags,
-        changes: this.taskChanges
-
+        changes: this.taskChanges,
       });
       const newTask = {
         name: this.taskName,
         members: this.taskMembers,
         desc: this.taskDesc,
         date: this.taskDate[0],
-        tags: ""+this.taskTags,
-        changes: ""+this.taskChanges,
+        tags: "" + this.taskTags,
+        changes: "" + this.taskChanges,
         id_pro: this.id_pro,
-        estado :"pendiente"
+        estado: "pendiente",
       };
       this.send(newTask);
-      this.taskName = '';
-      this.taskDesc = '';
-      this.taskMembers = '';
-      this.taskDesc = '';
-      this.taskTags = '';
-      this.taskChanges = '';
+      this.taskName = "";
+      this.taskDesc = "";
+      this.taskMembers = "";
+      this.taskDesc = "";
+      this.taskTags = "";
+      this.taskChanges = "";
       this.dialog = false;
       this.listar();
       this.sortByUser();
-    }
+    },
   },
   mounted() {
     this.formatPeopleNames();
     this.listar();
     this.sortByUser();
-  }
-}
+  },
+};
 </script>
 
 <style scoped>
@@ -331,7 +292,7 @@ export default {
   height: 30px;
   float: left;
   margin-right: 10px;
-  background-color: #576DB9;
+  background-color: #576db9;
   color: white;
   margin-top: 10px;
   line-height: 30px;
