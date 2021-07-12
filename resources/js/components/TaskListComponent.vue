@@ -147,13 +147,13 @@
        cols="12"
        outlined
      >
-        <v-toolbar
+         <v-toolbar
             color="secondary"
             class="white--text pt-0 pb-0 text-h5"
         >
             {{ userTask.username }}
         </v-toolbar>
-       <v-card-actions
+         <v-card-actions
 
                  >
                      <v-col v-for="(task, index2) in userTask.tasks"
@@ -169,20 +169,15 @@
                          />
                      </v-col>
                  </v-card-actions>
-            </v-card>
+         <Task
+           :id_task_name="id_name"
+           :tasks="tasks"
+           :taskData="task"
+           :peopleNames="formatedPeopleNames"
+           :sortedTasks="sortedTasks"
+           @sort-tasks="sortByUser"
+         />
 
-           >
-             <Task
-               :id_task_name="id_name"
-               :tasks="tasks"
-               :taskData="task"
-               :peopleNames="formatedPeopleNames"
-               :sortedTasks="sortedTasks"
-               @sort-tasks="sortByUser"
-             />
-           </v-col>
-         </v-row>
-       </v-card-actions>
      </v-card>
   </v-container>
 </template>

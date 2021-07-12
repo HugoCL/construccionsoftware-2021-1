@@ -1,7 +1,12 @@
 <template>
     <v-card>
         <v-responsive>
-
+        <v-toolbar
+            color="primary"
+            class="white--text pt-0 pb-0 text-h6"
+        >
+            Informacion del proyecto
+        </v-toolbar>
         <v-card-text>
             <p>
                 <b>Fecha Incio: </b>{{this.projectUp.dates[0]}}

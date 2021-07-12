@@ -1,11 +1,11 @@
 <template>
 
-<v-card class="row justify-content-center">
+<v-card class="">
     <v-toolbar
         color="primary"
         class="white--text pt-0 pb-0 text-h5"
     >
-        Integrantes del proyecto: {{name}}
+        Integrantes del proyecto
     </v-toolbar>
     <v-card-actions>
         <v-expansion-panels accordion>
