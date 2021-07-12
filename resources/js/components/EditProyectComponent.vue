@@ -267,12 +267,13 @@
         <!--Ver Proyecto-->
         <v-row class="ma-1 pa-1 px-0">
 
-            <v-col class="ma-1 pa-1 px-0 mx-0">
+            <v-col class="ma-1 pa-1 pl-0 pr-2 mx-0">
                 <info-project-component
                     :projectUp="projectUp">
                 </info-project-component>
             </v-col>
-            <div class="hidden-xs-and-down px-2"></div>
+
+
             <v-col class="ma-1 pa-1 px-0 mx-0">
                 <graph-component
                     :idProject="project.id"
