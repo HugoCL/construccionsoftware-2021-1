@@ -305,10 +305,11 @@ export default {
           else                       return false;
         },
         changeMembers:function(list){
-            this.currentMember=list;
+            this.currentMember = [];
+            for (let u in list){
+                this.currentMember.push(Object.assign( {},{ name: list[u].userName, correo: list[u].userEmail } ))
+            }
         }
-
-
     }
 }
 </script>

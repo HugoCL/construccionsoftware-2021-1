@@ -38,16 +38,13 @@ class IntegrantsControllerController extends Controller
      */
     public function store(Request $request)
     {
-        $integrant = new Integrant([
-            'id_proyect' => $request->input('id_proyect'),
-            'id_user' => $request->input('id_user'),
-            'rol' => $request->input('rol'),
-            'created_at' => $request->input('created_at'),
-            'updated_at' => $request->input('updated_at'),
-        ]);
+        $integrant = new Participate();
+        $integrant->id_user = $request->id_user;
+        $integrant->id_project = $request->id_project;
+        $integrant->rol = $request->rol;
         $integrant->save();
 
-        return response()->json('Integrant created!');
+        return $integrant;
     }
 
     /**

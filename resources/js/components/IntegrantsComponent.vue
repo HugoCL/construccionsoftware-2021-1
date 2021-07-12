@@ -148,7 +148,14 @@
               });
           },
           add: function(item){
+              console.log('holi');
               console.log(item)
+              const info = {id_user: item.userEmail, id_project: this.project.id, rol: item.rol};
+              console.log(info);
+              axios.post('/administrar-proyectos/integrantes/', info)
+                  .then(res=>{
+                      console.log(res.data);
+                  });
           },
           upIntegrants: function(){
               //console.log("Comparacion fallida!!")
@@ -193,8 +200,9 @@
                 this.item.role = this.newIntegrant.role
                 this.edit = false
               }else{
+                let info = {userName:this.newIntegrant.nombre, userEmail:this.newIntegrant.correo ,rol: 'developer'};
                 this.integrants.push( Object.assign( {},{ userName:this.newIntegrant.nombre, userEmail:this.newIntegrant.correo ,rol: 'developer'  } ) )
-                this.add(this.newIntegrant)
+                this.add(info);
 
                 const index = this.reaming.indexOf(this.newIntegrant)
                 this.reaming.splice(index, 1)
