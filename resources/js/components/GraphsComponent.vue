@@ -11,7 +11,7 @@
              <b>Tareas por sprint</b>
          </v-card-actions>
          <v-card-actions class="pa-1 ma-1 pb-0 mb-0">
-             <v-sheet  class= "white--text pa-1 ma-1 pb-0 mb-0" color="secondary" >
+             <v-sheet  class= "white--text pa-1 ma-1 pb-0 mb-0 v-picker--full-width" color="secondary" >
 
                  <v-sparkline
                      :value="values"
