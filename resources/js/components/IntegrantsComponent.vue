@@ -135,6 +135,13 @@
           },
           deleteIntegrant: function(item){
               console.log(item)
+              axios.delete('/administrar-proyectos/integrantes/'+item.userEmail, {
+                  params:{
+                      'id_project': this.project.id
+                  }
+              }).then(res=>{
+                  console.log(res.data);
+              });
           },
           add: function(item){
               console.log(item)

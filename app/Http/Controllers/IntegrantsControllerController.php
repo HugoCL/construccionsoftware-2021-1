@@ -106,11 +106,13 @@ class IntegrantsControllerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        $integrant = Integrant::find($id);
-        $integrant->delete();
+        $integrant = Participate::query()->where('id_user',$id)
+            ->where('id_project', $request->id_project)
+            ->delete();
+        //$integrant->delete();
 
-        return response()->json('Integrant deleted!');
+        return $integrant;
     }
 }
