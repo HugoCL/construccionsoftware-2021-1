@@ -1,17 +1,27 @@
 <template>
   <v-container light fluid>
     <!--Barra de tareas-->
-    <v-row class="justify-right  ma-2 px-0">
-      <v-btn
-        color="secondary"
-        @click="dialog = true"
-
+      <v-toolbar
+          color="primary"
+            rounded
       >
-        <v-icon>
-          mdi-plus
-        </v-icon>
-      </v-btn>
-    </v-row>
+          <v-row>
+              <v-col cols="11"
+                     class="white--text pt-0 pb-0 text-h5">
+                  Tareas del Proyecto
+              </v-col>
+              <v-col cols="1" class="white--text pt-0 pb-0 text-h5">
+                  <v-btn color="secondary elevation-0"
+                         @click="dialog = true"
+                         fab
+                         small>
+                      <v-icon color="white">mdi-credit-card-plus-outline</v-icon>
+                  </v-btn>
+              </v-col>
+          </v-row>
+
+      </v-toolbar>
+
 
 
     <!--Cuadro de diálogo para crear nueva tarea-->
