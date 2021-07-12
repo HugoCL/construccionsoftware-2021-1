@@ -7,6 +7,7 @@
             class="btn text-left mx-0"
             v-bind:href="'/administrar-proyectos/'+proyectData.id"
             v-on:click="getProject(proyectData.id)"
+
         >
             <v-list-item-content>
                 <div class="text-overline mb-1">
@@ -64,9 +65,7 @@
             </v-btn>
 
 
-
-
-            <v-btn class="ma-2 btn-danger white--text" color="error" v-on:click="dialogEdit=true">
+            <v-btn class="ma-2 btn-danger white--text" color="error" v-on:click="getTeam(proyectData.id)">
                 Editar Equipo
                 <v-icon right>mdi-delete</v-icon>
                 <v-dialog v-model="dialogEdit" color="red" max-width="40%" >
@@ -144,6 +143,7 @@ export default {
             dialogEdit:false,
             dialogEliminar: false,
             dialogAdd: false,
+            //miembros: {},
 
             proyecto: {
                 id:'1',
@@ -181,8 +181,20 @@ export default {
             this.$emit('delete', id);
         },
 
-        getTeam: function (id) {
-            axios.get('/equipo/'+id);
+        async getTeam(id) {
+           //const v = axios.get('/integrantes/'+id);
+           console.log(id);
+           this.dialogEdit=true;
+           const res= await axios.get('/integrantes');
+
+           const miembros = [];
+           for (let i=0; i<res.data.length; i++) {
+               const datos = res.data[i];
+                if (datos.id_proyecto == id) {
+                    miembros.push(datos);
+                }
+           }
+           console.log(miembros);
         },
 
         deleteTeam: function (){
@@ -200,8 +212,10 @@ export default {
         }
 
     },
+
     props:{
-       proyectData: null
+       proyectData: null,
+       equipoData :null
     }
 
 }

@@ -47,4 +47,5 @@ Route::resource('/backlog', 'App\Http\Controllers\BacklogController');
 Route::resource('/integrantes', 'App\Http\Controllers\IntegrantesController');
 ///
 Route::resource('/equipo', 'App\Http\Controllers\equipoController');
+//Route::resource('/equipos', 'App\Http\Controllers\equiposController');
 //Para probar el creador de tareas
