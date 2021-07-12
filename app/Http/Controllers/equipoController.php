@@ -4,55 +4,65 @@ namespace App\Http\Controllers;
 
 use App\Models\Equipo;
 use App\Models\Integrante;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
 class equipoController extends Controller
 {
-    public function index()
+  /**
+   *
+   * @return
+   */
+    public function index($id_proyecto)
     {
-        return Equipo::all();
+        return Integrante::find($id_proyecto);
     }
 
-    public function edit($id)
+    public function edit($id_proyecto)
     {
-        $equipo = Equipo::find($id);
-        $integrantes= Integrante::where('id_proyecto','=',$equipo->id_proyect).andAnyOtherArgs('id_equipo','=',$id);
-        return view('AddProyectComponent')->with($equipo,$integrantes);
+      $integrantes = Integrante::find($id_proyecto);
+      return view('ProyectCardComponent')->with($integrantes);
     }
 
     public function create(){
-      return view::make('AddProyectComponent.create');
+      return view::make('ProyectCardComponent.create');
     }
 
-    public function update(Request $request, $id, $integrantes)
+    public function update($id_proyecto, $integrantes)
     {
-        //
-        $equipo = Equipo::find($id);
-        $equipo->integrantes = $integrantes;
-        $equipo->nombre = $request->nombre;
-        $equipo->id_project = $request->id_project;
-        $equipo->save();
+        //borro todo lo anterior
+        Integrante::destroy($id_proyecto);
 
-        return $equipo;
-    }
-
-    public function destroy($id)
-    {
-        if ($id== auth()->id()) {
-            $equipo = Equipo::find($id);
-            $equipo->delete();
-        } else {
-            return view('home');
+        for($i=0; i<count($integrantes); $i++){
+          $add_item= new Integrante();
+          $add_item->id_proyecto= $id_proyecto;
+          $add_item->id_user= $integrantes[i];
+          $add_item->save();
+          //maxi te va a tirar un error si no se quita la columna 'id_equipo' de la tabla 'integrantes'
+          //recuerda que la dejamos como clave foranea
+          //retornen el view si tienen una vista para editarlo
         }
+        return Integrante::find($id_proyecto);
     }
 
-    public function store(Request $request)
+    public function destroy($id_proyecto)
     {
-        $equipo = new Equipo();
-        $equipo->nombre = $request->nombre;
-        $equipo->id_project = $request->id_project;
-        $equipo->save();
+      return Integrante::destroy($id_proyecto);
+    }
 
-        return $equipo;
+    public function store($id_proyecto, $integrantes)
+    {
+      //borro todo lo anterior
+      Integrante::destroy($id_proyecto);
+
+      for($i=0; i<count($integrantes); $i++){
+        $add_item= new Integrante();
+        $add_item->id_proyecto= $id_proyecto;
+        $add_item->id_user= $integrantes[i];
+        $add_item->save();
+        //maxi te va a tirar un error si no se quita la columna 'id_equipo' de la tabla 'integrantes'
+        //recuerda que la dejamos como clave foranea
+      }
+      return Integrante::find($id_proyecto);
     }
 }
