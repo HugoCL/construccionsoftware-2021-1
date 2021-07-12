@@ -86,7 +86,7 @@
     <!-- Cuadro que se abre al presionar una tarea y muestra su info-->
     <v-dialog 
       v-model="dialog" 
-      width="50%" 
+      width="800" 
     >
       <v-card>
         <v-toolbar color="primary" class="white--text pt-0 pb-0">
