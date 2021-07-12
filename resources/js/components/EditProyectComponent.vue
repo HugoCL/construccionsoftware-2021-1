@@ -13,7 +13,7 @@
                             <v-row>
                                 <v-col
                                     cols="1"
-                                    v-for="(user, index) in users"
+                                    v-for="(user, index) in currentMember"
                                     :key="index"
                                     justify="center"
                                 >
@@ -64,9 +64,11 @@
 
                                                 <integrantes-proyectos
                                                     :leads="leads"
-                                                    :devs="devs"
+                                                    :devs="currentMember"
                                                     :users="users"
                                                     :project="project"
+                                                    v-on:edit="changeMembers($event)"
+
                                                 >
                                                 </integrantes-proyectos>
 
@@ -250,20 +252,7 @@ export default {
         InfoProjectComponent, TaskList, AutoChipComponent, VolereList, UserStoriesList},
     data(){
         return {
-            fields : [
-                {   name:"Jefes de proyecto",
-                    selected : this.leads,
-                    fullList : this.users
-                },
-                {   name:"Scrum Masters",
-                    selected : this.leads,
-                    fullList : this.users
-                },
-                {   name:"Desarrolladores",
-                    selected : this.devs,
-                    fullList : this.users
-                },
-            ],
+
             projects: [],
             projectUp: {
                 name: this.project.nombre,
@@ -281,10 +270,12 @@ export default {
             dialogAlert:false,
             dialogTasks:false,
             membersAlert:false,
-            currentMember:null,
+            currentMember:this.devs,
+
             //Se deben incluir listas para cada tipo de miembros
         }
     },
+
 
     props: {
         leads: [],
@@ -297,7 +288,6 @@ export default {
         save(id) {
             // console.table(this.project)
 
-            console.log(this.users);
 
             axios.put('/administrar-proyectos/'+id, this.projectUp);
             this.openDialogEdit=false;
@@ -308,15 +298,16 @@ export default {
             window.location.href="/administrar-proyectos";
         },
         verifyProyectType: function(){
+
           let proyectType = this.projectUp.projectType.split('-')[0].split(' ')[0];
           //alert(proyectType);
           if(proyectType === 'Tradicional') return true;
           else                       return false;
         },
-        loadMembers:function (){
-            var users=[];
+        changeMembers:function(list){
+            this.currentMember=list;
+        }
 
-        },
 
     }
 }

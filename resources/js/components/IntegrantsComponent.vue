@@ -185,6 +185,7 @@
                   this.deleteIntegrant(item);
                   this.reaming.push( Object.assign( {},{ correo:item.userEmail, nombre:item.userName  } ) )
               }
+              this.$emit('edit',this.integrants);
           },
           addIntegrant(){
               if(this.edit){
@@ -199,6 +200,7 @@
                 this.reaming.splice(index, 1)
               }
               this.dialog = false
+              this.$emit('edit',this.integrants);
           },
           editIntegrant(item){
             this.edit = true
