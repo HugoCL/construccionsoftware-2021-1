@@ -5,12 +5,12 @@
           color="primary"
             rounded
       >
-          <v-row>
-              <v-col cols="11"
+          <v-row >
+              <v-col cols="6"
                      class="white--text pt-0 pb-0 text-h5">
                   Tareas del Proyecto
               </v-col>
-              <v-col cols="1" class="white--text pt-0 pb-0 text-h5">
+              <v-col cols="6" class="white--text pt-0 pb-0 text-h5 text-right">
                   <v-btn color="secondary elevation-0"
                          @click="dialog = true"
                          fab
@@ -131,11 +131,11 @@
         {{ userTask.username }}
       </v-toolbar>
       <v-card-actions>
-        <v-row>
-          <v-col 
+        <v-row class="mt-2">
+          <v-col
             cols="12"
             md="6"
-            v-for="(task, index2) in userTask.tasks" 
+            v-for="(task, index2) in userTask.tasks"
             :key="index2"
           >
             <Task
