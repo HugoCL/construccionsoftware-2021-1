@@ -176,7 +176,10 @@
                 </info-project-component>
             </v-col>
             <v-col>
-                <graph-component>
+                <graph-component
+                    :idProject="project.id"
+                    :nameProject="project.nombre"
+                >
 
                 </graph-component>
             </v-col>
