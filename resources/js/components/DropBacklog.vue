@@ -1,124 +1,167 @@
 <template>
-    <main class ="flexbox">
-
-        <Board id="board-1" class="regular  green lighten-5">
-            <v-card-title>
-                Tareas aux
-            </v-card-title>
-            <Card id ="card-3" draggable="true" class="priority green lighten-4">
-                <p> Tarea 1</p>
-            </Card>
-        </Board>
-
-        <Board id="board-2" class="regular  green lighten-5" >
-            <v-card-title class="priority red lighten-4">
-                Sprint por def
-            </v-card-title>
-            <Card id ="card-5" draggable="true" class="regular  green lighten-2" >
-                <p> Tarea 2 </p>
-            </Card>
-            <Card id ="card-7" draggable="true" class="regular  green lighten-2">
-                <p> Tarea 3 </p>
-            </Card>
-        </Board>
-    </main>
+    <div id="vue-example">
+        <div id="drag-scope">
+            <div class="column">
+                <v-row align="center" justify="center">
+                    <v-col>
+                        <div class="title">Backlog  
+                            <v-btn
+                                color="#FF1493"
+                                elevation="8"
+                                icon
+                                outlined
+                                x-small
+                                @click="addNewCardBacklog"
+                            >+</v-btn>
+                        </div>
+                    </v-col>
+                </v-row>
+                <Board class="backlog  green lighten-4" :data="todos.backlog">
+                    <Card class="handle" v-for="(todos, index) in todos.backlog" :data="todos" :key="index" @remove="todos.design.splice(index, 1)"></Card>
+                </Board>
+            </div>
+            <div class="column">
+                <div class="title">Design
+                    <v-btn
+                        color="#FF1493"
+                        elevation="8"
+                        icon
+                        outlined
+                        x-small
+                        @click="addNewCardDesign"
+                    >+</v-btn>
+                </div>
+                <Board class="design red lighten-4" :data="todos.design">
+                        <Card class="handle" v-for="(todos, index) in todos.design" :data="todos" :key="index" @remove="todos.backlog.splice(index, 1)"></Card>
+                </Board>
+            </div>
+        </div>
+    </div>
 </template>
-
 <script>
+import Board from "./Board";
+import Card from "./Card";
+import lmdd from "../lmdd.min";
 
-import Task from './TaskComponent';
-import Board from './Board'
-import Card from './Card'
+
 
 export default {
-    name: 'DropBacklog',
-    components: {Task, Board, Card},
-    data: () => ({
-        taskDate: new Date().toISOString().substr(0, 10),
-        menu: false, //Para el seleccionador de fecha
-        dialog: false,
-        taskName: '',
-        taskDesc: '',
-        taskMembers: [],
-        taskTags: [],
-        taskChanges:[],
-        peopleNames: ['Juanito Pérez', 'Juliana Soza', 'Juancho Silva', 'Manuel Hernandez', 'Jesus Alberga', 'Pedro Perez'],
-    }),
-    methods: {
+    name: "two-lists",
+    display: "Two Lists",
+    order: 1,
+    components: {
+        Board, Card
+    },
+    data() {
+        return {
+            todos: {
+                backlog: [
+                    {
+                        color: '',
+                        head: 'HU06 - TA01',
+                        title: 'Implementar la columna Backlog',
+                        des: 'S1 - TA01: Implementar la interfaz tipo columna que tendrá el backlog (1)',
+                        content: 'Inconvenientes con integración por problemas con el entorno de desarrollo (Entre CodePen, para el prototipo y PHPStorm para el desarrollo), específicamente con ExternalScript y ExternalStylesHeets, más tiempo de estudio requerido. Sin ningún problema de comunicación entre Frontend y Backend.'
 
-        addTag (event) {
-            event.preventDefault()
-            var val = event.target.value.trim()
-            if (val.length > 0) {
-                this.taskTags.push(val)
-                event.target.value = ''
+                    },
+                    {
+                        color:'orange lighten-1',
+                        head: 'HU03 - TA02',
+                        title: 'Implementar el menú lateral de navegación',
+                        des: 'S1 - TA02: Implementar menú en todas las paginas(1)',
+                        content: 'Manejar la forma de mostrar las iteraciones dentro de un tablero kanban perteneciente aun proyecto. (Tips: Algunas formas son mediante deslizamiento, en donde todas las iteraciones [columnas] están una al lado de la otra; por pestañas o tabs, algo similar a excel; o puede ser un menu colapsable).'
+
+                    }
+                ],
+                design: []
+            }
+        }
+    },
+    mounted: function() {
+        lmdd.set(document.getElementById('drag-scope'), {
+            containerClass: 'Board',
+            draggableItemClass: 'Card',
+            dataMode: true
+        });
+        this.$el.addEventListener('lmddend', this.handleDragEvent);
+    },
+    methods: {
+        handleDragEvent: function(event) {
+            const newIndex = event.detail.to.index;
+            const oldIndex = event.detail.from.index;
+            const newContainer = event.detail.to.container.__vue__.data;
+            const oldContainer = event.detail.from.container.__vue__.data;
+            if (event.detail.dragType === 'move') {
+                newContainer.splice(newIndex, 0, oldContainer.splice(oldIndex, 1)[0]);
             }
         },
-        removeTag (index) {
-            this.taskTags.splice(index, 1)
+        addNewCardBacklog: function() {
+            this.todos.backlog.push({
+                color:'orange lighten-1',
+                head:'HU00 - TA00',
+                title:'Nueva Tarjeta',
+                des:'',
+                content: ''
+            })
         },
-        createTask: function () {
-            this.tasks.push({
-                name: this.taskName,
-                members: this.taskMembers,
-                desc: this.taskDesc,
-                date: this.taskDate,
-                tags: this.taskTags,
-                changes: this.taskChanges
-            });
-            this.taskName = '';
-            this.taskDesc = '';
-            this.taskMembers = '';
-            this.taskDesc = '';
-            this.taskTags = '';
-            this.taskChanges='';
-            this.dialog = false;
-        }
-    }
-}
+        addNewCardDesign: function() {
+            this.todos.design.push({
+                color:'orange lighten-1',
+                head:'HU00 - TA00',
+                title:'Nueva Tarjeta',
+                des:'',
+                content: ''
+            })
+        },
+        editCard: function() {
+            this.todos.design.push({
+                color:'orange lighten-1',
+                head:'HU00 - TA00',
+                title:'Nueva Tarjeta',
+                des:'',
+                content: ''
+            })
+        },
 
+    }
+};
 </script>
 
-<style >
+<style>
+    #vue-example {
+        width: 100%;
+        margin-top: 15px;
+        margin-bottom: 15px;
+        background-color: lightcyan;
+    }
 
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-body{
-    background-color: #F3F3F3;
-}
-.flexbox{
-    display: flex;
-    justify-content: space-between;
+    #drag-scope {
+        display: flex;
+        justify-content: space-around;
+        background-color: lightcyan;
+    }
 
-    width: 100%;
-    max-width: 768px;
-    height: 100vh;
+    .column {
+        flex: 1 1 350px;
 
-    overflow: hidden;
+    }
 
-    margin: 0 auto;
-    padding: 15px;
-}
-.flex .board {
-    display: flex;
-    flex-direction: column;
+    .handle {
+        cursor: move;
+    }
 
-    width: 100%;
-    max-width: 300px;
+    .title {
+        text-align: center;
+        font-weight: bold;
+        padding: 10px;
+        margin: 5px;
+    }
 
-    background-color: black;
-
-    padding: 15px;
-}
-.flex .board .card {
-    padding: 15px 25px;
-    background-color: #F3F3F3;
-
-    cursor: pointer;
-    margin-bottom: 15px;
-}
-
+    .Board {
+        display: flex;
+        padding: 10px;
+        margin: 10px;
+        flex-flow: column nowrap;
+        min-height: 106px;
+    }
 </style>
