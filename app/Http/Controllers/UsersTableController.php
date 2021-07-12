@@ -23,8 +23,8 @@ class UsersTableController extends Controller
 
     public function store(Request $request){
         $usuario = new Usuario();
-        $usuario->correo = $request->email;
-        $usuario->nombre = $request->name;
+        $usuario->correo = $request->correo;
+        $usuario->nombre = $request->nombre;
         $usuario->save();
 
         return $usuario;
@@ -32,8 +32,8 @@ class UsersTableController extends Controller
 
     public function update(Request $request, $id){
         $usuario = Usuario::find($id);
-        $usuario->nombre = $request->name;
-        $usuario->correo = $request->email;
+        $usuario->nombre = $request->nombre;
+        $usuario->correo = $request->correo;
         $usuario->save();
         return $usuario;
     }

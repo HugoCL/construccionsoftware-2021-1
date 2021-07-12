@@ -280,14 +280,21 @@
         this.$nextTick(() => {
           this.editedItem = Object.assign({}, this.defaultItem)
           this.editedIndex = -1
-          axios.delete('/lista-usuario', {params: {'id': this.defaultItem.correo}})
+          axios.delete('/lista-usuarios', {params: {'id': this.defaultItem.correo}})
         })
       },
 
-      save () {
-        if (this.editedIndex > -1) {
+      save () {//este metodo se reutiliza cuando edita y guarda un usuario
+        if (this.editedIndex > -1) {//cuando edita
           Object.assign(this.students[this.editedIndex], this.editedItem)
-        } else {
+          axios.post('/lista-usuarios' + this.editedItem.correo, {
+            data: this.editedItem,
+            _method: 'patch'
+          })
+            .then(function (response) {
+              console.log(response);
+            });
+        } else {//cuando guarda uno nuevo
           this.students.push(this.editedItem)
           axios.post('/lista-usuarios', this.editedItem)
             .then(response => {
