@@ -179,7 +179,7 @@
               const index = this.integrants.indexOf(item)
               if (confirm('Estas seguro de borrar a '+item.userName) && this.integrants.splice(index, 1)){
                   this.deleteIntegrant(item);
-                  this.users.reaming( Object.assign( {},{ correo:item.userEmail, nombre:item.userName  } ) )
+                  this.reaming.push( Object.assign( {},{ correo:item.userEmail, nombre:item.userName  } ) )
               }
           },
           addIntegrant(){
