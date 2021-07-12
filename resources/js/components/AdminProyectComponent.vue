@@ -2,7 +2,7 @@
     <div class="container mx-0 px-0" data-app style="background-color: transparent">
         <v-container>
             <v-row >
-                <v-col cols="9" class="title mr-15 ml-1 pr-0 pb-0 ">
+                <v-col cols="9" class="title mr-13 ml-1 pr-0 pb-0 ">
                     Administrar proyectos
                 </v-col>
                 <v-col cols="2">
@@ -17,9 +17,9 @@
                                 <v-toolbar class="elevation-0">
                                     <v-row align="center">
                                         <v-col cols="10" >
-                                                    <span class="pl-2 mt-2 pt-2 title" >
-                                                        Nuevo proyecto
-                                                    </span>
+                                            <span class="pl-2 mt-2 pt-2 title" >
+                                                Nuevo proyecto
+                                            </span>
                                         </v-col>
                                         <v-col cols="2" style="float: right;" class="text-right">
                                                     <span class="pr-2">

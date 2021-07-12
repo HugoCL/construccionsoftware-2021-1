@@ -2,16 +2,19 @@
     <v-container class="ma-0 pa-0">
 
         <!--Barra Botones-->
-        <v-row>
+        <v-row class="px-4">
             <v-toolbar
                 color="primary"
-
-                class="rounded  white--text pt-0 pb-0 text-h5 "
+                class="rounded white--text pt-0 pb-0 text-h5 "
 
             >
-                <!--b>Nombre del Proyecto: </b-->Proyecto: {{this.projectUp.name}}
+
+                    <!--b>Nombre del Proyecto: </b-->Proyecto: {{this.projectUp.name}}
+
+
+
                 <v-col>
-                    <v-responsive>
+                    <v-responsive class="hidden-sm-and-down">
                         <v-row>
                             <v-col
                                 cols="1"
@@ -31,9 +34,24 @@
                                             class="white--text font-weight-bolder"
                                         >{{ user.correo.charAt(0) }}
                                         </v-btn>
+
                                     </template>
                                     <span>{{ user.correo }}</span>
                                 </v-tooltip>
+
+                            </v-col>
+                        </v-row>
+                    </v-responsive>
+                    <v-responsive class="hidden-md-and-up">
+                        <v-row>
+                            <v-col cols="1">
+                                <v-btn
+                                    color="secondary"
+                                    fab
+                                    small
+                                    class="white--text font-weight-bolder">
+                                    {{currentMember.length}}
+                                </v-btn>
                             </v-col>
                         </v-row>
                     </v-responsive>
@@ -42,7 +60,8 @@
                     class="text-right"
                     elavation="0"
                 >
-                    <v-responsive>
+
+                    <v-responsive class="hidden-sm-and-down">
                         <!--Agregar miembro-->
                         <v-tooltip top>
                             <template v-slot:activator="{ on }">
@@ -62,7 +81,6 @@
                                         style="overflow:hidden"
 
                                     >
-                                        <v-card class="mx-auto p-4">
 
                                             <integrantes-proyectos
                                                 :leads="leads"
@@ -74,7 +92,6 @@
                                             >
                                             </integrantes-proyectos>
 
-                                        </v-card>
                                     </v-dialog>
                                 </v-btn>
                             </template>
@@ -170,6 +187,64 @@
                         </v-tooltip>
 
                     </v-responsive>
+                    <v-responsive class="hidden-md-and-up">
+                        <v-menu
+                            left
+                            bottom>
+                            <template v-slot:activator="{ on, attrs }">
+                                <v-btn
+                                    icon
+                                    v-bind="attrs"
+                                    v-on="on"
+                                >
+                                    <v-icon color="white">mdi-dots-vertical</v-icon>
+                                </v-btn>
+                            </template>
+                            <v-list>
+                                <v-list-item>
+                                    <a class="nav-link black--text">
+                                        <v-list-item-tittle @click="membersAlert=true">
+                                            <v-icon>mdi-plus</v-icon>
+                                            Agregar miembros
+                                        </v-list-item-tittle>
+                                    </a>
+                                </v-list-item>
+                                <v-list-item>
+                                        <v-list-item-tittle>
+
+                                            <a class="nav-link black--text" href="/sprint-container/">
+                                                <v-icon >mdi-card-plus-outline</v-icon>
+                                                Ver tablero
+                                            </a>
+                                        </v-list-item-tittle>
+                                </v-list-item>
+                                <v-list-item>
+                                    <a class="nav-link black--text">
+                                        <v-list-item-title @click="dialogTasks=true">
+                                            <v-icon>mdi-card-account-details-outline</v-icon>
+                                            Ver tareas
+                                        </v-list-item-title>
+                                    </a>
+                                </v-list-item>
+                                <v-list-item >
+                                    <a class="nav-link black--text">
+                                        <v-list-item-title @click="openDialogEdit=true">
+                                            <v-icon>mdi-pen</v-icon>
+                                            Editar proyecto
+                                        </v-list-item-title>
+                                    </a>
+                                </v-list-item>
+                                <v-list-item>
+                                    <a class="nav-link black--text">
+                                        <v-list-item-title @click="dialogAlert=true">
+                                            <v-icon>mdi-delete</v-icon>
+                                            Eliminar proyecto
+                                        </v-list-item-title>
+                                    </a>
+                                </v-list-item>
+                            </v-list>
+                        </v-menu>
+                    </v-responsive>
 
                 </v-col>
 
@@ -178,12 +253,13 @@
         <!--Ver Proyecto-->
         <v-row class="ma-1 pa-1 px-0">
 
-            <v-col class="ma-1 pa-1 pl-0">
+            <v-col class="ma-1 pa-1 px-0 mx-0">
                 <info-project-component
                     :projectUp="projectUp">
                 </info-project-component>
             </v-col>
-            <v-col class="ma-1 pa-1 pr-0">
+            <div class="hidden-sm-and-down px-2"></div>
+            <v-col class="ma-1 pa-1 px-0 mx-0">
                 <graph-component
                     :idProject="project.id"
                     :nameProject="project.nombre"

@@ -4,7 +4,7 @@
             color="primary"
             class="white--text pt-0 pb-0 text-h6"
         >
-            Estadisticas
+            Estadísticas
         </v-toolbar>
         <!--titulo-->
         <v-card-actions class="pa-2 ma-1 pb-0 pl-2 mb-0 text-h7 black-text" >
@@ -31,7 +31,7 @@
 
         <!--titulo-->
         <v-card-actions class="pa-2 ma-1 pb-0 mb-0 text-h7 black-text" >
-         <b>Grafico tareas hechas/tareas totales</b>
+         <b>Gráfico tareas hechas/tareas totales</b>
         </v-card-actions>
 
         <v-card-actions>
@@ -48,8 +48,8 @@
         </v-card-actions>
 
         <!--titulo-->
-        <v-card-actions class="pa-2 ma-1 pb-0 mb-0 text-h7 black-text">
-            <b>Grafico tareas persona/proyecto</b>
+        <v-card-actions class="pa-2 ma-1 py-0 mb-0 text-h7 black-text">
+            <b>Gráfico tareas persona/proyecto</b>
         </v-card-actions>
 
         <v-card-actions class="pa-2 ma-1 pb-0 mb-0">

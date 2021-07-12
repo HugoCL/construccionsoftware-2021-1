@@ -3,13 +3,27 @@
 <v-card class="">
     <v-toolbar
         color="primary"
-        class="white--text pt-0 pb-0 text-h5"
+
     >
-        Integrantes del proyecto
+        <v-row>
+            <v-col cols="11"
+                   class="white--text pt-0 pb-0 text-h5">
+                Integrantes del proyecto
+            </v-col>
+            <v-col cols="1" class="white--text pt-0 pb-0 text-h5">
+                <v-btn color="secondary elevation-0"
+                       @click="openDialog()"
+                       fab
+                       small>
+                   <v-icon color="white">mdi-account-plus</v-icon>
+                </v-btn>
+            </v-col>
+        </v-row>
+
     </v-toolbar>
     <v-card-actions>
         <v-expansion-panels accordion>
-        <v-expansion-panel
+            <v-expansion-panel
             v-for="(integrant,i) in integrants"
             :key="i"
         >
@@ -38,14 +52,7 @@
 
             </v-expansion-panel-content>
         </v-expansion-panel>
-        <v-btn
-        color="red lighten-2"
-        dark
-        class="btn float-right mt-2"
-        @click="openDialog()"
-        >
-        Añadir Integrante
-        </v-btn>
+
         </v-expansion-panels>
 
         </v-card-actions>
