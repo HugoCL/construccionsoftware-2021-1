@@ -39,7 +39,7 @@
 
              color="secondary"
              class= "v-picker--full-width d-flex pa-2 ma-1 pb-0 mb-0 flex-no-wrap "
-         > <v-card-text v-text="nombreProyecto"></v-card-text>
+         ><v-card-text class="white--text title" v-text="nombreProyecto"></v-card-text>
              <v-progress-circular class="ma-2 white--text" :size="100" :value="porcentajeTareas">
                  {{ numTareasCompletadas }}/{{ numTareasTotal}}
              </v-progress-circular>
@@ -93,7 +93,7 @@ export default{
              * poseen nombre, tareas asignadas a la persona y por el momento un total de tareas
              */
             personas: [
-              
+
             ],
             /**
              * variables de manejo de un proyecto
@@ -107,7 +107,6 @@ export default{
             numTareasCompletadas:"",
             porcentajeTareas: 0,
             usersIn:[],
-            sprints:[]
         }
     },
     props: {
@@ -123,12 +122,10 @@ export default{
                 this.numTareasCompletadas = res.tareasHechas;
                 this.usersIn = res.usuarios;
                 this.values = res.tareasPorSprint;
-                console.log(res);
-               
                 this.setMiembrosGraph();
                 this.getPorcentaje();
                 this.getPorcentajeGente();
-                
+
             })
             .catch(function(error) {
                 console.log(error.data);
@@ -148,14 +145,7 @@ export default{
           let personAux = {nombre: this.usersIn[index].nombre, tareasAsig: 0, prom: 0}
           this.personas.push(personAux);
         }
+      }
       },
-
-    setSprints(){
-        for (let index = 0; index < this.sprints.length; index++) {
-            let aux = 0;            
-                  
-        }
-    }
-    },
 }
 </script>

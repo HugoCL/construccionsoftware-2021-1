@@ -48,8 +48,9 @@
         </v-list-item>
         <v-card-actions style="float:right" >
             <v-btn class="ma-2 btn-danger white--text" color="error" v-on:click="dialogAlert=true">
-                Eliminar
-                <v-icon right>mdi-delete</v-icon>
+                <div class="px-0">Eliminar</div>
+                <v-icon right class="mx-0 px-0">mdi-delete</v-icon>
+
                 <v-dialog v-model="dialogAlert" max-width="40%">
                     <v-card>
                         <v-card-title class="text-h6 text-c">Seguro que desea borrar el proyecto?</v-card-title>
