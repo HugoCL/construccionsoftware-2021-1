@@ -98,7 +98,7 @@
       data(){
           return {
               name : this.project.nombre, //nombre del proyecto
-              integrants: [],//just the devs
+              integrants: [],
               //integrants: this.devs.concat(this.leads) //deveps + leads list
               dialog: false,
               edit: false,
@@ -132,6 +132,10 @@
           },
           update: function(integrant){
               console.log(integrant)
+              axios.put('/administrar-proyectos/integrantes/'+this.project.id, integrant)
+                  .then(response=>{
+                      console.log(response.data)
+                  })
           },
           deleteIntegrant: function(item){
               console.log(item)
