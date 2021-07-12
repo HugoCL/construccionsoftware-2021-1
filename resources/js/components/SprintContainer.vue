@@ -361,7 +361,7 @@ export default {
 
 
 
-
+        let index = 0;
         for (let sprint of this.sprints) {
             /*cycleName:'Iteración 4:',
                 edit:false,
@@ -370,13 +370,13 @@ export default {
                 fechaInic: '',
                 fechaFin:'',
              */
-            let name = 'Iteración '+sprint.nro_sprint;
+            let name = sprint.nombre_sprint;
             let subcycle = [];
             let cycleState = 'Backlog';
             let fechaInicio = '';
             let fechaFin = '';
 
-            this.tasks[sprint.nro_sprint-1].forEach(element => subcycle.push(element.descripcion));
+            this.tasks[index].forEach(element => subcycle.push(element.name));
 
             this.cycles.push({
                 cycleName: name,
@@ -386,7 +386,7 @@ export default {
                 fechaInic: fechaInicio,
                 fechaFin: fechaFin
             });
-
+            index++;
         }
         console.log(this.cycles);
 

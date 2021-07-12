@@ -33,7 +33,7 @@ class SprintContainerController extends Controller
 
         foreach ($sprints as $sprint){
             //Aqui es probable que se deba cambiar tareas por tasks, la tabla tasks
-            array_push($tasks, DB::table('tareas')->where('id_proyecto', $id)->where('id_sprint',$sprint->id)->get());
+            array_push($tasks, DB::table('tasks')->where('id_proyecto', $id)->where('id_sprint',$sprint->id)->get());
         }
 
 
