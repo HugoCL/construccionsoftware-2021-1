@@ -16,7 +16,7 @@ class VolereCardController extends Controller
     public function index()
     {
         //
-        return  cards_volere::get();
+        return  cards_volere::all();
     }
 
     /**
@@ -40,6 +40,7 @@ class VolereCardController extends Controller
         //
         $cardVolere = new cards_volere();
         $cardVolere->id = $request->id;
+        $cardVolere->id_project = $request->id_project;
         $cardVolere->rurs= $request->rurs;
         $cardVolere->number = $request->number;
         $cardVolere->name = $request->name;
@@ -92,7 +93,6 @@ class VolereCardController extends Controller
     {
         //
         $cardVolere = cards_volere::find($id);
-        $cardVolere->id = $request->id;
         $cardVolere->rurs= $request->rurs;
         $cardVolere->number = $request->number;
         $cardVolere->name = $request->name;

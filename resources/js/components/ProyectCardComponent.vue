@@ -63,41 +63,66 @@
                 </v-dialog>
             </v-btn>
 
+
+
+
             <v-btn class="ma-2 btn-danger white--text" color="error" v-on:click="dialogEdit=true">
                 Editar Equipo
                 <v-icon right>mdi-delete</v-icon>
-                <v-dialog v-model="dialogEdit" color="red" max-width="40%" v-for="(equipo,index) in proyecto.equipos" :key="index">
-                    <v-card color="red lighten-5">
-                        <v-card-title class="text-h6 text-c">Equipos</v-card-title>
+                <v-dialog v-model="dialogEdit" color="red" max-width="40%" >
+                    <v-card-title class="text-h6 text-c" dark color="red">Equipos</v-card-title>
+                    <v-card color="red lighten-5" v-for="(equipo,index) in proyecto.equipos" :key="index">
+                        <v-btn @click="dialogAdd=true">
+                            <v-dialog v-model="dialogAdd" color="red" max-width="40%">
+                                <v-card>
+                                    <v-card-title>
+                                        Estudiantes
+                                    </v-card-title>
+                                    <v-select
+                                        item-text="correo"
+                                        v-model="proyecto.workers"
+                                        :items="items"
+                                        label="Empleados del proyecto"
+                                        multiple
+                                        dense
+                                        clearable
+                                        chips
+                                        small-chips
+                                        outlined
+                                        prepend-icon="mdi-account-group"
+
+                                    ></v-select>
+                                    <v-btn>
+                                        Confirmar
+                                    </v-btn>
+
+                                </v-card>
+                            </v-dialog>
+                            <v-icon dark>mdi-plus</v-icon>
+                        </v-btn>
                         <v-card-actions>
-                            <v-alert type="success">
+                            <div>
                                 {{equipo.nombreequipo}}
-                                <v-btn color="secondary" class="btn-danger white--text" @click="dialogAlert=false"><v-icon center>mdi-delete</v-icon></v-btn>
-                                <v-btn color="red" class="btn-danger white--text" @click="deleteProject(proyectData.id)"><v-icon dark>mdi-minus</v-icon></v-btn>
+                                <v-btn color="secondary"
+                                       class="btn-danger white--text"
+                                       @click="dialogAlert=false"><v-icon center>mdi-plus</v-icon></v-btn>
+                                <v-btn color="red" class="btn-danger align- end white--text" @click="deleteTeam(equipo.nombreequipo)"><v-icon dark>mdi-delete</v-icon></v-btn>
                                 <card color ="red">
-                                    <div v-for="(estudiante, index1) in equipo.estudiante" :key="index1"> {{estudiante.name}}
-                                        <v-btn color="secondary" class="btn-danger white--text" @click="dialogAlert=false"><v-icon center>mdi-delete</v-icon></v-btn>
-                                        <v-btn color="red" class="btn-danger white--text" @click="deleteProject(proyectData.id)"><v-icon dark>mdi-minus</v-icon></v-btn>
+                                    <div v-for="(estudiante, index1) in equipo.estudiante" :key="index1"
+                                         class='black--text'> {{estudiante.name}}
+                                        <v-col>
+                                            <v-btn color="secondary"
+                                                   class="btn-danger align-end black--text"
+                                                   @click="deleteStudent(estudiante.name)"><v-icon center>mdi-delete</v-icon>
+                                            </v-btn>
+                                            <v-btn color="red"
+                                                   class="btn-danger align-end black--text"
+                                                   @click="deleteStudent(estudiante.name)"><v-icon dark>mdi-minus</v-icon>
+                                            </v-btn>
+                                        </v-col>
                                     </div>
                                 </card>
-                            </v-alert>
-                        </v-card-actions>
-
-                        <v-card-actions>
-                            <v-alert type="info">
-                                Equipo 1
-                            </v-alert>
-                        </v-card-actions>
-
-                        <v-card-actions>
-                            <v-alert type="warning">
-                                Equipo 2
-                            </v-alert>
-                        </v-card-actions>
-                        <v-card-actions>
-                            <v-alert type="error">
-                                Equipo 3
-                            </v-alert>
+                            </div>
                         </v-card-actions>
                     </v-card>
                 </v-dialog>
@@ -118,13 +143,14 @@ export default {
             dialogAlert:false,
             dialogEdit:false,
             dialogEliminar: false,
+            dialogAdd: false,
 
             proyecto: {
-                id:'0',
+                id:'1',
                 equipos: [
 
                     {
-                        nombreequipo:'tim',
+                        nombreequipo:'Equipo 1',
                         estudiante:
                     [
                         {name: 'Elwea tim 1', correo:'ajcorreo sd@askdja.cl'},
@@ -133,7 +159,7 @@ export default {
 
                     ]},
                     {
-                        nombreequipo:'tim 2',
+                        nombreequipo:'Equipo 2',
                         estudiante:
                             [
                                 {name: 'Elwea tim 2', correo:'ajcorreo sd@askdja.cl'},
@@ -155,12 +181,23 @@ export default {
             this.$emit('delete', id);
         },
 
+        getTeam: function (id) {
+            axios.get('/equipo/'+id);
+        },
+
         deleteTeam: function (){
 
         },
         editTeam: function (){
 
         },
+        deleteStudent: function(position){
+            alert("vamos al eliminar al wea" + position)
+        },
+        addTeam: function(){
+            alert("tim agregado")
+            //proyecto.equipos.push(equipo)
+        }
 
     },
     props:{

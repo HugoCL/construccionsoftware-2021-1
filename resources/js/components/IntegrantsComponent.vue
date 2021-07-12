@@ -1,15 +1,29 @@
 <template>
 
-<v-card class="row justify-content-center">
+<v-card class="">
     <v-toolbar
         color="primary"
-        class="white--text pt-0 pb-0 text-h5"
+
     >
-        Integrantes del proyecto: {{name}}
+        <v-row>
+            <v-col cols="11"
+                   class="white--text pt-0 pb-0 text-h5">
+                Integrantes del proyecto
+            </v-col>
+            <v-col cols="1" class="white--text pt-0 pb-0 text-h5">
+                <v-btn color="secondary elevation-0"
+                       @click="openDialog()"
+                       fab
+                       small>
+                   <v-icon color="white">mdi-account-plus</v-icon>
+                </v-btn>
+            </v-col>
+        </v-row>
+
     </v-toolbar>
     <v-card-actions>
         <v-expansion-panels accordion>
-        <v-expansion-panel
+            <v-expansion-panel
             v-for="(integrant,i) in integrants"
             :key="i"
         >
@@ -38,14 +52,7 @@
 
             </v-expansion-panel-content>
         </v-expansion-panel>
-        <v-btn
-        color="red lighten-2"
-        dark
-        class="btn float-right mt-2"
-        @click="openDialog()"
-        >
-        Añadir Integrante
-        </v-btn>
+
         </v-expansion-panels>
 
         </v-card-actions>
@@ -148,7 +155,14 @@
               });
           },
           add: function(item){
+              console.log('holi');
               console.log(item)
+              const info = {id_user: item.userEmail, id_project: this.project.id, rol: item.rol};
+              console.log(info);
+              axios.post('/administrar-proyectos/integrantes/', info)
+                  .then(res=>{
+                      console.log(res.data);
+                  });
           },
           upIntegrants: function(){
               //console.log("Comparacion fallida!!")
@@ -185,6 +199,7 @@
                   this.deleteIntegrant(item);
                   this.reaming.push( Object.assign( {},{ correo:item.userEmail, nombre:item.userName  } ) )
               }
+              this.$emit('edit',this.integrants);
           },
           addIntegrant(){
               if(this.edit){
@@ -192,13 +207,15 @@
                 this.item.role = this.newIntegrant.role
                 this.edit = false
               }else{
+                let info = {userName:this.newIntegrant.nombre, userEmail:this.newIntegrant.correo ,rol: 'developer'};
                 this.integrants.push( Object.assign( {},{ userName:this.newIntegrant.nombre, userEmail:this.newIntegrant.correo ,rol: 'developer'  } ) )
-                this.add(this.newIntegrant)
+                this.add(info);
 
                 const index = this.reaming.indexOf(this.newIntegrant)
                 this.reaming.splice(index, 1)
               }
               this.dialog = false
+              this.$emit('edit',this.integrants);
           },
           editIntegrant(item){
             this.edit = true
