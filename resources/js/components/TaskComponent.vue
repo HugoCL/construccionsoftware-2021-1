@@ -160,7 +160,7 @@
                 <v-card-title>Descripción</v-card-title>
               </v-row>
               <v-row>
-                <v-card-text class="pt-0">
+                <v-card-text class="pt-0 text-justify">
                   {{ taskData.desc }}
                 </v-card-text>
               </v-row>
