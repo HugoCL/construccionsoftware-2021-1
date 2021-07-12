@@ -195,7 +195,7 @@
 
     created () {
       //this.initialize();
-      axios.get('/user')
+      axios.get('/lista-usuarios')
         .then(response=>{
           const res = response.data;
           this.students = res;
@@ -288,6 +288,11 @@
           Object.assign(this.students[this.editedIndex], this.editedItem)
         } else {
           this.students.push(this.editedItem)
+          axios.post('/lista-usuarios', this.editedItem)
+            .then(response => {
+              console.log("usuario enviado")
+              this.$emit('add',response.data);
+            });
         }
         this.close()
       },
