@@ -48,7 +48,7 @@
         </v-list-item>
         <v-card-actions style="float:right" >
             <v-btn class="ma-2 btn-danger white--text" color="error" v-on:click="dialogAlert=true">
-                <div class="px-0">Eliminar</div>
+                <div class="px-0 hidden-sm-and-down">Eliminar</div>
                 <v-icon right class="mx-0 px-0">mdi-delete</v-icon>
 
                 <v-dialog v-model="dialogAlert" max-width="40%">
