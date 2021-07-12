@@ -16,7 +16,6 @@
             <v-expansion-panel-header>
                 {{integrant.userName}}
                 <div class="col-2">
-                    <v-icon @click="editIntegrant(integrant)">mdi-pencil</v-icon>
                     <v-icon @click="delIntegrant(integrant)" >mdi-delete</v-icon>
                 </div>
                 <div class="col-auto"></div>
@@ -65,13 +64,14 @@
                     </v-toolbar>
 
                     <v-card-text>
-                        <v-combobox
+                        <v-select
                             :items="this.users"
                             item-text="correo"
                             v-model="newIntegrant"
                             label="Nombre"
+                            :return-object="true"
                             required
-                        ></v-combobox>
+                        ></v-select>
                     </v-card-text>
 
                     <v-divider></v-divider>
@@ -128,6 +128,7 @@
                       .then(response=> {
                           this.integrants.push(response.data);
                           console.log(response.data);
+
                       })
               }
             /*for(let p in this.participates){
@@ -150,6 +151,7 @@
               const index = this.integrants.indexOf(item)
               if (confirm('Estas seguro de borrar a '+item.userName) && this.integrants.splice(index, 1)){
                   this.deleteIntegrant(item);
+                  this.users.push( Object.assign( {},{ correo:item.userEmail, nombre:item.userName  } ) )
               }
           },
           addIntegrant(){
@@ -160,6 +162,9 @@
               }else{
                 this.integrants.push( Object.assign( {},{ userName:this.newIntegrant.nombre, userEmail:this.newIntegrant.correo ,rol: 'developer'  } ) )
                 this.add(this.newIntegrant)
+
+                const index = this.users.indexOf(this.newIntegrant)
+                this.users.splice(index, 1)
               }
               this.dialog = false
           },

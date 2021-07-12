@@ -60,7 +60,8 @@
                                             style="overflow:hidden"
 
                                         >
-                                            <v-card>
+                                            <v-card class="mx-auto p-4">
+
                                                 <integrantes-proyectos
                                                     :leads="leads"
                                                     :devs="devs"
@@ -68,6 +69,7 @@
                                                     :project="project"
                                                 >
                                                 </integrantes-proyectos>
+
                                             </v-card>
                                         </v-dialog>
                                     </v-btn>
@@ -283,12 +285,14 @@ export default {
             //Se deben incluir listas para cada tipo de miembros
         }
     },
+
     props: {
         leads: [],
         devs: [],
         users: [],
         project: null
     },
+
     methods: {
         save(id) {
             // console.table(this.project)
