@@ -51,13 +51,13 @@ import App from "./App";
 
 export default{
     data(){
-      
+
       /**
        * Variables momentaneas para el manejo de graficos
        * se debe relacionar con el backend para mostrar datos de un proyecto seleccionado
        */
         return{
-            
+
             /**
              * Valores que corresponden al total de tareas creadas en un sprint
              * Si se crea un sprint, se calcula el total de tareas y se agrega a la lista
@@ -84,11 +84,12 @@ export default{
             porcentajeTareas: 33
         }
     },
-    props(){
-      
+    props: {
+        idProject: null,
+        nameProject: null,
     },
     created() {
-        axios.get('/graph-project')
+        axios.get('/graph-project/'+this.idProject)
             .then(response => {
                 const res  = response.data;
                 this.numTareasTotal = res.tareasTotales;
@@ -99,7 +100,7 @@ export default{
                 console.log(this.proyectos);
                 this.getPorcentaje();
                 this.getPorcentajeGente();
-                
+
             })
             .catch(function(error) {
                 console.log(error.data);
