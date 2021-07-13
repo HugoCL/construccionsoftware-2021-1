@@ -326,10 +326,29 @@ export default {
             this.backUpDate='';
             this.proyecto = {name: '', description: '', dates: [], bosses: [], workers: [],
                 projectType:'', projectReps:'', rangeType:'', rangeVal:''};
+
+            let responseAux;
             axios.post('/administrar-proyectos/nuevo', nuevoProyecto)
                 .then(response => {
                     console.log("Proyecto enviado")
                     this.$emit('add',response.data);
+
+                    responseAux = {idProject: response.data.id, cantIteraciones: response.data.cantIteraciones}
+
+                    for (let i = 0; i < responseAux.cantIteraciones ;i++) {
+                        let date = new Date();
+                        let datos = {
+                            id_proyecto: responseAux.idProject,
+                            nombre_sprint: 'Nueva Iteración',
+                            fechaInicio: date.getFullYear() + '-' + (date.getMonth()+1) + '-' + date.getDate(),
+                            fechaTermino: date.getFullYear() + '-' + (date.getMonth()+1) + '-' + date.getDate()
+
+                        }
+                        axios.post('/sprint-container' , datos);
+                    }
+
+
+
                 });
 
 

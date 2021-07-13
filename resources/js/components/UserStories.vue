@@ -2,7 +2,7 @@
     <v-container>
         <v-dialog
             v-model="editDialog"
-            width="60%"
+            width="70%"
         >
             <v-card>
                 <v-toolbar
@@ -15,18 +15,38 @@
                 <v-form>
                     <v-row>
                         <v-col
-                            sm="8"
-                            md="8"
+                            sm="2"
+                            md="4"
                         >
                             <v-text-field
-                                v-model="storyName"
-                                label="Nombre Historia de usuario"
+                                v-model="storieName"
+                                label="HU_CODE"
                                 hide-details="auto"
-                                outlined
+                                class="ml-5"
                             ></v-text-field>
                         </v-col>
-                    </v-row>
 
+                        <v-col
+                            sm="2"
+                            md="0"
+                        >
+                            <v-subheader
+                                v-text=" 'Yo como' "
+                                class="mb-4 mt-2"
+                                style="font-size: 16px;"
+                            ></v-subheader>
+                        </v-col>
+
+                        <v-col cols="12" sm="2" md="4">
+                            <v-select
+                                v-model="storiesUser"
+                                :items ="['PRODUCT OWNER','SCRUM MASTER']"
+                                label="Cargo"
+                            >
+                            </v-select>
+                        </v-col>
+                    </v-row>
+                    <!--
                     <v-row>
                         <v-col
                             sm="2"
@@ -46,44 +66,40 @@
                             >
                             </v-select>
                         </v-col>
-                    </v-row>
+                    </v-row> -->
 
                     <v-row>
                         <v-col
-                            sm="2"
-                            md="0"
+                            md="auto"
                         >
                             <v-subheader
                                 v-text="'Quiero'"
-                                class="mb-4 mt-2"
+                                class="mb-4 mt-2 ml-5"
                                 style="font-size: 16px;"
                             ></v-subheader>
                         </v-col>
-                        <v-col>
-                            <v-textarea
+                        <v-col md="10">
+                            <v-text-field
                             v-model="storiesDesc"
                             label="Descripción"
-                            outlined
-                            ></v-textarea>
+                            ></v-text-field>
                         </v-col>
                     </v-row>
                     <v-row>
-                        <v-col
-                            sm="2"
-                            md="0"
+                        <v-col md="auto"
+
                         >
                             <v-subheader
                                 v-text=" 'Para' "
-                                class="mb-4 mt-2"
+                                class="mb-4 mt-2 ml-5 mr-4"
                                 style="font-size: 16px;"
                             ></v-subheader>
                         </v-col>
-                        <v-col>
-                            <v-textarea
+                        <v-col md="10">
+                            <v-text-field
                             v-model="storiesUse"
                             label="Para que se usará"
-                            outlined
-                            ></v-textarea>
+                            ></v-text-field>
                         </v-col>
                     </v-row>
                     <!--botones cerrar guardar-->
@@ -97,7 +113,7 @@
 
                         <v-btn
                         text
-                        @click="saveVolere"
+                        @click="saveStorie"
                         >
                         Guardar
                         </v-btn>
@@ -119,7 +135,7 @@
 
                     <v-list-item>
                         <v-list-item-content>
-                            <v-card-title>
+                            <v-card-title class="pa-0">
                                 INFORMACION CORRESPONDIENTE
                             </v-card-title>
                         </v-list-item-content>
@@ -134,9 +150,9 @@
                     </v-list-item>
                 </v-toolbar>
 
-                <v-card-title>NOMBRE HISTORIO DE USUARIO:</v-card-title>
+                <v-card-title>NUMERO HISTORIA DE USUARIO:</v-card-title>
                 <v-card-subtitle class="text--primary">
-                    INFORMACION CORRESPONDIENTE
+                    INFORMACION CORRESPONDIENTE NOMBRE
                 </v-card-subtitle>
 
                 <v-row>
@@ -151,7 +167,11 @@
                         ></v-subheader>
                     </v-col>
                     <v-col>
+                      <!--  v-text = "Quiero"
+                        class = "mb-4 mt-2"-->
                         INFORMACION CORRESPONDIENTE AL QUIERO
+                        {{storiesUse.storiesDesc}}
+
                     </v-col>
                 </v-row>
 
@@ -200,12 +220,14 @@
                 <v-btn
                     color="accent"
                     class="my-0"
+                    @click.stop="editHistorie"
                 >
                     Editar
                     <v-icon>mdi-pencil</v-icon>
                 </v-btn>
                 <v-btn
                     color="error"
+                    @click.stop="deleteHistorie"
                 >
                     Eliminar
                     <v-icon>mdi-delete</v-icon>
@@ -217,17 +239,42 @@
 
     </v-container>
 </template>
-
+<!--nombre, descripción(quiero), para que se usará
+ -->
 <script>
 export default{
     name: "UserStories.vue",
     data: () => ({
-
+        storiesUser: '',
+        storiesDialog: false,
+        editDialog: false,
+        storieName: '',
+        storiesDesc: '',
+        storiesUse: '',
     }),
 
     props: {
         userStorie: null,
         userStories: null
     },
+
+    methods: {
+        deleteHistorie: function(){
+            this.userStorie.splice(this.userStorie.indexOf(this.userStorie),1);
+        },
+
+        editHistorie: function(){
+            this.editDialog = true;
+            this.storieName = this.userStorie.name;
+            this.storiesDesc = this.userStorie.desc;
+
+        },
+
+        saveStorie: function(){
+            this.editDialog = false;
+            this.userStorie.name = this.storieName;
+            this.userStorie.desc = this.storiesDesc;
+        }
+    }
 }
 </script>

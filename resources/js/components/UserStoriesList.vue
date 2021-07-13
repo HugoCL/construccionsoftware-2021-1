@@ -14,35 +14,23 @@
                 </v-toolbar>
                 <v-form>
                     <v-row>
-                        <v-col
-                            sm="2"
-                            md="0"
-                            class="ml-10"
-                        >
+                        <v-col lg="2">
                             <v-text-field
+                                class="pa-2 ml-10"
                                 v-moder="HU_code"
                                 label="Codigo"
                             >
                             </v-text-field>
                         </v-col>
-
-                        <v-col
-                            sm="2"
-                            md="0"
-                        >
-                            <v-subheader
+                        <v-col md="auto">
+                           <v-subheader
                                 v-text="'Yo como '"
-                                class="mb-4 mt-2 ml-5"
+                                class="mb-4 mt-2 "
                                 style="font-size: 16px;"
                             >
                             </v-subheader>
                         </v-col>
-
-                        <v-col
-                            cols="6"
-                            sm="4"
-                            md="4"
-                        >
+                        <v-col md="8">
                             <v-select
                                 v-model="HU_owner"
                                 :items="['Product Owner']"
@@ -53,11 +41,7 @@
                     </v-row>
 
                     <v-row>
-                        <v-col
-                            cols="12"
-                            sm="2"
-                            md="0'"
-                        >
+                        <v-col md="auto">
                             <v-subheader
                                 v-text="' quiero '"
                                 class="mb-4 mt-2 ml-5"
@@ -66,11 +50,7 @@
                             </v-subheader>
                         </v-col>
 
-                        <v-col
-                            cols="12"
-                            sm="8"
-                            md="8"
-                        >
+                        <v-col md="10">
                             <v-text-field
                                 v-moder="HU_action"
                                 label="Accion"
@@ -80,24 +60,16 @@
                     </v-row>
 
                     <v-row>
-                        <v-col
-                            cols="12"
-                            sm="2"
-                            md="0"
-                        >
+                        <v-col md="auto">
                             <v-subheader
                                 v-text="' para '"
-                                class="mb-4 mt-2 ml-5"
+                                class="mb-4 mt-2 ml-5 mr-4"
                                 style="font-size: 16px;"
                             >
                             </v-subheader>
                         </v-col>
 
-                        <v-col
-                            cols="12"
-                            sm="8"
-                            md="8"
-                        >
+                        <v-col md="10">
                             <v-text-field
                                 v-model="HU_result"
                                 label="Resultado"
@@ -181,8 +153,22 @@ export default{
             },
         ]
     }),
+    props:{
+        project: null,
+        listHU: []
+    },
+    //created() {
+      //console.log(this.listHU);
+      //this.HULists = this.listHU;
+    //},
     methods:{
         createHU: function(){
+            let card = {
+                code: this.HU_code,
+                owner: this.HU_owner,
+                action: this.HU_action,
+
+            }
             this.HULists.push({
                 code: this.HU_code,
                 owner: this.HU_owner,
