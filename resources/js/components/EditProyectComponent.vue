@@ -126,6 +126,7 @@
                                     <v-dialog v-model="dialogTeams" max-width="80%">
                                         <v-card >
                                             <!--componente-->
+                                            <UnderConstruction></UnderConstruction>
                                         </v-card>
                                     </v-dialog>
                                 </v-btn>
@@ -197,7 +198,8 @@
                                     <v-icon>mdi-card-bulleted-settings-outline</v-icon>
                                     <v-dialog v-model="dialogHist" max-width="80%">
                                         <v-card >
-                                            <UserStoriesList v-if="verifyProyectType() == false" class="mt-5"/>
+                                            <!--UserStoriesList v-if="verifyProyectType() == false" class="mt-5"/-->
+                                            <UnderConstruction></UnderConstruction>
                                         </v-card>
                                     </v-dialog>
                                 </v-btn>
@@ -327,7 +329,7 @@
                                     <a class="nav-link black--text">
                                         <v-list-item-title @click="dialogVolere=true">
                                             <v-icon>mdi-card-bulleted-settings-outline</v-icon>
-                                            Tajetas de Volere
+                                            Tarjetas de Volere
                                         </v-list-item-title>
                                     </a>
                                 </v-list-item>
@@ -441,10 +443,12 @@ import VolereList from "./VolereListComponent"
 import UserStoriesList from "./UserStoriesList"
 import InfoProjectComponent from "./InfoProjectComponent";
 import AdminMembersProjectComponent from "./AdminMembersProjectComponent";
+import UnderConstruction from "./UnderConstruction";
 
 export default {
     name: "EditProyectComponent",
     components: {
+        UnderConstruction,
         AdminMembersProjectComponent,
         InfoProjectComponent, TaskList, AutoChipComponent, VolereList, UserStoriesList},
     data(){
