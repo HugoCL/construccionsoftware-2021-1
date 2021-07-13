@@ -170,9 +170,9 @@
                                 >
                                     <v-icon>mdi-card-bulleted-settings-outline</v-icon>
                                     <v-dialog v-model="dialogVolere" max-width="80%">
-                                        <v-card >
+                                        <v-card class="pa-3">
                                             <VolereList
-                                                class="mt-5"
+
                                                 :project="project"
                                                 :voleres="voleres"
                                             />

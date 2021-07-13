@@ -203,10 +203,10 @@
           </v-row>
 
           <v-row class="ml-3">
-            <v-col 
-              cols="12" 
+            <v-col
+              cols="12"
               md="6"
-            > 
+            >
               <v-row><v-card-title class="pl-0">Fuente</v-card-title></v-row>
               <v-row>
                 <v-chip
@@ -219,10 +219,10 @@
                 </v-chip>
               </v-row>
             </v-col>
-            <v-col 
-              cols="12" 
+            <v-col
+              cols="12"
               md="6"
-            > 
+            >
               <v-row><v-card-title class="pl-0">Tipo usuario</v-card-title></v-row>
               <v-row>
                 <v-chip
@@ -238,10 +238,10 @@
           </v-row>
 
           <v-row class="ml-3">
-            <v-col 
-              cols="12" 
+            <v-col
+              cols="12"
               md="6"
-            > 
+            >
               <v-row><v-card-title class="pl-0">Tipo requisito</v-card-title></v-row>
               <v-row>
                 <v-chip
@@ -257,10 +257,10 @@
                 </v-chip>
               </v-row>
             </v-col>
-            <v-col 
-              cols="12" 
+            <v-col
+              cols="12"
               md="6"
-            > 
+            >
               <v-row><v-card-title class="pl-0">Estado</v-card-title></v-row>
               <v-row>
                 <v-chip
@@ -280,10 +280,10 @@
           </v-row>
 
           <v-row class="ml-3">
-            <v-col 
-              cols="12" 
+            <v-col
+              cols="12"
               md="6"
-            > 
+            >
               <v-row><v-card-title class="pl-0">Prioridad</v-card-title></v-row>
               <v-row>
                 <v-chip
@@ -306,10 +306,10 @@
                 </v-chip>
               </v-row>
             </v-col>
-            <v-col 
-              cols="12" 
+            <v-col
+              cols="12"
               md="6"
-            > 
+            >
               <v-row><v-card-title class="pl-0">Estabilidad</v-card-title></v-row>
               <v-row>
                 <v-chip
@@ -322,22 +322,22 @@
           </v-row>
 
           <v-row class="ml-3">
-            <v-col 
-              cols="12" 
+            <v-col
+              cols="12"
               md="6"
-            > 
+            >
               <v-row><v-card-title class="pl-0">Escala</v-card-title></v-row>
               <v-row>
-                
+
                   <v-card-subtitle class="text--primary pl-0">
                 {{ volereCard.scale }}
               </v-card-subtitle>
               </v-row>
             </v-col>
-            <v-col 
-              cols="12" 
+            <v-col
+              cols="12"
               md="6"
-            > 
+            >
               <v-row><v-card-title class="pl-0">Medida</v-card-title></v-row>
               <v-row>
                 <v-card-subtitle class="text--primary pl-0">
@@ -347,13 +347,13 @@
             </v-col>
           </v-row>
 
-        
+
 
           <v-row class="ml-3 mb-3">
-            <v-col 
-              cols="12" 
+            <v-col
+              cols="12"
               md="6"
-            > 
+            >
               <v-row><v-card-title class="pl-0">Fecha actualización</v-card-title></v-row>
               <v-row>
                 <v-chip
@@ -363,10 +363,10 @@
                 </v-chip>
               </v-row>
             </v-col>
-            <v-col 
-              cols="12" 
+            <v-col
+              cols="12"
               md="6"
-            > 
+            >
               <v-row><v-card-title class="pl-0">Incremento</v-card-title></v-row>
               <v-row>
                 <v-chip
@@ -381,12 +381,12 @@
 
         </v-container>
 
-       
+
       </v-card>
     </v-dialog>
 
     <v-card
-      class="white--text pb-0"
+      class="white--text"
       light
       color="primary"
       @click="volereDialog = true"
