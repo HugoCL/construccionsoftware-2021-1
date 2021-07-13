@@ -83,17 +83,13 @@
                                         v-model="proyecto.workers"
                                         :items="items"
                                         label="Empleados del proyecto"
-                                        multiple
+                                        prepend-icon="mdi-account-group"
                                         dense
                                         clearable
-                                        chips
-                                        small-chips
-                                        outlined
-                                        prepend-icon="mdi-account-group"
-
                                     ></v-select>
-                                    <v-btn>
-                                        Confirmar
+                                    <span>Seleccionados: {{ proyecto.workers }}</span>
+                                    <v-btn @click="addTeam(proyecto.workers)">
+                                        Agregar
                                     </v-btn>
 
                                 </v-card>
@@ -135,12 +131,31 @@ export default {
             dialogEliminar: false,
             dialogAdd: false,
             equipos: [],
-
+            equiposAux: [],
+            items: [],
+            id_team: [],
+            idProy: [],
             proyecto: {
 
             }
         }
     },
+
+    created(){
+        /*
+              axios.post('/user', {correo: 'ncastillo@hotmail.com', nombre: 'Nicolas'});
+              axios.post('/user', {correo: 'awallberg@hotmail.com', nombre: 'Andres'});
+              axios.post('/user', {correo: 'mvalenzuela@hotmail.com', nombre: 'Manuel'});  */
+
+        axios.get('/user')
+            .then(response=>{
+                const res = response.data;
+                this.items = res;
+
+            });
+    },
+
+
     methods:{
         getProject: function (id){
             axios.get('/administrar-proyectos/'+id);
@@ -162,10 +177,13 @@ export default {
                const datos = res.data[i];
                 if (datos.id_proyecto == id) {
                     miembros.push(datos);
+
                 }
            }
            this.equipos = miembros;
-           console.log(miembros);
+           this.id_team[0] = this.equipos[0].id_equipo;
+           this.idProy[0] = id;
+           console.log(this.equipos);
         },
         //eliminar estudiante del equipo y bd
         async eliminarEstudiante(id){
@@ -186,9 +204,15 @@ export default {
         deleteStudent: function(position){
             alert("vamos al eliminar al wea" + position)
         },
-        addTeam: function(){
+
+            addTeam: function(id){
             alert("tim agregado")
-            //proyecto.equipos.push(equipo)
+            console.log(id);
+            axios.post('/integrantes', {id_equipo: this.id_team[0], id_proyecto: this.idProy[0], id_user: id, rol: 'admin'});
+            //this.getTeam(this.idProy[0]);
+            //this.equipos.push(equipo)
+            this.dialogAdd=false;
+            this.getTeam(this.idProy[0]);
         }
 
     },
