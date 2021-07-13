@@ -62,7 +62,16 @@
                     </v-card>
                 </v-dialog>
             </v-btn>
-            <EditTeam></EditTeam>
+            <v-btn class="ma-2 btn-danger white--text" color="error" v-on:click="getTeam(proyectData.id)">
+                Editar Equipo
+                <v-icon right>mdi-delete</v-icon>
+                <v-dialog v-model="dialogEdit" color="red" max-width="40%" >
+                    <editTeam
+                        :proyectData="proyectData"
+                        :equipoData="equipoData"
+                    ></editTeam>
+                </v-dialog>
+            </v-btn>
         </v-card-actions>
 
 

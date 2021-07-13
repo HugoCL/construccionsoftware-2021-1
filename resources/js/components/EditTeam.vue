@@ -1,9 +1,5 @@
 <template>
-    <v-btn class="ma-2 btn-danger white--text" color="error" v-on:click="getTeam(proyectData.id)">
-        Editar Equipo
-        <v-icon right>mdi-delete</v-icon>
-        <v-dialog v-model="dialogEdit" color="red" max-width="40%" >
-            <v-card-title class="text-h6 text-c" dark color="red">Equipos</v-card-title>
+
             <v-card color="red lighten-5">
                 <v-btn @click="dialogAdd=true">
                     <v-dialog v-model="dialogAdd" color="red" max-width="40%">
@@ -45,8 +41,7 @@
                     </div>
                 </v-card-actions>
             </v-card>
-        </v-dialog>
-    </v-btn>
+
 </template>
 
 <script>
@@ -145,7 +140,7 @@ export default {
             }
             console.log('agregado')
             axios.post('/integrantes', {id_equipo: this.id_team[0], id_proyecto: this.idProy[0], id_user: id, rol: 'admin'});
-            //this.getTeam(this.idProy[0]);
+            this.getTeam(this.idProy[0]);
             //this.equipos.push(equipo)
             this.dialogAdd=false;
             this.getTeam(this.idProy[0]);
