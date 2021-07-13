@@ -217,6 +217,7 @@
 
       deleteItemConfirm () {
         this.students.splice(this.editedIndex, 1)
+        axios.delete('/lista-usuarios/' + this.editedItem.correo)
         this.closeDelete()
       },
 
@@ -233,13 +234,13 @@
         this.$nextTick(() => {
           this.editedItem = Object.assign({}, this.defaultItem)
           this.editedIndex = -1
-          axios.delete('/lista-usuario', {params: {'id': this.defaultItem.correo}})
         })
       },
 
       save () {
         if (this.editedIndex > -1) {
-          Object.assign(this.students[this.editedIndex], this.editedItem)
+            Object.assign(this.students[this.editedIndex], this.editedItem)
+            axios.put('/lista-usuarios/' + this.editedItem.correo, this.editedItem)
         } else {
           this.students.push(this.editedItem)
           axios.post('/lista-usuarios', this.editedItem)
