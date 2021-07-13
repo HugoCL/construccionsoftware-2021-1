@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Backlog;
 use App\Models\kanban;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,7 @@ class KanbanController extends Controller
      */
     public function index()
     {
-        return view('KanbanComponent');
+        $tareasBacklog = Backlog::all();
     }
 
     /**
@@ -35,7 +36,10 @@ class KanbanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $nuevaTarea = new Backlog();
+        $nuevaTarea->nombre = $request->nombre;
+        $nuevaTarea->id_proyecto = $request->id_proyecto;
+        $nuevaTarea->save();
     }
 
     /**
