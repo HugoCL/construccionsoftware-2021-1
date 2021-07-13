@@ -35,4 +35,24 @@ class IntegrantesController extends Controller
 
         return $integrante;
     }
+
+    public function destroy($id)
+    {
+        //
+
+        $integrante = Integrante::find($id);
+        $integrante->delete();
+    }
+
+    public function update(Request $request, $id)
+    {
+        //
+        $integrante = Integrante::find($id);
+        $integrante->id_equipo = $request->id_equipo;
+        $integrante->id_proyecto = $request->id_proyecto;
+        $integrante->id_user = $request->id_user;
+        $integrante->rol = $request->rol;
+        $integrante ->save();
+        return $integrante;
+    }
 }
