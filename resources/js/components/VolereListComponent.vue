@@ -30,7 +30,7 @@
                ></v-text-field>
              </v-col>
              <v-col cols="4">
-               <v-combobox
+               <v-select
                  v-model="volereRURS"
                  :items="['RU', 'RS']"
                  label="Tipo de requisito"
@@ -40,7 +40,7 @@
                  outlined
                  required
                >
-               </v-combobox>
+               </v-select>
              </v-col>
              <v-col cols="12">
                <v-textarea
@@ -69,7 +69,7 @@
                ></v-text-field>
              </v-col>
              <v-col cols="12" md="6">
-               <v-combobox
+               <v-select
                  v-model="volereType"
                  :items="['Funcional', 'No funcional']"
                  label="Tipo de función"
@@ -79,10 +79,10 @@
                  outlined
                  required
                >
-               </v-combobox>
+               </v-select>
              </v-col>
              <v-col cols="12" md="6">
-               <v-combobox
+               <v-select
                  v-model="volereState"
                  :items="['Cumple', 'No cumple']"
                  label="Estado"
@@ -92,10 +92,10 @@
                  outlined
                  required
                >
-               </v-combobox>
+               </v-select>
              </v-col>
              <v-col cols="12" md="6">
-               <v-combobox
+               <v-select
                  v-model="volerePriority"
                  :items="['No urgente', 'Urgente', 'Crítica']"
                  label="Prioridad"
@@ -105,10 +105,10 @@
                  outlined
                  required
                >
-               </v-combobox>
+               </v-select>
              </v-col>
              <v-col cols="12" md="6">
-               <v-combobox
+               <v-select
                  v-model="volereStability"
                  :items="['Transable', 'Intransable']"
                  label="Estabilidad"
@@ -118,7 +118,7 @@
                  outlined
                  required
                >
-               </v-combobox>
+               </v-select>
              </v-col>
              <v-col cols="12">
                <v-text-field
