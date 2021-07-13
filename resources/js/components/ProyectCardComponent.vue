@@ -155,7 +155,6 @@ export default {
             });
     },
 
-
     methods:{
 
         getProject: function (id){
