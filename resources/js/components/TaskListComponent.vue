@@ -47,17 +47,33 @@
               label="Description"
               outlined
             ></v-textarea>
-            <v-combobox
-              v-model="taskMembers"
-              :items="formatedPeopleNames"
-              label="Miembros disponibles"
-              multiple
-              dense
-              chips
-              small-chips
-              outlined
-            >
-            </v-combobox>
+            <v-row>
+              <v-col cols="12" md="6">
+                  <v-combobox
+                    v-model="taskMembers"
+                    :items="formatedPeopleNames"
+                    label="Miembros disponibles"
+                    multiple
+                    dense
+                    chips
+                    small-chips
+                    outlined
+                  >
+              </v-combobox>
+              </v-col>
+              <v-col cols="12" md="6">
+                  <v-combobox
+                    v-model="taskState"
+                    :items="['Pendiente', 'En proceso', 'Terminado']"
+                    label="Estado"
+                    dense
+                    chips
+                    small-chips
+                    outlined
+                  >
+              </v-combobox>
+              </v-col>
+            </v-row>
           </v-col>
         </div>
 
@@ -150,6 +166,7 @@ export default {
       dialog: false,
       taskName: "",
       taskDesc: "",
+      taskState: "Pendiente",
       taskMembers: [],
       taskTags: [],
       taskChanges: [],
@@ -239,6 +256,7 @@ export default {
         date: this.taskDate,
         tags: this.taskTags,
         changes: this.taskChanges,
+        estado: this.taskState
       });
       const newTask = {
         name: this.taskName,
@@ -248,7 +266,7 @@ export default {
         tags: "" + this.taskTags,
         changes: "" + this.taskChanges,
         id_pro: this.id_pro,
-        estado: "pendiente",
+        estado: this.taskState,
       };
       this.send(newTask);
       this.taskName = "";
