@@ -190,7 +190,7 @@ export default {
         this.id_name.push(iName);
         let newT = {
           name: new_task.name,
-          members: new_task.members,
+          members: JSON.parse(new_task.members),
           desc: new_task.desc,
           date: new_task.date,
           tags: ["HU02", "TA02", "P2"],
@@ -258,21 +258,20 @@ export default {
         estado: this.taskState
       });
 
-      for(let i=0;i<this.taskMembers.length;i++){
-          let mem = this.taskMembers[i];
-          alert(JSON.stringify(this.taskState));
-          const newTask = {
-              name: this.taskName,
-              members: mem,
-              desc: this.taskDesc,
-              date: this.taskDate[0],
-              tags: ""+this.taskTags,
-              changes: ""+this.taskChanges,
-              id_pro: this.id_pro,
-              estado :this.taskState
-          };
-          this.send(newTask);
-      }
+      
+          
+      const newTask = {
+          name: this.taskName,
+          members: JSON.stringify(this.taskMembers),
+          desc: this.taskDesc,
+          date: this.taskDate[0],
+          tags: ""+this.taskTags,
+          changes: ""+this.taskChanges,
+          id_pro: this.id_pro,
+          estado :this.taskState
+      };
+      this.send(newTask);
+      
 
       this.taskName = '';
       this.taskDesc = '';

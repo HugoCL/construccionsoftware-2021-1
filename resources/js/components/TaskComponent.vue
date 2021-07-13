@@ -505,7 +505,7 @@ export default {
       const newTask = {
         id: id_task,
         name: this.taskName,
-        members: this.taskMembers,
+        members: JSON.stringify(this.taskMembers),
         desc: this.taskDesc,
         date: this.taskDate,
         tags: "" + this.taskTags,
