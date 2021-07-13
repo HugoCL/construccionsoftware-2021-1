@@ -205,14 +205,22 @@ export default {
             alert("vamos al eliminar al wea" + position)
         },
 
-            addTeam: function(id){
-            alert("tim agregado")
+        addTeam: function(id){
+            //alert("tim agregado")
             console.log(id);
+            for (let i=0; i<this.equipos.length; i++) {
+                if (this.equipos[i].id_user == id) {
+                    alert("Este usuario ya esta en este equipo");
+                    return;
+                }
+            }
+            console.log('agregado')
             axios.post('/integrantes', {id_equipo: this.id_team[0], id_proyecto: this.idProy[0], id_user: id, rol: 'admin'});
             //this.getTeam(this.idProy[0]);
             //this.equipos.push(equipo)
             this.dialogAdd=false;
             this.getTeam(this.idProy[0]);
+
         }
 
     },
