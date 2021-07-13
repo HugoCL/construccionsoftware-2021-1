@@ -171,7 +171,11 @@
                                     <v-icon>mdi-card-bulleted-settings-outline</v-icon>
                                     <v-dialog v-model="dialogVolere" max-width="80%">
                                         <v-card >
-                                            <VolereList class="mt-5"/>
+                                            <VolereList
+                                                class="mt-5"
+                                                project="project"
+                                                :voleres="voleres"
+                                            />
 
                                         </v-card>
                                     </v-dialog>
@@ -466,7 +470,8 @@ export default {
         leads: [],
         devs: [],
         users: [],
-        project: null
+        project: null,
+        voleres:[],
     },
 
     methods: {

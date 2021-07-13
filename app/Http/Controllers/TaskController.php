@@ -44,6 +44,7 @@ class TaskController extends Controller
         $task->name = $request->name;
         $task->desc = $request->desc;
         $task->date = $request->date;
+        $task->members = $request->members;
         $task->estado =  $request->estado;
         $task ->save();
 
@@ -87,6 +88,7 @@ class TaskController extends Controller
         $task->name = $request->name;
         $task->desc = $request->desc;
         $task->date = $request->date;
+        $task->members = $request->members;
         $task->estado =  $request->estado;
         $task ->save();
         return $task ;

@@ -176,6 +176,20 @@
           </v-btn>
         </v-row>
       </v-col>
+      <v-col 
+        cols="12" 
+        md="6"
+      >
+        <v-card>
+          
+        </v-card>
+      </v-col>
+      <v-col 
+        cols="12" 
+        md="6"
+      >
+
+      </v-col>
       <v-col
         md="4"
         v-for="(volereCard, index) in volereCards"
@@ -184,6 +198,7 @@
         <VolereCard
           :volereCard = "volereCard"
           :volereCards = "volereCards"
+          :project="project"
         />
       </v-col>
     </v-row>
@@ -210,40 +225,34 @@ export default {
     volereScale: '',
     volereIncrement: '',
     volereNumber: 0,
-    volereCards: [
-      //Tarjeta de ejemplo
-      {
-        rurs: 'RS',
-        number: 1,
-        name: 'Registrar información de cada universidad',
-        desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi consectetur cum dicta dolor dolorum\n' +
-          '         earum explicabo itaque laborum nostrum praesentium quaerat quia quod ratione sed suscipit, tenetur voluptas.\n' +
-          '         Dignissimos, suscipit!',
-        source: ['Juan Leiva', 'Pedro'],
-        usertypes: ['Administrador, Actualizador'],
-        type: 'Funcional',
-        state: 'No cumple',
-        priority: 'Crítica',
-        stability: 'Intransable',
-        measure: 'Cantidad de Registros ingresados en el sistema.',
-        scale: '20 registros por hora',
-        date: '2021-06-10',
-        time: '15:45',
-        increment: 1
-      },
-    ]
+    volereCards: []
   }),
-  methods: {
+    props:{
+      project: null,
+      voleres: []
+    },
+    created() {
+      console.log(this.voleres);
+      this.volereCards = this.voleres;
+
+      /*
+      axios.get('/card-volere', {params:{id_project: this.project.id}})
+          .then(res=>{
+              this.volereCards = res.data;
+          });*/
+    },
+    methods: {
     createVolere: function () {
       let today = new Date();
       let date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
       let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-      this.volereCards.push({
+      let card = {
+        rurs: this.volereRURS,
         number: parseInt(this.volereNumber),
         name: this.volereName,
         desc: this.volereDesc,
-        source: this.volereSource.split(","),
-        usertypes: this.volereUsertype.split(","),
+        source: this.volereSource,
+        usertypes: this.volereUsertype,
         type: this.volereType,
         state: this.volereState,
         priority: this.volerePriority,
@@ -252,8 +261,10 @@ export default {
         scale: this.volereScale,
         date: date,
         time: time,
-        increment: parseInt(this.volereIncrement)
-      });
+        increment: parseInt(this.volereIncrement),
+        id_project: this.project.id
+      };
+      this.volereCards.push(card);
       this.dialog = false;
       this.volereName = '';
       this.volereDesc = '';
@@ -266,6 +277,11 @@ export default {
       this.volereMeasure = '';
       this.volereScale = '';
       this.volereIncrement = 0;
+      axios.post('/card-volere', card)
+          .then(res=>{
+              console.log(res.data.id);
+              console.log(res.data);
+          });
     }
   }
 }

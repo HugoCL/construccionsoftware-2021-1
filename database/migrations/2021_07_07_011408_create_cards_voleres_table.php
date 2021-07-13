@@ -14,9 +14,11 @@ class CreateCardsVoleresTable extends Migration
     public function up()
     {
         Schema::create('cards_voleres', function (Blueprint $table) {
-            $table->integer('id') -> autoIncrement();
+            $table->integer('id')->autoIncrement();
             $table->integer('id_project');
             $table->foreign('id_project')->references('id')->on('proyectos')->cascadeOnDelete();
+            $table->string('source');
+            $table->string('usertypes');
             $table->string('rurs');
             $table->integer('number');
             $table->string('name');
@@ -30,6 +32,7 @@ class CreateCardsVoleresTable extends Migration
             $table->date('date');
             $table->time('time');
             $table->integer('increment');
+            $table->timestamps();
         });
     }
 

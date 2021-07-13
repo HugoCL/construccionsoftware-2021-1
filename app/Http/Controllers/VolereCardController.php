@@ -8,15 +8,16 @@ use Illuminate\Http\Request;
 
 class VolereCardController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
-        return  cards_volere::all();
+        $cards = cards_volere::query()->select()->where('id_project', $request->id_project)->get();
+        return $cards;
     }
 
     /**
@@ -37,14 +38,14 @@ class VolereCardController extends Controller
      */
     public function store(Request $request)
     {
-        //
         $cardVolere = new cards_volere();
-        $cardVolere->id = $request->id;
         $cardVolere->id_project = $request->id_project;
         $cardVolere->rurs= $request->rurs;
         $cardVolere->number = $request->number;
         $cardVolere->name = $request->name;
         $cardVolere->desc = $request->desc;
+        $cardVolere->source = $request->source;
+        $cardVolere->usertypes = $request->usertypes;
         $cardVolere->type = $request->type;
         $cardVolere->state = $request->state;
         $cardVolere->priority = $request->priority;
@@ -97,6 +98,8 @@ class VolereCardController extends Controller
         $cardVolere->number = $request->number;
         $cardVolere->name = $request->name;
         $cardVolere->desc = $request->desc;
+        $cardVolere->source = $request->source;
+        $cardVolere->usertypes = $request->usertypes;
         $cardVolere->type = $request->type;
         $cardVolere->state = $request->state;
         $cardVolere->priority = $request->priority;
@@ -119,7 +122,6 @@ class VolereCardController extends Controller
      */
     public function destroy($id)
     {
-        //
         $cardVolere = cards_volere::find($id);
         $cardVolere->delete();
     }
