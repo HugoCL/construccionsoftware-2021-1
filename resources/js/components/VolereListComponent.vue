@@ -179,27 +179,52 @@
       <v-col 
         cols="12" 
         md="6"
+        v-if="volereCards.length !== 0"
       >
         <v-card>
-          
+          <v-toolbar color="secondary" class="white--text pt-0 pb-0 text-h5">
+            Requisitos de Usuario
+          </v-toolbar>
+            <v-row>
+              <v-col
+                cols="12"
+                v-for="(volereCard, index) in volereCards.filter(item=> item.rurs === 'RU')"
+                :key="index"
+                
+              >
+                <VolereCard
+                  :volereCard = "volereCard"
+                  :volereCards = "volereCards"
+                  :project="project"
+                  
+                />
+              </v-col>
+            </v-row>
         </v-card>
       </v-col>
       <v-col 
         cols="12" 
         md="6"
+        v-if="volereCards.length !== 0"
       >
-
-      </v-col>
-      <v-col
-        md="4"
-        v-for="(volereCard, index) in volereCards"
-        :key="index"
-      >
-        <VolereCard
-          :volereCard = "volereCard"
-          :volereCards = "volereCards"
-          :project="project"
-        />
+        <v-card>
+          <v-toolbar color="secondary" class="white--text pt-0 pb-0 text-h5">
+            Requisitos de Sistema
+          </v-toolbar>
+          <v-row>
+            <v-col
+              cols="12"
+              v-for="(volereCard, index) in volereCards.filter(item=> item.rurs === 'RS')"
+              :key="index"
+            >
+              <VolereCard
+                :volereCard = "volereCard"
+                :volereCards = "volereCards"
+                :project="project"
+              />
+            </v-col>
+          </v-row>
+        </v-card>
       </v-col>
     </v-row>
   </v-container>
