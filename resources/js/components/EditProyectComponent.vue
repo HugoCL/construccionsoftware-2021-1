@@ -111,24 +111,26 @@
                             </template>
                             <span>Agregar miembro</span>
                         </v-tooltip>
-                        <!--Ver tablero-->
+                        <!--Editar equipo-->
                         <v-tooltip top>
                             <template v-slot:activator="{ on }">
-                                <a href="/sprint-container/">
-                                    <v-btn
+                                <v-btn
                                     fab
                                     dark
                                     small
                                     v-on="on"
-                                    color="secondary">
-                                    <v-icon>
-                                        mdi-card-plus-outline
-                                    </v-icon>
+                                    color="secondary"
+                                    v-on:click="dialogTeams=true"
+                                >
+                                    <v-icon>mdi-account-group-outline</v-icon>
+                                    <v-dialog v-model="dialogTeams" max-width="80%">
+                                        <v-card >
+                                            <!--componente-->
+                                        </v-card>
+                                    </v-dialog>
                                 </v-btn>
-                                </a>
-
                             </template>
-                            <span> Ver Tablero</span>
+                            <span>Editar Equipos</span>
                         </v-tooltip>
                         <!--Ver tareas-->
                         <v-tooltip top>
@@ -155,6 +157,53 @@
                             </template>
                             <span>Ver Tareas</span>
                         </v-tooltip>
+                        <!--Tarjetas volere-->
+                        <v-tooltip  v-if="verifyProyectType() == true" top>
+                            <template v-slot:activator="{ on }">
+                                <v-btn
+                                    fab
+                                    dark
+                                    small
+                                    v-on="on"
+                                    color="secondary"
+                                    v-on:click="dialogVolere=true"
+                                >
+                                    <v-icon>mdi-card-bulleted-settings-outline</v-icon>
+                                    <v-dialog v-model="dialogVolere" max-width="80%">
+                                        <v-card >
+                                            <VolereList
+                                                class="mt-5"
+                                                :project="project"
+                                                :voleres="voleres"
+                                            />
+
+                                        </v-card>
+                                    </v-dialog>
+                                </v-btn>
+                            </template>
+                            <span>Tarjetas de Volere</span>
+                        </v-tooltip>
+                        <!--Historias usuario-->
+                        <v-tooltip v-if="verifyProyectType() == false" top>
+                            <template v-slot:activator="{ on }">
+                                <v-btn
+                                    fab
+                                    dark
+                                    small
+                                    v-on="on"
+                                    color="secondary"
+                                    v-on:click="dialogHist=true"
+                                >
+                                    <v-icon>mdi-card-bulleted-settings-outline</v-icon>
+                                    <v-dialog v-model="dialogHist" max-width="80%">
+                                        <v-card >
+                                            <UserStoriesList v-if="verifyProyectType() == false" class="mt-5"/>
+                                        </v-card>
+                                    </v-dialog>
+                                </v-btn>
+                            </template>
+                            <span>Historias de usuario</span>
+                        </v-tooltip>
                         <!--Editar Proyecto-->
                         <v-tooltip top>
                             <template v-slot:activator="{ on }">
@@ -171,7 +220,25 @@
                             </template>
                             <span>Editar proyecto</span>
                         </v-tooltip>
+                        <!--Ver tablero-->
+                        <v-tooltip top>
+                            <template v-slot:activator="{ on }">
+                                <a href="/sprint-container/">
+                                    <v-btn
+                                    fab
+                                    dark
+                                    small
+                                    v-on="on"
+                                    color="secondary">
+                                    <v-icon>
+                                        mdi-card-plus-outline
+                                    </v-icon>
+                                </v-btn>
+                                </a>
 
+                            </template>
+                            <span> Ver Tablero</span>
+                        </v-tooltip>
                         <!--Eliminar Proyecto-->
                         <v-tooltip top>
                             <template v-slot:activator="{ on }">
@@ -240,6 +307,30 @@
                                         </v-list-item-title>
                                     </a>
                                 </v-list-item>
+                                <v-list-item>
+                                    <a class="nav-link black--text">
+                                        <v-list-item-title @click="dialogTeams=true">
+                                            <v-icon>mdi-account-group-outline</v-icon>
+                                            Editar Equipos
+                                        </v-list-item-title>
+                                    </a>
+                                </v-list-item>
+                                <v-list-item v-if="verifyProyectType() == false">
+                                    <a class="nav-link black--text">
+                                        <v-list-item-title @click="dialogHist=true">
+                                            <v-icon>mdi-card-bulleted-settings-outline</v-icon>
+                                            Historias de usuario
+                                        </v-list-item-title>
+                                    </a>
+                                </v-list-item>
+                                <v-list-item v-if="verifyProyectType() == true">
+                                    <a class="nav-link black--text">
+                                        <v-list-item-title @click="dialogVolere=true">
+                                            <v-icon>mdi-card-bulleted-settings-outline</v-icon>
+                                            Tajetas de Volere
+                                        </v-list-item-title>
+                                    </a>
+                                </v-list-item>
                                 <v-list-item >
                                     <a class="nav-link black--text">
                                         <v-list-item-title @click="openDialogEdit=true">
@@ -288,10 +379,6 @@
         <!--Task list-->
         <!--Miembros Emilio>
         <integrantes-proyectos></integrantes-proyectos-->
-        <v-row>
-          <VolereList v-if="verifyProyectType() == true" class="mt-5"/>
-          <UserStoriesList v-if="verifyProyectType() == false" class="mt-5"/>
-        </v-row>
         <v-row>
             <v-dialog v-model="openDialogEdit" max-width="80%">
                 <v-toolbar
@@ -368,6 +455,9 @@ export default {
             openDialogEdit:false,
             dialogAlert:false,
             dialogTasks:false,
+            dialogVolere:false,
+            dialogTeams:false,
+            dialogHist:false,
             membersAlert:false,
             currentMember:this.devs,
 
@@ -380,7 +470,8 @@ export default {
         leads: [],
         devs: [],
         users: [],
-        project: null
+        project: null,
+        voleres:[],
     },
 
     methods: {

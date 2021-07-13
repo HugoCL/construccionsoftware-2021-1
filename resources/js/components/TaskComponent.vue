@@ -34,14 +34,28 @@
               />
             </div>
             <v-textarea v-model="taskDesc" label="Description"></v-textarea>
-            <v-combobox
-              v-model="taskMembers"
-              :items="peopleNames"
-              label="Miembros disponibles"
-              multiple
-              chips
-            >
-            </v-combobox>
+
+            <v-row>
+              <v-col cols="12" md="6">
+                <v-combobox
+                  v-model="taskMembers"
+                  :items="peopleNames"
+                  label="Miembros disponibles"
+                  multiple
+                  chips
+                >
+                </v-combobox>
+              </v-col>
+              <v-col cols="12" md="6">
+                <v-combobox
+                  v-model="taskState"
+                  :items="['Pendiente', 'En proceso', 'Terminado']"
+                  label="Estado"
+                  chips
+                >
+                </v-combobox>
+              </v-col>
+            </v-row>
           </v-col>
         </div>
 
@@ -84,10 +98,7 @@
     </v-dialog>
 
     <!-- Cuadro que se abre al presionar una tarea y muestra su info-->
-    <v-dialog 
-      v-model="dialog" 
-      width="800" 
-    >
+    <v-dialog v-model="dialog" width="800">
       <v-card>
         <v-toolbar color="primary" class="white--text pt-0 pb-0">
           <v-card-title>{{ taskData.name }}</v-card-title>
@@ -147,8 +158,42 @@
               </v-row>
               <v-row class="ml-1 ml-md-1">
                 <v-chip class="pt-0" color="green" text-color="white">
-                  <span><v-icon>mdi-clock</v-icon></span>
+                  <span class="mr-1"><v-icon>mdi-clock</v-icon></span>
                   {{ taskData.date }}
+                </v-chip>
+              </v-row>
+            </v-col>
+            <v-col cols="12" md="6">
+              <v-row>
+                <v-card-title class="pb-0 pt-0">Estado</v-card-title>
+              </v-row>
+              <v-row class="ml-1 ml-md-1">
+                <v-chip 
+                  v-if="taskData.estado.toLowerCase() === 'pendiente'"
+                  class="pt-0" 
+                  color="red" 
+                  text-color="white"
+                >
+                  <span class="mr-1"><v-icon>mdi-clock</v-icon></span>
+                  {{ taskData.estado }}
+                </v-chip>
+                <v-chip 
+                  v-if="taskData.estado.toLowerCase() === 'en proceso'"
+                  class="pt-0" 
+                  color="blue" 
+                  text-color="white"
+                >
+                  <span class="mr-1"><v-icon>mdi-cog</v-icon></span>
+                  {{ taskData.estado }}
+                </v-chip>
+                <v-chip
+                  v-if="taskData.estado.toLowerCase() === 'terminado'" 
+                  class="pt-0" 
+                  color="green" 
+                  text-color="white"
+                >
+                  <span class="mr-1"><v-icon>mdi-check</v-icon></span>
+                  {{ taskData.estado }}
                 </v-chip>
               </v-row>
             </v-col>
@@ -188,15 +233,17 @@
               <v-row>
                 <v-container>
                   <v-text-field
-                  label="Añada un elemento"
-                  v-model="checkin"
-                ></v-text-field>
+                    label="Añada un elemento"
+                    v-model="checkin"
+                  ></v-text-field>
                 </v-container>
               </v-row>
 
               <v-row>
                 <v-container>
-                  <v-btn color="primary" @click="addToChecklist"> Añadir </v-btn>
+                  <v-btn color="primary" @click="addToChecklist">
+                    Añadir
+                  </v-btn>
                 </v-container>
               </v-row>
             </v-col>
@@ -337,6 +384,7 @@ export default {
     editDialog: false,
     taskName: "",
     taskDesc: "",
+    taskState: "",
     taskMembers: [],
     taskTags: [],
 
@@ -350,7 +398,7 @@ export default {
     selected: [],
     checklist: [],
     checkin: "",
-    progressbar: 0
+    progressbar: 0,
   }),
   props: {
     id_task_name: null,
@@ -410,6 +458,7 @@ export default {
       this.taskMembers = this.taskData.members;
       this.taskTags = this.taskData.tags;
       this.taskDate = this.taskData.date;
+      this.taskState = this.taskData.estado;
       for (let i = 0; i < this.id_task_name.length; i++) {
         let ar = this.id_task_name[i];
         if (ar[1] == this.taskData.name) {
@@ -430,7 +479,7 @@ export default {
       taskData.tags = this.taskTags;
       taskData.date = this.taskDate;
       taskData.id_proyecto = iddProyecto;
-      taskData.estado = "pendiente";
+      taskData.estado = this.taskState;
       console.log(taskData);
       this.guardar(taskData);
       this.sortByUser();
@@ -456,7 +505,7 @@ export default {
       const newTask = {
         id: id_task,
         name: this.taskName,
-        members: this.taskMembers,
+        members: JSON.stringify(this.taskMembers),
         desc: this.taskDesc,
         date: this.taskDate,
         tags: "" + this.taskTags,
@@ -485,13 +534,12 @@ export default {
       if (this.checkin.length != 0) this.checklist.push(this.checkin);
       this.checkin = "";
       this.refreshProgressBar();
-      
     },
-    refreshProgressBar: function() {
+    refreshProgressBar: function () {
       let checkSize = this.checklist.length;
       let checkedSize = this.selected.length;
-      this.progressbar = ((100*checkedSize)/checkSize).toFixed();
-    }
+      this.progressbar = ((100 * checkedSize) / checkSize).toFixed();
+    },
   },
 };
 </script>

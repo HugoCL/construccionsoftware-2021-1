@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\cards_volere;
 use Illuminate\Http\Request;
 
-class CardsVolereController extends Controller
+class UserStoriesListController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +40,10 @@ class CardsVolereController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\cards_volere  $cards_volere
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(cards_volere $cards_volere)
+    public function show($id)
     {
         //
     }
@@ -52,10 +51,10 @@ class CardsVolereController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\cards_volere  $cards_volere
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(cards_volere $cards_volere)
+    public function edit($id)
     {
         //
     }
@@ -64,10 +63,10 @@ class CardsVolereController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\cards_volere  $cards_volere
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, cards_volere $cards_volere)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -75,10 +74,10 @@ class CardsVolereController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\cards_volere  $cards_volere
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(cards_volere $cards_volere)
+    public function destroy($id)
     {
         //
     }

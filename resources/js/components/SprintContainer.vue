@@ -165,7 +165,7 @@
                                                            v-model = "cycles1.cycleName"
                                                            v-on:blur= "cycles1.edit=false; $emit('update')"
                                                            @keyup.enter = "cycles1.edit=false; $emit('update')"
-                                                           @keydown="editCycle"
+                                                           @keydown.enter="editCycle(cycles1.sprintId, cycles1.cycleName)"
                                                            class="v-picker--full-width ma-0 pa-0"
                                                     >
                                                 </v-col>
@@ -190,7 +190,7 @@
                                                            class="ma-0 pa-0 pb-2 text-right"
                                                            min-width="0"
                                                            min-height="0"
-                                                           @click="deleteCycle(index1)">
+                                                           @click="deleteCycle(cycles1.sprintId)">
                                                         <v-icon class="ma-0 pa-0 white--text"
                                                         >
                                                             mdi-delete
@@ -202,20 +202,23 @@
                                         </v-card-title>
                                         <draggable class="list-group v-picker--full-width ma-0 pa-0"
                                                    color="white"
-                                                   :list="cycles.subcycle"
+                                                   :list="cycles1.subcycle"
                                                    group="cycleGroup"
+                                                   @change="changeSprint()"
 
 
                                         >
+
                                             <v-card
                                                 placeholder="Enter Task"
-                                                @keyup.enter="add"
+
                                                 class="list-group-item rounded-2 pa-2 mb-1 v-picker--full-width sorteable"
                                                 v-for="(subcycles,index2) in cycles1.subcycle"
+                                                @
                                                 :key="index2"
 
                                             >
-                                                {{ subcycles }}
+                                                {{ subcycles.name }}  {{subcycles.id}}  {{cycles1.sprintId}}
                                             </v-card>
                                         </draggable>
                                         <!--v-card
@@ -479,7 +482,14 @@ export default {
     components: {
         draggable
     },
+    props: {
+        project_id: null,
+        sprints: null,
+        tasks: null,
+    },
     data: () => ({
+
+
         nuevoRequisito: "",
         newCycle:'',
         cycle: [],
@@ -492,7 +502,7 @@ export default {
         cycleState:'Backlog',
         cycleTypeEj: "Iteraciones",
         cycles: [
-            {
+            /*{
                 cycleName:'Iteración 1:',
                 edit: false,
                 subcycle: ['HU01: Ejemplo1', 'HU02: Ejemplo2', 'HU03: Ejemplo3'],
@@ -531,7 +541,7 @@ export default {
                 cycleState:'Backlog',
                 fechaInic: '',
                 fechaFin:'',
-            }
+            }*/
         ],
         backlog: [
             {
@@ -568,29 +578,124 @@ export default {
             }
         ],
         editedCycle: null,
+        sprintUp: {
+            id_proyecto: null,
+            nombre_sprint: null,
+            fechaInicio: null,
+            fechaTermino: null
+        },
+        taskUp: {
+            id_proyecto: null,
+            id_sprint: null,
+            descripcion: null,
+            estado: null
 
+        },
     }),
+    created() {
+        console.log(this.project_id);
+        this.sprints.forEach(element => console.log(element));
+
+
+
+        let index = 0;
+        for (let sprint of this.sprints) {
+            /*cycleName:'Iteración 4:',
+                edit:false,
+                subcycle: ['HU08: Ejemplo8', 'HU09: Ejemplo9'],
+                cycleState:'Backlog',
+                fechaInic: '',
+                fechaFin:'',
+             */
+            let name = sprint.nombre_sprint;
+            let subcycle = [];
+            let tasksId = [];
+            let cycleState = 'Backlog';
+            let fechaInicio = '';
+            let fechaFin = '';
+
+            this.tasks[index].forEach(element => subcycle.push({name: element.name, id: element.id, id_sprint: element.id_sprint}));
+
+            this.cycles.push({
+                cycleName: name,
+                edit: false,
+                subcycle: subcycle,
+                tasksId: tasksId,
+                cycleState: cycleState,
+                fechaInic: fechaInicio,
+                fechaFin: fechaFin,
+                sprintId: sprint.id
+            });
+            index++;
+        }
+        console.log(this.cycles);
+
+
+    },
+
     methods: {
         add: function () {
             this.nuevoProyecto.push({requisitos: this.nuevoProyecto});
-            this.nuevoProyecto = "";
+            //this.nuevoProyecto = "";
+
         },
+        changeSprint: function (){
+
+            //Aqui por las caracteristicas del vuedraggable se realiza la actualizacion de todos los elementos de
+            //tanto la lista de tareas en sprints
+            //Tras realizar el cambio se ordenan las tareas por el id que posean, ya que asi se extraen desde la base de datos
+            for (const cycle of this.cycles) {
+                for (const task of cycle.subcycle) {
+                    if (task.id_sprint != cycle.sprintId){
+                        axios.put('/sprint/'+task.id, {id_sprint: cycle.sprintId}).then( console.log('updated'));
+                    }
+
+                }
+
+            }
+
+        }
+        ,
         addCycle: function(){
-            this.cycles.push({
+
+            this.sprintUp.id_proyecto = this.project_id;
+            this.sprintUp.nombre_sprint = 'Nueva Iteración';
+            let date = new Date();
+            //Solo se ingresa la fecha actual
+            this.sprintUp.fechaInicio = date.getFullYear() + '-' + (date.getMonth()+1) + '-' + date.getDate();
+            this.sprintUp.fechaTermino = date.getFullYear() + '-' + (date.getMonth()+1) + '-' + date.getDate();
+
+
+
+            axios.post('/sprint-container' , this.sprintUp);
+
+
+            this.cycles.push(
+                {
                     cycleName: "Nueva iteración",
                     subcycle: [],
                     edit:false,
+                    cycleState: 'Backlog'
                 }
             )
         },
-        editCycle: function (){
-            this.cycleName= this.cycle.cycleName;
+        editCycle: function (id, name){
+
+            this.cycleName = this.cycle.cycleName;
+
+            axios.put('/sprint-container/'+id, {nombre_sprint: name})
+
         },
         deleteCycle: function (id){
-            console.dir(id);
+            this.cycles.splice(this.cycles.indexOf(this.SprintContainer),1);
+            //Al eliminar falta que las tareas que estan relacionadas al sprint se muevan al primer sprint
+            //o no se permita eliminar el sprint en caso que no este vacio
+            axios.delete('/sprint-container/'+id);
 
-            this.cycles.splice(id,1);
         },
+        log: function(evt) {
+            window.console.log(evt);
+        }
     }
 };
 </script>
@@ -598,3 +703,4 @@ export default {
 <style scoped>
 
 </style>
+

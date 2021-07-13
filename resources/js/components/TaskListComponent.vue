@@ -64,17 +64,33 @@
               label="Description"
               outlined
             ></v-textarea>
-            <v-combobox
-              v-model="taskMembers"
-              :items="formatedPeopleNames"
-              label="Miembros disponibles"
-              multiple
-              dense
-              chips
-              small-chips
-              outlined
-            >
-            </v-combobox>
+            <v-row>
+              <v-col cols="12" md="6">
+                  <v-combobox
+                    v-model="taskMembers"
+                    :items="formatedPeopleNames"
+                    label="Miembros disponibles"
+                    multiple
+                    dense
+                    chips
+                    small-chips
+                    outlined
+                  >
+              </v-combobox>
+              </v-col>
+              <v-col cols="12" md="6">
+                  <v-combobox
+                    v-model="taskState"
+                    :items="['Pendiente', 'En proceso', 'Terminado']"
+                    label="Estado"
+                    dense
+                    chips
+                    small-chips
+                    outlined
+                  >
+              </v-combobox>
+              </v-col>
+            </v-row>
           </v-col>
         </div>
 
@@ -167,6 +183,7 @@ export default {
       dialog: false,
       taskName: "",
       taskDesc: "",
+      taskState: "Pendiente",
       taskMembers: [],
       taskTags: [],
       taskChanges: [],
@@ -188,16 +205,15 @@ export default {
         //console.log(new_task)
         let iName = [new_task.id, new_task.name];
         this.id_name.push(iName);
-        console.log(new_task.members);
         let newT = {
           name: new_task.name,
-          members: ["Andres awallberg@hotmail.com"],
+          members: JSON.parse(new_task.members),
           desc: new_task.desc,
           date: new_task.date,
           tags: ["HU02", "TA02", "P2"],
           changes: ["7/7/7   Usuario", "7/7/7   Usuario", "7/7/7   Usuario"],
           id_pro: new_task.id_proyecto,
-          estado: "pendiente",
+          estado: new_task.estado,
         };
         if (new_task.id_proyecto == this.id_pro) {
           nTask.push(newT);
@@ -256,24 +272,30 @@ export default {
         date: this.taskDate,
         tags: this.taskTags,
         changes: this.taskChanges,
+        estado: this.taskState
       });
+
+      
+          
       const newTask = {
-        name: this.taskName,
-        members: this.taskMembers,
-        desc: this.taskDesc,
-        date: this.taskDate[0],
-        tags: "" + this.taskTags,
-        changes: "" + this.taskChanges,
-        id_pro: this.id_pro,
-        estado: "pendiente",
+          name: this.taskName,
+          members: JSON.stringify(this.taskMembers),
+          desc: this.taskDesc,
+          date: this.taskDate[0],
+          tags: ""+this.taskTags,
+          changes: ""+this.taskChanges,
+          id_pro: this.id_pro,
+          estado :this.taskState
       };
       this.send(newTask);
-      this.taskName = "";
-      this.taskDesc = "";
-      this.taskMembers = "";
-      this.taskDesc = "";
-      this.taskTags = "";
-      this.taskChanges = "";
+      
+
+      this.taskName = '';
+      this.taskDesc = '';
+      this.taskMembers = '';
+      this.taskDesc = '';
+      this.taskTags = '';
+      this.taskChanges = '';
       this.dialog = false;
       this.listar();
       this.sortByUser();

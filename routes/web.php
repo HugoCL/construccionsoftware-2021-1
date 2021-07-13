@@ -40,11 +40,12 @@ Route::resource('/graph', 'App\Http\Controllers\GraphDataController');
 Route::resource('/minAndMaxTaskByProject', 'App\Http\Controllers\MinAndMaxTaskByProjectController');
 Route::resource('/sprint', 'App\Http\Controllers\SprintController');
 Route::resource('/graph-project', 'App\Http\Controllers\GraphProjectController');
-//Route::get('/proyects', [newProyectController::class, 'index']);
+Route::resource('/card-volere', 'App\Http\Controllers\VolereCardController');
 Route::resource('/sprint-container', 'App\Http\Controllers\SprintContainerController');
 
 Route::resource('/backlog', 'App\Http\Controllers\BacklogController');
 Route::resource('/integrantes', 'App\Http\Controllers\IntegrantesController');
 ///
 Route::resource('/equipo', 'App\Http\Controllers\equipoController');
+//Route::resource('/equipos', 'App\Http\Controllers\equiposController');
 //Para probar el creador de tareas

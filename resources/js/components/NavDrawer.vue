@@ -2,7 +2,6 @@
     <v-card >
       <v-navigation-drawer
         app
-        :mini-variant.sync="expandOnHover"
         :expand-on-hover="drawer"
         permanent
         color="bgwoptico"
@@ -48,28 +47,35 @@
             </v-list-item-group>-->
 
             <v-list-item link>
-                <v-list-item-icon>
-                <v-icon>mdi-view-dashboard</v-icon>
-                </v-list-item-icon>
+                <a class="nav-link black--text pl-0" href="/">
                 <v-list-item-title>
-                <a class="nav-link black--text" href="/">Dashboard</a>
+                    <v-icon class="pr-10">
+                        mdi-view-dashboard
+                    </v-icon>
+                    Dashboard
                 </v-list-item-title>
+                </a>
             </v-list-item>
             <v-list-item link>
-                <v-list-item-icon>
-                <v-icon >mdi-folder-multiple</v-icon>
-                </v-list-item-icon>
+                <a class="nav-link black--text pl-0" href="/administrar-proyectos">
+
                 <v-list-item-title>
-                    <a class="nav-link black--text" href="/administrar-proyectos">Proyectos</a>
+                    <v-icon class="pr-10">
+                        mdi-folder-multiple
+                    </v-icon>
+                    Proyectos
                 </v-list-item-title>
+                </a>
             </v-list-item>
             <v-list-item link>
-                <v-list-item-icon>
-                <v-icon>mdi-account-multiple</v-icon>
-                </v-list-item-icon>
-                <v-list-item-title>
-                    <a class="nav-link black--text" href="/lista-usuarios">Usuarios</a>
-                </v-list-item-title>
+                <a class="nav-link black--text pl-0" href="/lista-usuarios">
+                    <v-list-item-title>
+                        <v-icon class="pr-10">
+                            mdi-account-multiple
+                        </v-icon>
+                        Usuarios
+                    </v-list-item-title>
+                </a>
             </v-list-item>
         </v-list>
       </v-navigation-drawer>

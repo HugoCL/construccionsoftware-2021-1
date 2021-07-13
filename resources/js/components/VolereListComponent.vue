@@ -13,7 +13,12 @@
         >
           <v-card-title>Crear Tarjeta de Volere</v-card-title>
         </v-toolbar>
-         <v-form class="ma-5">
+         <v-form 
+          class="ma-5"
+          ref="form"
+          v-model="validateForm"
+          lazy-validation
+          >
            <v-row>
              <v-col cols="8">
                <v-text-field
@@ -21,6 +26,7 @@
                  label="Nombre"
                  hide-details="auto"
                  outlined
+                 required
                ></v-text-field>
              </v-col>
              <v-col cols="4">
@@ -32,6 +38,7 @@
                  chips
                  small-chips
                  outlined
+                 required
                >
                </v-combobox>
              </v-col>
@@ -40,6 +47,7 @@
                  v-model="volereDesc"
                  label="Description"
                  outlined
+                 required
                ></v-textarea>
              </v-col>
              <v-col cols="12">
@@ -48,6 +56,7 @@
                  label="Fuente (separar nombres con comas)"
                  hide-details="auto"
                  outlined
+                 required
                ></v-text-field>
              </v-col>
              <v-col cols="12">
@@ -56,6 +65,7 @@
                  label="Tipo de usuario (separar tipos con comas)"
                  hide-details="auto"
                  outlined
+                 required
                ></v-text-field>
              </v-col>
              <v-col cols="12" md="6">
@@ -67,6 +77,7 @@
                  chips
                  small-chips
                  outlined
+                 required
                >
                </v-combobox>
              </v-col>
@@ -79,6 +90,7 @@
                  chips
                  small-chips
                  outlined
+                 required
                >
                </v-combobox>
              </v-col>
@@ -91,6 +103,7 @@
                  chips
                  small-chips
                  outlined
+                 required
                >
                </v-combobox>
              </v-col>
@@ -103,6 +116,7 @@
                  chips
                  small-chips
                  outlined
+                 required
                >
                </v-combobox>
              </v-col>
@@ -112,6 +126,7 @@
                  label="Medida"
                  hide-details="auto"
                  outlined
+                 required
                ></v-text-field>
              </v-col>
              <v-col cols="12">
@@ -120,6 +135,7 @@
                  label="Escala"
                  hide-details="auto"
                  outlined
+                 required
                ></v-text-field>
              </v-col>
              <v-col cols="12" md="6">
@@ -128,6 +144,7 @@
                  label="Incremento"
                  hide-details="auto"
                  outlined
+                 required
                  type="number"
                ></v-text-field>
              </v-col>
@@ -137,6 +154,7 @@
                  label="Número del requisito"
                  hide-details="auto"
                  outlined
+                 required
                  type="number"
                ></v-text-field>
              </v-col>
@@ -159,7 +177,7 @@
          </v-form>
       </v-card>
 
-    </v-dialog>
+    </v-dialog >
     <v-row>
       <v-col cols="12">
         <v-row class="justify-center ">
@@ -176,16 +194,57 @@
           </v-btn>
         </v-row>
       </v-col>
-      <v-col
-        md="4"
-        v-for="(volereCard, index) in volereCards"
-        :key="index"
+      <v-col 
+        cols="12" 
+        md="6"
+        v-if="volereCards.length !== 0"
       >
-        <VolereCard
-          :volereCard = "volereCard"
-          :volereCards = "volereCards"
-        />
+        <v-card>
+          <v-toolbar color="secondary" class="white--text pt-0 pb-0 text-h5">
+            Requisitos de Usuario
+          </v-toolbar>
+            <v-row>
+              <v-col
+                cols="12"
+                v-for="(volereCard, index) in volereCards.filter(item=> item.rurs === 'RU')"
+                :key="index"
+                
+              >
+                <VolereCard
+                  :volereCard = "volereCard"
+                  :volereCards = "volereCards"
+                  :project="project"
+                  
+                />
+              </v-col>
+            </v-row>
+        </v-card>
       </v-col>
+      <v-col 
+        cols="12" 
+        md="6"
+        v-if="volereCards.length !== 0"
+      >
+        <v-card>
+          <v-toolbar color="secondary" class="white--text pt-0 pb-0 text-h5">
+            Requisitos de Sistema
+          </v-toolbar>
+          <v-row>
+            <v-col
+              cols="12"
+              v-for="(volereCard, index) in volereCards.filter(item=> item.rurs === 'RS')"
+              :key="index"
+            >
+              <VolereCard
+                :volereCard = "volereCard"
+                :volereCards = "volereCards"
+                :project="project"
+              />
+            </v-col>
+          </v-row>
+        </v-card>
+      </v-col>
+      
     </v-row>
   </v-container>
 </template>
@@ -196,6 +255,7 @@ export default {
   name: "VolereListComponent.vue",
   components: {VolereCard},
   data: () => ({
+    validateForm: true,
     dialog: false,
     volereRURS: '',
     volereName: '',
@@ -208,42 +268,36 @@ export default {
     volereStability: '',
     volereMeasure: '',
     volereScale: '',
-    volereIncrement: '',
+    volereIncrement: '0',
     volereNumber: 0,
-    volereCards: [
-      //Tarjeta de ejemplo
-      {
-        rurs: 'RS',
-        number: 1,
-        name: 'Registrar información de cada universidad',
-        desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi consectetur cum dicta dolor dolorum\n' +
-          '         earum explicabo itaque laborum nostrum praesentium quaerat quia quod ratione sed suscipit, tenetur voluptas.\n' +
-          '         Dignissimos, suscipit!',
-        source: ['Juan Leiva', 'Pedro'],
-        usertypes: ['Administrador, Actualizador'],
-        type: 'Funcional',
-        state: 'No cumple',
-        priority: 'Crítica',
-        stability: 'Intransable',
-        measure: 'Cantidad de Registros ingresados en el sistema.',
-        scale: '20 registros por hora',
-        date: '2021-06-10',
-        time: '15:45',
-        increment: 1
-      },
-    ]
+    volereCards: []
   }),
-  methods: {
+    props:{
+      project: null,
+      voleres: []
+    },
+    created() {
+      console.log(this.voleres);
+      this.volereCards = this.voleres;
+
+      /*
+      axios.get('/card-volere', {params:{id_project: this.project.id}})
+          .then(res=>{
+              this.volereCards = res.data;
+          });*/
+    },
+    methods: {
     createVolere: function () {
       let today = new Date();
       let date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
       let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-      this.volereCards.push({
+      let card = {
+        rurs: this.volereRURS,
         number: parseInt(this.volereNumber),
         name: this.volereName,
         desc: this.volereDesc,
-        source: this.volereSource.split(","),
-        usertypes: this.volereUsertype.split(","),
+        source: this.volereSource,
+        usertypes: this.volereUsertype,
         type: this.volereType,
         state: this.volereState,
         priority: this.volerePriority,
@@ -252,8 +306,11 @@ export default {
         scale: this.volereScale,
         date: date,
         time: time,
-        increment: parseInt(this.volereIncrement)
-      });
+        increment: parseInt(this.volereIncrement),
+        id_project: this.project.id
+      };
+      if(this.validate()){
+      this.volereCards.push(card);
       this.dialog = false;
       this.volereName = '';
       this.volereDesc = '';
@@ -266,6 +323,14 @@ export default {
       this.volereMeasure = '';
       this.volereScale = '';
       this.volereIncrement = 0;
+      axios.post('/card-volere', card)
+          .then(res=>{
+              console.log(res.data.id);
+              console.log(res.data);
+          });}
+    },
+    validate: function () {
+      return this.$refs.form.validate();
     }
   }
 }
