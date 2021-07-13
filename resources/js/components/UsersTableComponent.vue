@@ -4,7 +4,7 @@
       <v-data-table
         :headers="headers"
         :search="search"
-        :items="students"
+        :items="users"
         sort-by="admission"
         class="elevation-1"
       >
@@ -192,16 +192,17 @@
         val || this.closeDelete()
       },
     },
-
+    props: {
+      users:null
+    },
     created () {
       //this.initialize();
-      axios.get('/lista-usuarios')
+      /*axios.get('/lista-usuarios')
         .then(response=>{
           const res = response.data;
           this.students = res;
-
-
-        });
+      });
+      */
     },
 
     methods: {

@@ -18,7 +18,8 @@ class UsersTableController extends Controller
      */
     public function index(Request $request)
     {
-      return Usuario::all();
+      $users =  Usuario::all();
+      return view('UsersTableComponent',compact('users'));
     }
 
     public function store(Request $request){

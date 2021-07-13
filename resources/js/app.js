@@ -48,6 +48,10 @@ Vue.component(
     require("./components/SprintContainer.vue").default
 );
 Vue.component("user-stories", require("./components/UserStories.vue").default);
+Vue.component(
+  "users-table-component",
+  require("./components/UsersTableComponent.vue").default
+);
 import App from "./components/App.vue";
 const app = new Vue({
     el: "#app",
