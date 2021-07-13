@@ -131,10 +131,10 @@
       </v-toolbar>
       <v-card-actions>
         <v-row>
-          <v-col 
+          <v-col
             cols="12"
             md="6"
-            v-for="(task, index2) in userTask.tasks" 
+            v-for="(task, index2) in userTask.tasks"
             :key="index2"
           >
             <Task
@@ -188,7 +188,6 @@ export default {
         //console.log(new_task)
         let iName = [new_task.id, new_task.name];
         this.id_name.push(iName);
-        console.log(new_task.members);
         let newT = {
           name: new_task.name,
           members: new_task.members,
@@ -197,7 +196,7 @@ export default {
           tags: ["HU02", "TA02", "P2"],
           changes: ["7/7/7   Usuario", "7/7/7   Usuario", "7/7/7   Usuario"],
           id_pro: new_task.id_proyecto,
-          estado: "pendiente",
+          estado: new_task.estado,
         };
         if (new_task.id_proyecto == this.id_pro) {
           nTask.push(newT);
@@ -261,6 +260,7 @@ export default {
 
       for(let i=0;i<this.taskMembers.length;i++){
           let mem = this.taskMembers[i];
+          alert(JSON.stringify(this.taskState));
           const newTask = {
               name: this.taskName,
               members: mem,
@@ -269,7 +269,7 @@ export default {
               tags: ""+this.taskTags,
               changes: ""+this.taskChanges,
               id_pro: this.id_pro,
-              estado :"pendiente"
+              estado :this.taskState
           };
           this.send(newTask);
       }
