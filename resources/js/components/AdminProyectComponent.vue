@@ -77,6 +77,26 @@
                     </ul>
                 </v-col>
             </v-row>
+
+            <v-snackbar
+                color="green"
+                class="white--text"
+                v-model="snackBarNewProject"
+                :timeout="timeout=3000"
+            >
+                Se creo un nuevo proyecto
+
+                <template v-slot:action="{ attrs }">
+                    <v-btn
+                        color="error"
+                        text
+                        v-bind="attrs"
+                        @click="snackBarNewProject = false"
+                    >
+                        Close
+                    </v-btn>
+                </template>
+            </v-snackbar>
         </v-container>
     </div>
 </template>
@@ -87,6 +107,7 @@ export default {
         return{
             projectsView: this.projects,
             dialog:false,
+            snackBarNewProject:false,
 
         }
     },
@@ -106,8 +127,10 @@ export default {
             const add = nuevoProyecto;
             console.log(nuevoProyecto)
             console.log(this.projectsView)
+            this.dialog=false;
+            this.snackBarNewProject=true;
             this.projectsView.push(add)
-            this.dialog=false
+
 
         }
     },

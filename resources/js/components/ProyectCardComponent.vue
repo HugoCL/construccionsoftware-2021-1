@@ -150,6 +150,7 @@ export default {
         deleteProject: function (id){
             axios.delete('/administrar-proyectos/'+id);
             this.$emit('delete', id);
+            this.dialogAlert=false;
         },
 
         async getTeam(id) {
