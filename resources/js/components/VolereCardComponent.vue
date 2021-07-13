@@ -32,6 +32,7 @@
                 chips
                 small-chips
                 outlined
+                required
               >
               </v-combobox>
             </v-col>
@@ -40,6 +41,7 @@
                 v-model="volereDesc"
                 label="Description"
                 outlined
+                required
               ></v-textarea>
             </v-col>
             <v-col cols="12">
@@ -48,6 +50,7 @@
                 label="Fuente (separar nombres con comas)"
                 hide-details="auto"
                 outlined
+                required
               ></v-text-field>
             </v-col>
             <v-col cols="12">
@@ -56,6 +59,7 @@
                 label="Tipo de usuario (separar tipos con comas)"
                 hide-details="auto"
                 outlined
+                required
               ></v-text-field>
             </v-col>
             <v-col cols="12" md="6">
@@ -67,6 +71,7 @@
                 chips
                 small-chips
                 outlined
+                required
               >
               </v-combobox>
             </v-col>
@@ -79,6 +84,7 @@
                 chips
                 small-chips
                 outlined
+                required
               >
               </v-combobox>
             </v-col>
@@ -91,6 +97,7 @@
                 chips
                 small-chips
                 outlined
+                required
               >
               </v-combobox>
             </v-col>
@@ -103,6 +110,7 @@
                 chips
                 small-chips
                 outlined
+                required
               >
               </v-combobox>
             </v-col>
@@ -112,6 +120,7 @@
                 label="Medida"
                 hide-details="auto"
                 outlined
+                required
               ></v-text-field>
             </v-col>
             <v-col cols="12">
@@ -120,6 +129,7 @@
                 label="Escala"
                 hide-details="auto"
                 outlined
+                required
               ></v-text-field>
             </v-col>
             <v-col cols="12" md="6">
@@ -128,6 +138,7 @@
                 label="Incremento"
                 hide-details="auto"
                 outlined
+                required
                 type="number"
               ></v-text-field>
             </v-col>
@@ -136,7 +147,8 @@
                 v-model="volereNumber"
                 label="Número del requisito"
                 hide-details="auto"
-                outlined
+                outlined}
+                required
                 type="number"
               ></v-text-field>
             </v-col>
