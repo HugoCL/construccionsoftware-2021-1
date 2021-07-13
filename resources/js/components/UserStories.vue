@@ -14,22 +14,17 @@
                 </v-toolbar>
                 <v-form>
                     <v-row>
-                        <v-col
-                            sm="2"
-                            md="4"
+                        <v-col lg="2"
                         >
                             <v-text-field
                                 v-model="huCode"
                                 label="Codigo"
                                 hide-details="auto"
-                                class="ml-5"
+                                class="pa-2 ml-5"
                             ></v-text-field>
                         </v-col>
 
-                        <v-col
-                            sm="2"
-                            md="0"
-                        >
+                        <v-col md="auto">
                             <v-subheader
                                 v-text=" 'Yo como' "
                                 class="mb-4 mt-2"
@@ -37,10 +32,10 @@
                             ></v-subheader>
                         </v-col>
 
-                        <v-col cols="12" sm="2" md="4">
+                        <v-col md="8">
                             <v-select
                                 v-model="huOwner"
-                                :items ="['Product Owner']"
+                                :items ="['Product Owner','Scrum Master']"
                                 label="Cargo"
                             >
                             </v-select>
@@ -60,7 +55,7 @@
                         </v-col>
                         <v-col cols="12" sm="4" md="2">
                             <v-select
-                                v-model="storiesUser"
+                                v-model="huOwner"
                                 :items ="['PRODUCT OWNER','SCRUM MASTER']"
                                 label="Cargo"
                             >
@@ -97,7 +92,7 @@
                         </v-col>
                         <v-col md="10">
                             <v-text-field
-                            v-model="huResult"
+                            v-model="storiesUse"
                             label="Resultado"
                             ></v-text-field>
                         </v-col>
@@ -113,7 +108,7 @@
 
                         <v-btn
                         text
-                        @click="saveHU"
+                        @click="saveStorie"
                         >
                         Guardar
                         </v-btn>
@@ -123,7 +118,7 @@
         </v-dialog>
         <!--Mostrar información-->
         <v-dialog
-            v-model="userStoryDialog"
+            v-model="storiesUsersDialog"
             width="60%"
         >
             <v-card>
@@ -136,10 +131,7 @@
                     <v-list-item>
                         <v-list-item-content>
                             <v-card-title class="pa-0">
-                                INFORMACION CORRESPONDIENTE
-                                {{
-
-                                }}
+                                HU000: Ejemplo Historia de Usuario
                             </v-card-title>
                         </v-list-item-content>
 
@@ -153,33 +145,32 @@
                     </v-list-item>
                 </v-toolbar>
 
-                <v-card-title>NUMERO HISTORIA DE USUARIO:</v-card-title>
+                <!--<v-card-title>NUMERO HISTORIA DE USUARIO:</v-card-title>
                 <v-card-subtitle class="text--primary">
                     INFORMACION CORRESPONDIENTE NOMBRE
-                </v-card-subtitle>
+                </v-card-subtitle>-->
 
                 <v-row>
                     <v-col
-                        sm="2"
-                        md="0"
                         >
+                        <!--<v-card-subtitle class="text-primary pa-0"> Yo como {{ userStorie.owner }} quiero {{ userStorie.action }} para {{ userStorie.result }}</v-card-subtitle>-->
                         <v-subheader
-                            v-text="'YO como'"
+                            v-text="'Yo como {userStorie.Owner} quiero {userStorie.Action} para {userStorie.result}'"
                             class="mb-4 mt-2"
-                            style="font-size: 16px;"
+                            style="font-size: 24px;"
                         ></v-subheader>
                     </v-col>
-                    <v-col>
-                      <!--  v-text = "Quiero"
-                        class = "mb-4 mt-2"-->
-                        INFORMACION CORRESPONDIENTE AL QUIERO
-                        {{storiesUse.storiesDesc}}
+                    <!--<v-col class="">
+                        v-text = "Quiero"
+                        class = "mb-4 mt-2"
+                        Yo como {huOwner} quiero {huAction} para {huResult}
+                        {{storiesUse.huAction}}
 
-                    </v-col>
+                    </v-col>-->
                 </v-row>
 
 
-                <v-row>
+                <!--<v-row>
                     <v-col
                         sm="2"
                         md="0"
@@ -202,7 +193,7 @@
                 <v-row>
                     <v-col></v-col>
                     <v-col></v-col>
-                </v-row>
+                </v-row>-->
 
 
             </v-card>
@@ -211,11 +202,13 @@
             class="white--text pb-0"
             light
             color="primary"
+            @click="storiesUsersDialog = true"
+
         >
             <v-card-title
                 class="subheading font-weight-bold pb-2 pt-2"
             >   <!--Reemplazar para mostrar informacion correspondiente-->
-                HU001:Ejemplo historia de usuario
+                HU0{{increment}}:Ejemplo historia de usuario
             </v-card-title>
 
             <v-divider class="my-0 py-1"></v-divider>
@@ -246,52 +239,51 @@
  -->
 <script>
 export default{
-    name: "UserStories.vue", //cambiar nombre por uno singular
+    name: "UserStories.vue",
     data: () => ({
-        huCode: '',
-        userStoryDialog: false,
-        editDialog: false,
         huOwner: '',
+        storiesUsersDialog: false,
+        editDialog: false,
+        huCode: '',
         huAction: '',
-        huResult: '',
-        huIncrement: '',
+        storiesUse: '', //result
+        increment: 0,
     }),
 
     props: {
         userStory: null,
-        userStories: null,
-        project: null
+        userStories: null
     },
 
     methods: {
-        deleteHU: function(){
-            this.userStories.splice(this.userStory.indexOf(this.userStory),1);
+        deleteHistorie: function(){
+            this.userStories.splice(this.userStories.indexOf(this.userStory),1);
             axios.delete('/user-story/'+this.userStory.id)
                 .then(res=>{
                     console.log(res.data);
                 });
         },
-
-        editHU: function(){
-            this.editDialog = true;
-            this.huCode = this.userStorie.code;
-            this.huOwner = this.userStorie.owner;
-            this.huAction = this.userStory.action;
-            this.huResult = this.userStory.result;
-            this.huIncrement = this.userStory.increment;
+        incrementar: function() {
+            return increment++;
         },
 
-        saveHU: function(){
+        editHistorie: function(){
+            this.editDialog = true;
+            this.huCode = this.userStory.code;
+            this.huAction = this.userStory.action;
+            this.storiesUse = this.userStory.result;
+
+        },
+
+        saveStorie: function(){
             this.editDialog = false;
-            this.userStorie.code = this.huCode;
-            this.userStorie.owner = this.huOwner;
+            this.userStory.code = this.huCode;
             this.userStory.action = this.huAction;
-            this.userStory.result = this.huResult;
-            this.userStory.increment = this.huIncrement;
+            this.userStory.result = this.storiesUse;
             axios.put('/user-story/'+this.userStory.id, this.userStory)
                 .then(res=>{
-                    console.log(red.data);
-                })
+                    console.log(res.data);
+                });
         }
     }
 }

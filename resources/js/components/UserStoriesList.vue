@@ -33,7 +33,7 @@
                         <v-col md="8">
                             <v-select
                                 v-model="huOwner"
-                                :items="['Product Owner']"
+                                :items="['Product Owner','Scrum Master']"
                                 label="Cargo"
                             >
                             </v-select>
@@ -115,15 +115,16 @@
             </v-col>
             <v-col
                 md="4"
-                v-for="(userStory, index) in userStories" :key="index"
+                v-for="(userStory, index) in userStories"
+                :key="index"
             >
                 <!-- Llamo al otro componente  -->
 
-                <UserStories
+                <user-stories
                     :userStory = "userStory"
                     :userStories = "userStories"
                     :project="project"
-                />
+                ></user-stories>
 
             </v-col>
         </v-row>
@@ -135,7 +136,7 @@
 import UserStories from './UserStories'; //modificarNombre singular
 export default{
     name: "UserStoriesList.vue",
-    components: {UserStories}, //el otro componente //modificar singular
+    components: {}, //el otro componente //modificar singular
     data: () => ({
         dialog: false,
         huCode: '',
@@ -144,16 +145,17 @@ export default{
         huResult: '',
         huIncrement: '',
         huNumber: 0,
-        huCards: [
+        userStories: [
             //HU de ejemplo
             /*{
                 //los datos de la HU
+                id_project: this.project.id,
                 code: 'HU001',
                 owner: 'Product Owner',
                 action: 'crear proyectos',
                 result: 'guardarlos en mi corazon',
                 increment: 1
-            },*/
+            }*/
         ]
     }),
     props:{
@@ -162,7 +164,7 @@ export default{
     },
     created() {
       console.log(this.userstories);
-      this.huCards = this.userstories;
+      this.userStories = this.userstories;
     },
     methods:{
         createHU: function(){
@@ -172,20 +174,20 @@ export default{
                 action: this.huAction,
                 result: this.huResult,
                 increment: parseInt(this.huIncrement),
-                id_project: this.project.id,
+                id_project: this.project.id
             };
-            this.huCards.push(card);
+            this.userStories.push(Object.assign( {},{ id_project: this.project.id, code: this.huCode, action: this.huAction, result: this.huResult, increment: parseInt(this.huIncrement)  }));
             this.dialog= false;
-            this.huCode = '',
-            this.huOwner = '';
-            this.hUAction = '';
-            this.huResult = '';
-            this.huIncrement = 0;
             axios.post('/user-story',card)
                 .then(res=>{
                     console.log(res.data.id);
                     console.log(res.data);
                 });
+            this.huCode = '',
+            this.huOwner = '';
+            this.hUAction = '';
+            this.huResult = '';
+            this.huIncrement = 0;
         }
     }
 }
