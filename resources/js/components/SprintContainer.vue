@@ -190,7 +190,7 @@
                                                            class="ma-0 pa-0 pb-2 text-right"
                                                            min-width="0"
                                                            min-height="0"
-                                                           @click="deleteCycle(cycles1.sprintId)">
+                                                           @click="deleteCycle(cycles1.sprintId, index1)">
                                                         <v-icon class="ma-0 pa-0 white--text"
                                                         >
                                                             mdi-delete
@@ -687,10 +687,21 @@ export default {
 
         },
         deleteCycle: function (id){
-            this.cycles.splice(this.cycles.indexOf(this.SprintContainer),1);
+
             //Al eliminar falta que las tareas que estan relacionadas al sprint se muevan al primer sprint
             //o no se permita eliminar el sprint en caso que no este vacio
-            axios.delete('/sprint-container/'+id);
+            let i = 0;
+            for (const cycle of this.cycles) {
+                if (cycle.sprintId === id && cycle.subcycle.length === 0 && !(cycle.length == 1)){
+                    this.cycles.splice(i,1);
+                    axios.delete('/sprint-container/'+id);
+                    //this.cycles.splice(this.cycles.indexOf(this.SprintContainer),1);
+
+                }
+                i++;
+            }
+
+
 
         },
         log: function(evt) {
