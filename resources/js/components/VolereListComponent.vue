@@ -159,7 +159,7 @@
          </v-form>
       </v-card>
 
-    </v-dialog>
+    </v-dialog >
     <v-row>
       <v-col cols="12">
         <v-row class="justify-center ">

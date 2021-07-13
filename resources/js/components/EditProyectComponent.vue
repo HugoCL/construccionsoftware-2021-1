@@ -173,7 +173,7 @@
                                         <v-card >
                                             <VolereList
                                                 class="mt-5"
-                                                project="project"
+                                                :project="project"
                                                 :voleres="voleres"
                                             />
 
