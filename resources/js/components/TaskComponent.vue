@@ -37,23 +37,23 @@
 
             <v-row>
               <v-col cols="12" md="6">
-                <v-select
+                <v-combobox
                   v-model="taskMembers"
                   :items="peopleNames"
                   label="Miembros disponibles"
                   multiple
                   chips
                 >
-                </v-select>
+                </v-combobox>
               </v-col>
               <v-col cols="12" md="6">
-                <v-select
+                <v-combobox
                   v-model="taskState"
                   :items="['Pendiente', 'En proceso', 'Terminado']"
                   label="Estado"
                   chips
                 >
-                </v-select>
+                </v-combobox>
               </v-col>
             </v-row>
           </v-col>

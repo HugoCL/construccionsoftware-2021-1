@@ -24,7 +24,7 @@
                ></v-text-field>
              </v-col>
              <v-col cols="4">
-               <v-select
+               <v-combobox
                  v-model="volereRURS"
                  :items="['RU', 'RS']"
                  label="Tipo de requisito"
@@ -33,7 +33,7 @@
                  small-chips
                  outlined
                >
-               </v-select>
+               </v-combobox>
              </v-col>
              <v-col cols="12">
                <v-textarea
@@ -59,7 +59,7 @@
                ></v-text-field>
              </v-col>
              <v-col cols="12" md="6">
-               <v-select
+               <v-combobox
                  v-model="volereType"
                  :items="['Funcional', 'No funcional']"
                  label="Tipo de función"
@@ -68,10 +68,10 @@
                  small-chips
                  outlined
                >
-               </v-select>
+               </v-combobox>
              </v-col>
              <v-col cols="12" md="6">
-               <v-select
+               <v-combobox
                  v-model="volereState"
                  :items="['Cumple', 'No cumple']"
                  label="Estado"
@@ -80,10 +80,10 @@
                  small-chips
                  outlined
                >
-               </v-select>
+               </v-combobox>
              </v-col>
              <v-col cols="12" md="6">
-               <v-select
+               <v-combobox
                  v-model="volerePriority"
                  :items="['No urgente', 'Urgente', 'Crítica']"
                  label="Prioridad"
@@ -92,10 +92,10 @@
                  small-chips
                  outlined
                >
-               </v-select>
+               </v-combobox>
              </v-col>
              <v-col cols="12" md="6">
-               <v-select
+               <v-combobox
                  v-model="volereStability"
                  :items="['Transable', 'Intransable']"
                  label="Estabilidad"
@@ -104,7 +104,7 @@
                  small-chips
                  outlined
                >
-               </v-select>
+               </v-combobox>
              </v-col>
              <v-col cols="12">
                <v-text-field
