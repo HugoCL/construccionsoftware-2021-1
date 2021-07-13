@@ -175,7 +175,7 @@
     <!--Miembros Emilio>
         <integrantes-proyectos></integrantes-proyectos-->
     <v-row>
-      <VolereList v-if="verifyProyectType() == true" class="mt-5" />
+      <VolereList v-if="verifyProyectType() == true" class="mt-5" :project="project"  :voleres="voleres" />
       <UserStoriesList v-if="verifyProyectType() == false" class="mt-5" />
     </v-row>
     <v-row>
@@ -282,6 +282,8 @@ export default {
     devs: [],
     users: [],
     project: null,
+    voleres:[],
+
   },
   methods: {
     save(id) {
