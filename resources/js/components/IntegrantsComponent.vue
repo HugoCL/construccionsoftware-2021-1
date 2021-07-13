@@ -1,22 +1,35 @@
 <template>
 
-<v-card class="row justify-content-center">
+<v-card class="">
     <v-toolbar
         color="primary"
-        class="white--text pt-0 pb-0 text-h5"
+
     >
-        Integrantes del proyecto: {{name}}
+        <v-row>
+            <v-col cols="11"
+                   class="white--text pt-0 pb-0 text-h5">
+                Integrantes del proyecto
+            </v-col>
+            <v-col cols="1" class="white--text pt-0 pb-0 text-h5">
+                <v-btn color="secondary elevation-0"
+                       @click="openDialog()"
+                       fab
+                       small>
+                   <v-icon color="white">mdi-account-plus</v-icon>
+                </v-btn>
+            </v-col>
+        </v-row>
+
     </v-toolbar>
     <v-card-actions>
         <v-expansion-panels accordion>
-        <v-expansion-panel
+            <v-expansion-panel
             v-for="(integrant,i) in integrants"
             :key="i"
         >
             <v-expansion-panel-header>
                 {{integrant.userName}}
                 <div class="col-2">
-                    <v-icon @click="editIntegrant(integrant)">mdi-pencil</v-icon>
                     <v-icon @click="delIntegrant(integrant)" >mdi-delete</v-icon>
                 </div>
                 <div class="col-auto"></div>
@@ -27,7 +40,8 @@
             <v-expansion-panel-content>
 
 
-                 <v-combobox multiple
+                 <v-combobox
+                        @change="update(integrant)"
                         v-model="integrant.rol"
                         label="Rol"
                         append-icon
@@ -38,14 +52,7 @@
 
             </v-expansion-panel-content>
         </v-expansion-panel>
-        <v-btn
-        color="red lighten-2"
-        dark
-        class="btn float-right mt-2"
-        @click="openDialog()"
-        >
-        Añadir Integrante
-        </v-btn>
+
         </v-expansion-panels>
 
         </v-card-actions>
@@ -64,11 +71,14 @@
                     </v-toolbar>
 
                     <v-card-text>
-                        <v-text-field
-                            v-model="newIntegrant.name"
+                        <v-select
+                            :items="this.reaming"
+                            item-text="correo"
+                            v-model="newIntegrant"
                             label="Nombre"
+                            :return-object="true"
                             required
-                        ></v-text-field>
+                        ></v-select>
                     </v-card-text>
 
                     <v-divider></v-divider>
@@ -95,32 +105,78 @@
       data(){
           return {
               name : this.project.nombre, //nombre del proyecto
-              integrants: [],//just the devs
+              integrants: [],
               //integrants: this.devs.concat(this.leads) //deveps + leads list
               dialog: false,
               edit: false,
-              newIntegrant: {
-                  name: '',
-                  role : ''
-              },
-              item: {}
+              newIntegrant: {},
+              item: {},
+              reaming: []
           }
       },
       created() {
           this.upIntegrants();
+          this.reamingUser();
       },
       methods: {
+          reamingUser: function () {
+              let bool = true;
+              console.log("devs");
+              console.log(this.devs);
+              for (let i = 0; i < this.users.length; i++) {
+                  bool = true;
+                  for (let j = 0; j < this.devs.length; j++) {
+                      if (this.devs[j].correo === this.users[i].correo){
+                          bool = false;
+                          break;
+                      }
+                  }
+                  if (bool){
+                      this.reaming.push(this.users[i]);
+                  }
+              }
+              console.log(this.reaming);
+          },
+          update: function(integrant){
+              console.log(integrant)
+              axios.put('/administrar-proyectos/integrantes/'+this.project.id, integrant)
+                  .then(response=>{
+                      console.log(response.data)
+                  })
+          },
+          deleteIntegrant: function(item){
+              console.log(item)
+              axios.delete('/administrar-proyectos/integrantes/'+item.userEmail, {
+                  params:{
+                      'id_project': this.project.id
+                  }
+              }).then(res=>{
+                  console.log(res.data);
+              });
+          },
+          add: function(item){
+              console.log('holi');
+              console.log(item)
+              const info = {id_user: item.userEmail, id_project: this.project.id, rol: item.rol};
+              console.log(info);
+              axios.post('/administrar-proyectos/integrantes/', info)
+                  .then(res=>{
+                      console.log(res.data);
+                  });
+          },
           upIntegrants: function(){
               //console.log("Comparacion fallida!!")
               //console.log(this.participates)
               //console.log(this.users)
+              let integrantes = [];
               for (let i in this.devs){
                   axios.get('/administrar-proyectos/integrantes/'+this.devs[i].correo,{params:{'id_project':this.project.id}})
                       .then(response=> {
-                          this.integrants.push(response.data);
+                          integrantes.push(response.data);
                           console.log(response.data);
                       })
               }
+              this.integrants = integrantes;
             /*for(let p in this.participates){
                 for(let u in this.users){
                     if(this.users[u].correo === this.participates[p].id_user){
@@ -139,7 +195,11 @@
           },
           delIntegrant(item){
               const index = this.integrants.indexOf(item)
-              confirm('Estas seguro de borrar a '+item.name) && this.integrants.splice(index, 1)
+              if (confirm('Estas seguro de borrar a '+item.userName) && this.integrants.splice(index, 1)){
+                  this.deleteIntegrant(item);
+                  this.reaming.push( Object.assign( {},{ correo:item.userEmail, nombre:item.userName  } ) )
+              }
+              this.$emit('edit',this.integrants);
           },
           addIntegrant(){
               if(this.edit){
@@ -147,10 +207,15 @@
                 this.item.role = this.newIntegrant.role
                 this.edit = false
               }else{
-                this.integrants.push(Object.assign({}, this.newIntegrant))
+                let info = {userName:this.newIntegrant.nombre, userEmail:this.newIntegrant.correo ,rol: 'developer'};
+                this.integrants.push( Object.assign( {},{ userName:this.newIntegrant.nombre, userEmail:this.newIntegrant.correo ,rol: 'developer'  } ) )
+                this.add(info);
+
+                const index = this.reaming.indexOf(this.newIntegrant)
+                this.reaming.splice(index, 1)
               }
-              this.newIntegrant.name = ''
               this.dialog = false
+              this.$emit('edit',this.integrants);
           },
           editIntegrant(item){
             this.edit = true

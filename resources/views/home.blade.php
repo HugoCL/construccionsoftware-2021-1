@@ -2,27 +2,9 @@
 
 @section('content')
 
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}
-                </div>
-
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    {{ __('¡Estás dentro!') }}
-
-                </div>
-            </div>
-
-        </div>
-    </div>
+<div class="container justify-center v-picker--full-width">
+    <img width="78%"
+         src="https://i.ibb.co/zGWywqG/Bienvenida2.png"/>
 </div>
 @endsection
 <script>
