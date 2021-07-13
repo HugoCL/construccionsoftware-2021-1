@@ -47,6 +47,78 @@
 
         </v-list-item>
         <v-card-actions style="float:right" >
+            <!--v-btn class="ma-2 btn-danger white--text" color="secondary" v-on:click="getTeam(proyectData.id)">
+                Editar Equipo
+                <v-icon right>mdi-account-group-outline</v-icon>
+                <v-dialog v-model="dialogEdit" max-width="40%" >
+                    <v-toolbar class="text-h6 text-c white--text"
+                                    color="primary">
+                        <v-col cols="6" class="text-left">
+                            Equipos
+                        </v-col>
+                        <v-col cols="6" class="text-right">
+                            <v-btn @click="dialogAdd=true"
+                                    color="secondary"
+                                    fab
+                                    small>
+                                <v-dialog v-model="dialogAdd" color="red" max-width="38%">
+                                    <v-card>
+                                        <v-card-title color="primary">
+                                            Estudiantes
+                                        </v-card-title>
+                                        <v-card class="mx-2 px-3 mb-2 py-4">
+                                            <v-select
+                                                item-text="correo"
+                                                v-model="proyecto.workers"
+                                                :items="items"
+                                                label="Empleados del proyecto"
+                                                prepend-icon="mdi-account-group"
+                                                dense
+                                                clearable
+                                            ></v-select>
+                                            <span>Seleccionados: {{ proyecto.workers }}</span>
+                                            <v-btn @click="addTeam(proyecto.workers)"
+                                                   color="secondary">
+                                                Agregar
+                                            </v-btn>
+                                        </v-card>
+
+                                    </v-card>
+                                </v-dialog>
+                                <v-icon>mdi-plus</v-icon>
+                            </v-btn>
+                        </v-col>
+
+                    </v-toolbar>
+                    <v-card>
+                        <v-card-actions>
+
+                                <v-card class="v-picker--full-width">
+                                    <v-container>
+                                        <v-row v-for="(estudiante, index1) in equipos" :key="index1"
+                                               class='black--text v-picker--full-width'>
+                                            <v-col cols="6"
+                                                    class="text-left mt-3"
+                                                    align-center>
+                                                {{estudiante.id_user}}
+                                            </v-col>
+                                            <v-col cols="6"
+                                                   class="text-right">
+                                                <v-btn color="error"
+                                                       fab
+                                                       small
+                                                       class="white--text"
+                                                       @click="eliminarEstudiante(estudiante.id)"><v-icon>mdi-delete</v-icon>
+                                                </v-btn>
+                                            </v-col>
+                                        </v-row>
+                                    </v-container>
+                                </v-card>
+
+                        </v-card-actions>
+                    </v-card>
+                </v-dialog>
+            </v-btn-->
             <v-btn class="ma-2 btn-danger white--text" color="error" v-on:click="dialogAlert=true">
                 <div class="px-0 hidden-sm-and-down">Eliminar</div>
                 <v-icon right class="mx-0 px-0">mdi-delete</v-icon>
@@ -67,54 +139,7 @@
 
 
 
-            <v-btn class="ma-2 btn-danger white--text" color="error" v-on:click="getTeam(proyectData.id)">
-                Editar Equipo
-                <v-icon right>mdi-delete</v-icon>
-                <v-dialog v-model="dialogEdit" color="red" max-width="40%" >
-                    <v-card-title class="text-h6 text-c" dark color="red">Equipos</v-card-title>
-                    <v-card color="red lighten-5">
-                        <v-btn @click="dialogAdd=true">
-                            <v-dialog v-model="dialogAdd" color="red" max-width="40%">
-                                <v-card>
-                                    <v-card-title>
-                                        Estudiantes
-                                    </v-card-title>
-                                    <v-select
-                                        item-text="correo"
-                                        v-model="proyecto.workers"
-                                        :items="items"
-                                        label="Empleados del proyecto"
-                                        prepend-icon="mdi-account-group"
-                                        dense
-                                        clearable
-                                    ></v-select>
-                                    <span>Seleccionados: {{ proyecto.workers }}</span>
-                                    <v-btn @click="addTeam(proyecto.workers)">
-                                        Agregar
-                                    </v-btn>
 
-                                </v-card>
-                            </v-dialog>
-                            <v-icon dark>mdi-plus</v-icon>
-                        </v-btn>
-                        <v-card-actions>
-                            <div>
-                                <card color ="red">
-                                    <div v-for="(estudiante, index1) in equipos" :key="index1"
-                                         class='black--text'> {{estudiante.id_user}}
-                                        <v-col>
-                                            <v-btn color="secondary"
-                                                   class="btn-danger align-end black--text"
-                                                   @click="eliminarEstudiante(estudiante.id)"><v-icon center>mdi-delete</v-icon>
-                                            </v-btn>
-                                        </v-col>
-                                    </div>
-                                </card>
-                            </div>
-                        </v-card-actions>
-                    </v-card>
-                </v-dialog>
-            </v-btn>
         </v-card-actions>
 
 

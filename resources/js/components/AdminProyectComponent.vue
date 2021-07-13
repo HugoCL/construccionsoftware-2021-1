@@ -8,13 +8,11 @@
                   rounded
               >
 
-                  <v-col cols="9" class="title mr-13 ml-1 pr-0 pb-0 hidden-sm-and-down">
+                  <v-col cols="6" class="title ml-1 pr-0 hidden-sm-and-down">
                       Administrar proyectos
                   </v-col>
-                  <v-col cols="7" class="title mr-15 ml-1 pr-0 pb-0 hidden-md-and-up">
-                      Administrar proyectos
-                  </v-col>
-                  <v-col cols="2">
+
+                  <v-col cols="6" class="text-right">
                       <v-dialog v-model="dialog" transition="dialog-top-transition"  width="64%">
                           <template v-slot:activator="{ on, attrs }">
                               <div class="text-right">
