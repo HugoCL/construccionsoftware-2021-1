@@ -65,8 +65,9 @@ class SprintContainerController extends Controller
         //
 
         $sprint = Sprint::find($id);
-        $sprint->fechaInicio = $request->fechaInicio;
-        $sprint->fechaTermino = $request->fechaTermino;
+        $sprint->nombre_sprint = $request->nombre_sprint;
+        //$sprint->fechaInicio = $request->fechaInicio;
+        //$sprint->fechaTermino = $request->fechaTermino;
         $sprint->save();
 
 

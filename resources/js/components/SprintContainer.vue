@@ -165,7 +165,7 @@
                                                            v-model = "cycles1.cycleName"
                                                            v-on:blur= "cycles1.edit=false; $emit('update')"
                                                            @keyup.enter = "cycles1.edit=false; $emit('update')"
-                                                           @keydown="editCycle"
+                                                           @keydown.enter="editCycle(cycles1.sprintId, cycles1.cycleName)"
                                                            class="v-picker--full-width ma-0 pa-0"
                                                     >
                                                 </v-col>
@@ -190,7 +190,7 @@
                                                            class="ma-0 pa-0 pb-2 text-right"
                                                            min-width="0"
                                                            min-height="0"
-                                                           @click="deleteCycle($event)">
+                                                           @click="deleteCycle(cycles1.sprintId)">
                                                         <v-icon class="ma-0 pa-0 white--text"
                                                         >
                                                             mdi-delete
@@ -385,7 +385,8 @@ export default {
                 subcycle: subcycle,
                 cycleState: cycleState,
                 fechaInic: fechaInicio,
-                fechaFin: fechaFin
+                fechaFin: fechaFin,
+                sprintId: sprint.id
             });
             index++;
         }
@@ -422,9 +423,12 @@ export default {
                 }
             )
         },
-        editCycle: function (){
+        editCycle: function (id, name){
 
-            this.cycleName= this.cycle.cycleName;
+            this.cycleName = this.cycle.cycleName;
+
+            axios.put('/sprint-container/'+id, {nombre_sprint: name})
+
         },
         deleteCycle: function (){
             this.cycles.splice(this.cycles.indexOf(this.SprintContainer),1);
