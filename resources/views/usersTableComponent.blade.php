@@ -1,7 +1,11 @@
-@extends('layouts.app')
+@extends('layouts.theme')
 
 @section('content')
-  <v-container>
-    <users-table-component :users="{{json_encode($users)}}"></users-table-component>
-  </v-container>
+    <div id="app">
+        <v-app app>
+            <v-container>
+                <users-table-component :users="{{json_encode($users)}}"></users-table-component>
+            </v-container>
+        </v-app>
+    </div>
 @endsection
