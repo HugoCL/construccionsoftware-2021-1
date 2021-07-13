@@ -217,7 +217,7 @@ export default {
         console.log(new_task.members);
         let newT = {
           name: new_task.name,
-          members: ['Andres awallberg@hotmail.com'],
+          members: new_task.members,
           desc: new_task.desc,
           date: new_task.date,
           tags: ['HU02', 'TA02', 'P2'],
