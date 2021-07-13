@@ -67,12 +67,12 @@
 
 
 
-            <v-btn class="ma-2 btn-danger white--text" color="error" v-on:click="dialogEdit=true">
+            <v-btn class="ma-2 btn-danger white--text" color="error" v-on:click="getTeam(proyectData.id)">
                 Editar Equipo
                 <v-icon right>mdi-delete</v-icon>
                 <v-dialog v-model="dialogEdit" color="red" max-width="40%" >
                     <v-card-title class="text-h6 text-c" dark color="red">Equipos</v-card-title>
-                    <v-card color="red lighten-5" v-for="(equipo,index) in proyecto.equipos" :key="index">
+                    <v-card color="red lighten-5">
                         <v-btn @click="dialogAdd=true">
                             <v-dialog v-model="dialogAdd" color="red" max-width="40%">
                                 <v-card>
@@ -103,22 +103,13 @@
                         </v-btn>
                         <v-card-actions>
                             <div>
-                                {{equipo.nombreequipo}}
-                                <v-btn color="secondary"
-                                       class="btn-danger white--text"
-                                       @click="dialogAlert=false"><v-icon center>mdi-plus</v-icon></v-btn>
-                                <v-btn color="red" class="btn-danger align- end white--text" @click="deleteTeam(equipo.nombreequipo)"><v-icon dark>mdi-delete</v-icon></v-btn>
                                 <card color ="red">
-                                    <div v-for="(estudiante, index1) in equipo.estudiante" :key="index1"
-                                         class='black--text'> {{estudiante.name}}
+                                    <div v-for="(estudiante, index1) in equipos" :key="index1"
+                                         class='black--text'> {{estudiante.id_user}}
                                         <v-col>
                                             <v-btn color="secondary"
                                                    class="btn-danger align-end black--text"
-                                                   @click="deleteStudent(estudiante.name)"><v-icon center>mdi-delete</v-icon>
-                                            </v-btn>
-                                            <v-btn color="red"
-                                                   class="btn-danger align-end black--text"
-                                                   @click="deleteStudent(estudiante.name)"><v-icon dark>mdi-minus</v-icon>
+                                                   @click="eliminarEstudiante(estudiante.id)"><v-icon center>mdi-delete</v-icon>
                                             </v-btn>
                                         </v-col>
                                     </div>
@@ -128,7 +119,6 @@
                     </v-card>
                 </v-dialog>
             </v-btn>
-
         </v-card-actions>
 
 
@@ -145,30 +135,10 @@ export default {
             dialogEdit:false,
             dialogEliminar: false,
             dialogAdd: false,
+            equipos: [],
 
             proyecto: {
-                id:'1',
-                equipos: [
 
-                    {
-                        nombreequipo:'Equipo 1',
-                        estudiante:
-                    [
-                        {name: 'Elwea tim 1', correo:'ajcorreo sd@askdja.cl'},
-                        {name: 'El weta tim 1', correo:'corre@askdja.cl'},
-                        {name: 'El kalsjdasd3 tim 1', correo:'perra@askdja.cl'},
-
-                    ]},
-                    {
-                        nombreequipo:'Equipo 2',
-                        estudiante:
-                            [
-                                {name: 'Elwea tim 2', correo:'ajcorreo sd@askdja.cl'},
-                                {name: 'El weta tim 2', correo:'corre@askdja.cl'},
-                                {name: 'El kalsjdasd3 tim 2', correo:'perra@askdja.cl'},
-
-                            ]},
-                ]
             }
         }
     },
@@ -182,13 +152,35 @@ export default {
             this.$emit('delete', id);
         },
 
-        getTeam: function (id) {
-            axios.get('/equipo/'+id);
+        async getTeam(id) {
+           //const v = axios.get('/integrantes/'+id);
+           console.log(id);
+           this.dialogEdit=true;
+           const res = await axios.get('/integrantes');
+
+           const miembros = [];
+           for (let i=0; i<res.data.length; i++) {
+               const datos = res.data[i];
+                if (datos.id_proyecto == id) {
+                    miembros.push(datos);
+                }
+           }
+           this.equipos = miembros;
+           console.log(miembros);
+        },
+        //eliminar estudiante del equipo y bd
+        async eliminarEstudiante(id){
+            console.log(id);
+            axios.delete('/integrantes/'+id);
+            for (let i=0; i<this.equipos.length; i++) {
+                if (this.equipos[i].id == id) {
+                    this.equipos.splice(this.equipos.indexOf(this.equipos[i]), 1);
+                    break;
+                }
+            }
+
         },
 
-        deleteTeam: function (){
-
-        },
         editTeam: function (){
 
         },
@@ -201,8 +193,10 @@ export default {
         }
 
     },
+
     props:{
-       proyectData: null
+       proyectData: null,
+       equipoData :null
     }
 
 }
