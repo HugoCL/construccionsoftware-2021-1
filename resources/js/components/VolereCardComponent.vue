@@ -32,6 +32,7 @@
                 chips
                 small-chips
                 outlined
+                required
               >
               </v-combobox>
             </v-col>
@@ -40,6 +41,7 @@
                 v-model="volereDesc"
                 label="Description"
                 outlined
+                required
               ></v-textarea>
             </v-col>
             <v-col cols="12">
@@ -48,6 +50,7 @@
                 label="Fuente (separar nombres con comas)"
                 hide-details="auto"
                 outlined
+                required
               ></v-text-field>
             </v-col>
             <v-col cols="12">
@@ -56,6 +59,7 @@
                 label="Tipo de usuario (separar tipos con comas)"
                 hide-details="auto"
                 outlined
+                required
               ></v-text-field>
             </v-col>
             <v-col cols="12" md="6">
@@ -67,6 +71,7 @@
                 chips
                 small-chips
                 outlined
+                required
               >
               </v-combobox>
             </v-col>
@@ -79,6 +84,7 @@
                 chips
                 small-chips
                 outlined
+                required
               >
               </v-combobox>
             </v-col>
@@ -91,6 +97,7 @@
                 chips
                 small-chips
                 outlined
+                required
               >
               </v-combobox>
             </v-col>
@@ -103,6 +110,7 @@
                 chips
                 small-chips
                 outlined
+                required
               >
               </v-combobox>
             </v-col>
@@ -112,6 +120,7 @@
                 label="Medida"
                 hide-details="auto"
                 outlined
+                required
               ></v-text-field>
             </v-col>
             <v-col cols="12">
@@ -120,6 +129,7 @@
                 label="Escala"
                 hide-details="auto"
                 outlined
+                required
               ></v-text-field>
             </v-col>
             <v-col cols="12" md="6">
@@ -128,6 +138,7 @@
                 label="Incremento"
                 hide-details="auto"
                 outlined
+                required
                 type="number"
               ></v-text-field>
             </v-col>
@@ -136,7 +147,8 @@
                 v-model="volereNumber"
                 label="Número del requisito"
                 hide-details="auto"
-                outlined
+                outlined}
+                required
                 type="number"
               ></v-text-field>
             </v-col>
@@ -163,7 +175,7 @@
 
     <v-dialog
       v-model="volereDialog"
-      width="60%"
+      width="800"
     >
       <v-card>
         <v-toolbar
@@ -171,168 +183,205 @@
           color="primary"
           dark
         >
-
-          <v-list-item>
-            <v-list-item-content>
-              <v-card-title>
+          <v-card-title>
                 {{
                   volereCard.rurs + ("0000" + volereCard.number).substr(volereCard.number.toString().length, 5) + ':' + volereCard.name
                 }}
-              </v-card-title>
-            </v-list-item-content>
-            <v-list-item-content
-              class="align-end"
-            >
-              <v-row>
-                <v-col md="2" class="offset-8">
-                  <v-btn
-                    class="mx-2"
-                    fab
-                    dark
-                    small
-                    color="primary"
-                  >
-                    <v-icon dark>
-                      mdi-minus
-                    </v-icon>
-                  </v-btn>
-                </v-col>
-                <v-col md="2">
-                  <v-btn
-                    class="mx-2"
-                    fab
-                    dark
-                    small
-                    color="primary"
-                  >
-                    <v-icon dark>
-                      mdi-minus
-                    </v-icon>
-                  </v-btn>
-                </v-col>
-              </v-row>
-            </v-list-item-content>
-          </v-list-item>
-
+          </v-card-title>
         </v-toolbar>
 
-        <v-card-title>Descripción:</v-card-title>
-        <v-card-subtitle class="text--primary">
-          {{ volereCard.desc }}
-        </v-card-subtitle>
+        <v-container >
+          <v-row>
+            <v-col cols="12" class="pb-0">
+              <v-card-title class="pb-0 pl-2">Descripción</v-card-title>
+            </v-col>
+            <v-col cols="12" class="pb-0 pt-0">
+              <v-card-subtitle class="text--primary">
+                {{ volereCard.desc }}
+              </v-card-subtitle>
+            </v-col>
+          </v-row>
 
-        <v-list-item>
-          <v-list-item-content>
-            <v-card-title class="pa-0">Fuente:</v-card-title>
-          </v-list-item-content>
-          <v-list-item-content
-            class="align-end"
-          >
-            <v-card-subtitle class="text--primary pa-0">
-              {{ volereCard.source.join() }}
-            </v-card-subtitle>
-          </v-list-item-content>
-        </v-list-item>
+          <v-row class="ml-3">
+            <v-col 
+              cols="12" 
+              md="6"
+            > 
+              <v-row><v-card-title class="pl-0">Fuente</v-card-title></v-row>
+              <v-row>
+                <v-chip
+                  v-for="(item, index) in volereCard.source.split(',')"
+                  :key="index"
+                  class="mr-1"
+                  color="primary"
+                >
+                  {{item}}
+                </v-chip>
+              </v-row>
+            </v-col>
+            <v-col 
+              cols="12" 
+              md="6"
+            > 
+              <v-row><v-card-title class="pl-0">Tipo usuario</v-card-title></v-row>
+              <v-row>
+                <v-chip
+                  v-for="(item, index) in volereCard.usertypes.split(',')"
+                  :key="index"
+                  class="mr-1"
+                  color="primary"
+                >
+                  {{item}}
+                </v-chip>
+              </v-row>
+            </v-col>
+          </v-row>
 
-        <v-list-item>
-          <v-list-item-content>
-            <v-card-title class="text--primary pa-0">Tipo usuario:</v-card-title>
-          </v-list-item-content>
-          <v-list-item-content
-            class="align-end"
-          >
-            <v-card-subtitle class="text--primary pa-0">
-              {{ volereCard.usertypes.join() }}
-            </v-card-subtitle>
-          </v-list-item-content>
-        </v-list-item>
+          <v-row class="ml-3">
+            <v-col 
+              cols="12" 
+              md="6"
+            > 
+              <v-row><v-card-title class="pl-0">Tipo requisito</v-card-title></v-row>
+              <v-row>
+                <v-chip
+                  v-if="volereCard.type === 'Funcional'"
+                  color="primary"
+                >
+                  {{volereCard.type}}
+                </v-chip>
+                <v-chip
+                  v-if="volereCard.type === 'No funcional'"
+                >
+                  {{volereCard.type}}
+                </v-chip>
+              </v-row>
+            </v-col>
+            <v-col 
+              cols="12" 
+              md="6"
+            > 
+              <v-row><v-card-title class="pl-0">Estado</v-card-title></v-row>
+              <v-row>
+                <v-chip
+                  v-if="volereCard.state === 'Cumple'"
+                  color="success"
+                >
+                  {{volereCard.state}}
+                </v-chip>
+                <v-chip
+                  v-if="volereCard.state === 'No cumple'"
+                  color="error"
+                >
+                  {{volereCard.state}}
+                </v-chip>
+              </v-row>
+            </v-col>
+          </v-row>
 
-        <v-list-item>
-          <v-list-item-content>
-            <v-card-title class="pa-0">Tipo requisito:</v-card-title>
-          </v-list-item-content>
-          <v-list-item-content
-            class="align-end"
-          >
-            <v-card-subtitle class=" text--primary pa-0">{{ volereCard.type }}</v-card-subtitle>
-          </v-list-item-content>
-        </v-list-item>
-        <v-list-item>
-          <v-list-item-content>
-            <v-card-title class="pa-0">{{ 'Estado: ' }}</v-card-title>
-          </v-list-item-content>
-          <v-list-item-content
-            class="align-end"
-          >
-            <strong class="red--text text--lighten-1 pa-0">{{ volereCard.state }}</strong>
-          </v-list-item-content>
-        </v-list-item>
+          <v-row class="ml-3">
+            <v-col 
+              cols="12" 
+              md="6"
+            > 
+              <v-row><v-card-title class="pl-0">Prioridad</v-card-title></v-row>
+              <v-row>
+                <v-chip
+                  v-if="volereCard.priority === 'No urgente'"
+                  color="success"
+                >
+                  {{volereCard.priority}}
+                </v-chip>
+                <v-chip
+                  v-if="volereCard.priority === 'Urgente'"
+                  color="warning"
+                >
+                  {{volereCard.priority}}
+                </v-chip>
+                <v-chip
+                  v-if="volereCard.priority === 'Crítica'"
+                  color="error"
+                >
+                  {{volereCard.priority}}
+                </v-chip>
+              </v-row>
+            </v-col>
+            <v-col 
+              cols="12" 
+              md="6"
+            > 
+              <v-row><v-card-title class="pl-0">Estabilidad</v-card-title></v-row>
+              <v-row>
+                <v-chip
+                  color="primary"
+                >
+                  {{volereCard.stability}}
+                </v-chip>
+              </v-row>
+            </v-col>
+          </v-row>
 
-        <v-list-item>
-          <v-list-item-content>
-            <v-card-title class="pa-0">Prioridad:</v-card-title>
-          </v-list-item-content>
-          <v-list-item-content
-            class="align-end"
-          >
-            <strong class="red--text text--lighten-1 pa-0">{{ volereCard.priority }}</strong>
-          </v-list-item-content>
-        </v-list-item>
+          <v-row class="ml-3">
+            <v-col 
+              cols="12" 
+              md="6"
+            > 
+              <v-row><v-card-title class="pl-0">Escala</v-card-title></v-row>
+              <v-row>
+                
+                  <v-card-subtitle class="text--primary pl-0">
+                {{ volereCard.scale }}
+              </v-card-subtitle>
+              </v-row>
+            </v-col>
+            <v-col 
+              cols="12" 
+              md="6"
+            > 
+              <v-row><v-card-title class="pl-0">Medida</v-card-title></v-row>
+              <v-row>
+                <v-card-subtitle class="text--primary pl-0">
+                {{ volereCard.measure }}
+              </v-card-subtitle>
+              </v-row>
+            </v-col>
+          </v-row>
 
-        <v-list-item>
-          <v-list-item-content>
-            <v-card-title class="pa-0">Estabilidad:</v-card-title>
-          </v-list-item-content>
-          <v-list-item-content
-            class="align-end"
-          >
-            <strong class="red--text text--lighten-1 pa-0">{{ volereCard.stability }}</strong>
-          </v-list-item-content>
-        </v-list-item>
+        
 
-        <v-list-item>
-          <v-list-item-content>
-            <v-card-title class="pa-0">Medida:</v-card-title>
-          </v-list-item-content>
-          <v-list-item-content
-            class="align-end"
-          >
-            <v-card-subtitle class=" text--primary pa-0">{{ volereCard.measure }}</v-card-subtitle>
-          </v-list-item-content>
-        </v-list-item>
+          <v-row class="ml-3 mb-3">
+            <v-col 
+              cols="12" 
+              md="6"
+            > 
+              <v-row><v-card-title class="pl-0">Fecha actualización</v-card-title></v-row>
+              <v-row>
+                <v-chip
+                  color="primary"
+                >
+                  {{volereCard.date + ' '+ volereCard.time}}
+                </v-chip>
+              </v-row>
+            </v-col>
+            <v-col 
+              cols="12" 
+              md="6"
+            > 
+              <v-row><v-card-title class="pl-0">Incremento</v-card-title></v-row>
+              <v-row>
+                <v-chip
+                  color="primary"
+                >
+                  {{volereCard.increment}}
+                </v-chip>
+              </v-row>
+            </v-col>
+          </v-row>
 
-        <v-list-item>
-          <v-list-item-content>
-            <v-card-title class="pa-0">Escala:</v-card-title>
-          </v-list-item-content>
-          <v-list-item-content
-            class="align-end"
-          >
-            <v-card-subtitle class=" text--primary pa-0">{{ volereCard.scale }}</v-card-subtitle>
-          </v-list-item-content>
-        </v-list-item>
 
-        <v-list-item>
-          <v-list-item-content>
-            <v-card-title class="pa-0">Fecha Actualiz.:</v-card-title>
-          </v-list-item-content>
-          <v-list-item-content
-            class="align-end"
-          >
-            <v-card-subtitle class=" text--primary pa-0">{{ volereCard.date + ' ' + volereCard.time }}</v-card-subtitle>
-          </v-list-item-content>
-        </v-list-item>
+        </v-container>
 
-        <v-list-item>
-          <v-list-item-content>
-            <v-card-title class="pa-0">Incremento:</v-card-title>
-          </v-list-item-content>
-          <v-list-item-content
-            class="align-end"
-          >
-            <v-card-subtitle class=" text--primary pa-0">{{ volereCard.increment }}</v-card-subtitle>
-          </v-list-item-content>
-        </v-list-item>
+       
       </v-card>
     </v-dialog>
 
@@ -396,11 +445,16 @@ export default {
   }),
   props: {
     volereCard: null,
-    volereCards: null
+    volereCards: null,
+    project: null
   },
   methods: {
     deleteVolere: function () {
       this.volereCards.splice(this.volereCards.indexOf(this.volereCard), 1);
+      axios.delete('/card-volere/'+this.volereCard.id)
+          .then(res=>{
+              console.log(res.data);
+          });
     },
     editVolere: function(){
 
@@ -408,8 +462,8 @@ export default {
       this.volereRURS = this.volereCard.rurs;
       this.volereName = this.volereCard.name;
       this.volereDesc = this.volereCard.desc;
-      this.volereSource = this.volereCard.source.join();
-      this.volereUsertype = this.volereCard.usertypes.join();
+      this.volereSource = this.volereCard.source;
+      this.volereUsertype = this.volereCard.usertypes;
       this.volereType = this.volereCard.type;
       this.volereState = this.volereCard.state;
       this.volerePriority = this.volereCard.priority;
@@ -424,8 +478,8 @@ export default {
       this.volereCard.rurs = this.volereRURS;
       this.volereCard.name = this.volereName ;
       this.volereCard.desc = this.volereDesc;
-      this.volereCard.source = this.volereSource.split(",");
-      this.volereCard.usertypes = this.volereUsertype.split(",");
+      this.volereCard.source = this.volereSource;
+      this.volereCard.usertypes = this.volereUsertype;
       this.volereCard.type = this.volereType;
       this.volereCard.state = this.volereState;
       this.volereCard.priority = this.volerePriority;
@@ -434,6 +488,10 @@ export default {
       this.volereCard.scale = this.volereScale;
       this.volereCard.increment = this.volereIncrement;
       this.volereCard.number = this.volereNumber;
+      axios.put('/card-volere/'+this.volereCard.id, this.volereCard)
+          .then(res=>{
+              console.log(res.data);
+          });
     }
 
   }

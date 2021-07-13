@@ -48,8 +48,9 @@
         </v-list-item>
         <v-card-actions style="float:right" >
             <v-btn class="ma-2 btn-danger white--text" color="error" v-on:click="dialogAlert=true">
-                Eliminar
-                <v-icon right>mdi-delete</v-icon>
+                <div class="px-0 hidden-sm-and-down">Eliminar</div>
+                <v-icon right class="mx-0 px-0">mdi-delete</v-icon>
+
                 <v-dialog v-model="dialogAlert" max-width="40%">
                     <v-card>
                         <v-card-title class="text-h6 text-c">Seguro que desea borrar el proyecto?</v-card-title>
@@ -63,46 +64,61 @@
                 </v-dialog>
             </v-btn>
 
-            <v-btn class="ma-2 btn-danger white--text" color="error" v-on:click="dialogEdit=true">
+
+
+
+            <v-btn class="ma-2 btn-danger white--text" color="error" v-on:click="getTeam(proyectData.id)">
                 Editar Equipo
                 <v-icon right>mdi-delete</v-icon>
-                <v-dialog v-model="dialogEdit" color="red" max-width="40%" v-for="(equipo,index) in proyecto.equipos" :key="index">
+                <v-dialog v-model="dialogEdit" color="red" max-width="40%" >
+                    <v-card-title class="text-h6 text-c" dark color="red">Equipos</v-card-title>
                     <v-card color="red lighten-5">
-                        <v-card-title class="text-h6 text-c">Equipos</v-card-title>
+                        <v-btn @click="dialogAdd=true">
+                            <v-dialog v-model="dialogAdd" color="red" max-width="40%">
+                                <v-card>
+                                    <v-card-title>
+                                        Estudiantes
+                                    </v-card-title>
+                                    <v-select
+                                        item-text="correo"
+                                        v-model="proyecto.workers"
+                                        :items="items"
+                                        label="Empleados del proyecto"
+                                        multiple
+                                        dense
+                                        clearable
+                                        chips
+                                        small-chips
+                                        outlined
+                                        prepend-icon="mdi-account-group"
+
+                                    ></v-select>
+                                    <v-btn>
+                                        Confirmar
+                                    </v-btn>
+
+                                </v-card>
+                            </v-dialog>
+                            <v-icon dark>mdi-plus</v-icon>
+                        </v-btn>
                         <v-card-actions>
-                            <v-alert type="success">
-                                {{equipo.nombreequipo}}
-                                <v-btn color="secondary" class="btn-danger white--text" @click="dialogAlert=false"><v-icon center>mdi-delete</v-icon></v-btn>
-                                <v-btn color="red" class="btn-danger white--text" @click="deleteProject(proyectData.id)"><v-icon dark>mdi-minus</v-icon></v-btn>
+                            <div>
                                 <card color ="red">
-                                    <div v-for="(estudiante, index1) in equipo.estudiante" :key="index1"> {{estudiante.name}}
-                                        <v-btn color="secondary" class="btn-danger white--text" @click="dialogAlert=false"><v-icon center>mdi-delete</v-icon></v-btn>
-                                        <v-btn color="red" class="btn-danger white--text" @click="deleteProject(proyectData.id)"><v-icon dark>mdi-minus</v-icon></v-btn>
+                                    <div v-for="(estudiante, index1) in equipos" :key="index1"
+                                         class='black--text'> {{estudiante.id_user}}
+                                        <v-col>
+                                            <v-btn color="secondary"
+                                                   class="btn-danger align-end black--text"
+                                                   @click="eliminarEstudiante(estudiante.id)"><v-icon center>mdi-delete</v-icon>
+                                            </v-btn>
+                                        </v-col>
                                     </div>
                                 </card>
-                            </v-alert>
-                        </v-card-actions>
-
-                        <v-card-actions>
-                            <v-alert type="info">
-                                Equipo 1
-                            </v-alert>
-                        </v-card-actions>
-
-                        <v-card-actions>
-                            <v-alert type="warning">
-                                Equipo 2
-                            </v-alert>
-                        </v-card-actions>
-                        <v-card-actions>
-                            <v-alert type="error">
-                                Equipo 3
-                            </v-alert>
+                            </div>
                         </v-card-actions>
                     </v-card>
                 </v-dialog>
             </v-btn>
-
         </v-card-actions>
 
 
@@ -118,30 +134,11 @@ export default {
             dialogAlert:false,
             dialogEdit:false,
             dialogEliminar: false,
+            dialogAdd: false,
+            equipos: [],
 
             proyecto: {
-                id:'0',
-                equipos: [
 
-                    {
-                        nombreequipo:'tim',
-                        estudiante:
-                    [
-                        {name: 'Elwea tim 1', correo:'ajcorreo sd@askdja.cl'},
-                        {name: 'El weta tim 1', correo:'corre@askdja.cl'},
-                        {name: 'El kalsjdasd3 tim 1', correo:'perra@askdja.cl'},
-
-                    ]},
-                    {
-                        nombreequipo:'tim 2',
-                        estudiante:
-                            [
-                                {name: 'Elwea tim 2', correo:'ajcorreo sd@askdja.cl'},
-                                {name: 'El weta tim 2', correo:'corre@askdja.cl'},
-                                {name: 'El kalsjdasd3 tim 2', correo:'perra@askdja.cl'},
-
-                            ]},
-                ]
             }
         }
     },
@@ -153,18 +150,54 @@ export default {
         deleteProject: function (id){
             axios.delete('/administrar-proyectos/'+id);
             this.$emit('delete', id);
+            this.dialogAlert=false;
         },
 
-        deleteTeam: function (){
+        async getTeam(id) {
+           //const v = axios.get('/integrantes/'+id);
+           console.log(id);
+           this.dialogEdit=true;
+           const res = await axios.get('/integrantes');
+
+           const miembros = [];
+           for (let i=0; i<res.data.length; i++) {
+               const datos = res.data[i];
+                if (datos.id_proyecto == id) {
+                    miembros.push(datos);
+                }
+           }
+           this.equipos = miembros;
+           console.log(miembros);
+        },
+        //eliminar estudiante del equipo y bd
+        async eliminarEstudiante(id){
+            console.log(id);
+            axios.delete('/integrantes/'+id);
+            for (let i=0; i<this.equipos.length; i++) {
+                if (this.equipos[i].id == id) {
+                    this.equipos.splice(this.equipos.indexOf(this.equipos[i]), 1);
+                    break;
+                }
+            }
 
         },
+
         editTeam: function (){
 
         },
+        deleteStudent: function(position){
+            alert("vamos al eliminar al wea" + position)
+        },
+        addTeam: function(){
+            alert("tim agregado")
+            //proyecto.equipos.push(equipo)
+        }
 
     },
+
     props:{
-       proyectData: null
+       proyectData: null,
+       equipoData :null
     }
 
 }

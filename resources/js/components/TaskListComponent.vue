@@ -1,11 +1,28 @@
 <template>
   <v-container light fluid>
     <!--Barra de tareas-->
-    <v-row class="justify-right ma-2 px-0">
-      <v-btn color="secondary" @click="dialog = true">
-        <v-icon> mdi-plus </v-icon>
-      </v-btn>
-    </v-row>
+      <v-toolbar
+          color="primary"
+            rounded
+      >
+          <v-row >
+              <v-col cols="6"
+                     class="white--text pt-0 pb-0 text-h5">
+                  Tareas del Proyecto
+              </v-col>
+              <v-col cols="6" class="white--text pt-0 pb-0 text-h5 text-right">
+                  <v-btn color="secondary elevation-0"
+                         @click="dialog = true"
+                         fab
+                         small>
+                      <v-icon color="white">mdi-credit-card-plus-outline</v-icon>
+                  </v-btn>
+              </v-col>
+          </v-row>
+
+      </v-toolbar>
+
+
 
     <!--Cuadro de diálogo para crear nueva tarea-->
     <v-dialog v-model="dialog" persistent width="60%">
@@ -130,7 +147,7 @@
         {{ userTask.username }}
       </v-toolbar>
       <v-card-actions>
-        <v-row>
+        <v-row class="mt-2">
           <v-col
             cols="12"
             md="6"
@@ -190,7 +207,7 @@ export default {
         this.id_name.push(iName);
         let newT = {
           name: new_task.name,
-          members: new_task.members,
+          members: JSON.parse(new_task.members),
           desc: new_task.desc,
           date: new_task.date,
           tags: ["HU02", "TA02", "P2"],
@@ -258,21 +275,20 @@ export default {
         estado: this.taskState
       });
 
-      for(let i=0;i<this.taskMembers.length;i++){
-          let mem = this.taskMembers[i];
-          alert(JSON.stringify(this.taskState));
-          const newTask = {
-              name: this.taskName,
-              members: mem,
-              desc: this.taskDesc,
-              date: this.taskDate[0],
-              tags: ""+this.taskTags,
-              changes: ""+this.taskChanges,
-              id_pro: this.id_pro,
-              estado :this.taskState
-          };
-          this.send(newTask);
-      }
+      
+          
+      const newTask = {
+          name: this.taskName,
+          members: JSON.stringify(this.taskMembers),
+          desc: this.taskDesc,
+          date: this.taskDate[0],
+          tags: ""+this.taskTags,
+          changes: ""+this.taskChanges,
+          id_pro: this.id_pro,
+          estado :this.taskState
+      };
+      this.send(newTask);
+      
 
       this.taskName = '';
       this.taskDesc = '';
