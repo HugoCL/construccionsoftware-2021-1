@@ -14,7 +14,6 @@ class UserProjetController extends Controller
      */
     public function index()
     {
-
     }
 
     /**
@@ -24,7 +23,6 @@ class UserProjetController extends Controller
      */
     public function create()
     {
-
     }
 
     /**
@@ -46,7 +44,6 @@ class UserProjetController extends Controller
      */
     public function show($id)
     {
-
     }
 
     /**
@@ -80,6 +77,5 @@ class UserProjetController extends Controller
      */
     public function destroy($id)
     {
-        //
     }
 }

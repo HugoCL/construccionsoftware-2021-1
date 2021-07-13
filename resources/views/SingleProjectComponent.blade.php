@@ -10,13 +10,9 @@
                     :devs="{{json_encode($devs)}}"
                     :leads="{{json_encode($leads)}}"
                     :participates="{{json_encode($participates)}}"
+                    :voleres="{{json_encode($cards)}}"
                 >
                 </edit-proyect-component>
-            </v-container>
-            <v-container>
-                <graph-component>
-
-                </graph-component>
             </v-container>
         </v-app>
     </div>

@@ -2,14 +2,27 @@
     <div class="container mx-0 px-0" data-app style="background-color: transparent">
         <v-container>
             <v-row >
-                <v-col cols="9" class="title mr-15 ml-1 pr-0 pb-0 ">
+                <v-col cols="9" class="title mr-13 ml-1 pr-0 pb-0 hidden-sm-and-down">
+                    Administrar proyectos
+                </v-col>
+                <v-col cols="7" class="title mr-15 ml-1 pr-0 pb-0 hidden-md-and-up">
                     Administrar proyectos
                 </v-col>
                 <v-col cols="2">
                     <v-dialog v-model="dialog" transition="dialog-top-transition"  width="64%">
                         <template v-slot:activator="{ on, attrs }">
-                            <div>
-                                <v-btn v-bind="attrs" color="secondary" v-on="on"> <v-icon class="pr-2" >mdi-plus</v-icon>Nuevo Proyecto</v-btn>
+                            <div class="text-right">
+                                <v-btn v-bind="attrs" color="secondary" v-on="on" class="hidden-md-and-down">
+                                    <v-icon>
+                                        mdi-plus
+                                    </v-icon>
+                                    <div class="pl-2">Nuevo Proyecto</div>
+                                </v-btn>
+                                <v-btn v-bind="attrs" color="secondary" v-on="on" class="hidden-lg-and-up ml-2">
+                                    <v-icon>
+                                        mdi-plus
+                                    </v-icon>
+                                </v-btn>
                             </div>
                         </template>
                         <template v-slot:default="dialog" >
@@ -17,9 +30,9 @@
                                 <v-toolbar class="elevation-0">
                                     <v-row align="center">
                                         <v-col cols="10" >
-                                                    <span class="pl-2 mt-2 pt-2 title" >
-                                                        Nuevo proyecto
-                                                    </span>
+                                            <span class="pl-2 mt-2 pt-2 title" >
+                                                Nuevo proyecto
+                                            </span>
                                         </v-col>
                                         <v-col cols="2" style="float: right;" class="text-right">
                                                     <span class="pr-2">
@@ -64,6 +77,26 @@
                     </ul>
                 </v-col>
             </v-row>
+
+            <v-snackbar
+                color="green"
+                class="white--text"
+                v-model="snackBarNewProject"
+                :timeout="timeout=3000"
+            >
+                Se creo un nuevo proyecto
+
+                <template v-slot:action="{ attrs }">
+                    <v-btn
+                        color="error"
+                        text
+                        v-bind="attrs"
+                        @click="snackBarNewProject = false"
+                    >
+                        Close
+                    </v-btn>
+                </template>
+            </v-snackbar>
         </v-container>
     </div>
 </template>
@@ -74,6 +107,7 @@ export default {
         return{
             projectsView: this.projects,
             dialog:false,
+            snackBarNewProject:false,
 
         }
     },
@@ -93,8 +127,10 @@ export default {
             const add = nuevoProyecto;
             console.log(nuevoProyecto)
             console.log(this.projectsView)
+            this.dialog=false;
+            this.snackBarNewProject=true;
             this.projectsView.push(add)
-            this.dialog=false
+
 
         }
     },

@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Integrant;
+use App\Models\Participate;
+use App\Models\User;
+use App\Models\Usuario;
 use Illuminate\Http\Request;
 
 class IntegrantsControllerController extends Controller
@@ -35,28 +38,37 @@ class IntegrantsControllerController extends Controller
      */
     public function store(Request $request)
     {
-        $integrant = new Integrant([
-            'id_proyect' => $request->input('id_proyect'),
-            'id_user' => $request->input('id_user'),
-            'rol' => $request->input('rol'),
-            'created_at' => $request->input('created_at'),
-            'updated_at' => $request->input('updated_at'),
-        ]);
+        $integrant = new Participate();
+        $integrant->id_user = $request->id_user;
+        $integrant->id_project = $request->id_project;
+        $integrant->rol = $request->rol;
         $integrant->save();
 
-        return response()->json('Integrant created!');
+        return $integrant;
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int  $id from user
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
-        $integrant = Integrant::find($id);
-        return response()->json($integrant);
+        //participates
+        $participate = Participate::query()->select('rol')->where('id_user',$id)
+            ->where('id_project', $request->id_project)
+            ->first();
+
+        $user = Usuario::query()->select(['correo','nombre'])
+            ->where('correo',$id)
+            ->first();
+        $rol = $participate-> rol;
+        $userEmail = $user-> correo;
+        $userName = $user->nombre;
+
+        return compact(['rol', 'userEmail', 'userName']);
+
     }
 
     /**
@@ -74,15 +86,16 @@ class IntegrantsControllerController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  int  $id from usuarios
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-        $integrant = Integrant::find($id);
-        $integrant->update($request->all());
+        $participate = Participate::query()->where('id_user',$request->userEmail)
+            ->where('id_project', $id)
+            ->update(['rol' => $request->rol]);
 
-        return response()->json('Integrant updated!');
+        return $participate;
     }
 
     /**
@@ -91,11 +104,13 @@ class IntegrantsControllerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        $integrant = Integrant::find($id);
-        $integrant->delete();
+        $integrant = Participate::query()->where('id_user',$id)
+            ->where('id_project', $request->id_project)
+            ->delete();
+        //$integrant->delete();
 
-        return response()->json('Integrant deleted!');
+        return $integrant;
     }
 }

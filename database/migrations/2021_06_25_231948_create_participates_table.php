@@ -23,7 +23,6 @@ class CreateParticipatesTable extends Migration
             $table->string('rol');
             $table->timestamps();
         });
-
     }
 
     /**

@@ -29,7 +29,7 @@ class TareaController extends Controller
     {
         //
         $task = new Task();
-        return view('create.taskk',compact('task'));
+        return view('create.taskk', compact('task'));
     }
 
     /**
@@ -46,6 +46,7 @@ class TareaController extends Controller
         $task->name = $request->name;
         $task->desc = $request->desc;
         $task->date = $request->date;
+        $task->members = $request->members;
         $task->estado =  $request->estado;
         $task ->save();
 
@@ -92,12 +93,12 @@ class TareaController extends Controller
         $task->id_proyecto = $request->id_pro;
         $task->name = $request->name;
         $task->desc = $request->desc;
+        $task->members = $request->members;
         $task->date = $request->dates[0];
         $task->estado =  $request->estado;
         $task ->save();
 
         return $task ;
-
     }
 
     /**

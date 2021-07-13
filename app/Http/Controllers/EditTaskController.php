@@ -1,12 +1,10 @@
 <?php
 
-
 namespace App\Http\Controllers;
 
 use App\Models\Task;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
-
 
 class EditTaskController extends Controller
 {
@@ -84,7 +82,6 @@ class EditTaskController extends Controller
         $task->update($request->all());
         $task ->save();
         return $task ;
-
     }
 
     /**

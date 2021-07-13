@@ -71,18 +71,7 @@
                         md="4"
                       >
                         <v-text-field
-                          v-model="editedItem.id"
-                          label="Id"
-                          disabled="disabled"
-                        ></v-text-field>
-                      </v-col>
-                      <v-col
-                        cols="12"
-                        sm="6"
-                        md="4"
-                      >
-                        <v-text-field
-                          v-model="editedItem.name"
+                          v-model="editedItem.nombre"
                           label="Nombres"
                         ></v-text-field>
                       </v-col>
@@ -92,7 +81,7 @@
                         md="4"
                       >
                         <v-text-field
-                          v-model="editedItem.email"
+                          v-model="editedItem.correo"
                           label="Correo"
                         ></v-text-field>
                       </v-col>
@@ -163,27 +152,25 @@
 
 <script>
   export default {
+    name:'UserTableComponent',
     data: () => ({
       dialog: false,
       dialogDelete: false,
       search: '',
       headers: [
-        { text: 'Id', align: 'start', sortable: true, value: 'id'},
-        { text: 'Nombres', align: 'start', sortable: true, value: 'name'},
-        { text: 'Correo', value: 'email', sortable: true },
+        { text: 'Nombres', align: 'start', sortable: true, value: 'nombre'},
+        { text: 'Correo', value: 'correo', sortable: true },
         { text: 'Acciones', value: 'actions', sortable: false },
       ],
       students: [],
       editedIndex: -1,
       editedItem: {
-        id: '',
-        name: '',
-        email: '',
+        nombre: '',
+        correo: '',
       },
       defaultItem: {
-        id: '',
-        name: '',
-        email: '',
+        nombre: '',
+        correo: '',
       },
       emailRules: [
           value => !! value || 'Este campo no debe estar vacío',
@@ -192,10 +179,6 @@
     }),
 
     computed: {
-
-      getFullLastName(){
-        return '${lastName} ${mothersLastName}';
-      },
       formTitle () {
         return this.editedIndex === -1 ? 'Agregar Nuevo Estudiante' : 'Editar Estudiante'
       },
@@ -211,61 +194,58 @@
     },
 
     created () {
-      this.initialize()
+      //this.initialize();
+      axios.get('/lista-usuarios')
+        .then(response=>{
+          const res = response.data;
+          this.students = res;
+
+
+        });
     },
 
     methods: {
       initialize () {
         this.students = [
           {
-            id: '1',
-            name: 'Frozen Yogurt',
-            email: 'correo0001@dominio.com',
+            nombre: 'Frozen Yogurt',
+            correo: 'correo0001@dominio.com',
           },
           {
-            id: '2',
-            name: 'Ice cream sandwich',
-            email: 'correo0001@dominio.com',
+            nombre: 'Ice cream sandwich',
+            correo: 'correo0001@dominio.com',
           },
           {
-            id: '3',
-            name: 'Eclair',
-            email: 'correo0001@dominio.com',
+            nombre: 'Eclair',
+            correo: 'correo0001@dominio.com',
           },
           {
-            id: '4',
-            name: 'Cupcake',
-            email: 'correo0001@dominio.com',
+            nombre: 'Cupcake',
+            correo: 'correo0001@dominio.com',
           },
           {
-            id: '5',
-            name: 'Gingerbread',
-            email: 'correo0001@dominio.com',
+            nombre: 'Gingerbread',
+            correo: 'correo0001@dominio.com',
           },
           {
-            id: '6',
-            name: 'Jelly bean',
-            email: 'correo0001@dominio.com',
+            nombre: 'Jelly bean',
+            correo: 'correo0001@dominio.com',
           },
           {
-            id: '7',
-            name: 'Lollipop',
-            email: 'correo0001@dominio.com',
+            nombre: 'Lollipop',
+            correo: 'correo0001@dominio.com',
           },
           {
-            id: '8',
-            name: 'Honeycomb',
-            email: 'correo0001@dominio.com',
+            nombre: 'Honeycomb',
+            correo: 'correo0001@dominio.com',
           },
           {
-            id: '9',
-            name: 'Donut',
-            email: 'correo0001@dominio.com',
+            nombre: 'Donut',
+            correo: 'correo0001@dominio.com',
           },
           {
-            id: '10',
-            name: 'KitKat',
-            email: 'correo0001@dominio.com',
+            nombre: 'KitKat',
+            correo: 'correo0001@dominio.com',
           },
         ]
       },
@@ -300,6 +280,7 @@
         this.$nextTick(() => {
           this.editedItem = Object.assign({}, this.defaultItem)
           this.editedIndex = -1
+          axios.delete('/lista-usuario', {params: {'id': this.defaultItem.correo}})
         })
       },
 
@@ -308,6 +289,11 @@
           Object.assign(this.students[this.editedIndex], this.editedItem)
         } else {
           this.students.push(this.editedItem)
+          axios.post('/lista-usuarios', this.editedItem)
+            .then(response => {
+              console.log("usuario enviado")
+              this.$emit('add',response.data);
+            });
         }
         this.close()
       },
