@@ -77,6 +77,5 @@ class UserProjetController extends Controller
      */
     public function destroy($id)
     {
-        //
     }
 }
