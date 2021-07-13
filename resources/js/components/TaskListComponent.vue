@@ -275,8 +275,8 @@ export default {
         estado: this.taskState
       });
 
-      
-          
+
+
       const newTask = {
           name: this.taskName,
           members: JSON.stringify(this.taskMembers),
@@ -288,7 +288,7 @@ export default {
           estado :this.taskState
       };
       this.send(newTask);
-      
+
 
       this.taskName = '';
       this.taskDesc = '';
