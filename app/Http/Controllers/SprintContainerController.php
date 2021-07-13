@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Sprint;
 use App\Models\Tarea;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 
@@ -12,6 +14,24 @@ class SprintContainerController extends Controller
     public function index()
     {
         return view('SprintContainerComponent');
+    }
+
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        //
+        $sprint = new Sprint();
+        $sprint->id_proyecto = $request->id_proyecto;
+        $sprint->nombre_sprint = $request->nombre_sprint;
+        $sprint->fechaInicio = $request->fechaInicio;
+        $sprint->fechaTermino = $request->fechaTermino;
+        $sprint->save();
     }
 
     /**
@@ -39,6 +59,19 @@ class SprintContainerController extends Controller
 
         return view('SprintContainerComponent', compact('id', 'sprints','tasks'));
 
+    }
+    public function update(Request $request, $id)
+    {
+        //
+
+        $sprint = Sprint::find($id);
+        $sprint->fechaInicio = $request->fechaInicio;
+        $sprint->fechaTermino = $request->fechaTermino;
+        $sprint->save();
+
+
+        return $sprint;
+        //return view('vistaSprints');
     }
 
     /**

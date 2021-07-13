@@ -344,6 +344,7 @@ export default {
         editedCycle: null,
         sprintUp: {
             id_proyecto: null,
+            nombre_sprint: null,
             fechaInicio: null,
             fechaTermino: null
         },
@@ -397,9 +398,23 @@ export default {
         add: function () {
             this.nuevoProyecto.push({requisitos: this.nuevoProyecto});
             this.nuevoProyecto = "";
+
         },
         addCycle: function(){
-            this.cycles.push({
+
+            this.sprintUp.id_proyecto = this.project_id;
+            this.sprintUp.nombre_sprint = 'Nueva Iteración';
+            let date = new Date();
+            this.sprintUp.fechaInicio = date.getFullYear() + '-' + (date.getMonth()+1) + '-' + date.getDate();
+            this.sprintUp.fechaTermino = date.getFullYear() + '-' + (date.getMonth()+1) + '-' + date.getDate();
+
+
+
+            axios.post('/sprint-container' , this.sprintUp);
+
+
+            this.cycles.push(
+                {
                     cycleName: "Nueva iteración",
                     subcycle: [],
                     edit:false,
@@ -408,6 +423,7 @@ export default {
             )
         },
         editCycle: function (){
+
             this.cycleName= this.cycle.cycleName;
         },
         deleteCycle: function (){
