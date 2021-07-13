@@ -218,7 +218,7 @@
                                                 :key="index2"
 
                                             >
-                                                {{ subcycles.name }}  {{subcycles.id}}  {{cycles1.sprintId}}
+                                                {{ subcycles.name }}
                                             </v-card>
                                         </draggable>
                                         <!--v-card

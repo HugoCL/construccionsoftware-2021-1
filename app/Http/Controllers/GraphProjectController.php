@@ -70,7 +70,7 @@ class GraphProjectController extends Controller
         $sprints = DB::table('sprints')->where('id_proyecto', '=', $id)->get();
 
         $tareasTotales = $tareas->count();
-        $tareasHechas = $tareas->where('estado', '=', 'hecho')->count();
+        $tareasHechas = $tareas->where('estado', '=', 'Terminado')->count();
         $tareasPorSprint = [];
 
         //Quizas se cambia el nombre de la columna
@@ -78,7 +78,7 @@ class GraphProjectController extends Controller
             array_push($tareasPorSprint,DB::table('tasks')->where('id_proyecto', '=', $id)->where('id_sprint','=',$sprint->id)->count());
             //array_push($tareasPorSprint, $sprint->id);
         }
-        
+
         $idParticipates = Participate::query()->select('id_user')->where('id_project',$id)->get();
 
         //Quizas es necesario un for para conseguir los desarrolladores de un proyecto
@@ -87,7 +87,7 @@ class GraphProjectController extends Controller
 
         $usuario_tareas = [];
         //falta la relacion de tareas y usuario de un proyecto
-        
+
         return response()->json([
             'tareasTotales' => $tareasTotales,
             'tareasHechas' => $tareasHechas,
