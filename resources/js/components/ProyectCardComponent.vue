@@ -167,7 +167,7 @@ export default {
            this.equipos = miembros;
            console.log(miembros);
         },
-
+        //eliminar estudiante del equipo y bd
         async eliminarEstudiante(id){
             console.log(id);
             axios.delete('/integrantes/'+id);
