@@ -16,10 +16,14 @@ class CreateSprintsTable extends Migration
         Schema::create('sprints', function (Blueprint $table) {
             $table->integer('id');
             $table->integer('id_proyecto');
+            //Aqui se agrega el nro_sprint el cual es un identificador cualquiera
+            //La idea es que incluso podria ser un texto
+            $table->integer('nro_sprint');
 
             $table->primary(['id','id_proyecto']);
 
-            $table->foreign('id_proyecto') -> references('id') -> on('proyectos');
+            //Se agrego el cascade
+            $table->foreign('id_proyecto') -> references('id') -> on('proyectos')->cascadeOnDelete();
             $table->date('fechaInicio');
             $table->date('fechaTermino');
             $table->timestamps();
