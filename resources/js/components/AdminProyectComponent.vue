@@ -70,7 +70,7 @@
 
 
             <v-row class="mt-2">
-                <v-card color="secondary">
+                <v-card outlined>
                     <v-col cols="12">
                         <ul class="list-group mx-0 px-0" >
                             <li class="list-group-item mb-4"
@@ -88,39 +88,22 @@
             </v-row>
 
             <v-snackbar
-                color="green"
+                color="blue"
                 class="white--text"
                 v-model="snackBarNewProject"
-                :timeout="timeout=3000"
+                :timeout="timeout=10000"
             >
                 Se creo un nuevo proyecto
 
-                <template v-slot:action="{ attrs }">
-                    <v-btn
-                        color="error"
-                        v-bind="attrs"
-                        @click="snackBarNewProject = false"
-                    >
-                        Close
-                    </v-btn>
-                </template>
             </v-snackbar>
             <v-snackbar
-                color="alert"
+                color="error"
                 class="white--text"
                 v-model="snackBarDeleteProject"
-                :timeout="timeout=3000"
+                :timeout="timeout=10000"
             >
                 Se elimino un proyecto
-                <template v-slot:action="{ attrs }">
-                    <v-btn
-                        color="error"
-                        v-bind="attrs"
-                        @click="snackBarDeleteProject = false"
-                    >
-                        Close
-                    </v-btn>
-                </template>
+
             </v-snackbar>
         </v-container>
     </div>
@@ -142,13 +125,14 @@ export default {
 
         },
         deleteProjetc(id){
+            this.snackBarDeleteProject=true;
             for (var i = 0; i < this.projectsView.length; i++) {
                 if (this.projectsView[i].id === id){
                     this.projectsView.splice(i, 1);
                     return;
                 }
             }
-           this.snackBarDeleteProject=true;
+
         },
         addProject(nuevoProyecto){
             const add = nuevoProyecto;
