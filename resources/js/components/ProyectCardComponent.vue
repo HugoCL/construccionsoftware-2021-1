@@ -83,17 +83,13 @@
                                         v-model="proyecto.workers"
                                         :items="items"
                                         label="Empleados del proyecto"
-                                        multiple
+                                        prepend-icon="mdi-account-group"
                                         dense
                                         clearable
-                                        chips
-                                        small-chips
-                                        outlined
-                                        prepend-icon="mdi-account-group"
-
                                     ></v-select>
-                                    <v-btn>
-                                        Confirmar
+                                    <span>Seleccionados: {{ proyecto.workers }}</span>
+                                    <v-btn @click="addTeam(proyecto.workers)">
+                                        Agregar
                                     </v-btn>
 
                                 </v-card>
@@ -135,13 +131,33 @@ export default {
             dialogEliminar: false,
             dialogAdd: false,
             equipos: [],
-
+            equiposAux: [],
+            items: [],
+            select: null,
             proyecto: {
 
             }
         }
     },
+
+    created(){
+        /*
+              axios.post('/user', {correo: 'ncastillo@hotmail.com', nombre: 'Nicolas'});
+              axios.post('/user', {correo: 'awallberg@hotmail.com', nombre: 'Andres'});
+              axios.post('/user', {correo: 'mvalenzuela@hotmail.com', nombre: 'Manuel'});  */
+
+        axios.get('/user')
+            .then(response=>{
+                const res = response.data;
+                this.items = res;
+
+
+            });
+
+    },
+
     methods:{
+
         getProject: function (id){
             axios.get('/administrar-proyectos/'+id);
         },
@@ -177,7 +193,6 @@ export default {
                     break;
                 }
             }
-
         },
 
         editTeam: function (){
@@ -186,9 +201,10 @@ export default {
         deleteStudent: function(position){
             alert("vamos al eliminar al wea" + position)
         },
-        addTeam: function(){
-            alert("tim agregado")
-            //proyecto.equipos.push(equipo)
+        addTeam: function(pj){
+            //alert("ahorita vemos que pedo")
+            this.equipos.push(pj)
+            alert("sdfasdf"+pj)
         }
 
     },
