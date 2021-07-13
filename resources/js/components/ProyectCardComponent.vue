@@ -133,7 +133,8 @@ export default {
             equipos: [],
             equiposAux: [],
             items: [],
-            select: null,
+            id_team: [],
+            idProy: [],
             proyecto: {
 
             }
@@ -151,10 +152,9 @@ export default {
                 const res = response.data;
                 this.items = res;
 
-
             });
-
     },
+
 
     methods:{
 
@@ -178,10 +178,13 @@ export default {
                const datos = res.data[i];
                 if (datos.id_proyecto == id) {
                     miembros.push(datos);
+
                 }
            }
            this.equipos = miembros;
-           console.log(miembros);
+           this.id_team[0] = this.equipos[0].id_equipo;
+           this.idProy[0] = id;
+           console.log(this.equipos);
         },
         //eliminar estudiante del equipo y bd
         async eliminarEstudiante(id){
@@ -201,10 +204,15 @@ export default {
         deleteStudent: function(position){
             alert("vamos al eliminar al wea" + position)
         },
-        addTeam: function(pj){
-            //alert("ahorita vemos que pedo")
-            this.equipos.push(pj)
-            alert("sdfasdf"+pj)
+
+            addTeam: function(id){
+            alert("tim agregado")
+            console.log(id);
+            axios.post('/integrantes', {id_equipo: this.id_team[0], id_proyecto: this.idProy[0], id_user: id, rol: 'admin'});
+            //this.getTeam(this.idProy[0]);
+            //this.equipos.push(equipo)
+            this.dialogAdd=false;
+            this.getTeam(this.idProy[0]);
         }
 
     },
