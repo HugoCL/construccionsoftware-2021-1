@@ -18,6 +18,10 @@ import example from "./components/ExampleComponent";
 //import tarea from "./components/tareaComponent.vue";
 import tasklist from "./components/TaskListComponent";
 Vue.component(
+    "lista-usuarios",
+    require("./components/UsersTableComponent.vue").default
+);
+Vue.component(
     "crear-proyecto",
     require("./components/AddProyectComponent.vue").default
 );

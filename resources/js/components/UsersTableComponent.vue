@@ -195,60 +195,13 @@
 
     created () {
       //this.initialize();
-      axios.get('/lista-usuarios')
-        .then(response=>{
-          const res = response.data;
-          this.students = res;
-
-
-        });
+      this.students = this.users;
+      console.log(this.users);
     },
-
+    props: {
+      users:[]
+    },
     methods: {
-      initialize () {
-        this.students = [
-          {
-            nombre: 'Frozen Yogurt',
-            correo: 'correo0001@dominio.com',
-          },
-          {
-            nombre: 'Ice cream sandwich',
-            correo: 'correo0001@dominio.com',
-          },
-          {
-            nombre: 'Eclair',
-            correo: 'correo0001@dominio.com',
-          },
-          {
-            nombre: 'Cupcake',
-            correo: 'correo0001@dominio.com',
-          },
-          {
-            nombre: 'Gingerbread',
-            correo: 'correo0001@dominio.com',
-          },
-          {
-            nombre: 'Jelly bean',
-            correo: 'correo0001@dominio.com',
-          },
-          {
-            nombre: 'Lollipop',
-            correo: 'correo0001@dominio.com',
-          },
-          {
-            nombre: 'Honeycomb',
-            correo: 'correo0001@dominio.com',
-          },
-          {
-            nombre: 'Donut',
-            correo: 'correo0001@dominio.com',
-          },
-          {
-            nombre: 'KitKat',
-            correo: 'correo0001@dominio.com',
-          },
-        ]
-      },
 
       editItem (item) {
         this.editedIndex = this.students.indexOf(item)

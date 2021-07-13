@@ -16,9 +16,11 @@ class UsersTableController extends Controller
      *
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function index(Request $request)
+    public function index()
     {
-      return Usuario::all();
+        $usuarios = Usuario::all();
+        //echo $usuarios;
+        return view('UserTable', compact('usuarios'));
     }
 
     public function store(Request $request){
