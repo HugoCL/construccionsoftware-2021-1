@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\cards_volere;
+use App\Models\UserStory;
 use App\Models\Lead;
 use App\Models\Participate;
 use App\Models\Proyecto;
@@ -65,8 +66,9 @@ class AdminProyectsController extends Controller
         $participates = DB::table('participates')->whereIn('id_user',$idParticipates)->get();
 
         $cards = cards_volere::query()->select()->where('id_project', $id)->get();
+        $cardsHU = UserStory::query()->select()->where('id_project', $id)->get();
 
-        return view('SingleProjectComponent', compact('project', 'devs', 'leads', 'users', 'participates', 'cards'));
+        return view('SingleProjectComponent', compact('project', 'devs', 'leads', 'users', 'participates', 'cards', 'cardsHU'));
     }
 
     /**

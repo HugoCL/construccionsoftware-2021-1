@@ -19,8 +19,8 @@
                             md="4"
                         >
                             <v-text-field
-                                v-model="storieName"
-                                label="HU_CODE"
+                                v-model="huCode"
+                                label="Codigo"
                                 hide-details="auto"
                                 class="ml-5"
                             ></v-text-field>
@@ -39,8 +39,8 @@
 
                         <v-col cols="12" sm="2" md="4">
                             <v-select
-                                v-model="storiesUser"
-                                :items ="['PRODUCT OWNER','SCRUM MASTER']"
+                                v-model="huOwner"
+                                :items ="['Product Owner']"
                                 label="Cargo"
                             >
                             </v-select>
@@ -73,15 +73,15 @@
                             md="auto"
                         >
                             <v-subheader
-                                v-text="'Quiero'"
+                                v-text="'quiero'"
                                 class="mb-4 mt-2 ml-5"
                                 style="font-size: 16px;"
                             ></v-subheader>
                         </v-col>
                         <v-col md="10">
                             <v-text-field
-                            v-model="storiesDesc"
-                            label="Descripción"
+                            v-model="huAction"
+                            label="Accion"
                             ></v-text-field>
                         </v-col>
                     </v-row>
@@ -90,15 +90,15 @@
 
                         >
                             <v-subheader
-                                v-text=" 'Para' "
+                                v-text=" 'para' "
                                 class="mb-4 mt-2 ml-5 mr-4"
                                 style="font-size: 16px;"
                             ></v-subheader>
                         </v-col>
                         <v-col md="10">
                             <v-text-field
-                            v-model="storiesUse"
-                            label="Para que se usará"
+                            v-model="huResult"
+                            label="Resultado"
                             ></v-text-field>
                         </v-col>
                     </v-row>
@@ -113,7 +113,7 @@
 
                         <v-btn
                         text
-                        @click="saveStorie"
+                        @click="saveHU"
                         >
                         Guardar
                         </v-btn>
@@ -123,7 +123,7 @@
         </v-dialog>
         <!--Mostrar información-->
         <v-dialog
-            v-model="storiesUsersDialog"
+            v-model="userStoryDialog"
             width="60%"
         >
             <v-card>
@@ -137,6 +137,9 @@
                         <v-list-item-content>
                             <v-card-title class="pa-0">
                                 INFORMACION CORRESPONDIENTE
+                                {{
+
+                                }}
                             </v-card-title>
                         </v-list-item-content>
 
@@ -243,37 +246,52 @@
  -->
 <script>
 export default{
-    name: "UserStories.vue",
+    name: "UserStories.vue", //cambiar nombre por uno singular
     data: () => ({
-        storiesUser: '',
-        storiesDialog: false,
+        huCode: '',
+        userStoryDialog: false,
         editDialog: false,
-        storieName: '',
-        storiesDesc: '',
-        storiesUse: '',
+        huOwner: '',
+        huAction: '',
+        huResult: '',
+        huIncrement: '',
     }),
 
     props: {
-        userStorie: null,
-        userStories: null
+        userStory: null,
+        userStories: null,
+        project: null
     },
 
     methods: {
-        deleteHistorie: function(){
-            this.userStorie.splice(this.userStorie.indexOf(this.userStorie),1);
+        deleteHU: function(){
+            this.userStories.splice(this.userStory.indexOf(this.userStory),1);
+            axios.delete('/user-story/'+this.userStory.id)
+                .then(res=>{
+                    console.log(res.data);
+                });
         },
 
-        editHistorie: function(){
+        editHU: function(){
             this.editDialog = true;
-            this.storieName = this.userStorie.name;
-            this.storiesDesc = this.userStorie.desc;
-
+            this.huCode = this.userStorie.code;
+            this.huOwner = this.userStorie.owner;
+            this.huAction = this.userStory.action;
+            this.huResult = this.userStory.result;
+            this.huIncrement = this.userStory.increment;
         },
 
-        saveStorie: function(){
+        saveHU: function(){
             this.editDialog = false;
-            this.userStorie.name = this.storieName;
-            this.userStorie.desc = this.storiesDesc;
+            this.userStorie.code = this.huCode;
+            this.userStorie.owner = this.huOwner;
+            this.userStory.action = this.huAction;
+            this.userStory.result = this.huResult;
+            this.userStory.increment = this.huIncrement;
+            axios.put('/user-story/'+this.userStory.id, this.userStory)
+                .then(res=>{
+                    console.log(red.data);
+                })
         }
     }
 }
