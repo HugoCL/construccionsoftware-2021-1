@@ -223,7 +223,7 @@
                         <!--Ver tablero-->
                         <v-tooltip top>
                             <template v-slot:activator="{ on }">
-                                <a href="/sprint-container/">
+                                <a v-bind:href="'/sprint-container/'+project.id">
                                     <v-btn
                                     fab
                                     dark
