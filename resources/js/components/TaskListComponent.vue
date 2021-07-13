@@ -7,7 +7,7 @@
       >
           <v-row >
               <v-col cols="6"
-                     class="white--text pt-0 pb-0 text-h5">
+                     class="white--text pt-1 pb-0 text-h5">
                   Tareas del Proyecto
               </v-col>
               <v-col cols="6" class="white--text pt-0 pb-0 text-h5 text-right">
@@ -142,17 +142,19 @@
       sm="12"
       cols="12"
       outlined
+      class="mt-1"
     >
-      <v-toolbar color="secondary" class="white--text pt-0 pb-0 text-h5">
+      <v-toolbar color="secondary" class="white--text pt-0 pb-0 mb-1 text-h5">
         {{ userTask.username }}
       </v-toolbar>
-      <v-card-actions>
-        <v-row class="mt-2">
+      <v-card-actions class="pa-0">
+        <v-row class="mt-2 mx-2 my-0">
           <v-col
             cols="12"
             md="6"
             v-for="(task, index2) in userTask.tasks"
             :key="index2"
+            class="my-0 mx-0"
           >
             <Task
               :id_task_name="id_name"
@@ -275,8 +277,8 @@ export default {
         estado: this.taskState
       });
 
-      
-          
+
+
       const newTask = {
           name: this.taskName,
           members: JSON.stringify(this.taskMembers),
@@ -288,7 +290,7 @@ export default {
           estado :this.taskState
       };
       this.send(newTask);
-      
+
 
       this.taskName = '';
       this.taskDesc = '';

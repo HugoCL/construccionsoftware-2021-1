@@ -168,28 +168,28 @@
                 <v-card-title class="pb-0 pt-0">Estado</v-card-title>
               </v-row>
               <v-row class="ml-1 ml-md-1">
-                <v-chip 
+                <v-chip
                   v-if="taskData.estado.toLowerCase() === 'pendiente'"
-                  class="pt-0" 
-                  color="red" 
+                  class="pt-0"
+                  color="red"
                   text-color="white"
                 >
                   <span class="mr-1"><v-icon>mdi-clock</v-icon></span>
                   {{ taskData.estado }}
                 </v-chip>
-                <v-chip 
+                <v-chip
                   v-if="taskData.estado.toLowerCase() === 'en proceso'"
-                  class="pt-0" 
-                  color="blue" 
+                  class="pt-0"
+                  color="blue"
                   text-color="white"
                 >
                   <span class="mr-1"><v-icon>mdi-cog</v-icon></span>
                   {{ taskData.estado }}
                 </v-chip>
                 <v-chip
-                  v-if="taskData.estado.toLowerCase() === 'terminado'" 
-                  class="pt-0" 
-                  color="green" 
+                  v-if="taskData.estado.toLowerCase() === 'terminado'"
+                  class="pt-0"
+                  color="green"
                   text-color="white"
                 >
                   <span class="mr-1"><v-icon>mdi-check</v-icon></span>
@@ -288,7 +288,7 @@
       @click="dialog = true"
     >
       <v-row>
-        <v-col cols="9" class="pb-0">
+        <v-col cols="9" class="pb-2 pt-1">
           <v-chip-group center-active column class="pl-3 pr-1 pt-0 pb-2">
             <v-chip
               v-for="(tag, index) in taskData.tags"
@@ -301,8 +301,8 @@
             </v-chip>
           </v-chip-group>
         </v-col>
-        <v-col cols="3">
-          <v-row align="center" justify="end">
+        <v-col cols="3" class="pr-6 pt-1">
+          <v-row class="pt-1" justify="end">
             <v-tooltip top>
               <template v-slot:activator="{ on }">
                 <v-btn
@@ -311,7 +311,7 @@
                   dark
                   x-small
                   v-on="on"
-                  class="mr-3 mt-2"
+                  class="mr-2 mt-2 pt-1"
                 >
                   <v-icon>mdi-pencil</v-icon>
                 </v-btn>
@@ -327,7 +327,7 @@
                   icon
                   x-small
                   v-on="on"
-                  class="mr-3 mt-2"
+                  class="mr-2 mt-2 pt-1"
                 >
                   <v-icon>mdi-delete</v-icon>
                 </v-btn>
@@ -337,20 +337,20 @@
           </v-row>
         </v-col>
       </v-row>
-
+      <v-divider class="my-0 py-2"></v-divider>
       <v-row>
         <v-col cols="12" class="pt-0">
           <v-card-title
-            class="subheading font-weight-bold text-justify pb-2 pt-0"
+            class="subheading font-weight-bold text-justify pb-1 pt-0"
           >
             {{ taskData.name }}
           </v-card-title>
         </v-col>
       </v-row>
 
-      <v-divider class="my-0 py-1"></v-divider>
+      <v-divider class="my-0 pt-1 pb-0"></v-divider>
 
-      <v-card-actions>
+      <v-card-actions class="pt-1">
         <v-chip class="pt-0" color="green" text-color="white">
           <span><v-icon>mdi-clock</v-icon></span>
           {{ taskData.date }}
