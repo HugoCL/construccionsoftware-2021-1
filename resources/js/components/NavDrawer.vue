@@ -2,7 +2,6 @@
     <v-card >
       <v-navigation-drawer
         app
-        :mini-variant.sync="expandOnHover"
         :expand-on-hover="drawer"
         permanent
         color="bgwoptico"
