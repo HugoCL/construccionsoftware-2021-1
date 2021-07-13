@@ -184,8 +184,8 @@
         <!--Miembros Emilio>
         <integrantes-proyectos></integrantes-proyectos-->
         <v-row>
-          <VolereList v-if="verifyProyectType() == true" class="mt-5"/>
-          <UserStoriesList v-if="verifyProyectType() == false" class="mt-5"/>
+          <VolereList :project="project"  :voleres="voleres" v-if="verifyProyectType() === true" class="mt-5"/>
+          <UserStoriesList v-if="verifyProyectType() === false" class="mt-5"/>
         </v-row>
         <v-row>
             <v-dialog v-model="openDialogEdit" max-width="80%">
@@ -285,6 +285,7 @@ export default {
         leads: [],
         devs: [],
         users: [],
+        voleres:[],
         project: null
     },
     methods: {
