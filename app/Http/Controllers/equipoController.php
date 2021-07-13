@@ -3,21 +3,29 @@
 namespace App\Http\Controllers;
 
 use App\Models\Equipo;
+use App\Models\Integrant;
 use App\Models\Integrante;
+use App\Models\Task;
 use Illuminate\Http\Request;
 
 class equipoController extends Controller
 {
     public function index()
     {
-        return Equipo::all();
+        //$integr= Task::find($id);
+        return Integrante::all();
+    }
+
+    public function show(Integrante $integrante)
+    {
+        return $integrante;
     }
 
     public function edit($id)
     {
-        $equipo = Equipo::find($id);
-        $integrantes= Integrante::where('id_proyecto','=',$equipo->id_proyect).andAnyOtherArgs('id_equipo','=',$id);
-        return view('AddProyectComponent')->with($equipo,$integrantes);
+        //$task = Task::find($id);
+        $integrantes= Integrante::where('id_proyecto','=',$id);//.andAnyOtherArgs('id_equipo','=',$id);
+        return view('AddProyectComponent')->with($integrantes);
     }
 
     public function update(Request $request, $id, $integrantes)
