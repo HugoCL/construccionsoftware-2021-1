@@ -13,7 +13,12 @@
         >
           <v-card-title>Crear Tarjeta de Volere</v-card-title>
         </v-toolbar>
-         <v-form class="ma-5">
+         <v-form 
+          class="ma-5"
+          ref="form"
+          v-model="validateForm"
+          lazy-validation
+          >
            <v-row>
              <v-col cols="8">
                <v-text-field
@@ -21,6 +26,7 @@
                  label="Nombre"
                  hide-details="auto"
                  outlined
+                 required
                ></v-text-field>
              </v-col>
              <v-col cols="4">
@@ -32,6 +38,7 @@
                  chips
                  small-chips
                  outlined
+                 required
                >
                </v-combobox>
              </v-col>
@@ -40,6 +47,7 @@
                  v-model="volereDesc"
                  label="Description"
                  outlined
+                 required
                ></v-textarea>
              </v-col>
              <v-col cols="12">
@@ -48,6 +56,7 @@
                  label="Fuente (separar nombres con comas)"
                  hide-details="auto"
                  outlined
+                 required
                ></v-text-field>
              </v-col>
              <v-col cols="12">
@@ -56,6 +65,7 @@
                  label="Tipo de usuario (separar tipos con comas)"
                  hide-details="auto"
                  outlined
+                 required
                ></v-text-field>
              </v-col>
              <v-col cols="12" md="6">
@@ -67,6 +77,7 @@
                  chips
                  small-chips
                  outlined
+                 required
                >
                </v-combobox>
              </v-col>
@@ -79,6 +90,7 @@
                  chips
                  small-chips
                  outlined
+                 required
                >
                </v-combobox>
              </v-col>
@@ -91,6 +103,7 @@
                  chips
                  small-chips
                  outlined
+                 required
                >
                </v-combobox>
              </v-col>
@@ -103,6 +116,7 @@
                  chips
                  small-chips
                  outlined
+                 required
                >
                </v-combobox>
              </v-col>
@@ -112,6 +126,7 @@
                  label="Medida"
                  hide-details="auto"
                  outlined
+                 required
                ></v-text-field>
              </v-col>
              <v-col cols="12">
@@ -120,6 +135,7 @@
                  label="Escala"
                  hide-details="auto"
                  outlined
+                 required
                ></v-text-field>
              </v-col>
              <v-col cols="12" md="6">
@@ -128,6 +144,7 @@
                  label="Incremento"
                  hide-details="auto"
                  outlined
+                 required
                  type="number"
                ></v-text-field>
              </v-col>
@@ -137,6 +154,7 @@
                  label="Número del requisito"
                  hide-details="auto"
                  outlined
+                 required
                  type="number"
                ></v-text-field>
              </v-col>
@@ -159,7 +177,7 @@
          </v-form>
       </v-card>
 
-    </v-dialog>
+    </v-dialog >
     <v-row>
       <v-col cols="12">
         <v-row class="justify-center ">
@@ -179,28 +197,54 @@
       <v-col 
         cols="12" 
         md="6"
+        v-if="volereCards.length !== 0"
       >
         <v-card>
-          
+          <v-toolbar color="secondary" class="white--text pt-0 pb-0 text-h5">
+            Requisitos de Usuario
+          </v-toolbar>
+            <v-row>
+              <v-col
+                cols="12"
+                v-for="(volereCard, index) in volereCards.filter(item=> item.rurs === 'RU')"
+                :key="index"
+                
+              >
+                <VolereCard
+                  :volereCard = "volereCard"
+                  :volereCards = "volereCards"
+                  :project="project"
+                  
+                />
+              </v-col>
+            </v-row>
         </v-card>
       </v-col>
       <v-col 
         cols="12" 
         md="6"
+        v-if="volereCards.length !== 0"
       >
-
+        <v-card>
+          <v-toolbar color="secondary" class="white--text pt-0 pb-0 text-h5">
+            Requisitos de Sistema
+          </v-toolbar>
+          <v-row>
+            <v-col
+              cols="12"
+              v-for="(volereCard, index) in volereCards.filter(item=> item.rurs === 'RS')"
+              :key="index"
+            >
+              <VolereCard
+                :volereCard = "volereCard"
+                :volereCards = "volereCards"
+                :project="project"
+              />
+            </v-col>
+          </v-row>
+        </v-card>
       </v-col>
-      <v-col
-        md="4"
-        v-for="(volereCard, index) in volereCards"
-        :key="index"
-      >
-        <VolereCard
-          :volereCard = "volereCard"
-          :volereCards = "volereCards"
-          :project="project"
-        />
-      </v-col>
+      
     </v-row>
   </v-container>
 </template>
@@ -211,6 +255,7 @@ export default {
   name: "VolereListComponent.vue",
   components: {VolereCard},
   data: () => ({
+    validateForm: true,
     dialog: false,
     volereRURS: '',
     volereName: '',
@@ -223,7 +268,7 @@ export default {
     volereStability: '',
     volereMeasure: '',
     volereScale: '',
-    volereIncrement: '',
+    volereIncrement: '0',
     volereNumber: 0,
     volereCards: []
   }),
@@ -264,6 +309,7 @@ export default {
         increment: parseInt(this.volereIncrement),
         id_project: this.project.id
       };
+      if(this.validate()){
       this.volereCards.push(card);
       this.dialog = false;
       this.volereName = '';
@@ -281,7 +327,10 @@ export default {
           .then(res=>{
               console.log(res.data.id);
               console.log(res.data);
-          });
+          });}
+    },
+    validate: function () {
+      return this.$refs.form.validate();
     }
   }
 }
