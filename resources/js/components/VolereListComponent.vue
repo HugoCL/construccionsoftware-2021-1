@@ -254,6 +254,15 @@
       </v-col>
 
     </v-row>
+      <v-snackbar
+          color="primary"
+          class="white--text"
+          v-model="snackBarNew"
+          :timeout="timeout=2000"
+      >
+          Se agrego una nueva tarjeta de volere
+
+      </v-snackbar>
   </v-container>
 </template>
 
@@ -278,7 +287,8 @@ export default {
     volereScale: '',
     volereIncrement: '0',
     volereNumber: 0,
-    volereCards: []
+    volereCards: [],
+      snackBarNew:false,
   }),
     props:{
       project: null,
@@ -336,6 +346,7 @@ export default {
               console.log(res.data.id);
               console.log(res.data);
           });}
+      this.snackBarNew=true;
     },
     validate: function () {
       return this.$refs.form.validate();

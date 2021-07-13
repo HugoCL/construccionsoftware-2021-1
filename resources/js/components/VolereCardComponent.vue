@@ -418,7 +418,33 @@
       <v-divider class="ma-0 py-0"></v-divider>
 
     </v-card>
+      <v-snackbar
+          color="primary"
+          class="white--text"
+          v-model="snackBarNew"
+          :timeout="timeout=2000"
+      >
+          Se agrego una nueva tarjeta de volere
 
+      </v-snackbar>
+      <v-snackbar
+          color="error"
+          class="white--text te"
+          v-model="snackBarDelete"
+          :timeout="timeout=2000"
+      >
+          Se elimino tarjeta de volere
+
+      </v-snackbar>
+      <v-snackbar
+          color="secondary"
+          class="white--text te"
+          v-model="snackBarEdit"
+          :timeout="timeout=2000"
+      >
+          Se edito una tarjeta de volere
+
+      </v-snackbar>
   </v-container>
 
 </template>
@@ -442,6 +468,10 @@ export default {
     volereScale: '',
     volereIncrement: '',
     volereNumber: 0,
+
+      snackBarDelete:false,
+      snackBarEdit:false,
+      snackBarNew:false,
   }),
   props: {
     volereCard: null,
@@ -455,6 +485,7 @@ export default {
           .then(res=>{
               console.log(res.data);
           });
+      this.snackBarEdit=true;
     },
     editVolere: function(){
 
@@ -472,6 +503,7 @@ export default {
       this.volereScale = this.volereCard.scale;
       this.volereIncrement = this.volereCard.increment;
       this.volereNumber = this.volereCard.number;
+      this.snackBarEdit=true;
     },
     saveVolere: function () {
       this.editDialog = false;
@@ -492,6 +524,7 @@ export default {
           .then(res=>{
               console.log(res.data);
           });
+      this.snackBarNew=true;
     }
 
   }
