@@ -202,20 +202,23 @@
                                         </v-card-title>
                                         <draggable class="list-group v-picker--full-width ma-0 pa-0"
                                                    color="white"
-                                                   :list="cycles.subcycle"
+                                                   :list="cycles1.subcycle"
                                                    group="cycleGroup"
+                                                   @change="changeSprint()"
 
 
                                         >
+
                                             <v-card
                                                 placeholder="Enter Task"
-                                                @keyup.enter="add"
+
                                                 class="list-group-item rounded-2 pa-2 mb-1 v-picker--full-width sorteable"
                                                 v-for="(subcycles,index2) in cycles1.subcycle"
+                                                @
                                                 :key="index2"
 
                                             >
-                                                {{ subcycles }}
+                                                {{ subcycles.name }}  {{subcycles.id}}  {{cycles1.sprintId}}
                                             </v-card>
                                         </draggable>
                                         <!--v-card
@@ -373,16 +376,18 @@ export default {
              */
             let name = sprint.nombre_sprint;
             let subcycle = [];
+            let tasksId = [];
             let cycleState = 'Backlog';
             let fechaInicio = '';
             let fechaFin = '';
 
-            this.tasks[index].forEach(element => subcycle.push(element.name));
+            this.tasks[index].forEach(element => subcycle.push({name: element.name, id: element.id, id_sprint: element.id_sprint}));
 
             this.cycles.push({
                 cycleName: name,
                 edit: false,
                 subcycle: subcycle,
+                tasksId: tasksId,
                 cycleState: cycleState,
                 fechaInic: fechaInicio,
                 fechaFin: fechaFin,
@@ -398,14 +403,32 @@ export default {
     methods: {
         add: function () {
             this.nuevoProyecto.push({requisitos: this.nuevoProyecto});
-            this.nuevoProyecto = "";
+            //this.nuevoProyecto = "";
 
         },
+        changeSprint: function (){
+
+            //Aqui por las caracteristicas del vuedraggable se realiza la actualizacion de todos los elementos de
+            //tanto la lista de tareas en sprints
+            //Tras realizar el cambio se ordenan las tareas por el id que posean, ya que asi se extraen desde la base de datos
+            for (const cycle of this.cycles) {
+                for (const task of cycle.subcycle) {
+                    if (task.id_sprint != cycle.sprintId){
+                        axios.put('/sprint/'+task.id, {id_sprint: cycle.sprintId}).then( console.log('updated'));
+                    }
+
+                }
+
+            }
+
+        }
+        ,
         addCycle: function(){
 
             this.sprintUp.id_proyecto = this.project_id;
             this.sprintUp.nombre_sprint = 'Nueva Iteración';
             let date = new Date();
+            //Solo se ingresa la fecha actual
             this.sprintUp.fechaInicio = date.getFullYear() + '-' + (date.getMonth()+1) + '-' + date.getDate();
             this.sprintUp.fechaTermino = date.getFullYear() + '-' + (date.getMonth()+1) + '-' + date.getDate();
 
@@ -430,9 +453,16 @@ export default {
             axios.put('/sprint-container/'+id, {nombre_sprint: name})
 
         },
-        deleteCycle: function (){
+        deleteCycle: function (id){
             this.cycles.splice(this.cycles.indexOf(this.SprintContainer),1);
+            //Al eliminar falta que las tareas que estan relacionadas al sprint se muevan al primer sprint
+            //o no se permita eliminar el sprint en caso que no este vacio
+            axios.delete('/sprint-container/'+id);
+
         },
+        log: function(evt) {
+            window.console.log(evt);
+        }
     }
 };
 </script>

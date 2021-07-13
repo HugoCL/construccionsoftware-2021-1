@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Sprint;
 use App\Models\Tarea;
+use App\Models\Task;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use phpDocumentor\Reflection\Types\Compound;
@@ -101,14 +102,10 @@ class SprintController extends Controller
     {
         //
 
-        $sprint = Sprint::find($id);
-        $sprint->fechaInicio = $request->fechaInicio;
-        $sprint->fechaTermino = $request->fechaTermino;
-        $sprint->save();
+        $task = Task::find($id);
+        $task->id_sprint = $request->id_sprint;
+        $task->save();
 
-
-        return $sprint;
-        //return view('vistaSprints');
     }
 
     /**
