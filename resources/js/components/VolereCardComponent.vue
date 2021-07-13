@@ -229,7 +229,7 @@
             class="align-end"
           >
             <v-card-subtitle class="text--primary pa-0">
-              {{ volereCard.source.join() }}
+              {{ volereCard.source }}
             </v-card-subtitle>
           </v-list-item-content>
         </v-list-item>
@@ -242,7 +242,7 @@
             class="align-end"
           >
             <v-card-subtitle class="text--primary pa-0">
-              {{ volereCard.usertypes.join() }}
+              {{ volereCard.usertypes }}
             </v-card-subtitle>
           </v-list-item-content>
         </v-list-item>
@@ -396,11 +396,16 @@ export default {
   }),
   props: {
     volereCard: null,
-    volereCards: null
+    volereCards: null,
+    project: null
   },
   methods: {
     deleteVolere: function () {
       this.volereCards.splice(this.volereCards.indexOf(this.volereCard), 1);
+      axios.delete('/card-volere/'+this.volereCard.id)
+          .then(res=>{
+              console.log(res.data);
+          });
     },
     editVolere: function(){
 
@@ -408,8 +413,8 @@ export default {
       this.volereRURS = this.volereCard.rurs;
       this.volereName = this.volereCard.name;
       this.volereDesc = this.volereCard.desc;
-      this.volereSource = this.volereCard.source.join();
-      this.volereUsertype = this.volereCard.usertypes.join();
+      this.volereSource = this.volereCard.source;
+      this.volereUsertype = this.volereCard.usertypes;
       this.volereType = this.volereCard.type;
       this.volereState = this.volereCard.state;
       this.volerePriority = this.volereCard.priority;
@@ -424,8 +429,8 @@ export default {
       this.volereCard.rurs = this.volereRURS;
       this.volereCard.name = this.volereName ;
       this.volereCard.desc = this.volereDesc;
-      this.volereCard.source = this.volereSource.split(",");
-      this.volereCard.usertypes = this.volereUsertype.split(",");
+      this.volereCard.source = this.volereSource;
+      this.volereCard.usertypes = this.volereUsertype;
       this.volereCard.type = this.volereType;
       this.volereCard.state = this.volereState;
       this.volereCard.priority = this.volerePriority;
@@ -434,6 +439,10 @@ export default {
       this.volereCard.scale = this.volereScale;
       this.volereCard.increment = this.volereIncrement;
       this.volereCard.number = this.volereNumber;
+      axios.put('/card-volere/'+this.volereCard.id, this.volereCard)
+          .then(res=>{
+              console.log(res.data);
+          });
     }
 
   }
