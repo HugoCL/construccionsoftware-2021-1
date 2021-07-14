@@ -51,7 +51,7 @@ class KanbanController extends Controller
      */
     public function show(kanban $kanban)
     {
-        //
+        return $kanban;
     }
 
     /**
@@ -72,9 +72,14 @@ class KanbanController extends Controller
      * @param  \App\Models\kanban  $kanban
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, kanban $kanban)
+    public function update(Request $request, $id)
     {
-        //
+        $tarea = Backlog::find($id);
+        $tarea->nombre = $request->nombre;
+        $tarea->id_proyecto = $request->id_proyecto;
+
+        $tarea ->save();
+        return $tarea;
     }
 
     /**
@@ -83,8 +88,9 @@ class KanbanController extends Controller
      * @param  \App\Models\kanban  $kanban
      * @return \Illuminate\Http\Response
      */
-    public function destroy(kanban $kanban)
+    public function destroy($id)
     {
-        //
+        $tareaBacklog = Backlog::find($id);
+        $tareaBacklog->delete();
     }
 }

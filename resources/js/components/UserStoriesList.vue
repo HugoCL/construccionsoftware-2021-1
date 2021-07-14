@@ -14,9 +14,18 @@
                 </v-toolbar>
                 <v-form>
                     <v-row>
+                        <v-col md="12">
+                            <v-text-field
+                            v-model="huName"
+                            label="Titulo"
+                            class="pa-2"
+                            ></v-text-field>
+                        </v-col>
+                    </v-row>
+                    <v-row>
                         <v-col lg="2">
                             <v-text-field
-                                class="pa-2 ml-10"
+                                class="pa-2 ml-5"
                                 v-model="huCode"
                                 label="Codigo"
                             >
@@ -98,25 +107,49 @@
         </v-dialog>
 
         <v-row>
-            <v-col cols="12">
-                <v-row class="justify-center">
-                    <v-btn
-                        color="secondary"
-                        @click="dialog = true"
-                        class="mb-4"
-                        width="50%"
-                    >
-                        <v-icon class="pr-2">
-                            mdi-card-plus-outline
-                        </v-icon>
-                        Crear Historia de Usuario
-                    </v-btn>
-                </v-row>
-            </v-col>
             <v-col
-                md="4"
+                cols="12"
+            >
+                <v-toolbar
+                    class="white--text text-h5"
+                    color="primary"
+                    rounded>
+                    <v-col cols="6">
+
+                        Historias de usuario
+
+                    </v-col>
+
+                    <v-col cols="6">
+                        <v-row class="justify-end">
+                            <v-tooltip top>
+                                <template v-slot:activator="{ on }">
+                                    <v-btn
+                                        color="secondary"
+                                        @click="dialog = true"
+                                        fab
+                                        small
+                                    >
+                                        <v-icon>
+                                            mdi-card-plus-outline
+                                        </v-icon>
+
+                                    </v-btn>
+                                </template>
+                                <span>Agregar Historia de Usuario</span>
+                            </v-tooltip>
+
+                        </v-row>
+                    </v-col>
+                </v-toolbar>
+            </v-col>
+
+        </v-row>
+        <v-row>
+            <v-col
                 v-for="(userStory, index) in userStories"
                 :key="index"
+                class="mt-0 pt-0 ml-0 mr-0 pr-0 pl-0"
             >
                 <!-- Llamo al otro componente  -->
 
@@ -128,6 +161,16 @@
 
             </v-col>
         </v-row>
+        <v-snackbar
+            color="primary"
+            class="white--text"
+            v-model="snackBarNew"
+            :timeout="timeout=2000"
+        >
+            Se agrego una historia de usuario
+
+        </v-snackbar>
+
     </v-container>
 </template>
 
@@ -139,12 +182,16 @@ export default{
     components: {}, //el otro componente //modificar singular
     data: () => ({
         dialog: false,
+        huName: '',
         huCode: '',
         huOwner: '',
         huAction: '',
         huResult: '',
         huIncrement: '',
         huNumber: 0,
+        snackBarDelete:false,
+        snackBarEdit:false,
+        snackBarNew:false,
         userStories: [
             //HU de ejemplo
             /*{
@@ -171,13 +218,14 @@ export default{
             console.log(this.huCode)
             let card = {
                 code: this.huCode,
+                name: this.huName,
                 owner: this.huOwner,
                 action: this.huAction,
                 result: this.huResult,
                 id_project: this.project.id
             };
             console.log(card)
-            this.userStories.push(Object.assign( {},{ id_project: this.project.id, code: this.huCode, action: this.huAction, result: this.huResult }));
+            this.userStories.push(Object.assign( {},{ id_project: this.project.id, code: this.huCode, owner: this.huOwner, name: this.huName, action: this.huAction, result: this.huResult }));
             this.dialog= false;
             axios.post('/user-story',card)
                 .then(res=>{
@@ -185,10 +233,10 @@ export default{
                     console.log(res.data);
                 });
             this.huCode = '',
+            this.huName = '',
             this.huOwner = '';
             this.hUAction = '';
             this.huResult = '';
-            this.huIncrement = 0;
         }
     }
 }

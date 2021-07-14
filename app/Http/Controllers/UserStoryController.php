@@ -41,10 +41,10 @@ class UserStoryController extends Controller
         $cardUserStory = new UserStory();
         $cardUserStory->id_project = $request->id_project;
         $cardUserStory->code = $request->code;
+        $cardUserStory->name = $request->name;
         $cardUserStory->owner = $request->owner;
         $cardUserStory->action = $request->action;
         $cardUserStory->result = $request->result;
-        //$cardUserStory->increment = $request->increment;
         $cardUserStory->save();
 
         return $cardUserStory;
@@ -85,6 +85,7 @@ class UserStoryController extends Controller
         //
         $cardUserStory = UserStory::find($id);
         $cardUserStory->code = $request->code;
+        $cardUserStory->name = $request->name;
         $cardUserStory->owner = $request->owner;
         $cardUserStory->action = $request->action;
         $cardUserStory->result = $request->result;
