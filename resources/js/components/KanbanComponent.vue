@@ -15,9 +15,9 @@
                                 @click="addNewCardBacklog"
                             >+</v-btn>
                         </h3>
-                        <KanbanBoard class="backlog  green lighten-4" :data="all.arrBacklog">
+                        <KanbanBoard class="backlog  blue lighten-4" :data="all.arrBacklog">
                             <draggable class="list-group kanban-column" :list="all.arrBacklog" group="task">
-                                <KanbanCard class="handle" v-for="(element, index) in all.arrBacklog" :data="element" :key="index" @remove="all.arrBacklog.splice(index, 1)"></KanbanCard>
+                                <KanbanCard class="handle" v-for="(element, index) in all.arrBacklog" :data="element" :key="index" @remove="deleteBacklogCard(index)" @update="updateBoard"></KanbanCard>
                             </draggable>
                             <v-divider></v-divider>
                         </KanbanBoard>
@@ -37,7 +37,7 @@
                         </h3>
                         <KanbanBoard class="backlog  red lighten-4" :data="all.arrInProgress">
                             <draggable class="list-group kanban-column" :list="all.arrInProgress" group="task">
-                                <KanbanCard class="handle" v-for="(element, index) in all.arrInProgress" :data="element" :key="index" @remove="all.arrInProgress.splice(index, 1)"></KanbanCard>
+                                <KanbanCard class="handle" v-for="(element, index) in all.arrInProgress" :data="element" :key="index" @remove="deleteInProgressCard(index)" @update="updateBoard"></KanbanCard>
                             </draggable>
                             <v-divider></v-divider>
                         </KanbanBoard>
@@ -55,9 +55,9 @@
                                 @click="addNewCardDone"
                             >+</v-btn>
                         </h3>
-                        <KanbanBoard class="backlog  blue lighten-4" :data="all.arrDone">
+                        <KanbanBoard class="backlog  green lighten-4" :data="all.arrDone">
                             <draggable class="list-group kanban-column" :list="all.arrDone" group="task">
-                                <KanbanCard class="handle" v-for="(element, index) in all.arrDone" :data="element" :key="index" @remove="all.arrDone.splice(index, 1)"></KanbanCard>
+                                <KanbanCard class="handle" v-for="(element, index) in all.arrDone" :data="element" :key="index" @remove="deleteDoneCard(index)" @update="updateBoard"></KanbanCard>
                             </draggable>
                             <v-divider></v-divider>
                         </KanbanBoard>
@@ -65,10 +65,19 @@
                 </div>
                 <div class="col-md-4">
                     <div class="p-2 alert alert-secondary kanban-list">
-                        <h3>Tested</h3>
+                        <h3>Tested
+                            <v-btn
+                                color="#FF1493"
+                                elevation="8"
+                                icon
+                                outlined
+                                x-small
+                                @click="addNewCardTest"
+                            >+</v-btn>
+                        </h3>
                         <KanbanBoard class="backlog  orange lighten-4" :data="all.arrTested">
                             <draggable class="list-group kanban-column" :list="all.arrTested" group="task">
-                                <KanbanCard class="handle" v-for="(element, index) in all.arrTested" :data="element" :key="index" @remove="all.arrTested.splice(index, 1)"></KanbanCard>
+                                <KanbanCard class="handle" v-for="(element, index) in all.arrTested" :data="element" :key="index" @remove="deleteTestCard(index)" @update="updateBoard"></KanbanCard>
                             </draggable>
                             <v-divider></v-divider>
                         </KanbanBoard>
@@ -106,7 +115,7 @@ export default {
                     },
                     {
                         name: "tarea2",
-                        color:'orange',
+                        color:'blue',
                         head: 'HU03 - TA02',
                         title: 'Implementar Menú Lateral',
                         des: 'S1 - TA02: Implementar menú en todas las paginas(1)',
@@ -138,7 +147,7 @@ export default {
         addNewCardBacklog: function() {
             this.all.arrBacklog.push({
                 name: this.newTask,
-                color:'orange',
+                color:'blue',
                 head:'HU00 - TA00',
                 title:'Nueva Tarjeta',
                 des:'',
@@ -164,6 +173,31 @@ export default {
                 des:'',
                 content: ''
             })
+        },
+        addNewCardTest: function() {
+            this.all.arrTested.push({
+                name: this.newTask,
+                color:'orange',
+                head:'HU00 - TA00',
+                title:'Nueva Tarjeta',
+                des:'',
+                content: ''
+            })
+        },
+        updateBoard(){
+
+        },
+        deleteBacklogCard(index){
+            this.all.arrBacklog.splice(index, 1);
+        },
+        deleteInProgressCard(index){
+            this.all.arrInProgress.splice(index, 1);
+        },
+        deleteDoneCard(index){
+            this.all.arrDone.splice(index, 1);
+        },
+        deleteTestCard(index){
+            this.all.arrTested.splice(index, 1);
         },
     }
 }

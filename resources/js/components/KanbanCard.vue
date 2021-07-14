@@ -343,6 +343,7 @@ export default {
             this.data.title = this.newTitle
             this.data.des = this.newDes
             this.data.content = this.newContent
+            this.$emit('update');
         },
     }
 }
