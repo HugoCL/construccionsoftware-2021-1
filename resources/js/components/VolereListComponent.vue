@@ -13,7 +13,7 @@
         >
           <v-card-title>Crear Tarjeta de Volere</v-card-title>
         </v-toolbar>
-         <v-form 
+         <v-form
           class="ma-5"
           ref="form"
           v-model="validateForm"
@@ -30,7 +30,7 @@
                ></v-text-field>
              </v-col>
              <v-col cols="4">
-               <v-select
+               <v-combobox
                  v-model="volereRURS"
                  :items="['RU', 'RS']"
                  label="Tipo de requisito"
@@ -40,7 +40,7 @@
                  outlined
                  required
                >
-               </v-select>
+               </v-combobox>
              </v-col>
              <v-col cols="12">
                <v-textarea
@@ -69,7 +69,7 @@
                ></v-text-field>
              </v-col>
              <v-col cols="12" md="6">
-               <v-select
+               <v-combobox
                  v-model="volereType"
                  :items="['Funcional', 'No funcional']"
                  label="Tipo de función"
@@ -79,10 +79,10 @@
                  outlined
                  required
                >
-               </v-select>
+               </v-combobox>
              </v-col>
              <v-col cols="12" md="6">
-               <v-select
+               <v-combobox
                  v-model="volereState"
                  :items="['Cumple', 'No cumple']"
                  label="Estado"
@@ -92,10 +92,10 @@
                  outlined
                  required
                >
-               </v-select>
+               </v-combobox>
              </v-col>
              <v-col cols="12" md="6">
-               <v-select
+               <v-combobox
                  v-model="volerePriority"
                  :items="['No urgente', 'Urgente', 'Crítica']"
                  label="Prioridad"
@@ -105,10 +105,10 @@
                  outlined
                  required
                >
-               </v-select>
+               </v-combobox>
              </v-col>
              <v-col cols="12" md="6">
-               <v-select
+               <v-combobox
                  v-model="volereStability"
                  :items="['Transable', 'Intransable']"
                  label="Estabilidad"
@@ -118,7 +118,7 @@
                  outlined
                  required
                >
-               </v-select>
+               </v-combobox>
              </v-col>
              <v-col cols="12">
                <v-text-field
@@ -181,71 +181,88 @@
     <v-row>
       <v-col cols="12">
         <v-row class="justify-center ">
-          <v-btn
-            color="secondary"
-            @click="dialog = true"
-            class="mb-4"
-            width="50%"
-          >
-            <v-icon class="pr-2">
-              mdi-card-plus-outline
-            </v-icon>
-            Crear Tarjeta de Volere
-          </v-btn>
+          <v-toolbar color="primary"
+                     rounded>
+              <v-col cols="6" class="text-left white--text text-h5">
+                  Tarjetas de volere
+              </v-col>
+              <v-col cols="6" class="text-right">
+                  <v-btn
+                      color="secondary"
+                      @click="dialog = true"
+
+                      fab
+                      small
+                  >
+                      <v-icon>
+                          mdi-card-plus-outline
+                      </v-icon>
+                  </v-btn>
+              </v-col>
+          </v-toolbar>
         </v-row>
       </v-col>
-      <v-col 
-        cols="12" 
+      <v-col
+        cols="12"
         md="6"
-        v-if="volereCards.length !== 0"
       >
         <v-card>
-          <v-toolbar color="secondary" class="white--text pt-0 pb-0 text-h5">
+          <v-toolbar color="secondary" class="white--text mb-3 pt-0 pb-0 text-h5">
             Requisitos de Usuario
           </v-toolbar>
-            <v-row>
+            <v-row class="pb-3">
               <v-col
                 cols="12"
                 v-for="(volereCard, index) in volereCards.filter(item=> item.rurs === 'RU')"
                 :key="index"
-                
+                class="my-0 py-0"
               >
                 <VolereCard
                   :volereCard = "volereCard"
                   :volereCards = "volereCards"
                   :project="project"
-                  
+                  class="pb-0"
                 />
               </v-col>
             </v-row>
         </v-card>
       </v-col>
-      <v-col 
-        cols="12" 
+      <v-col
+        cols="12"
         md="6"
-        v-if="volereCards.length !== 0"
       >
         <v-card>
-          <v-toolbar color="secondary" class="white--text pt-0 pb-0 text-h5">
+          <v-toolbar color="secondary" class="white--text mb-3 pt-0 pb-0 text-h5">
             Requisitos de Sistema
           </v-toolbar>
-          <v-row>
+          <v-row class="pb-3">
             <v-col
               cols="12"
               v-for="(volereCard, index) in volereCards.filter(item=> item.rurs === 'RS')"
               :key="index"
+              class="my-0 py-0"
             >
               <VolereCard
                 :volereCard = "volereCard"
                 :volereCards = "volereCards"
                 :project="project"
+                class="pb-0"
               />
             </v-col>
           </v-row>
         </v-card>
       </v-col>
-      
+
     </v-row>
+      <v-snackbar
+          color="primary"
+          class="white--text"
+          v-model="snackBarNew"
+          :timeout="timeout=2000"
+      >
+          Se agrego una nueva tarjeta de volere
+
+      </v-snackbar>
   </v-container>
 </template>
 
@@ -270,7 +287,8 @@ export default {
     volereScale: '',
     volereIncrement: '0',
     volereNumber: 0,
-    volereCards: []
+    volereCards: [],
+      snackBarNew:false,
   }),
     props:{
       project: null,
@@ -328,9 +346,10 @@ export default {
               console.log(res.data.id);
               console.log(res.data);
           });}
+      this.snackBarNew=true;
     },
     validate: function () {
-      return this.$refs.form.validate();
+      return this.refs.form.validate();
     }
   }
 }

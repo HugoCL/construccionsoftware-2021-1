@@ -7,7 +7,7 @@
       >
           <v-row >
               <v-col cols="6"
-                     class="white--text pt-0 pb-0 text-h5">
+                     class="white--text pt-1 pb-0 text-h5">
                   Tareas del Proyecto
               </v-col>
               <v-col cols="6" class="white--text pt-0 pb-0 text-h5 text-right">
@@ -66,7 +66,7 @@
             ></v-textarea>
             <v-row>
               <v-col cols="12" md="6">
-                  <v-select
+                  <v-combobox
                     v-model="taskMembers"
                     :items="formatedPeopleNames"
                     label="Miembros disponibles"
@@ -76,10 +76,10 @@
                     small-chips
                     outlined
                   >
-              </v-select>
+              </v-combobox>
               </v-col>
               <v-col cols="12" md="6">
-                  <v-select
+                  <v-combobox
                     v-model="taskState"
                     :items="['Pendiente', 'En proceso', 'Terminado']"
                     label="Estado"
@@ -88,7 +88,7 @@
                     small-chips
                     outlined
                   >
-              </v-select>
+              </v-combobox>
               </v-col>
             </v-row>
           </v-col>
@@ -142,17 +142,19 @@
       sm="12"
       cols="12"
       outlined
+      class="mt-1"
     >
-      <v-toolbar color="secondary" class="white--text pt-0 pb-0 text-h5">
+      <v-toolbar color="secondary" class="white--text pt-0 pb-0 mb-1 text-h5">
         {{ userTask.username }}
       </v-toolbar>
-      <v-card-actions>
-        <v-row class="mt-2">
+      <v-card-actions class="pa-0">
+        <v-row class="mt-2 mx-2 my-0">
           <v-col
             cols="12"
             md="6"
             v-for="(task, index2) in userTask.tasks"
             :key="index2"
+            class="my-0 mx-0"
           >
             <Task
               :id_task_name="id_name"
@@ -166,6 +168,24 @@
         </v-row>
       </v-card-actions>
     </v-card>
+      <v-snackbar
+          color="blue"
+          class="white--text"
+          v-model="snackBarNew"
+          :timeout="timeout=2000"
+      >
+          Se creo un nueva Tarea
+
+      </v-snackbar>
+      <v-snackbar
+          color="error"
+          class="white--text te"
+          v-model="snackBarDelete"
+          :timeout="timeout=2000"
+      >
+          Se elimino una tarea
+
+      </v-snackbar>
   </v-container>
 </template>
 
@@ -190,6 +210,8 @@ export default {
       formatedPeopleNames: [],
       sortedTasks: [],
       tasks: [],
+      snackBarDelete:false,
+      snackBarNew:false,
     };
   },
   props: {
@@ -230,6 +252,7 @@ export default {
       axios
         .post("/administrar-proyectos/tareaNueva", newTask)
         .then((response) => {});
+        this.snackBarNew=true;
     },
     sortByUser: function () {
       this.sortedTasks = [];
@@ -288,6 +311,7 @@ export default {
           estado :this.taskState
       };
       this.send(newTask);
+      this.snackBarNew=true;
 
 
       this.taskName = '';

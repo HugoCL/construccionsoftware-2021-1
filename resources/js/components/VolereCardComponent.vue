@@ -24,7 +24,7 @@
               ></v-text-field>
             </v-col>
             <v-col cols="4">
-              <v-select
+              <v-combobox
                 v-model="volereRURS"
                 :items="['RU', 'RS']"
                 label="Tipo de requisito"
@@ -34,7 +34,7 @@
                 outlined
                 required
               >
-              </v-select>
+              </v-combobox>
             </v-col>
             <v-col cols="12">
               <v-textarea
@@ -63,7 +63,7 @@
               ></v-text-field>
             </v-col>
             <v-col cols="12" md="6">
-              <v-select
+              <v-combobox
                 v-model="volereType"
                 :items="['Funcional', 'No funcional']"
                 label="Tipo"
@@ -73,10 +73,10 @@
                 outlined
                 required
               >
-              </v-select>
+              </v-combobox>
             </v-col>
             <v-col cols="12" md="6">
-              <v-select
+              <v-combobox
                 v-model="volereState"
                 :items="['Cumple', 'No cumple']"
                 label="Estado"
@@ -86,10 +86,10 @@
                 outlined
                 required
               >
-              </v-select>
+              </v-combobox>
             </v-col>
             <v-col cols="12" md="6">
-              <v-select
+              <v-combobox
                 v-model="volerePriority"
                 :items="['No urgente', 'Urgente', 'Crítica']"
                 label="Prioridad"
@@ -99,10 +99,10 @@
                 outlined
                 required
               >
-              </v-select>
+              </v-combobox>
             </v-col>
             <v-col cols="12" md="6">
-              <v-select
+              <v-combobox
                 v-model="volereStability"
                 :items="['Transable', 'Intransable']"
                 label="Estabilidad"
@@ -112,7 +112,7 @@
                 outlined
                 required
               >
-              </v-select>
+              </v-combobox>
             </v-col>
             <v-col cols="12">
               <v-text-field
@@ -203,10 +203,10 @@
           </v-row>
 
           <v-row class="ml-3">
-            <v-col 
-              cols="12" 
+            <v-col
+              cols="12"
               md="6"
-            > 
+            >
               <v-row><v-card-title class="pl-0">Fuente</v-card-title></v-row>
               <v-row>
                 <v-chip
@@ -219,10 +219,10 @@
                 </v-chip>
               </v-row>
             </v-col>
-            <v-col 
-              cols="12" 
+            <v-col
+              cols="12"
               md="6"
-            > 
+            >
               <v-row><v-card-title class="pl-0">Tipo usuario</v-card-title></v-row>
               <v-row>
                 <v-chip
@@ -238,10 +238,10 @@
           </v-row>
 
           <v-row class="ml-3">
-            <v-col 
-              cols="12" 
+            <v-col
+              cols="12"
               md="6"
-            > 
+            >
               <v-row><v-card-title class="pl-0">Tipo requisito</v-card-title></v-row>
               <v-row>
                 <v-chip
@@ -257,10 +257,10 @@
                 </v-chip>
               </v-row>
             </v-col>
-            <v-col 
-              cols="12" 
+            <v-col
+              cols="12"
               md="6"
-            > 
+            >
               <v-row><v-card-title class="pl-0">Estado</v-card-title></v-row>
               <v-row>
                 <v-chip
@@ -280,10 +280,10 @@
           </v-row>
 
           <v-row class="ml-3">
-            <v-col 
-              cols="12" 
+            <v-col
+              cols="12"
               md="6"
-            > 
+            >
               <v-row><v-card-title class="pl-0">Prioridad</v-card-title></v-row>
               <v-row>
                 <v-chip
@@ -306,10 +306,10 @@
                 </v-chip>
               </v-row>
             </v-col>
-            <v-col 
-              cols="12" 
+            <v-col
+              cols="12"
               md="6"
-            > 
+            >
               <v-row><v-card-title class="pl-0">Estabilidad</v-card-title></v-row>
               <v-row>
                 <v-chip
@@ -322,22 +322,22 @@
           </v-row>
 
           <v-row class="ml-3">
-            <v-col 
-              cols="12" 
+            <v-col
+              cols="12"
               md="6"
-            > 
+            >
               <v-row><v-card-title class="pl-0">Escala</v-card-title></v-row>
               <v-row>
-                
+
                   <v-card-subtitle class="text--primary pl-0">
                 {{ volereCard.scale }}
               </v-card-subtitle>
               </v-row>
             </v-col>
-            <v-col 
-              cols="12" 
+            <v-col
+              cols="12"
               md="6"
-            > 
+            >
               <v-row><v-card-title class="pl-0">Medida</v-card-title></v-row>
               <v-row>
                 <v-card-subtitle class="text--primary pl-0">
@@ -347,13 +347,13 @@
             </v-col>
           </v-row>
 
-        
+
 
           <v-row class="ml-3 mb-3">
-            <v-col 
-              cols="12" 
+            <v-col
+              cols="12"
               md="6"
-            > 
+            >
               <v-row><v-card-title class="pl-0">Fecha actualización</v-card-title></v-row>
               <v-row>
                 <v-chip
@@ -363,10 +363,10 @@
                 </v-chip>
               </v-row>
             </v-col>
-            <v-col 
-              cols="12" 
+            <v-col
+              cols="12"
               md="6"
-            > 
+            >
               <v-row><v-card-title class="pl-0">Incremento</v-card-title></v-row>
               <v-row>
                 <v-chip
@@ -381,12 +381,12 @@
 
         </v-container>
 
-       
+
       </v-card>
     </v-dialog>
 
     <v-card
-      class="white--text pb-0"
+      class="white--text"
       light
       color="primary"
       @click="volereDialog = true"
@@ -399,26 +399,55 @@
 
       <v-divider class="my-0 py-1"></v-divider>
       <v-card-actions>
-        <v-btn
+          <v-col class="text-right">
+              <!--v-btn
           color="accent"
           class="my-0"
           @click.stop="editVolere"
         >
           Editar
           <v-icon>mdi-pencil</v-icon>
-        </v-btn>
-        <v-btn
-          color="error"
-          @click.stop="deleteVolere"
-        >
-          Eliminar
-          <v-icon>mdi-delete</v-icon>
-        </v-btn>
+        </v-btn-->
+              <v-btn
+                  color="error"
+                  @click.stop="deleteVolere"
+              >
+                  Eliminar
+                  <v-icon>mdi-delete</v-icon>
+              </v-btn>
+          </v-col>
+
       </v-card-actions>
       <v-divider class="ma-0 py-0"></v-divider>
 
     </v-card>
+      <v-snackbar
+          color="primary"
+          class="white--text"
+          v-model="snackBarNew"
+          :timeout="timeout=2000"
+      >
+          Se agrego una nueva tarjeta de volere
 
+      </v-snackbar>
+      <v-snackbar
+          color="error"
+          class="white--text te"
+          v-model="snackBarDelete"
+          :timeout="timeout=2000"
+      >
+          Se elimino tarjeta de volere
+
+      </v-snackbar>
+      <v-snackbar
+          color="secondary"
+          class="white--text te"
+          v-model="snackBarEdit"
+          :timeout="timeout=2000"
+      >
+          Se edito una tarjeta de volere
+
+      </v-snackbar>
   </v-container>
 
 </template>
@@ -442,6 +471,10 @@ export default {
     volereScale: '',
     volereIncrement: '',
     volereNumber: 0,
+
+      snackBarDelete:false,
+      snackBarEdit:false,
+      snackBarNew:false,
   }),
   props: {
     volereCard: null,
@@ -455,6 +488,7 @@ export default {
           .then(res=>{
               console.log(res.data);
           });
+      this.snackBarEdit=true;
     },
     editVolere: function(){
 
@@ -472,6 +506,7 @@ export default {
       this.volereScale = this.volereCard.scale;
       this.volereIncrement = this.volereCard.increment;
       this.volereNumber = this.volereCard.number;
+      this.snackBarEdit=true;
     },
     saveVolere: function () {
       this.editDialog = false;
@@ -492,6 +527,7 @@ export default {
           .then(res=>{
               console.log(res.data);
           });
+      this.snackBarNew=true;
     }
 
   }

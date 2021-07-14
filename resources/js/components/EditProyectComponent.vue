@@ -126,6 +126,7 @@
                                     <v-dialog v-model="dialogTeams" max-width="80%">
                                         <v-card >
                                             <!--componente-->
+                                            <UnderConstruction></UnderConstruction>
                                         </v-card>
                                     </v-dialog>
                                 </v-btn>
@@ -170,9 +171,9 @@
                                 >
                                     <v-icon>mdi-card-bulleted-settings-outline</v-icon>
                                     <v-dialog v-model="dialogVolere" max-width="80%">
-                                        <v-card >
+                                        <v-card class="pa-3">
                                             <VolereList
-                                                class="mt-5"
+
                                                 :project="project"
                                                 :voleres="voleres"
                                             />
@@ -197,7 +198,13 @@
                                     <v-icon>mdi-card-bulleted-settings-outline</v-icon>
                                     <v-dialog v-model="dialogHist" max-width="80%">
                                         <v-card >
-                                            <UserStoriesList v-if="verifyProyectType() == false" class="mt-5"/>
+                                            <UserStoriesList
+                                                v-if="verifyProyectType() == false"
+                                                :project="project"
+                                                :userstories="userstories"
+                                                class="mt-5"/>
+
+                                            <!--UnderConstruction></UnderConstruction-->
                                         </v-card>
                                     </v-dialog>
                                 </v-btn>
@@ -327,7 +334,7 @@
                                     <a class="nav-link black--text">
                                         <v-list-item-title @click="dialogVolere=true">
                                             <v-icon>mdi-card-bulleted-settings-outline</v-icon>
-                                            Tajetas de Volere
+                                            Tarjetas de Volere
                                         </v-list-item-title>
                                     </a>
                                 </v-list-item>
@@ -419,6 +426,17 @@
                 </v-card>
             </v-dialog>
         </v-row>
+
+        <v-snackbar
+            color="blue"
+            class="white--text text-center"
+            v-model="snackBarNew"
+            :timeout="timeout=2000"
+        >
+            Se edito el proyecto
+
+        </v-snackbar>
+
     </v-container>
 
 </template>
@@ -430,10 +448,12 @@ import VolereList from "./VolereListComponent"
 import UserStoriesList from "./UserStoriesList"
 import InfoProjectComponent from "./InfoProjectComponent";
 import AdminMembersProjectComponent from "./AdminMembersProjectComponent";
+import UnderConstruction from "./UnderConstruction";
 
 export default {
     name: "EditProyectComponent",
     components: {
+        UnderConstruction,
         AdminMembersProjectComponent,
         InfoProjectComponent, TaskList, AutoChipComponent, VolereList, UserStoriesList},
     data(){
@@ -460,6 +480,8 @@ export default {
             dialogHist:false,
             membersAlert:false,
             currentMember:this.devs,
+            snackBarNew:false,
+
 
             //Se deben incluir listas para cada tipo de miembros
         }
@@ -472,6 +494,7 @@ export default {
         users: [],
         project: null,
         voleres:[],
+        userstories: [],
     },
 
     methods: {
@@ -481,6 +504,7 @@ export default {
 
             axios.put('/administrar-proyectos/'+id, this.projectUp);
             this.openDialogEdit=false;
+            this.snackBarNew=true;
         },
 
         deleteProject: function (id){

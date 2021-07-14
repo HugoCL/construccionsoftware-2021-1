@@ -11,6 +11,7 @@
                     :leads="{{json_encode($leads)}}"
                     :participates="{{json_encode($participates)}}"
                     :voleres="{{json_encode($cards)}}"
+                    :userstories="{{json_encode($cardsHU)}}"
                 >
                 </edit-proyect-component>
             </v-container>

@@ -2,7 +2,12 @@
     <v-container class="mx-0">
         <v-row class="hidden-sm-and-down">
             <v-col cols="9" class="mb-0 pb-0">
-                <v-row class="d-flex flex-nowrap py-0 mb-0"
+                <v-row style="overflow: hidden;">
+                    <kanban>
+                    </kanban>
+                </v-row>
+
+                <!--v-row class="d-flex flex-nowrap py-0 mb-0"
                        style="overflow-x: scroll;height: 100%"
                 >
                     <v-col cols="4">
@@ -109,7 +114,8 @@
                         </v-card>
 
                     </v-col>
-                </v-row>
+                </v-row-->
+                <!---->
             </v-col>
             <v-col cols="3" style="height: 34rem; overflow-y: scroll" class="mb-2">
                 <v-card color="primary" class="px-2 pb-0 mb-0">
@@ -680,10 +686,16 @@ export default {
             )
         },
         editCycle: function (id, name){
-
-            this.cycleName = this.cycle.cycleName;
-
-            axios.put('/sprint-container/'+id, {nombre_sprint: name})
+            let auxCycleName = this.cycleName;
+            console.log(name.length);
+            if(name.length != 0){
+                this.cycleName = this.cycle.cycleName;
+                axios.put('/sprint-container/'+id, {nombre_sprint: name}).then(request=>{console.log('update')})
+            }
+            else{
+                console.log(this.cycleName);
+                console.log(this.cycle.cycleName);
+            }
 
         },
         deleteCycle: function (id){
@@ -692,7 +704,7 @@ export default {
             //o no se permita eliminar el sprint en caso que no este vacio
             let i = 0;
             for (const cycle of this.cycles) {
-                if (cycle.sprintId === id && cycle.subcycle.length === 0 && !(cycle.length == 1)){
+                if (cycle.sprintId === id && cycle.subcycle.length === 0 && !(this.cycles.length == 1)){
                     this.cycles.splice(i,1);
                     axios.delete('/sprint-container/'+id);
                     //this.cycles.splice(this.cycles.indexOf(this.SprintContainer),1);
@@ -714,4 +726,3 @@ export default {
 <style scoped>
 
 </style>
-

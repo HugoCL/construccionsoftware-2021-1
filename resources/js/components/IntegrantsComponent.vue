@@ -97,6 +97,33 @@
                 </v-card>
                 </v-dialog>
             </v-card>
+    <v-snackbar
+        color="primary"
+        class="white--text"
+        v-model="snackBarNew"
+        :timeout="timeout=2000"
+    >
+        Se agrego un integrante
+
+    </v-snackbar>
+    <v-snackbar
+        color="error"
+        class="white--text te"
+        v-model="snackBarDelete"
+        :timeout="timeout=2000"
+    >
+        Se elimino una integrante
+
+    </v-snackbar>
+    <v-snackbar
+        color="secondary"
+        class="white--text te"
+        v-model="snackBarEdit"
+        :timeout="timeout=2000"
+    >
+        Se edito un rol
+
+    </v-snackbar>
 </v-card>
 </template>
 <script>
@@ -111,7 +138,10 @@
               edit: false,
               newIntegrant: {},
               item: {},
-              reaming: []
+              reaming: [],
+              snackBarDelete:false,
+              snackBarEdit:false,
+              snackBarNew:false,
           }
       },
       created() {
@@ -143,6 +173,7 @@
                   .then(response=>{
                       console.log(response.data)
                   })
+              this.snackBarEdit=true;
           },
           deleteIntegrant: function(item){
               console.log(item)
@@ -153,6 +184,7 @@
               }).then(res=>{
                   console.log(res.data);
               });
+              this.snackBarDelete=true;
           },
           add: function(item){
               console.log('holi');
@@ -163,6 +195,7 @@
                   .then(res=>{
                       console.log(res.data);
                   });
+              this.snackBarNew=true;
           },
           upIntegrants: function(){
               //console.log("Comparacion fallida!!")

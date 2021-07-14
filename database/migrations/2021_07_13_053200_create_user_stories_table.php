@@ -19,10 +19,10 @@ class CreateUserStoriesTable extends Migration
             $table->integer('id_project');
             $table->foreign('id_project')->references('id')->on('proyectos')->cascadeOnDelete();
             $table->string('code');
+            $table->string('name');
             $table->string('owner');
             $table->string('action');
             $table->string('result');
-            $table->integer('increment');
             $table->timestamps();
         });
     }
