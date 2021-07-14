@@ -17,7 +17,7 @@
                         <v-col lg="2">
                             <v-text-field
                                 class="pa-2 ml-10"
-                                v-moder="HU_code"
+                                v-model="huCode"
                                 label="Codigo"
                             >
                             </v-text-field>
@@ -32,8 +32,8 @@
                         </v-col>
                         <v-col md="8">
                             <v-select
-                                v-model="HU_owner"
-                                :items="['Product Owner']"
+                                v-model="huOwner"
+                                :items="['Product Owner','Scrum Master']"
                                 label="Cargo"
                             >
                             </v-select>
@@ -52,7 +52,7 @@
 
                         <v-col md="10">
                             <v-text-field
-                                v-moder="HU_action"
+                                v-model="huAction"
                                 label="Accion"
                             >
                             </v-text-field>
@@ -71,7 +71,7 @@
 
                         <v-col md="10">
                             <v-text-field
-                                v-model="HU_result"
+                                v-model="huResult"
                                 label="Resultado"
                             >
                             </v-text-field>
@@ -88,7 +88,7 @@
 
                         <v-btn
                             text
-                            @click="createUH"
+                            @click="createHU"
                         >
                             Guardar
                         </v-btn>
@@ -115,13 +115,17 @@
             </v-col>
             <v-col
                 md="4"
-                v-for="(userStorie, index) in userStories" :key="index"
+                v-for="(userStory, index) in userStories"
+                :key="index"
             >
                 <!-- Llamo al otro componente  -->
-                <UserStories
-                    :userStorie = "userStorie"
+
+                <user-stories
+                    :userStory = "userStory"
                     :userStories = "userStories"
-                />
+                    :project="project"
+                ></user-stories>
+
             </v-col>
         </v-row>
     </v-container>
@@ -129,59 +133,62 @@
 
 <script>
 //lamo al otro componente;
-import UserStories from './UserStories';
+import UserStories from './UserStories'; //modificarNombre singular
 export default{
     name: "UserStoriesList.vue",
-    components: {UserStories}, //el otro componente
+    components: {}, //el otro componente //modificar singular
     data: () => ({
         dialog: false,
-        HU_code: '',
-        HU_owner: '',
-        HU_action: '',
-        HU_result: '',
-        HU_increment: '',
-        HU_number: 0,
-        HULists: [
+        huCode: '',
+        huOwner: '',
+        huAction: '',
+        huResult: '',
+        huIncrement: '',
+        huNumber: 0,
+        userStories: [
             //HU de ejemplo
-            {
+            /*{
                 //los datos de la HU
+                id_project: this.project.id,
                 code: 'HU001',
                 owner: 'Product Owner',
                 action: 'crear proyectos',
                 result: 'guardarlos en mi corazon',
                 increment: 1
-            },
+            }*/
         ]
     }),
     props:{
         project: null,
-        listHU: []
+        userstories: []
     },
-    //created() {
-      //console.log(this.listHU);
-      //this.HULists = this.listHU;
-    //},
+    created() {
+      console.log(this.userstories);
+      this.userStories = this.userstories;
+    },
     methods:{
         createHU: function(){
+            console.log(this.huCode)
             let card = {
-                code: this.HU_code,
-                owner: this.HU_owner,
-                action: this.HU_action,
-
-            }
-            this.HULists.push({
-                code: this.HU_code,
-                owner: this.HU_owner,
-                action: this.HU_action,
-                result: this.HU_result,
-                increment: parseInt(this.HU_increment)
-            });
+                code: this.huCode,
+                owner: this.huOwner,
+                action: this.huAction,
+                result: this.huResult,
+                id_project: this.project.id
+            };
+            console.log(card)
+            this.userStories.push(Object.assign( {},{ id_project: this.project.id, code: this.huCode, action: this.huAction, result: this.huResult }));
             this.dialog= false;
-            this.HU_code = '',
-            this.HU_owner = '';
-            this.HU_action = '';
-            this.HU_result = '';
-            this.increment = 0;
+            axios.post('/user-story',card)
+                .then(res=>{
+                    console.log(res.data.id);
+                    console.log(res.data);
+                });
+            this.huCode = '',
+            this.huOwner = '';
+            this.hUAction = '';
+            this.huResult = '';
+            this.huIncrement = 0;
         }
     }
 }

@@ -2,18 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\UserStory;
 use Illuminate\Http\Request;
 
-class UserStoriesController extends Controller
+class UserStoryController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         //
+        $cardsHU = UserStory::query()->select()->where('id_project', $request->id_project)->get();
+        return $cardsHU;
     }
 
     /**
@@ -35,6 +38,16 @@ class UserStoriesController extends Controller
     public function store(Request $request)
     {
         //
+        $cardUserStory = new UserStory();
+        $cardUserStory->id_project = $request->id_project;
+        $cardUserStory->code = $request->code;
+        $cardUserStory->owner = $request->owner;
+        $cardUserStory->action = $request->action;
+        $cardUserStory->result = $request->result;
+        //$cardUserStory->increment = $request->increment;
+        $cardUserStory->save();
+
+        return $cardUserStory;
     }
 
     /**
@@ -43,9 +56,10 @@ class UserStoriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(UserStory $cardUserStory)
     {
         //
+        return $cardUserStory;
     }
 
     /**
@@ -69,6 +83,14 @@ class UserStoriesController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $cardUserStory = UserStory::find($id);
+        $cardUserStory->code = $request->code;
+        $cardUserStory->owner = $request->owner;
+        $cardUserStory->action = $request->action;
+        $cardUserStory->result = $request->result;
+        $cardUserStory->save();
+
+        return $cardUserStory;
     }
 
     /**
@@ -80,5 +102,7 @@ class UserStoriesController extends Controller
     public function destroy($id)
     {
         //
+        $cardUserStory = UserStory::find($id);
+        $cardUserStory->delete();;
     }
 }
