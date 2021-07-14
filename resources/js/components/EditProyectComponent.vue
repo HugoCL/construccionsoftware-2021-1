@@ -198,8 +198,13 @@
                                     <v-icon>mdi-card-bulleted-settings-outline</v-icon>
                                     <v-dialog v-model="dialogHist" max-width="80%">
                                         <v-card >
-                                            <!--UserStoriesList v-if="verifyProyectType() == false" class="mt-5"/-->
-                                            <UnderConstruction></UnderConstruction>
+                                            <UserStoriesList
+                                                v-if="verifyProyectType() == false"
+                                                :project="project"
+                                                :userstories="userstories"
+                                                class="mt-5"/>
+
+                                            <!--UnderConstruction></UnderConstruction-->
                                         </v-card>
                                     </v-dialog>
                                 </v-btn>
@@ -477,6 +482,7 @@ export default {
             currentMember:this.devs,
             snackBarNew:false,
 
+
             //Se deben incluir listas para cada tipo de miembros
         }
     },
@@ -488,6 +494,7 @@ export default {
         users: [],
         project: null,
         voleres:[],
+        userstories: [],
     },
 
     methods: {
