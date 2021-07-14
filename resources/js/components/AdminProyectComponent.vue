@@ -7,7 +7,6 @@
                   class="white--text"
                   rounded
               >
-
                   <v-col cols="9" class="title mr-13 ml-1 pr-0 pb-0 hidden-sm-and-down">
                       Administrar proyectos
                   </v-col>
@@ -52,9 +51,6 @@
                                       </v-row>
 
                                   </v-toolbar>
-
-
-
                                   <v-card-text>
                                       <crear-proyecto
                                           v-on:add="addProject($event)"></crear-proyecto>
@@ -64,6 +60,34 @@
                       </v-dialog>
 
                   </v-col>
+
+                  <v-col>
+                     <v-col cols="3">
+                         <v-dialog v-model="dialog2" transition="dialog-top-transition"  width="64%">
+                             <template v-slot:activator="{ on, attrs }">
+                                 <div class="text-right">
+                                     <v-btn v-bind="attrs" color="secondary" v-on="on" class="hidden-md-and-down">
+                                         <v-icon>
+                                             mdi-chart-line
+                                         </v-icon>
+                                         <div class="pl-2">Graficos</div>
+                                     </v-btn>
+                                     <v-btn v-bind="attrs" color="secondary" v-on="on" class="hidden-lg-and-up ml-2">
+                                         <v-icon>
+                                             mdi-chart-line
+                                         </v-icon>
+                                     </v-btn>
+                                 </div>
+                             </template>
+                             <template v-slot:default="dialog" >
+                                 <v-card>
+                                     <graficos-ventana></graficos-ventana>
+                                 </v-card>
+                             </template>
+                         </v-dialog>
+                     </v-col>
+                  </v-col>
+
               </v-toolbar>
 
             </v-row>
@@ -114,7 +138,7 @@ export default {
     data(){
         return{
             projectsView: this.projects,
-            dialog:false,
+            dialog:false,dialog2:false,
             snackBarNewProject:false,
             snackBarDeleteProject:false,
 
@@ -139,6 +163,7 @@ export default {
             console.log(nuevoProyecto)
             console.log(this.projectsView)
             this.dialog=false;
+            this.dialog2=false;
             this.snackBarNewProject=true;
             this.projectsView.push(add)
 

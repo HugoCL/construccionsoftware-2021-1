@@ -38,6 +38,10 @@ Vue.component(
     "integrantes-proyectos",
     require("./components/IntegrantsComponent.vue").default
 );
+Vue.component(
+    "graficos-ventana",
+    require("./components/GraphDataComponent.vue").default
+);
 Vue.component("kanban", require("./components/KanbanComponent.vue").default);
 Vue.component("header-app", require("./components/Header.vue").default);
 Vue.component("navdrawer-app", require("./components/NavDrawer.vue").default);
