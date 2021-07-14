@@ -311,7 +311,7 @@ export default {
           estado :this.taskState
       };
       this.send(newTask);
-      this.snackBarDelete=true;
+      this.snackBarNew=true;
 
 
       this.taskName = '';

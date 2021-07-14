@@ -389,6 +389,15 @@
           Se elimino una tarea
 
       </v-snackbar>
+      <v-snackbar
+          color="secondary"
+          class="white--text te"
+          v-model="snackBarEdit"
+          :timeout="timeout=2000"
+      >
+          Se edito una tarea
+
+      </v-snackbar>
   </div>
 </template>
 
@@ -420,6 +429,7 @@ export default {
         progressbar: 0,
         snackBarDelete:false,
         snackBarNew:false,
+        snackBarEdit:false,
   }),
   props: {
     id_task_name: null,
@@ -488,6 +498,7 @@ export default {
           this.id_taskAu = ar[0];
         }
       }
+      this.snackBarEdit=true;
     },
     saveEditedTask: function () {
       const iddProyecto = window.location.href.charAt(
