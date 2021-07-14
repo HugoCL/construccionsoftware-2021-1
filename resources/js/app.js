@@ -18,6 +18,10 @@ import example from "./components/ExampleComponent";
 //import tarea from "./components/tareaComponent.vue";
 import tasklist from "./components/TaskListComponent";
 Vue.component(
+    "lista-usuarios",
+    require("./components/UsersTableComponent.vue").default
+);
+Vue.component(
     "crear-proyecto",
     require("./components/AddProyectComponent.vue").default
 );
@@ -33,6 +37,10 @@ Vue.component("menu-kanban", require("./components/MenuKanban.vue").default);
 Vue.component(
     "integrantes-proyectos",
     require("./components/IntegrantsComponent.vue").default
+);
+Vue.component(
+    "graficos-ventana",
+    require("./components/GraphDataComponent.vue").default
 );
 Vue.component("kanban", require("./components/KanbanComponent.vue").default);
 Vue.component("header-app", require("./components/Header.vue").default);
