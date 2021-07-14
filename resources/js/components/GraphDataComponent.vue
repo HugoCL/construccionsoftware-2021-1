@@ -28,13 +28,8 @@
                 </v-sparkline>
             </v-sheet>
         </v-card-actions>
-
             <b>Proyecto con más y menos tareas</b>
-
             <b>Proyecto con mas y menos tareas finalizadas</b>
-
-
-
     </v-card>
 </template>
 <script>
@@ -86,9 +81,7 @@ export default{
             .then(response => {
                 const res  = response.data;
                 this.idProject = res.id_proyecto;
-
                 console.log(res.id_proyecto);
-
             })
 
             .catch(function(error) {

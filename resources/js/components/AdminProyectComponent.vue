@@ -27,6 +27,28 @@
                                           mdi-plus
                                       </v-icon>
                                   </v-btn>
+                                  <!--Editar equipo-->
+                                  <v-tooltip top>
+                                      <template v-slot:activator="{ on }">
+                                          <v-btn
+                                              fab
+                                              dark
+                                              small
+                                              v-on="on"
+                                              color="secondary"
+                                              v-on:click="dialogGraph = true"
+                                          >
+                                              <v-icon>mdi-chart-line</v-icon>
+                                              <v-dialog v-model="dialogGraph" max-width="80%">
+                                                  <v-card >
+                                                      <!--componente-->
+                                                      <UnderConstruction></UnderConstruction>
+                                                  </v-card>
+                                              </v-dialog>
+                                          </v-btn>
+                                      </template>
+                                      <span>Graficos Proyecto</span>
+                                  </v-tooltip>
                               </div>
                           </template>
                           <template v-slot:default="dialog" >
@@ -60,7 +82,7 @@
 
                   </v-col>
 
-                  <v-col>
+                  <!--v-col>
                      <v-col cols="3">
                          <v-dialog v-model="dialog2" transition="dialog-top-transition"  width="64%">
                              <template v-slot:activator="{ on, attrs }">
@@ -85,7 +107,7 @@
                              </template>
                          </v-dialog>
                      </v-col>
-                  </v-col>
+                  </v-col-->
 
               </v-toolbar>
 
@@ -140,6 +162,7 @@ export default {
             dialog:false,dialog2:false,
             snackBarNewProject:false,
             snackBarDeleteProject:false,
+            dialogGraph:false,
 
         }
     },
