@@ -14,9 +14,18 @@
                 </v-toolbar>
                 <v-form>
                     <v-row>
+                        <v-col md="12">
+                            <v-text-field
+                            v-model="huName"
+                            label="Titulo"
+                            class="pa-2"
+                            ></v-text-field>
+                        </v-col>
+                    </v-row>
+                    <v-row>
                         <v-col lg="2">
                             <v-text-field
-                                class="pa-2 ml-10"
+                                class="pa-2 ml-5"
                                 v-model="huCode"
                                 label="Codigo"
                             >
@@ -139,6 +148,7 @@ export default{
     components: {}, //el otro componente //modificar singular
     data: () => ({
         dialog: false,
+        huName: '',
         huCode: '',
         huOwner: '',
         huAction: '',
@@ -171,13 +181,14 @@ export default{
             console.log(this.huCode)
             let card = {
                 code: this.huCode,
+                name: this.huName,
                 owner: this.huOwner,
                 action: this.huAction,
                 result: this.huResult,
                 id_project: this.project.id
             };
             console.log(card)
-            this.userStories.push(Object.assign( {},{ id_project: this.project.id, code: this.huCode, action: this.huAction, result: this.huResult }));
+            this.userStories.push(Object.assign( {},{ id_project: this.project.id, code: this.huCode, owner: this.huOwner, name: this.huName, action: this.huAction, result: this.huResult }));
             this.dialog= false;
             axios.post('/user-story',card)
                 .then(res=>{
@@ -185,10 +196,10 @@ export default{
                     console.log(res.data);
                 });
             this.huCode = '',
+            this.huName = '',
             this.huOwner = '';
             this.hUAction = '';
             this.huResult = '';
-            this.huIncrement = 0;
         }
     }
 }

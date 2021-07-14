@@ -14,13 +14,22 @@
                 </v-toolbar>
                 <v-form>
                     <v-row>
+                        <v-col md="12">
+                            <v-text-field
+                            v-model="huName"
+                            label="Titulo"
+                            class="pa-2"
+                            ></v-text-field>
+                        </v-col>
+                    </v-row>
+                    <v-row>
                         <v-col lg="2"
                         >
                             <v-text-field
                                 v-model="huCode"
                                 label="Codigo"
                                 hide-details="auto"
-                                class="pa-2 ml-5"
+                                class="pa-2 ml-5 "
                             ></v-text-field>
                         </v-col>
 
@@ -131,7 +140,7 @@
                     <v-list-item>
                         <v-list-item-content>
                             <v-card-title class="pa-0">
-                                HU000: Ejemplo Historia de Usuario
+                                {{userStory.code}}: {{userStory.name}}
                             </v-card-title>
                         </v-list-item-content>
 
@@ -155,7 +164,7 @@
                         >
                         <!--<v-card-subtitle class="text-primary pa-0"> Yo como {{ userStorie.owner }} quiero {{ userStorie.action }} para {{ userStorie.result }}</v-card-subtitle>-->
 
-                        <v-card-subtitle class=" text--primary pa-0">Yo como {{ userStory.owner }} quiero {{userStory.action}} para {{userStory.result}}</v-card-subtitle>
+                        <v-card-subtitle class=" text--primary pa-5 " style="font-size:20px">Yo como {{ userStory.owner }} quiero {{userStory.action}} para {{userStory.result}}</v-card-subtitle>
                     </v-col>
                     <!--<v-col class="">
                         v-text = "Quiero"
@@ -205,7 +214,7 @@
             <v-card-title
                 class="subheading font-weight-bold pb-2 pt-2"
             >   <!--Reemplazar para mostrar informacion correspondiente-->
-                {{userStory.code}} ...
+                {{userStory.code}}: {{userStory.name}}
             </v-card-title>
 
             <v-divider class="my-0 py-1"></v-divider>
@@ -241,10 +250,10 @@ export default{
         huOwner: '',
         storiesUsersDialog: false,
         editDialog: false,
+        huName: '',
         huCode: '',
         huAction: '',
         storiesUse: '', //result
-        increment: 0,
     }),
 
     props: {
@@ -267,7 +276,9 @@ export default{
 
         editHistorie: function(){
             this.editDialog = true;
+            this.huName = this.userStory.name;
             this.huCode = this.userStory.code;
+            this.huOwner = this.userStory.owner;
             this.huAction = this.userStory.action;
             this.storiesUse = this.userStory.result;
 
@@ -275,7 +286,9 @@ export default{
 
         saveStorie: function(){
             this.editDialog = false;
+            this.userStory.name = this.huName;
             this.userStory.code = this.huCode;
+            this.userStory.owner = this.huOwner;
             this.userStory.action = this.huAction;
             this.userStory.result = this.storiesUse;
             axios.put('/user-story/'+this.userStory.id, this.userStory)
