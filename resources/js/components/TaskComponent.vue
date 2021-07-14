@@ -546,6 +546,7 @@ export default {
         id_pro: iddProyecto,
         estado: "pendiente",
       };
+      console.log(newTask.members);
       this.eliminar(newTask);
       this.sortByUser();
       this.snackBarDelete=true;
