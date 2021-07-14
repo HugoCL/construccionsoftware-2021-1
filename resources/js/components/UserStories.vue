@@ -238,6 +238,24 @@
             <v-divider class="ma-0 py-0"></v-divider>
 
         </v-card>
+        <v-snackbar
+            color="error"
+            class="white--text te"
+            v-model="snackBarDelete"
+            :timeout="timeout=2000"
+        >
+            Se elimino una historia de usuario
+
+        </v-snackbar>
+        <v-snackbar
+            color="secondary"
+            class="white--text te"
+            v-model="snackBarEdit"
+            :timeout="timeout=2000"
+        >
+            Se edito una historia de usuario
+
+        </v-snackbar>
 
     </v-container>
 </template>
@@ -253,6 +271,9 @@ export default{
         huName: '',
         huCode: '',
         huAction: '',
+        snackBarDelete:false,
+        snackBarEdit:false,
+        snackBarNew:false,
         storiesUse: '', //result
     }),
 
@@ -269,6 +290,7 @@ export default{
                 .then(res=>{
                     console.log(res.data);
                 });
+            this.snackBarDelete=true;
         },
         incrementar: function() {
             return increment++;
@@ -281,6 +303,7 @@ export default{
             this.huOwner = this.userStory.owner;
             this.huAction = this.userStory.action;
             this.storiesUse = this.userStory.result;
+
 
         },
 
@@ -295,6 +318,7 @@ export default{
                 .then(res=>{
                     console.log(res.data);
                 });
+            this.snackBarEdit=true;
         }
     }
 }

@@ -161,6 +161,16 @@
 
             </v-col>
         </v-row>
+        <v-snackbar
+            color="primary"
+            class="white--text"
+            v-model="snackBarNew"
+            :timeout="timeout=2000"
+        >
+            Se agrego una historia de usuario
+
+        </v-snackbar>
+
     </v-container>
 </template>
 
@@ -179,6 +189,9 @@ export default{
         huResult: '',
         huIncrement: '',
         huNumber: 0,
+        snackBarDelete:false,
+        snackBarEdit:false,
+        snackBarNew:false,
         userStories: [
             //HU de ejemplo
             /*{
