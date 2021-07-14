@@ -25,7 +25,8 @@
                     </div>
                     <v-toolbar-title
                         size="10 px"
-                    >{{data.title}}</v-toolbar-title>
+                    >{{data.title}}
+                    </v-toolbar-title>
 
                     <v-spacer></v-spacer>
                     <div class="mx-1"></div>
@@ -58,14 +59,14 @@
                             elevation="8"
                             @click="$destroy"
                         >
-                            s         <v-img src="https://cdn.discordapp.com/attachments/565725484718096404/854576874302341120/avatars-kazuma_500x500.jpg"></v-img>
+                                     <v-img src="https://cdn.discordapp.com/attachments/565725484718096404/854576874302341120/avatars-kazuma_500x500.jpg"></v-img>
                         </v-avatar>
                     </v-badge>
                     <div class="mx-1"></div>
 
                     <v-dialog
                         transition="dialog-bottom-transition"
-                        max-width="600"                    >
+                        max-width="60%"                    >
                         <template v-slot:activator="{ on, attrs }">
                             <v-btn
                                 v-bind="attrs"
@@ -80,7 +81,7 @@
                             <v-card>
                                 <v-toolbar
                                     color="primary"
-                                    dark
+                                    class="text-h5 white--text"
                                 >Usuarios</v-toolbar>
                                 <v-list three-line>
                                     <template v-for="(item, index) in items">
@@ -231,7 +232,7 @@
                         text
                         @click="show = !show"
                     >
-                        Ver
+                        <v-icon>mdi-eye</v-icon>
                         <v-icon>{{ show ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
                     </v-btn>
                     <v-btn
@@ -240,7 +241,7 @@
                         text
                         @click="edit = true"
                     >
-                        Editar
+                        <v-icon>mdi-pencil</v-icon>
                     </v-btn>
                     <v-btn
                         outlined
@@ -248,7 +249,7 @@
                         text
                         @click="$emit('remove')"
                     >
-                        Eliminar
+                        <v-icon>mdi-delete</v-icon>
                     </v-btn>
                 </v-card-actions>
                 <v-expand-transition>

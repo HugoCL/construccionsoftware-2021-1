@@ -1,10 +1,12 @@
 <template>
     <div class="container mx-0 px-0">
         <menu-kanban></menu-kanban>
-        <div class="container">
-            <div class="row ma-1">
-                <div class="col-md-4">
-                    <div class="p-2 alert alert-secondary kanban-list">
+        <div class="container mx-0 px-0">
+            <v-row class="d-flex flex-nowrap py-0 mb-0"
+                   style="overflow: scroll;height: 29rem;">
+                <v-col cols="4" class="mx-2">
+                    <v-row>
+                    <v-col cols="12" class="p-2 alert alert-secondary kanban-list">
                         <h3>BackLog
                             <v-btn
                                 color="#FF1493"
@@ -21,10 +23,13 @@
                             </draggable>
                             <v-divider></v-divider>
                         </KanbanBoard>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="p-2 alert alert-secondary kanban-list">
+                    </v-col>
+                    </v-row>
+                </v-col>
+                <!---->
+                <v-col cols="4" class="mx-2">
+                    <v-row>
+                    <v-col class="p-2 alert alert-secondary kanban-list">
                         <h3>In Progress
                             <v-btn
                                 color="#FF1493"
@@ -41,10 +46,12 @@
                             </draggable>
                             <v-divider></v-divider>
                         </KanbanBoard>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="p-2 alert alert-secondary kanban-list">
+                    </v-col>
+                    </v-row>
+                </v-col>
+                <v-col cols="4" class="mx-2">
+                    <v-row>
+                    <v-col cols="12" class="p-2 alert alert-secondary kanban-list">
                         <h3>Done
                             <v-btn
                                 color="#FF1493"
@@ -61,10 +68,12 @@
                             </draggable>
                             <v-divider></v-divider>
                         </KanbanBoard>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="p-2 alert alert-secondary kanban-list">
+                    </v-col>
+                    </v-row>
+                </v-col>
+                <v-col cols="4" class="mx-2">
+                    <v-row>
+                    <v-col cols="12" class="p-2 alert alert-secondary kanban-list">
                         <h3>Tested
                             <v-btn
                                 color="#FF1493"
@@ -81,9 +90,10 @@
                             </draggable>
                             <v-divider></v-divider>
                         </KanbanBoard>
-                    </div>
-                </div>
-            </div>
+                    </v-col>
+                    </v-row>
+                </v-col>
+            </v-row>
         </div>
     </div>
 </template>
@@ -205,13 +215,12 @@ export default {
 
 <style scoped>
 .kanban-column{
-    min-height: 200px;
-    min-width: 380px;
+
+
 }
 
 .kanban-list{
-    min-height: 200px;
-    min-width: 400px;
+
 }
 
 .handle {

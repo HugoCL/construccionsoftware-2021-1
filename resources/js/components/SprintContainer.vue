@@ -2,7 +2,12 @@
     <v-container class="mx-0">
         <v-row class="hidden-sm-and-down">
             <v-col cols="9" class="mb-0 pb-0">
-                <v-row class="d-flex flex-nowrap py-0 mb-0"
+                <v-row style="overflow: hidden;">
+                    <kanban>
+                    </kanban>
+                </v-row>
+
+                <!--v-row class="d-flex flex-nowrap py-0 mb-0"
                        style="overflow-x: scroll;height: 100%"
                 >
                     <v-col cols="4">
@@ -109,7 +114,8 @@
                         </v-card>
 
                     </v-col>
-                </v-row>
+                </v-row-->
+                <!---->
             </v-col>
             <v-col cols="3" style="height: 34rem; overflow-y: scroll" class="mb-2">
                 <v-card color="primary" class="px-2 pb-0 mb-0">
