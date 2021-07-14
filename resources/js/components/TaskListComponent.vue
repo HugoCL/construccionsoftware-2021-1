@@ -66,7 +66,7 @@
             ></v-textarea>
             <v-row>
               <v-col cols="12" md="6">
-                  <v-select
+                  <v-combobox
                     v-model="taskMembers"
                     :items="formatedPeopleNames"
                     label="Miembros disponibles"
@@ -76,10 +76,10 @@
                     small-chips
                     outlined
                   >
-              </v-select>
+              </v-combobox>
               </v-col>
               <v-col cols="12" md="6">
-                  <v-select
+                  <v-combobox
                     v-model="taskState"
                     :items="['Pendiente', 'En proceso', 'Terminado']"
                     label="Estado"
@@ -88,7 +88,7 @@
                     small-chips
                     outlined
                   >
-              </v-select>
+              </v-combobox>
               </v-col>
             </v-row>
           </v-col>
