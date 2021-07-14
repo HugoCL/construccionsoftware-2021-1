@@ -237,7 +237,7 @@ export default {
           id_pro: new_task.id_proyecto,
           estado: new_task.estado,
         };
-        if (new_task.id_proyecto == this.id_pro) {
+        if (new_task.id_proyecto === this.id_pro) {
           nTask.push(newT);
         }
       }

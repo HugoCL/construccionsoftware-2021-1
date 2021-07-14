@@ -14,7 +14,7 @@ class CreateIntegrantesTable extends Migration
     public function up()
     {
         Schema::create('integrantes', function (Blueprint $table) {
-            //$table->integer('id_integrante')->autoIncrement()->primary();
+            $table->integer('id')->autoIncrement();
             $table->integer('id_equipo');
             $table->integer('id_proyecto');
             $table->string('id_user');
