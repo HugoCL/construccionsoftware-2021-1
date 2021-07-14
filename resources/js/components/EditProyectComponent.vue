@@ -419,6 +419,17 @@
                 </v-card>
             </v-dialog>
         </v-row>
+
+        <v-snackbar
+            color="blue"
+            class="white--text text-center"
+            v-model="snackBarNew"
+            :timeout="timeout=2000"
+        >
+            Se edito el proyecto
+
+        </v-snackbar>
+
     </v-container>
 
 </template>
@@ -460,6 +471,7 @@ export default {
             dialogHist:false,
             membersAlert:false,
             currentMember:this.devs,
+            snackBarNew:false,
 
             //Se deben incluir listas para cada tipo de miembros
         }
@@ -481,6 +493,7 @@ export default {
 
             axios.put('/administrar-proyectos/'+id, this.projectUp);
             this.openDialogEdit=false;
+            this.snackBarNew=true;
         },
 
         deleteProject: function (id){

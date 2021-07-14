@@ -91,16 +91,16 @@
                 color="blue"
                 class="white--text"
                 v-model="snackBarNewProject"
-                :timeout="timeout=10000"
+                :timeout="timeout=2000"
             >
                 Se creo un nuevo proyecto
 
             </v-snackbar>
             <v-snackbar
                 color="error"
-                class="white--text"
+                class="white--text te"
                 v-model="snackBarDeleteProject"
-                :timeout="timeout=10000"
+                :timeout="timeout=2000"
             >
                 Se elimino un proyecto
 

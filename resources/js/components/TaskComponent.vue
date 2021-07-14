@@ -168,28 +168,28 @@
                 <v-card-title class="pb-0 pt-0">Estado</v-card-title>
               </v-row>
               <v-row class="ml-1 ml-md-1">
-                <v-chip 
+                <v-chip
                   v-if="taskData.estado.toLowerCase() === 'pendiente'"
-                  class="pt-0" 
-                  color="red" 
+                  class="pt-0"
+                  color="red"
                   text-color="white"
                 >
                   <span class="mr-1"><v-icon>mdi-clock</v-icon></span>
                   {{ taskData.estado }}
                 </v-chip>
-                <v-chip 
+                <v-chip
                   v-if="taskData.estado.toLowerCase() === 'en proceso'"
-                  class="pt-0" 
-                  color="blue" 
+                  class="pt-0"
+                  color="blue"
                   text-color="white"
                 >
                   <span class="mr-1"><v-icon>mdi-cog</v-icon></span>
                   {{ taskData.estado }}
                 </v-chip>
                 <v-chip
-                  v-if="taskData.estado.toLowerCase() === 'terminado'" 
-                  class="pt-0" 
-                  color="green" 
+                  v-if="taskData.estado.toLowerCase() === 'terminado'"
+                  class="pt-0"
+                  color="green"
                   text-color="white"
                 >
                   <span class="mr-1"><v-icon>mdi-check</v-icon></span>
@@ -370,6 +370,25 @@
         </v-tooltip>
       </v-card-actions>
     </v-card>
+
+      <v-snackbar
+          color="blue"
+          class="white--text"
+          v-model="snackBarNew"
+          :timeout="timeout=2000"
+      >
+          Se creo un nueva Tarea
+
+      </v-snackbar>
+      <v-snackbar
+          color="error"
+          class="white--text te"
+          v-model="snackBarDelete"
+          :timeout="timeout=2000"
+      >
+          Se elimino una tarea
+
+      </v-snackbar>
   </div>
 </template>
 
@@ -393,12 +412,14 @@ export default {
      * variables a usar en v-check para checklist de tarea
      * lista testCheckList contiene una variable que almacena una "micro-tarea" string
      * y una variable booleana "chekeada" para manejar el cuadro check
-     */
-    newTaskCheck: "",
-    selected: [],
-    checklist: [],
-    checkin: "",
-    progressbar: 0,
+        */
+        newTaskCheck: "",
+        selected: [],
+        checklist: [],
+        checkin: "",
+        progressbar: 0,
+        snackBarDelete:false,
+        snackBarNew:false,
   }),
   props: {
     id_task_name: null,
@@ -424,6 +445,7 @@ export default {
       axios.post("/administrar-proyectos/task", newTask).then((response) => {
         console.log(response.data);
       });
+      this.snackBarNew=true;
     },
     async eliminar(newTask) {
       console.log(newTask.id);
@@ -515,6 +537,7 @@ export default {
       };
       this.eliminar(newTask);
       this.sortByUser();
+      this.snackBarDelete=true;
     },
     addTag(event) {
       event.preventDefault();

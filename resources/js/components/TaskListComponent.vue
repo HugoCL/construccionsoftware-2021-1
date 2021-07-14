@@ -166,6 +166,24 @@
         </v-row>
       </v-card-actions>
     </v-card>
+      <v-snackbar
+          color="blue"
+          class="white--text"
+          v-model="snackBarNew"
+          :timeout="timeout=2000"
+      >
+          Se creo un nueva Tarea
+
+      </v-snackbar>
+      <v-snackbar
+          color="error"
+          class="white--text te"
+          v-model="snackBarDelete"
+          :timeout="timeout=2000"
+      >
+          Se elimino una tarea
+
+      </v-snackbar>
   </v-container>
 </template>
 
@@ -190,6 +208,8 @@ export default {
       formatedPeopleNames: [],
       sortedTasks: [],
       tasks: [],
+      snackBarDelete:false,
+      snackBarNew:false,
     };
   },
   props: {
@@ -230,6 +250,7 @@ export default {
       axios
         .post("/administrar-proyectos/tareaNueva", newTask)
         .then((response) => {});
+        this.snackBarNew=true;
     },
     sortByUser: function () {
       this.sortedTasks = [];
@@ -275,8 +296,8 @@ export default {
         estado: this.taskState
       });
 
-      
-          
+
+
       const newTask = {
           name: this.taskName,
           members: JSON.stringify(this.taskMembers),
@@ -288,7 +309,7 @@ export default {
           estado :this.taskState
       };
       this.send(newTask);
-      
+      this.snackBarDelete=true;
 
       this.taskName = '';
       this.taskDesc = '';
