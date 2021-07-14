@@ -41,6 +41,7 @@ class UsersTableController extends Controller
 
     public function destroy($id)
     {
+        print($id);
         $usuario = Usuario::find($id);
         $usuario->delete();
     }

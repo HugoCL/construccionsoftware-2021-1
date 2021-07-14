@@ -251,60 +251,63 @@
         ]
       },
 
-      editItem (item) {
-        this.editedIndex = this.students.indexOf(item)
-        this.editedItem = Object.assign({}, item)
-        this.dialog = true
-      },
+        editItem (item) {
+            this.editedIndex = this.students.indexOf(item)
+            this.editedItem = Object.assign({}, item)
+            this.dialog = true
+        },
 
-      deleteItem (item) {
-        this.editedIndex = this.students.indexOf(item)
-        this.editedItem = Object.assign({}, item)
-        this.dialogDelete = true
-      },
+        deleteItem (item) {
+            this.editedIndex = this.students.indexOf(item)
+            this.editedItem = Object.assign({}, item)
+            this.dialogDelete = true
+        },
 
-      deleteItemConfirm () {
-        this.students.splice(this.editedIndex, 1)
-        this.closeDelete()
-      },
+        deleteItemConfirm () {
+            //this.students.splice(this.editedIndex, 1)
+            console.log(this.editedItem.correo);
+            //axios.delete("/lista-usuarios/"+this.editedItem.correo, this.editedItem);
+            axios.delete('/lista-usuarios/'+this.editedItem.correo);
+            this.closeDelete()
+        },
 
-      close () {
-        this.dialog = false
-        this.$nextTick(() => {
-          this.editedItem = Object.assign({}, this.defaultItem)
-          this.editedIndex = -1
-        })
-      },
+        close () {
+            this.dialog = false
+            this.$nextTick(() => {
+                this.editedItem = Object.assign({}, this.defaultItem)
+                this.editedIndex = -1
+            })
+        },
 
-      closeDelete () {
-        this.dialogDelete = false
-        this.$nextTick(() => {
-          this.editedItem = Object.assign({}, this.defaultItem)
-          this.editedIndex = -1
-          axios.delete('/lista-usuarios', {params: {'id': this.defaultItem.correo}})
-        })
-      },
+        closeDelete () {
+            this.dialogDelete = false
+            this.$nextTick(() => {
+                this.editedItem = Object.assign({}, this.defaultItem)
+                this.editedIndex = -1
+            })
+        },
 
-      save () {//este metodo se reutiliza cuando edita y guarda un usuario
-        if (this.editedIndex > -1) {//cuando edita
-          Object.assign(this.students[this.editedIndex], this.editedItem)
-          axios.post('/lista-usuarios' + this.editedItem.correo, {
-            data: this.editedItem,
-            _method: 'patch'
-          })
-            .then(function (response) {
-              console.log(response);
-            });
-        } else {//cuando guarda uno nuevo
-          this.students.push(this.editedItem)
-          axios.post('/lista-usuarios', this.editedItem)
-            .then(response => {
-              console.log("usuario enviado")
-              this.$emit('add',response.data);
-            });
-        }
-        this.close()
-      },
+        save () {
+            if (this.editedIndex > -1) {
+                //Object.assign(this.students[this.editedIndex], this.editedItem)
+                console.log(this.editedItem.correo);
+                // axios.put('/lista-usuarios', this.editedItem)
+                //     .then(response => {
+                //         console.log("Usuario agregado")
+                //         this.$emit('add',response.data);
+                //     });
+                axios.put('/administrar-proyectos/'+this.editedItem.correo, this.editedItem);
+            } else {
+                //this.students.push(this.editedItem)
+                console.log(this.editedItem.nombre);
+                axios.post('/lista-usuarios', this.editedItem)
+                    .then(response => {
+                        console.log("Usuario agregado")
+                        this.$emit('add',response.data);
+                    });
+            }
+            this.close()
+        },
     },
   }
 </script>
