@@ -399,21 +399,24 @@
 
       <v-divider class="my-0 py-1"></v-divider>
       <v-card-actions>
-        <v-btn
+          <v-col class="text-right">
+              <!--v-btn
           color="accent"
           class="my-0"
           @click.stop="editVolere"
         >
           Editar
           <v-icon>mdi-pencil</v-icon>
-        </v-btn>
-        <v-btn
-          color="error"
-          @click.stop="deleteVolere"
-        >
-          Eliminar
-          <v-icon>mdi-delete</v-icon>
-        </v-btn>
+        </v-btn-->
+              <v-btn
+                  color="error"
+                  @click.stop="deleteVolere"
+              >
+                  Eliminar
+                  <v-icon>mdi-delete</v-icon>
+              </v-btn>
+          </v-col>
+
       </v-card-actions>
       <v-divider class="ma-0 py-0"></v-divider>
 

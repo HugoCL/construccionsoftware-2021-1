@@ -349,7 +349,7 @@ export default {
       this.snackBarNew=true;
     },
     validate: function () {
-      return this.$refs.form.validate();
+      return this.refs.form.validate();
     }
   }
 }
