@@ -147,6 +147,32 @@
                 </template>
             </v-data-table>
         </v-app>
+        <v-snackbar
+            color="primary"
+            class="white--text"
+            v-model="snackBarNew"
+            :timeout="timeout=2000"
+        >
+            Se agrego un usuario
+
+        </v-snackbar>
+        <v-snackbar
+            color="error"
+            class="white--text te"
+            v-model="snackBarDelete"
+            :timeout="timeout=2000"
+        >
+            Se elimino un usuario
+
+        </v-snackbar>
+        <v-snackbar
+            color="secondary"
+            class="white--text te"
+            v-model="snackBarEdit"
+            :timeout="timeout=2000"
+        >
+            Se edito un usuario
+        </v-snackbar>
     </v-container>
 </template>
 
@@ -157,6 +183,9 @@ export default {
         dialog: false,
         dialogDelete: false,
         search: '',
+        snackBarDelete:false,
+        snackBarEdit:false,
+        snackBarNew:false,
         headers: [
             { text: 'Nombres', align: 'start', sortable: true, value: 'nombre'},
             { text: 'Correo', value: 'correo', sortable: true },
@@ -207,6 +236,7 @@ export default {
             this.editedIndex = this.students.indexOf(item)
             this.editedItem = Object.assign({}, item)
             this.dialog = true
+
         },
 
         deleteItem (item) {
@@ -218,6 +248,8 @@ export default {
         deleteItemConfirm () {
             this.students.splice(this.editedIndex, 1)
             axios.delete('/lista-usuarios/' + this.editedItem.correo)
+
+            this.snackBarDelete=true;
             this.closeDelete()
         },
 
@@ -241,12 +273,14 @@ export default {
             if (this.editedIndex > -1) {
                 Object.assign(this.students[this.editedIndex], this.editedItem)
                 axios.put('/lista-usuarios/' + this.editedItem.correo, this.editedItem)
+                this.snackBarEdit=true;
             } else {
                 this.students.push(this.editedItem)
                 axios.post('/lista-usuarios', this.editedItem)
                     .then(response => {
                         console.log("usuario enviado")
                         this.$emit('add',response.data);
+                        this.snackBarNew=true;
                     });
             }
             this.close()
