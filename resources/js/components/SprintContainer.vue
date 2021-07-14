@@ -680,10 +680,16 @@ export default {
             )
         },
         editCycle: function (id, name){
-
-            this.cycleName = this.cycle.cycleName;
-
-            axios.put('/sprint-container/'+id, {nombre_sprint: name})
+            let auxCycleName = this.cycleName;
+            console.log(name.length);
+            if(name.length != 0){
+                this.cycleName = this.cycle.cycleName;
+                axios.put('/sprint-container/'+id, {nombre_sprint: name}).then(request=>{console.log('update')})
+            }
+            else{
+                console.log(this.cycleName);
+                console.log(this.cycle.cycleName);
+            }
 
         },
         deleteCycle: function (id){
@@ -692,7 +698,7 @@ export default {
             //o no se permita eliminar el sprint en caso que no este vacio
             let i = 0;
             for (const cycle of this.cycles) {
-                if (cycle.sprintId === id && cycle.subcycle.length === 0 && !(cycle.length == 1)){
+                if (cycle.sprintId === id && cycle.subcycle.length === 0 && !(this.cycles.length == 1)){
                     this.cycles.splice(i,1);
                     axios.delete('/sprint-container/'+id);
                     //this.cycles.splice(this.cycles.indexOf(this.SprintContainer),1);

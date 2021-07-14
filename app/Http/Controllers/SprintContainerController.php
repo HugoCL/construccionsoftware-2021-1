@@ -65,12 +65,12 @@ class SprintContainerController extends Controller
         //
 
         $sprint = Sprint::find($id);
-        $sprint->nombre_sprint = $request->nombre_sprint;
-        //$sprint->fechaInicio = $request->fechaInicio;
-        //$sprint->fechaTermino = $request->fechaTermino;
+        if($request->nombre_sprint != null){
+            $sprint->nombre_sprint = $request->nombre_sprint;
+            //$sprint->fechaInicio = $request->fechaInicio;
+            //$sprint->fechaTermino = $request->fechaTermino;
+        }
         $sprint->save();
-
-
         return $sprint;
         //return view('vistaSprints');
     }
