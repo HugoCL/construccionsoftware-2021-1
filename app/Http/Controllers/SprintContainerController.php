@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-
 class SprintContainerController extends Controller
 {
     public function index()
@@ -51,21 +50,20 @@ class SprintContainerController extends Controller
         $sprints = DB::table('sprints')->where('id_proyecto', $id)->get();
         $tasks = [];
 
-        foreach ($sprints as $sprint){
+        foreach ($sprints as $sprint) {
             //Aqui es probable que se deba cambiar tareas por tasks, la tabla tasks
-            array_push($tasks, DB::table('tasks')->where('id_proyecto', $id)->where('id_sprint',$sprint->id)->get());
+            array_push($tasks, DB::table('tasks')->where('id_proyecto', $id)->where('id_sprint', $sprint->id)->get());
         }
 
 
-        return view('SprintContainerComponent', compact('id', 'sprints','tasks'));
-
+        return view('SprintContainerComponent', compact('id', 'sprints', 'tasks'));
     }
     public function update(Request $request, $id)
     {
         //
 
         $sprint = Sprint::find($id);
-        if($request->nombre_sprint != null){
+        if ($request->nombre_sprint != null) {
             $sprint->nombre_sprint = $request->nombre_sprint;
             //$sprint->fechaInicio = $request->fechaInicio;
             //$sprint->fechaTermino = $request->fechaTermino;
@@ -87,5 +85,4 @@ class SprintContainerController extends Controller
         $sprint = Sprint::find($id);
         $sprint->delete();
     }
-
 }

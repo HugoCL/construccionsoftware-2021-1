@@ -104,6 +104,7 @@ class UserStoryController extends Controller
     {
         //
         $cardUserStory = UserStory::find($id);
-        $cardUserStory->delete();;
+        $cardUserStory->delete();
+        ;
     }
 }
