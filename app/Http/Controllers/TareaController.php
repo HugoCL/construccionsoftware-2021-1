@@ -7,6 +7,7 @@ use App\Models\Task;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
 
 class TareaController extends Controller
 {
@@ -48,6 +49,15 @@ class TareaController extends Controller
         $task->date = $request->date;
         $task->members = $request->members;
         $task->estado =  $request->estado;
+
+        $sprints = DB::table('sprints')->where('id_proyecto', '=', $task->id_proyecto)->get();
+
+        if (count($sprints) != 0){
+            // Use the collection, to get the first item use $users->first().
+            // Use the model if you used ->first();
+            $sprint = $sprints->first();
+            $task->id_sprint = $sprint->id;
+        }
         $task ->save();
 
         return $task ;

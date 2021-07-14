@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Task;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class TaskController extends Controller
 {
@@ -39,14 +40,27 @@ class TaskController extends Controller
     {
         //
         $task = new Task();
-        $task->id = $request->id;
+        //$task->id = $request->id;
         $task->id_proyecto = $request->id_pro;
         $task->name = $request->name;
         $task->desc = $request->desc;
         $task->date = $request->date;
         $task->members = $request->members;
         $task->estado =  $request->estado;
+
+        $sprints = DB::table('sprints')->where('id_proyecto', '=', $task->id_proyecto)->get();
+
+        if (count($sprints) != 0){
+            // Use the collection, to get the first item use $users->first().
+            // Use the model if you used ->first();
+            $sprint = $sprints->first();
+            $task->id_sprint = $sprint->id;
+        }
+
         $task ->save();
+
+
+
 
         return $task ;
     }

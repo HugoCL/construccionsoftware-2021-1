@@ -87,7 +87,7 @@ export default{
              * Valores que corresponden al total de tareas creadas en un sprint
              * Si se crea un sprint, se calcula el total de tareas y se agrega a la lista
              */
-            values: [1,2,3,4,1,10],
+            values: [],
             /**
              * Lista personas asignadas a un proyecto
              * poseen nombre, tareas asignadas a la persona y por el momento un total de tareas
@@ -106,13 +106,13 @@ export default{
             numTareasTotal: "",
             numTareasCompletadas:"",
             porcentajeTareas: 0,
-
+            usersIn:[],
         }
     },
     props: {
         idProject: null,
         nameProject: null,
-        usersIn: null,
+        
     },
     created() {
         axios.get('/graph-project/'+this.idProject)
@@ -121,11 +121,7 @@ export default{
                 this.numTareasTotal = res.tareasTotales;
                 this.numTareasCompletadas = res.tareasHechas;
                 this.usersIn = res.usuarios;
-                console.log("datos del graficos");
-                console.log(res.tareasTotales);
-                console.log(res.tareasHechas);
-
-                console.log(this.usersIn);
+                this.values = res.tareasPorSprint;
                 this.setMiembrosGraph();
                 this.getPorcentaje();
                 this.getPorcentajeGente();
@@ -148,11 +144,8 @@ export default{
         for (let index = 0; index < this.usersIn.length; index++) {
           let personAux = {nombre: this.usersIn[index].nombre, tareasAsig: 0, prom: 0}
           this.personas.push(personAux);
-          console.log(this.usersIn[index].nombre);
-          console.log(this.personas);
         }
-
       }
-    },
+      },
 }
 </script>
