@@ -44,7 +44,7 @@ class UserStoryController extends Controller
         $cardUserStory->owner = $request->owner;
         $cardUserStory->action = $request->action;
         $cardUserStory->result = $request->result;
-        $cardUserStory->increment = $request->increment;
+        //$cardUserStory->increment = $request->increment;
         $cardUserStory->save();
 
         return $cardUserStory;
@@ -88,7 +88,6 @@ class UserStoryController extends Controller
         $cardUserStory->owner = $request->owner;
         $cardUserStory->action = $request->action;
         $cardUserStory->result = $request->result;
-        $cardUserStory->increment = $request->increment;
         $cardUserStory->save();
 
         return $cardUserStory;

@@ -17,7 +17,7 @@
                         <v-col lg="2">
                             <v-text-field
                                 class="pa-2 ml-10"
-                                v-moder="huCode"
+                                v-model="huCode"
                                 label="Codigo"
                             >
                             </v-text-field>
@@ -52,7 +52,7 @@
 
                         <v-col md="10">
                             <v-text-field
-                                v-moder="huAction"
+                                v-model="huAction"
                                 label="Accion"
                             >
                             </v-text-field>
@@ -168,15 +168,16 @@ export default{
     },
     methods:{
         createHU: function(){
+            console.log(this.huCode)
             let card = {
                 code: this.huCode,
                 owner: this.huOwner,
                 action: this.huAction,
                 result: this.huResult,
-                increment: parseInt(this.huIncrement),
                 id_project: this.project.id
             };
-            this.userStories.push(Object.assign( {},{ id_project: this.project.id, code: this.huCode, action: this.huAction, result: this.huResult, increment: parseInt(this.huIncrement)  }));
+            console.log(card)
+            this.userStories.push(Object.assign( {},{ id_project: this.project.id, code: this.huCode, action: this.huAction, result: this.huResult }));
             this.dialog= false;
             axios.post('/user-story',card)
                 .then(res=>{

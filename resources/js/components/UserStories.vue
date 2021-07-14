@@ -154,11 +154,8 @@
                     <v-col
                         >
                         <!--<v-card-subtitle class="text-primary pa-0"> Yo como {{ userStorie.owner }} quiero {{ userStorie.action }} para {{ userStorie.result }}</v-card-subtitle>-->
-                        <v-subheader
-                            v-text="'Yo como {userStorie.Owner} quiero {userStorie.Action} para {userStorie.result}'"
-                            class="mb-4 mt-2"
-                            style="font-size: 24px;"
-                        ></v-subheader>
+
+                        <v-card-subtitle class=" text--primary pa-0">Yo como {{ userStory.owner }} quiero {{userStory.action}} para {{userStory.result}}</v-card-subtitle>
                     </v-col>
                     <!--<v-col class="">
                         v-text = "Quiero"
@@ -208,7 +205,7 @@
             <v-card-title
                 class="subheading font-weight-bold pb-2 pt-2"
             >   <!--Reemplazar para mostrar informacion correspondiente-->
-                HU0{{increment}}:Ejemplo historia de usuario
+                {{userStory.code}} ...
             </v-card-title>
 
             <v-divider class="my-0 py-1"></v-divider>
@@ -257,6 +254,7 @@ export default{
 
     methods: {
         deleteHistorie: function(){
+            console.log(this.userStory)
             this.userStories.splice(this.userStories.indexOf(this.userStory),1);
             axios.delete('/user-story/'+this.userStory.id)
                 .then(res=>{

@@ -22,7 +22,6 @@ class CreateUserStoriesTable extends Migration
             $table->string('owner');
             $table->string('action');
             $table->string('result');
-            $table->integer('increment');
             $table->timestamps();
         });
     }
