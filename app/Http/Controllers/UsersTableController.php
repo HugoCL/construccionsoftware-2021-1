@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Http\Controllers;
 
 use App\Models\Usuario;
@@ -23,7 +22,8 @@ class UsersTableController extends Controller
         return view('UserTable', compact('usuarios'));
     }
 
-    public function store(Request $request){
+    public function store(Request $request)
+    {
         $usuario = new Usuario();
         $usuario->correo = $request->correo;
         $usuario->nombre = $request->nombre;
@@ -32,8 +32,9 @@ class UsersTableController extends Controller
         return $usuario;
     }
 
-    public function update(Request $request, $id){
-        $usuario = Usuario::query()->where('correo',$request->correo)
+    public function update(Request $request, $id)
+    {
+        $usuario = Usuario::query()->where('correo', $request->correo)
             ->update(['nombre' => $request->nombre]);
 
         return $usuario;
@@ -41,6 +42,6 @@ class UsersTableController extends Controller
 
     public function destroy($id)
     {
-        Usuario::query()->where('correo',$id)->delete();
+        Usuario::query()->where('correo', $id)->delete();
     }
 }

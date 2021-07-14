@@ -16,7 +16,7 @@ class KanbanController extends Controller
     public function index()
     {
         $tareasBacklog = Backlog::all();
-        return view ('KanbanComponent'); 
+        return view('KanbanComponent');
     }
 
     /**
